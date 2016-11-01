@@ -1,0 +1,140 @@
+/* Global Styles */
+.container {
+  margin: 0 30px 0;
+  padding: 0 30px 0;
+}
+
+.header, navigation {
+  background-color: inherit;
+}
+
+h1, h2 {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #337ab7;
+  font-size: 14px;
+}
+
+/* Header Styles */
+h1 {
+  font-size: 35px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.block {
+  display: inline-block;
+}
+
+.block1 {
+  width: 49%;
+}
+
+.block2 {
+  width: 50%;
+  vertical-align: top;
+  text-align: right;
+}
+
+strong {
+  font-size: 15px;
+}
+
+select {
+  width: 50%;
+  height: 30px;
+  margin-right: 20px;
+  margin-top: 15px;
+}
+
+/* Navigation Styles */
+.navigation {
+  border-bottom: 1px solid #ddd;
+}
+
+.navButton {
+  display: inline-block;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  margin-right: -7px;
+  margin-bottom: -1px;
+}
+
+.navActive {
+  color: black;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid white;
+}
+
+.navActive a {
+  color: black;
+}
+
+/* Main Block */
+.alert {
+  background-color: #fcf8e3;
+  font-size: 14px;
+  border-color: #faebcc;
+  color: #8a6d3b;
+  border-radius: 4px;
+  padding: 18px 15px 18px;
+  margin-top: 10px;
+}
+
+h2 {
+  margin-top: 10px;
+  display: inline-block;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.addButton {
+  padding: 10px;
+  background-color: #337ab7;
+  color: #fff;
+  border-color: #2e6da4;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-left: 10px;
+  position: relative;
+  bottom: 5px;
+}
+
+/* Table */
+.table {
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px 55px 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th:first-child, td:first-child {
+  padding-left: 0px;
+  padding-right: 30px;
+}
+
+th:nth-child(3), td:nth-child(3) {
+  padding-right: 140px;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* Footer */
+.footer {
+  margin-top: 30px;
+  border-top: 1px solid #ddd;
+}
+
+.footer p {
+  margin-top: 10px;
+}
+

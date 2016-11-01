@@ -1,6 +1,5 @@
 /* Global Styles */
 .alert {
-  margin-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -23,6 +22,11 @@ h1, h2, h3 {
   width: 85%;
 }
 
+/* Main Content Styles */
+#content-columns {
+  margin-top: 15px;
+}
+
 #content-column h2 {
   float: left;
   margin-top: 0px;
@@ -33,4 +37,46 @@ h1, h2, h3 {
 #footer {
   border-top: 1px solid #dddddd;
   padding-top: 10px;
+}
+
+/* Style for Journal */
+th.day {
+  text-align: center;
+}
+
+.month {
+  position:relative;
+  left: 49%;
+  float: left;
+  font-weight: bold;
+}
+
+#content-column h2.titleJournal {
+  float: none;
+}
+
+/* Style for studentForm */
+h1.form {
+  font-size: 32px;
+  margin-left: 20px;
+}
+
+label {
+  font-weight: normal;
+}
+
+p.form {
+  margin-bottom: 0px;
+}
+
+a.form {
+  color: #333;
+}
+
+#inputGroup {
+  width: 100%;
+}
+
+#inputText {
+  width: 100%;
 }
