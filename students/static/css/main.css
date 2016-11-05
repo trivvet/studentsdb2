@@ -1,0 +1,82 @@
+/* Global Styles */
+.alert {
+  margin-bottom: 10px;
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+}
+
+/* Group Selector */
+#group-selector {
+  margin-top: 30px;
+}
+
+#group-selector select {
+  margin: 0;
+  height: 30px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  line-height: 30px;
+  color: #555555;
+  width: 85%;
+}
+
+/* Main Content Styles */
+#content-columns {
+  margin-top: 15px;
+}
+
+#content-column h2 {
+  float: left;
+  margin-top: 0px;
+  margin-right: 15px;
+}
+
+/* Footer Styles */
+#footer {
+  border-top: 1px solid #dddddd;
+  padding-top: 10px;
+}
+
+/* Style for Journal */
+th.day {
+  text-align: center;
+}
+
+.month {
+  position:relative;
+  left: 49%;
+  float: left;
+  font-weight: bold;
+}
+
+#content-column h2.titleJournal {
+  float: none;
+}
+
+/* Style for studentForm */
+h1.form {
+  font-size: 32px;
+  margin-left: 20px;
+}
+
+label {
+  font-weight: normal;
+}
+
+p.form {
+  margin-bottom: 0px;
+}
+
+a.form {
+  color: #333;
+}
+
+#inputGroup {
+  width: 100%;
+}
+
+#inputText {
+  width: 100%;
+}
