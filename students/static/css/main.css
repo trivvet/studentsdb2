@@ -7,6 +7,11 @@ h1, h2, h3 {
   font-weight: bold;
 }
 
+a.header {
+  color: #333;
+  text-decoration: none;
+}
+
 /* Group Selector */
 #group-selector {
   margin-top: 30px;
@@ -31,6 +36,11 @@ h1, h2, h3 {
   float: left;
   margin-top: 0px;
   margin-right: 15px;
+}
+
+p.none {
+  margin-top: 10px;
+  font-size: 16px;
 }
 
 /* Footer Styles */
@@ -80,3 +90,4 @@ a.form {
 #inputText {
   width: 100%;
 }
+

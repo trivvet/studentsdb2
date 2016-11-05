@@ -24,8 +24,18 @@ def students_list(request):
          'ticket': 67,
          'image': 'img/3.jpeg'}
     )
+    groups = (
+         {'id': 1,
+          'name': u'БМ - 1',
+          'leader_name': u'Андрій',
+          'leader_surname': u'Комисливий'},
+         {'id': 2,
+          'name': u'БМ - 2',
+          'leader_name': u'Павло',
+          'leader_surname': u'Очерет'},
+    )
     return render(request, 'students/students_list.html', 
-        {'students': students})
+        {'students': students, 'groups': groups})
   
 def students_add(request):
     return HttpResponse('<h1>Students Add Form</h1>')
