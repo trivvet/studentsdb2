@@ -16,7 +16,7 @@
           href=
           "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" 
-          href="{% static "css/main.css" %}" />
+          href="{{ PORTAL_URL }}{% static "css/main.css" %}" />
           
     {% block extra_css %}{% endblock extra_css %}
   </head>
@@ -51,16 +51,22 @@
       </div>
       <!-- End Header -->
       
+      {% url 'home' as url_home %}
+      {% url 'journal' as url_journal %}
+      {% url 'groups' as url_groups %}
       <!-- Start Subheader -->
       <div class="row" id="sub-header">
         <div class="col-xs-12">
           <ul class="nav nav-tabs">
-            <li role="presentation" class="active">
-                <a href="{% url "home" %}">Студенти</a></li>
-            <li role="presentation"><a href="{% url "journal" %}">
-                Відвідування</a></li>
-            <li role="presentation"><a href="{% url "groups" %}">
-                Групи</a></li>
+            <li role="presentation" {% if request.path == url_home %}
+                class="active"{% endif %}>
+              <a href="{{ url_home }}">Студенти</a></li>
+            <li role="presentation" {% if url_journal in request.path %}
+                class="active"{% endif %}>
+              <a href="{{ url_journal }}">Відвідування</a></li>
+            <li role="presentation" {% if url_groups in request.path %}
+                class="active"{% endif %}>
+              <a href="{{ url_groups }}">Групи</a></li>
         </ul>
         </div>
       </div>
