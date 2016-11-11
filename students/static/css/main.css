@@ -56,13 +56,14 @@ th.day {
 
 .month {
   position:relative;
-  left: 49%;
+  left: 21%;
+  top: 32px;
   float: left;
   font-weight: bold;
 }
 
-#content-column h2.titleJournal {
-  float: none;
+.table {
+  margin-top: 65px;
 }
 
 /* Style for studentForm */

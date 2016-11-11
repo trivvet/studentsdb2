@@ -8,16 +8,16 @@ def groups_list(request):
     groups = (
          {'id': 1,
           'name': u'БМ - 1',
-          'leader_name': u'Андрій',
-          'leader_surname': u'Комисливий'},
+          'leader': {'first_name': u'Андрій', 'last_name': u'Комисливий', 
+                    'id': 4}},
          {'id': 2,
           'name': u'БМ - 2',
-          'leader_name': u'Павло',
-          'leader_surname': u'Очерет'},
+          'leader': {'first_name': u'Павло', 'last_name': u'Очерет', 
+                    'id': 5}},
          {'id': 3,
           'name': u'БМ - 3',
-          'leader_name': u'Олена',
-          'leader_surname': u'Денисенко'}
+          'leader': {'first_name': u'Олена', 'last_name': u'Доровська', 
+                    'id': 6}},
     )
     return render(request, 'students/groups.html', {'groups': groups})
 

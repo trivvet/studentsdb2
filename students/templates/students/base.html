@@ -29,12 +29,15 @@
       <!-- Start Header -->
       <div class="row" id="header">
       
+        {% block logo %}
         <!-- Logo -->
         <div class="col-xs-8">
           <a href={% url "home" %} class="header">
              <h1>Сервіс Обліку Студентів</h1></a>
         </div>
+        {% endblock logo %}
         
+        {% block menu_groups %}
         <!-- Group Selector -->
         <div class="col-xs-4" id="group-selector">
           <strong>Група:</strong>
@@ -42,12 +45,13 @@
             <option value="">Усі студенти</option>
             {% for group in groups %}
             
-            <option value="">{{ group.name }}, {{ group.leader_surname }}
-                     {{group.leader_name }}</option>
+            <option value="">{{ group.name }}, {{ group.leader.last_name }}
+                     {{group.leader.first_name }}</option>
             
             {% endfor %}
           </select>
         </div>
+        {% endblock menu_groups %}
       </div>
       <!-- End Header -->
       
@@ -92,6 +96,7 @@
       </div>
       <!-- End Main Page Content -->
       
+      {% block footer %}
       <!-- Start Footer -->
       <div class="row" id="footer">
         <div class="col-xs-12">
@@ -99,6 +104,7 @@
         </div>
       </div>
       <!-- End Footer -->
+      {% endblock footer %}
       
     </div>
     <!-- End Container -->

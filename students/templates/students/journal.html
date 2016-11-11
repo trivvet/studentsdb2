@@ -1,0 +1,50 @@
+{% extends "students/base.html" %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Журнал{% endblock meta_title %}
+
+{% block title %}Облік Відвідування{% endblock title %}
+
+{% block content %}
+   
+<!-- Start Students Listing -->
+
+{% if students %}
+
+<h5 class="month">&larr; Листопад 2016 &rarr;</h3>
+      
+<!-- Start Group Listing -->
+<table class="table table-hover table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>№</th>
+      <th>Студент</th>
+      {% for day in days %}
+      <th class="day">{{ day }}</br>{{ forloop.counter }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in students %}
+    <!-- First Student -->
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td><a href="#">{{ student.last_name }} {{student.first_name}}</a></td>
+      {% for day in days %}
+      <td><input type="checkbox"></td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  
+  </tbody>
+  
+</table>
+
+{% else %}
+<p class='none'>Поки немає студентів у базі</p>
+{% endif %}
+
+<!-- End Students Listing -->
+
+{% endblock content %}

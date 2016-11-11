@@ -30,8 +30,8 @@
     <tr>
       <td>{{ forloop.counter }}</td>
       <td><a href="{% url "groups_edit" group.id %}">{{ group.name }}</a></td>
-      <td><a href="{% url "groups_edit" group.id %}">
-          {{ group.leader_surname }} {{ group.leader_name}}</a></td>
+      <td><a href="{% url "students_edit" group.leader.id %}">
+          {{ group.leader.last_name }} {{ group.leader.first_name}}</a></td>
       <td>
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" 
@@ -40,7 +40,6 @@
           </button>
           <ul class="dropdown-menu" 
               aria-labelledby="dropdownMenu1">
-            <li><a href="{% url "journal" %}">Відвідування</a></li>
             <li><a href="{% url "groups_edit" group.id %}">Редагувати</a></li>
             <li><a href="{% url "groups_delete" group.id %}">Видалити</a></li>
           </ul>
@@ -58,19 +57,6 @@
 <p class='none'>Поки немає груп у базі</p>
 {% endif %}
 
-<!-- Pagination -->
-<nav aria-label="Page navigation">
-            <ul class="pagination">
-              <li class="active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li>
-                <a href="#" aria-label="Next">
-                  <span aria-hidden="true">Далі</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-
-
+{% include 'students/pagination.html' %}
         
 {% endblock content %}
