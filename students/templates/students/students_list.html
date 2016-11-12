@@ -16,14 +16,47 @@
 
 {% if students %}
 
+{% with order_by=request.GET.order_by reverse=request.GET.reverse %}
 <table class="table table-hover table-striped">
   <thead>
     <tr>
-      <th><a href="#">№</a></th>
+      <th>
+        <a href="{% url "home" %}?order_by=id{% if order_by == 'id' and reverse != '1' %}&reverse=1
+          {% endif %}">
+           № {% if order_by == 'id' and reverse != '1' %} &uarr;
+          {% elif order_by == 'id' and reverse == '1' %}
+          &darr;
+          {% endif %}
+        </a>
+      </th>
       <th>Фото</th>
-      <th><a href="#">Прізвище &uarr;</a></th>
-      <th><a href="#">Ім’я</a></th>
-      <th><a href="#">№ Білету</a></th>
+      <th>
+        <a href="{% url "home" %}?order_by=last_name{% if order_by == 'last_name' and reverse != '1' %}&reverse=1
+          {% endif %}">
+           Прізвище {% if order_by == 'last_name' and reverse != '1' or order_by == ''%} &uarr;
+          {% elif order_by == 'last_name' and reverse == '1' %}
+          &darr;
+          {% endif %}
+        </a>
+      </th>
+      <th>
+        <a href="{% url "home" %}?order_by=first_name{% if order_by == 'first_name' and reverse != '1' %}&reverse=1
+          {% endif %}">
+          Ім’я{% if order_by == 'first_name' and reverse != '1' %} &uarr;
+          {% elif order_by == 'first_name' and reverse == '1' %}
+          &darr;
+          {% endif %}
+        </a>
+      </th>
+      <th>
+        <a href="{% url "home" %}?order_by=ticket{% if order_by == 'ticket' and reverse != '1' %}&reverse=1
+          {% endif %}">
+          № Білету{% if order_by == 'ticket' and reverse != '1' %} &uarr;
+          {% elif order_by == 'ticket' and reverse == '1' %}
+          &darr;
+          {% endif %}
+        </a>
+      </th>
       <th>Дії</th>
     </tr>
   </thead>
@@ -35,7 +68,11 @@
         <td>{{ forloop.counter }}</td>
         <td>
           <img height="30" width="30" 
-               src="{% static student.image %}" 
+               {% if student.photo %}
+               src="{{ student.photo.url }}"
+               {% else %}
+               src={{ PORTAL_URL }}{% static "img/default_user.png" %}
+               {% endif %} 
                class="img-circle">
         </td>
         <td>
@@ -74,6 +111,7 @@
     
   </tbody>
 </table>
+{% endwith %}
 
 {% else %}
 <p class='none'>Поки немає студентів у базі</p>
