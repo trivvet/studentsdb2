@@ -65,7 +65,7 @@
     {% for student in students %}
       
       <tr>
-        <td>{{ forloop.counter }}</td>
+        <td>{{ student.id }}</td>
         <td>
           <img height="30" width="30" 
                {% if student.photo %}

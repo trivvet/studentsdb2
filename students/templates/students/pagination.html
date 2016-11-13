@@ -1,20 +1,32 @@
 <!-- Pagination -->
+{% if students.has_other_pages %}
+{% with order_by=request.GET.order_by reverse=request.GET.reverse %}
 <nav aria-label="Page navigation">
   <ul class="pagination">
     <li>
-      <a href="#" aria-label="Previous">
+      <a href=
+         "{% url "home" %}?page=1&amp;order_by={{order_by }}&amp;reverse{{ reverse }}" 
+          aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
-    <li><a href="#">1</a></li>
-    <li class="active"><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
+    {% for p in students.paginator.page_range %}
+    <li {% if students.number == p %}class="active"{% endif %}>
+      <a href=
+         "{% url "home" %}?page={{ p }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}"
+         >{{ p }}</a>
+    </li>
+    {% endfor %}
     <li>
-      <a href="#" aria-label="Next">
+      <a href=
+         "{% url "home" %}?page={{ students.paginator.num_pages }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}" 
+         aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
   </ul>
 </nav>
+{% endwith %}
+{% endif %}
+
+<p>{{ students }}</p>
