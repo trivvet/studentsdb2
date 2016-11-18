@@ -3,22 +3,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from .students import Student, Group
+
 # Groups List
 def groups_list(request):
-    groups = (
-         {'id': 1,
-          'name': u'БМ - 1',
-          'leader': {'first_name': u'Андрій', 'last_name': u'Комисливий', 
-                    'id': 4}},
-         {'id': 2,
-          'name': u'БМ - 2',
-          'leader': {'first_name': u'Павло', 'last_name': u'Очерет', 
-                    'id': 5}},
-         {'id': 3,
-          'name': u'БМ - 3',
-          'leader': {'first_name': u'Олена', 'last_name': u'Доровська', 
-                    'id': 6}},
-    )
+    groups = Group.objects.all()
+    order_by = request.GET.get('order_by')
+    reverse = request.GET.get('reverse')
+    if order_by in ('title', 'leader__last_name', 'id'):
+        groups = groups.order_by(order_by)
+        if reverse == '1':
+            groups = groups.reverse()
+    else:
+        groups = groups.order_by('title')
     return render(request, 'students/groups.html', {'groups': groups})
 
 # Add Form

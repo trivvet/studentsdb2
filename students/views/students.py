@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from ..models import Student
+from ..models import Student, Group
 
 # Student List
 
 def students_list(request):
-#  import pdb;pdb.set_trace()
+  
     students = Student.objects.all()
     
     # try to order student list
@@ -22,7 +22,7 @@ def students_list(request):
         students = students.order_by('last_name')
 
     # paginate students
-    paginator = Paginator(students, 3)
+    """    paginator = Paginator(students, 3)
     page = request.GET.get('page')
     try:
         students = paginator.page(page)
@@ -32,24 +32,38 @@ def students_list(request):
     except EmptyPage:
         # if page is out of range (e.g. 9999), deliver
         # last page of result
-        students = paginator.page(paginator.num_pages)
+        students = paginator.page(paginator.num_pages) """
+        
+#    import pdb;pdb.set_trace()  
     
-    groups = (
-         {'id': 1,
-          'name': u'БМ - 1',
-          'leader': {'first_name': u'Андрій', 'last_name': u'Комисливий', 
-                    'id': 4}},
-         {'id': 2,
-          'name': u'БМ - 2',
-          'leader': {'first_name': u'Павло', 'last_name': u'Очерет', 
-                    'id': 5}},
-         {'id': 3,
-          'name': u'БМ - 3',
-          'leader': {'first_name': u'Олена', 'last_name': u'Доровська', 
-                    'id': 6}},
-    )
+    # handmade paginator
+    number = 3
+    try:
+        page = int(request.GET.get('page'))
+    except:
+        page = 1
+    num_pages = students.count() / number
+    if students.count() % number > 0:
+        num_pages += 1
+    # block for student_list template
+    if num_pages > 0:
+        page_range = []
+        for i in range(1, num_pages+1):
+          page_range.append(i)
+        addition = {'has_other_pages': True, 'page_range': page_range}
+        
+    if page > 0 and page < num_pages:
+        students = students[number*(page-1):number*page]
+        addition['page'] = page
+    else:
+        students = students[number*(num_pages-1):students.count()]
+        addition['page'] = num_pages
+    # end handmade paginator
+    
+    groups = Group.objects.all().order_by('title')
+    
     return render(request, 'students/students_list.html', 
-        {'students': students, 'groups': groups})
+        {'students': students, 'groups': groups, 'addition': addition})
 
 # Add Form
 
