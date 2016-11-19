@@ -37,27 +37,30 @@ def students_list(request):
 #    import pdb;pdb.set_trace()  
     
     # handmade paginator
-    number = 3
-    try:
-        page = int(request.GET.get('page'))
-    except:
-        page = 1
-    num_pages = students.count() / number
-    if students.count() % number > 0:
-        num_pages += 1
-    # block for student_list template
-    if num_pages > 0:
-        page_range = []
-        for i in range(1, num_pages+1):
-          page_range.append(i)
-        addition = {'has_other_pages': True, 'page_range': page_range}
+    if students.count() > 0:
+        number = 3
+        try:
+            page = int(request.GET.get('page'))
+        except:
+            page = 1
+        num_pages = students.count() / number
+        if students.count() % number > 0:
+            num_pages += 1
+            # block for student_list template
+        if num_pages > 0:
+            page_range = []
+            for i in range(1, num_pages+1):
+                page_range.append(i)
+            addition = {'has_other_pages': True, 'page_range': page_range}
         
-    if page > 0 and page < num_pages:
-        students = students[number*(page-1):number*page]
-        addition['page'] = page
+        if page > 0 and page < num_pages:
+            students = students[number*(page-1):number*page]
+            addition['page'] = page
+        else:
+            students = students[number*(num_pages-1):students.count()]
+            addition['page'] = num_pages
     else:
-        students = students[number*(num_pages-1):students.count()]
-        addition['page'] = num_pages
+        addition = {}
     # end handmade paginator
     
     groups = Group.objects.all().order_by('title')

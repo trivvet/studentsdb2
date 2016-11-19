@@ -66,6 +66,10 @@ th.day {
   margin-top: 65px;
 }
 
+.none {
+  float: block;
+}
+
 /* Style for studentForm */
 h1.form {
   font-size: 32px;

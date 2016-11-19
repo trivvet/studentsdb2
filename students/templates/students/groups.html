@@ -11,6 +11,8 @@
 <!-- Add Group Button -->
 <a class="btn btn-primary" href="{% url "groups_add" %}">Додати Групу</a>
 
+{% if groups %}
+
 <!-- Start Group Listing -->
 <table class="table table-hover table-striped">
   <thead>
@@ -37,15 +39,15 @@
   </thead>
   <tbody>
     
-    {% if groups %}
-    
     {% for group in groups %}
     <!-- Test Group-->
     <tr>
       <td>{{ group.id }}</td>
       <td><a href="{% url "groups_edit" group.id %}">{{ group.title }}</a></td>
-      <td><a href="{% url "students_edit" group.leader.id %}">
+      <td>{% if group.leader %}
+          <a href="{% url "students_edit" group.leader.id %}">
           {{ group.leader.last_name }} {{ group.leader.first_name}}</a></td>
+          {% endif %}
       <td>
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" 
