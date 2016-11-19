@@ -29,7 +29,7 @@
     {% for student in students %}
     <!-- First Student -->
     <tr>
-      <td>{{ forloop.counter }}</td>
+      <td>{{ student.id }}</td>
       <td><a href="#">{{ student.last_name }} {{student.first_name}}</a></td>
       {% for day in days %}
       <td><input type="checkbox"></td>
@@ -46,5 +46,7 @@
 {% endif %}
 
 <!-- End Students Listing -->
+
+{% include 'students/pagination.html' %}
 
 {% endblock content %}

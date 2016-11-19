@@ -1,11 +1,11 @@
 <!-- Pagination -->
 {% if addition.has_other_pages %}
-{% with order_by=request.GET.order_by reverse=request.GET.reverse %}
+{% with order_by=request.GET.order_by reverse=request.GET.reverse url_page=request.path_info %}
 <nav aria-label="Page navigation">
   <ul class="pagination">
     <li>
       <a href=
-         "{% url "home" %}?page=1&amp;order_by={{order_by }}&amp;reverse{{ reverse }}" 
+         "{{ url_page }}?page=1&amp;order_by={{order_by }}&amp;reverse{{ reverse }}" 
           aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
@@ -13,13 +13,13 @@
     {% for p in addition.page_range %}
     <li {% if addition.page == p %}class="active"{% endif %}>
       <a href=
-         "{% url "home" %}?page={{ p }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}"
+         "{{ url_page }}?page={{ p }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}"
          >{{ p }}</a>
     </li>
     {% endfor %}
     <li>
       <a href=
-         "{% url "home" %}?page={{ addition.page_range | length }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}" 
+         "{{ url_page }}?page={{ addition.page_range | length }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}" 
          aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>

@@ -63,7 +63,7 @@ def students_list(request):
     groups = Group.objects.all().order_by('title')
     
     return render(request, 'students/students_list.html', 
-        {'students': students, 'groups': groups, 'addition': addition})
+        {'students': students, 'groups_all': groups, 'addition': addition})
 
 # Add Form
 

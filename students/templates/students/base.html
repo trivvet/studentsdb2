@@ -43,7 +43,7 @@
           <strong>Група:</strong>
           <select>
             <option value="">Усі студенти</option>
-            {% for group in groups %}
+            {% for group in groups_all %}
             
             <option value="">{{ group.title }}, {{ group.leader.last_name }}
                      {{group.leader.first_name }}</option>
