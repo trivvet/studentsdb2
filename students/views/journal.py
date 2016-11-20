@@ -3,7 +3,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from .students import Student, Group
+from ..models.students import Student
+from ..models.groups import Group
 
 # View for Journal
 

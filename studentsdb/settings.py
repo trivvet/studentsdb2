@@ -83,10 +83,13 @@ DATABASES = {
 #    }
      'default': {
          'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'students_db',
-         'HOST': 'localhost',
-         'USER': 'students_db_user',
-         'PASSWORD': 'password',
+#         'NAME': 'students_db',
+#         'HOST': 'localhost',
+#         'USER': 'students_db_user',
+#         'PASSWORD': 'password',
+         'OPTIONS': {
+             'read_default_file': os.path.join(BASE_DIR, '..', 'db.cnf'),
+         },
      }
 }
 
