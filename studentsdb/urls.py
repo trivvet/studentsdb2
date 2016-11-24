@@ -17,7 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views import static
 
-from students.views import students, groups, journal, exams
+from students.views import students, groups, journal, exams, results
 
 from .settings import MEDIA_ROOT, DEBUG
 
@@ -49,7 +49,15 @@ urlpatterns = [
         name='exams_edit'),
     url(r'^exams/(?P<eid>\d+)/delete', exams.exams_delete,
         name='exams_delete'),
-  
+        
+    # Results urls
+    url(r'^results/$', results.results_list, name='results'),
+    url(r'^results/add/$', results.results_add, name='results_add'),
+    url(r'^results/(?P<rid>\d+)/edit', results.results_edit, 
+        name='results_edit'),
+    url(r'^results/(?P<rid>\d+)/delete', results.results_delete,
+        name='results_delete'),
+    
     url(r'^admin/', admin.site.urls),
 ]
 

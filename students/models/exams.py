@@ -30,8 +30,8 @@ class Exam(models.Model):
         verbose_name=u"Група",
         blank=False,
         null=True,
-        on_delete=models.PROTECT)
+        on_delete=models.CASCADE)
 
     def __unicode__(self):
-        return u"%s (%s %s)" % (self.name, self.teacher_name,
-            self.exam_group.title)
+        return u"%s (%s, %s)" % (self.name, self.exam_group.title,
+        self.date.date())
