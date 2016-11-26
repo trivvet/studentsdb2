@@ -96,3 +96,8 @@ a.form {
   width: 100%;
 }
 
+/* Form Styles */
+.form-horizontal {
+  margin-top: 50px;
+}
+

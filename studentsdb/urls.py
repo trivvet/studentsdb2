@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^groups/(?P<gid>\d+)/delete', groups.groups_delete,
         name='groups_delete'),
   
-    # Journal    
+    # Journal url  
     url(r'^journal/$', journal.journal_list, name='journal'),
 
     # Exams urls

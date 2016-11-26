@@ -1,0 +1,122 @@
+{% extends "students/base.html" %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Додати Студента{% endblock meta_title %}
+
+{% block title %}Додати Студента{% endblock title %}
+
+{% block content %}
+      
+       
+<!-- FORM -->
+
+<form class="form-horizontal" action="#" method="post" 
+      enctype="multipart/form-data">
+  
+  {% csrf_token %}
+  
+  <!-- First Name -->
+  <div class="form-group">
+    <label for="first_name" class="col-sm-2 control-label">
+      Ім’я*</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" id="first_name" 
+             value="" placeholder="Введіть ваше ім'я" name="first_name" />
+      <span class="errors" style="color: red">{{ errors.first_name }}</span>
+    </div>
+  </div>
+  
+  <!-- Last Name -->
+  <div class="form-group">
+    <label for="last_name" class="col-sm-2 control-label">
+      Прізвище*</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" id="last_name" 
+             value="" placeholder="Введіть ваше прізвище" name="last_name" />
+      <span class="errors" style="color: red">{{ errors.last_name }}</span>
+    </div>
+  </div>
+  
+  <!-- Middle Name -->
+  <div class="form-group">
+    <label for="middle_name" class="col-sm-2 control-label">
+      По-батькові</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" id="middle_name" 
+             value="" placeholder="Введіть ваше ім'я по-батькові" 
+             name="middle_name" />
+    </div>
+  </div>
+  
+  <!-- Birthday data -->
+  <div class="form-group">
+    <label for="birthday" class="col-sm-2 control-label">
+      Дата народження</label>
+    <div class="col-sm-3">
+      <input type="date" class="form-control" id="birthday" 
+             placeholder="1984-06-17" name="birthday" />
+      <span class="errors" style="color: red">{{ errors.birthday }}</span>
+    </div>
+  </div>
+  
+   <!-- Photo -->
+  <div class="form-group">
+    <label for="photo" class="col-sm-2 control-label">
+      Фото</label>
+    <div class="col-sm-5">
+      <p class="form">Наразі: <a href="#">student_phtos/None_podoba3_1.jpg</a></p>
+      <p><a class="form" href="#">Очистити</a></p>
+      <p>Змінити: <input type="file" id="photo" name="photo" /></p>
+    </div>
+  </div>
+  
+  <!-- Ticket Number -->
+  <div class="form-group">
+    <label for="ticket" class="col-sm-2 control-label">
+      № Білету*</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" id="ticket" 
+             placeholder="254" name="ticket" />
+    </div>
+  </div>
+  
+  <!-- Selector of Group -->
+  <div class="form-group">
+    <label for="student_group" class="col-sm-2 control-label">
+      Група*</label>
+    <div class="col-sm-3">
+      <select id="student_group" name="student_group">
+        <option value="">Виберіть групу</option>
+        
+        {% for group in groups_all %}
+        <option value="{{ group.id }}">{{ group.title }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  
+  <!-- Addition Notes -->
+  <div class="form-group">
+    <label for="notes" class="col-sm-2 control-label">
+      Додаткові Нотатки</label>
+    <div class="col-sm-3">
+      <textarea id="notes" name="notes">Додаткові нотатки</textarea>
+    </div>
+  </div>
+  
+  
+  <!-- Buttons -->
+  <div class="form-group controls">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" class="btn btn-primary" value="Зберегти" href="#" 
+             name="add_button" />
+      <input type="submit" class="btn btn-link" value="Скасувати" href="#" 
+             name="cancel_button" />
+    </div>
+  </div>
+</form>
+
+<!-- End FORM -->
+        
+{% endblock content %}

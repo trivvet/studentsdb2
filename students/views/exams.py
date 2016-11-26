@@ -9,7 +9,7 @@ from ..models.exams import Exam
 
 def exams_list(request):
     addition = {}
-    groups_all = Group.objects.all().order_by('title')
+    groups = Group.objects.all().order_by('title')
     exams = Exam.objects.all()
 
     # exams ordering
@@ -50,7 +50,7 @@ def exams_list(request):
         addition = {}
   
     return render(request, 'students/exams.html', {'exams': exams,
-        'groups_all': groups_all, 'addition': addition})
+        'groups_all': groups, 'addition': addition})
 
 # Add Form
 

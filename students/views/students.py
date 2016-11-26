@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from datetime import datetime
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.urls import reverse
 
 from ..models.students import Student
 from ..models.groups import Group
@@ -72,7 +75,63 @@ def students_list(request):
 # Add Form
 
 def students_add(request):
-    return HttpResponse('<h1>Students Add Form</h1>')
+    groups = Group.objects.all().order_by('title')
+    addition = {}
+    button = 0
+    
+    # errors collections
+    errors = {}
+    # Main Logic
+    if request.method == "POST":
+        # Check which button is pressed
+        
+        if request.POST.get('add_button') is not None:
+        # Press Add Button
+            # data for student object
+            data = {}
+            
+            # Validation
+            first_name = request.POST.get('first_name').strip()
+            if not first_name:
+                errors['first_name'] = u"Ім'я є обов'язковим"
+                
+            last_name = request.POST.get('last_name').strip()
+            if not last_name:
+                errors['last_name'] = u"Прізвище є обов'язковим"
+                
+            birthday = request.POST.get('birthday').strip()
+            if not birthday:
+                errors['birthday'] = u"Дата народження є обов'язковою"
+            else:
+                try: 
+                    datetime.strptime(birthday, '%Y-%m-%d')
+                except:
+                    errors['birthday'] = u"Введіть коректне значення дати"
+                
+            # TODO add validation for other fields
+            
+            if not errors:
+                student = Student(
+                    first_name=first_name,
+                    last_name=last_name,
+                    middle_name=request.POST['middle_name'],
+                    birthday=request.POST['birthday'],
+                    photo=request.FILES['photo'],
+                    ticket=request.POST['ticket'],
+                    student_group=Group(pk=request.POST['student_group']),
+                    notes=request.POST['notes'])
+                student.save()
+                button += 1
+
+        elif request.POST.get('cancel_button') is not None:
+        # Press Cancel Button
+            button += 1
+        
+    if button != 0:    
+        return HttpResponseRedirect(reverse('home'))
+    else:
+        return render(request, 'students/students_add.html', 
+            {'groups_all': groups, 'addition': addition, 'errors': errors })
 
 # Edit Form
 
