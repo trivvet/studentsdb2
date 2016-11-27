@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
+from PIL import Image
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
@@ -81,45 +82,77 @@ def students_add(request):
     
     # errors collections
     errors = {}
-    # Main Logic
+
+    # was for posted?
     if request.method == "POST":
+
         # Check which button is pressed
-        
         if request.POST.get('add_button') is not None:
         # Press Add Button
+
             # data for student object
-            data = {}
+            data = {
+                'middle_name': request.POST.get('middle_name'),
+                'notes': request.POST.get('notes')
+            }
             
             # Validation
-            first_name = request.POST.get('first_name').strip()
+            first_name = request.POST.get('first_name', '').strip()
             if not first_name:
                 errors['first_name'] = u"Ім'я є обов'язковим"
+            else:
+                data['first_name'] = first_name
                 
-            last_name = request.POST.get('last_name').strip()
+            last_name = request.POST.get('last_name', '').strip()
             if not last_name:
                 errors['last_name'] = u"Прізвище є обов'язковим"
+            else:
+                data['last_name'] = last_name
                 
-            birthday = request.POST.get('birthday').strip()
+            birthday = request.POST.get('birthday', '').strip()
             if not birthday:
                 errors['birthday'] = u"Дата народження є обов'язковою"
             else:
                 try: 
-                    datetime.strptime(birthday, '%Y-%m-%d')
-                except:
-                    errors['birthday'] = u"Введіть коректне значення дати"
+                    data['birthday'] = datetime.strptime(birthday, '%Y-%m-%d')
+                except Exception:
+                    errors['birthday'] = u"Введіть коректний формат дати (напр. 1980-01-01)"
                 
-            # TODO add validation for other fields
-            
+            photo = request.FILES.get('photo')
+            if photo:
+                try:
+                    Image.open(photo)
+                    if photo.size < 1048576:
+                        data['photo'] = photo
+                    else:
+                        errors['photo'] = u"Завантажте файл не більше 1Мб"
+                except:
+                    errors['photo'] = u"Завантажте файл зображення"
+
+            ticket = request.POST.get('ticket', '').strip()
+            if not ticket:
+                errors['ticket'] = u"Номер білету є обов'язковим"
+            else:
+                try:
+                    if not Student.objects.filter(ticket=int(ticket)):
+                        data['ticket'] = int(ticket)
+                    else:
+                        errors['ticket'] = u"Номер білету повинен бути унікальним"
+                except:
+                    errors['ticket'] = u"Номер білету повинен складатись тільки з цифр"
+
+            student_group = request.POST.get('student_group', '').strip()
+            if not student_group:
+                errors['student_group'] = u"Оберіть групу для студента"
+            else:
+                try:
+                    data['student_group'] = Group.objects.get(pk=student_group)
+                except:
+                    errors['student_group'] = u"Виберіть групу зі списку"
+
+            # if not errors save save data to database
             if not errors:
-                student = Student(
-                    first_name=first_name,
-                    last_name=last_name,
-                    middle_name=request.POST['middle_name'],
-                    birthday=request.POST['birthday'],
-                    photo=request.FILES['photo'],
-                    ticket=request.POST['ticket'],
-                    student_group=Group(pk=request.POST['student_group']),
-                    notes=request.POST['notes'])
+                student = Student(**data)
                 student.save()
                 button += 1
 

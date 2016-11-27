@@ -57,13 +57,13 @@ th.day {
 .month {
   position:relative;
   left: 21%;
-  top: 32px;
+  top: 25px;
   float: left;
   font-weight: bold;
 }
 
 .table-journal {
-  margin-top: 65px;
+  margin-top: 60px;
 }
 
 .none {

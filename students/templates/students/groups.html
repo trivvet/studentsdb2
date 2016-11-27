@@ -5,11 +5,13 @@
 {% block meta_title %}Групи{% endblock meta_title %}
 
 {% block title %}Групи{% endblock title %}
-          
-{% block content %}
-          
+
+{% block add_button %}
 <!-- Add Group Button -->
 <a class="btn btn-primary" href="{% url "groups_add" %}">Додати Групу</a>
+{% endblock add_button %}
+          
+{% block content %}
 
 {% if groups %}
 

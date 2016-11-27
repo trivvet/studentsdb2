@@ -95,8 +95,10 @@
                Зміни Скасовано</div>
           {% endcomment %}
           
-          <h2>{% block title %}{% endblock title %}</h2>
-          
+          <div>
+            <h2>{% block title %}{% endblock title %}</h2>
+            {% block add_button %}{% endblock add_button %}
+          </div>
           {% block content %}{% endblock content %}
         
         </div>
