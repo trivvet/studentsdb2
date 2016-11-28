@@ -11,6 +11,11 @@
        
 <!-- FORM -->
 
+{% if form.errors %}
+  <div class="alert alert-error" role="alert">
+       Будь-ласка, виправте наступні помилки</div>
+{% endif %}
+
 <form class="form-horizontal" action="" method="post" 
       enctype="multipart/form-data">
   

@@ -157,7 +157,8 @@ def students_add(request):
                 student = Student(**data)
                 student.save()
                 button += 1
-                status_message = u"Студента успішно додано"
+                status_message = u"Студент %s %s успішно доданий" % (student.last_name,
+                                student.first_name)
 
         elif request.POST.get('cancel_button') is not None:
         # Press Cancel Button
@@ -165,7 +166,8 @@ def students_add(request):
             status_message = u"Додавання студента скасовано"
         
     if button != 0:    
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(u"%s?status_message=%s" %
+               (reverse('home'), status_message))
     else:
         return render(request, 'students/students_add.html', 
             {'groups_all': groups, 'addition': addition, 'errors': errors })

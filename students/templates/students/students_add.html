@@ -4,10 +4,16 @@
 
 {% block meta_title %}Додати Студента{% endblock meta_title %}
 
+{% block status_message %}
+  {% if errors %}
+    <div class="alert alert-danger" role="alert">
+         Будь-ласка, виправте наступні помилки</div>
+  {% endif %}
+{% endblock status_message %}
+
 {% block title %}Додати Студента{% endblock title %}
 
 {% block content %}
-      
        
 <!-- FORM -->
 
@@ -52,7 +58,7 @@
   <!-- Birthday data -->
   <div class="form-group {% if errors.birthday %}has-error{% endif %}">
     <label for="birthday" class="col-sm-2 control-label">
-      Дата народження</label>
+      Дата народження*</label>
     <div class="col-sm-3">
       <input type="date" class="form-control" id="birthday" 
              placeholder="напр. 1984-06-17" name="birthday"
