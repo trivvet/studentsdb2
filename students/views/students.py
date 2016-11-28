@@ -7,6 +7,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.views.generic.edit import UpdateView
+from django.forms import ModelForm
 
 from ..models.students import Student
 from ..models.groups import Group
@@ -155,10 +157,12 @@ def students_add(request):
                 student = Student(**data)
                 student.save()
                 button += 1
+                status_message = u"Студента успішно додано"
 
         elif request.POST.get('cancel_button') is not None:
         # Press Cancel Button
             button += 1
+            status_message = u"Додавання студента скасовано"
         
     if button != 0:    
         return HttpResponseRedirect(reverse('home'))
@@ -167,9 +171,30 @@ def students_add(request):
             {'groups_all': groups, 'addition': addition, 'errors': errors })
 
 # Edit Form
+        
+class StudentUpdateView(UpdateView):
+    model = Student
+    template_name = 'students/students_edit.html'
+    fields = ['first_name', 'last_name', 'middle_name', 'birthday',
+              'photo', 'student_group', 'ticket', 'notes']
+#    form_class = StudentUpdateForm
+    
+    @property
+    def success_url(self):
+        return u"%s?status_message=Студента успішно збережено!" % reverse('home')
+        
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            return HttpResponseRedirect(
+                   u"%s?status_message=Редагування студента відмінено!" % 
+                   reverse('home'))
+        else:
+            return super(StudentUpdateView, self).post(request, *args, **kwargs)
+        
+      
 
-def students_edit(request, sid):
-    return HttpResponse('<h1>Edit Student %s</h1>' % sid)
+# def students_edit(request, sid):
+#    return HttpResponse('<h1>Edit Student %s</h1>' % sid)
 
 # Delete Page
   
