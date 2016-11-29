@@ -60,6 +60,7 @@
       {% url 'groups' as url_groups %}
       {% url 'exams' as url_exams %}
       {% url 'results' as url_results %}
+      {% url 'contact_admin' as url_contact %}
       <!-- Start Subheader -->
       <div class="row" id="sub-header">
         <div class="col-xs-12">
@@ -79,6 +80,9 @@
             <li role="presentation" {% if url_results in request.path %}
                 class="active"{% endif %}>
               <a href="{{ url_results }}">Результати</a></li>
+            <li role="presentation" {% if url_contact in request.path %}
+                class="active"{% endif %}>
+              <a href="{{ url_contact }}">Контакт</a></li>
         </ul>
         </div>
       </div>
@@ -94,6 +98,12 @@
           {% if request.GET.status_message %}
           <div class="alert alert-warning" role="alert">
                {{ request.GET.status_message }}</div>
+          {% endif %}
+          {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}"
+                 role="alert">{{ message }}</div>
+          {% endfor %}
           {% endif %}
           {% endblock status_message %}
           

@@ -4,6 +4,7 @@ from datetime import datetime
 from PIL import Image
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -157,17 +158,20 @@ def students_add(request):
                 student = Student(**data)
                 student.save()
                 button += 1
-                status_message = u"Студент %s %s успішно доданий" % (student.last_name,
-                                student.first_name)
+                messages.success(request, u"Студент %s %s успішно доданий" % (student.last_name,
+                                student.first_name))
+#                status_message = u"Студент %s %s успішно доданий" % (student.last_name,
+#                                student.first_name)
 
         elif request.POST.get('cancel_button') is not None:
         # Press Cancel Button
             button += 1
-            status_message = u"Додавання студента скасовано"
+            messages.warning(request, u"Додавання студента скасовано")
+#            status_message = u"Додавання студента скасовано"
         
     if button != 0:    
-        return HttpResponseRedirect(u"%s?status_message=%s" %
-               (reverse('home'), status_message))
+        return HttpResponseRedirect(reverse('home'))#u"%s?status_message=%s" %
+#               (reverse('home'), status_message))
     else:
         return render(request, 'students/students_add.html', 
             {'groups_all': groups, 'addition': addition, 'errors': errors })

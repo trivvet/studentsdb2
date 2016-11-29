@@ -17,7 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views import static
 
-from students.views import students, groups, journal, exams, results
+from students.views import students, groups, journal, exams, results, contact_admin
 from students.views.students import StudentUpdateView
 
 from .settings import MEDIA_ROOT, DEBUG
@@ -59,6 +59,9 @@ urlpatterns = [
         name='results_edit'),
     url(r'^results/(?P<rid>\d+)/delete', results.results_delete,
         name='results_delete'),
+
+    # Contact Admin Form
+    url(r'^contact-admin/$', contact_admin.contact_admin, name="contact_admin"),
     
     url(r'^admin/', admin.site.urls),
 ]

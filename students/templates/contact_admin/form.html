@@ -1,0 +1,23 @@
+{% extends "students/base.html" %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Зв'язок з адміністратором{% endblock meta_title %}
+
+{% block status_message %}
+  {% if errors %}
+    <div class="alert alert-danger" role="alert">
+         Будь-ласка, виправте наступні помилки</div>
+  {% endif %}
+{% endblock status_message %}
+
+{% block title %}Зв'язок з адміністратором{% endblock title %}
+
+{% block content %}
+</br>
+</br>
+</br>
+
+{{ form.as_p }}
+        
+{% endblock content %}

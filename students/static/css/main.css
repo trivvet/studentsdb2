@@ -101,3 +101,9 @@ a.form {
   margin-top: 60px;
 }
 
+textarea,
+select,
+input {
+  max-width: 300px;
+}
+
