@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 from django.conf import global_settings
 
+from sensitive_data import PASSWORD, EMAIL_FROM, EMAIL_TO
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -137,11 +139,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 
 # email settings
-ADMIN_EMAIL = ''
+ADMIN_EMAIL = EMAIL_TO
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '465'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = 'Futycndj18'
+EMAIL_HOST_USER = EMAIL_FROM
+EMAIL_HOST_PASSWORD = PASSWORD
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 

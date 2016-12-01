@@ -9,6 +9,9 @@
     <div class="alert alert-danger" role="alert">
          Будь-ласка, виправте наступні помилки</div>
   {% endif %}
+
+  {{ block.super }}
+  
 {% endblock status_message %}
 
 {% block title %}Зв'язок з адміністратором{% endblock title %}
@@ -18,6 +21,13 @@
 </br>
 </br>
 
-{{ form.as_p }}
+<form action="{% url "contact_admin" %}" method="post" >
+  {% csrf_token %}
+
+  {{ form.as_p }}
+
+  <input type="submit" class="btn btn-primary" value="Надіслати"
+             name="send_button" />
+</form>
         
 {% endblock content %}
