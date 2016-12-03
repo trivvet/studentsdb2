@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import UpdateView, ListView
+from django.views.generic import UpdateView, ListView, DeleteView
 from django.forms import ModelForm
 
 from crispy_forms.helper import FormHelper
@@ -262,5 +262,20 @@ class StudentUpdateView(UpdateView):
 
 # Delete Page
   
+class StudentDeleteView(DeleteView):
+    model = Student
+
+    @property
+    def success_url(self):
+        return u"%s?status_message=Студента успішно видалено!" % reverse('home')
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            return HttpResponseRedirect(
+                   u"%s?status_message=Видалення студента відмінено!" % 
+                   reverse('home'))
+        else:
+            return super(StudentDeleteView, self).post(request, *args, **kwargs)
+
 def students_delete(request, sid):
     return HttpResponse('<h1>Delete Student %s</h1>' % sid)

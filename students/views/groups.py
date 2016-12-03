@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic import DeleteView
 
 from ..models.students import Student
 from ..models.groups import Group
@@ -62,6 +63,30 @@ def groups_edit(request, gid):
     return HttpResponse('<h1>Edit Group %s</h1>' % gid)
 
 # Delete Page
+
+class GroupDeleteView(DeleteView):
+    model = Group
+    template_name = 'students/groups_confirm_delete.html'
+
+    @property
+    def success_url(self):
+        return u"%s?status_message=Групу успішно видалено!" % reverse('groups')
   
 def groups_delete(request, gid):
-    return HttpResponse('<h1>Delete Group %s</h1>' % gid)
+    groups = Group.objects.all()
+    group = groups.get(pk=gid)
+    if request.method == "POST":
+        if request.POST.get('delete_button') is not None:
+            try: 
+                group.delete()
+                message = u"=Групу успішно видалено"
+            except:
+                message = u"Виберіть коректну групу"
+        elif request.POST.get('cancel_button') is not None:
+            message = u"Видалення групи відмінено"
+        return HttpResponseRedirect(
+               u"%s?status_message=%s!" % (reverse('groups'), message))
+    else:
+        return render(request, 'students/groups_confirm_delete.html', 
+            {'groups_all': groups, 'object': group})
+  

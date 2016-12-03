@@ -5,17 +5,18 @@
 
 {% block meta_title %}Редагувати Студента{% endblock meta_title %}
 
-{% block title %}Редагувати Студента{% endblock title %}
-
-{% block content %}
-      
-       
-<!-- FORM -->
-
+{% block status_message %}
 {% if form.errors %}
   <div class="alert alert-error" role="alert">
        Будь-ласка, виправте наступні помилки</div>
 {% endif %}
+{% endblock %}
+
+{% block title %}Редагувати Студента{% endblock title %}
+
+{% block content %}
+      
+<!-- FORM -->
   
 {% crispy form %}
   

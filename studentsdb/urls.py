@@ -18,9 +18,9 @@ from django.contrib import admin
 from django.views import static
 
 from students.views import students, groups, journal, exams, results, contact_admin
-from students.views.students import StudentUpdateView, StudentList
-
-from contact_form.views import ContactFormView
+from students.views.students import StudentUpdateView, StudentList, StudentDeleteView
+from students.views.groups import GroupDeleteView
+# from contact_form.views import ContactFormView
 from students.views.contact_admin import ContactView
 
 from .settings import MEDIA_ROOT, DEBUG
@@ -34,7 +34,7 @@ urlpatterns = [
     url(r'^students/(?P<pk>\d+)/edit', StudentUpdateView.as_view(),
 #        students.students_edit, 
         name='students_edit'),
-    url(r'^students/(?P<sid>\d+)/delete', students.students_delete,
+    url(r'^students/(?P<pk>\d+)/delete', students.StudentDeleteView.as_view(),
         name='students_delete'),
   
     #Groups urls
@@ -44,6 +44,8 @@ urlpatterns = [
         name='groups_edit'),
     url(r'^groups/(?P<gid>\d+)/delete', groups.groups_delete,
         name='groups_delete'),
+#    url(r'^groups/(?P<pk>\d+)/delete', groups.GroupDeleteView.as_view(),
+#        name='groups_delete'),
   
     # Journal url  
     url(r'^journal/$', journal.journal_list, name='journal'),
