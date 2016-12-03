@@ -1,4 +1,7 @@
 Django==1.10.2
 Pillow
 MySQL-python
+setuptools
+django-crispy-forms
 psycopg2
+django-contact-form

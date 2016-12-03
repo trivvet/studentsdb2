@@ -3,18 +3,47 @@
 from datetime import datetime
 from PIL import Image
 
+from django import forms
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-from django.urls import reverse
-from django.views.generic.edit import UpdateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import UpdateView, ListView
 from django.forms import ModelForm
+
+from crispy_forms.helper import FormHelper
+from crispy_forms.bootstrap import FormActions
+from crispy_forms.layout import Layout, Submit, Button
 
 from ..models.students import Student
 from ..models.groups import Group
 
 # Student List
+
+class StudentList(ListView):
+    model = Student
+    context_object_name = 'students'
+    template_name = 'students/student_class_based_view_template.html'
+    paginate_by = 3
+
+    def get_context_data(self, **kwargs):
+        """This method adds extra variables to template"""
+        # get original context data from parent class
+        context = super(StudentList, self).get_context_data(**kwargs)
+
+        # tell template not to show logo on a page
+        context['show_logo'] = False
+
+        # return context mapping
+        return context
+
+    def get_queryset(self):
+      """Order student by last_name."""
+      qs = super(StudentList, self).get_queryset()
+
+      # order by last name
+      return qs.order_by('last_name')
 
 def students_list(request):
   
@@ -158,8 +187,8 @@ def students_add(request):
                 student = Student(**data)
                 student.save()
                 button += 1
-                messages.success(request, u"Студент %s %s успішно доданий" % (student.last_name,
-                                student.first_name))
+                messages.success(request, u"Студент %s %s успішно доданий" %
+                    (student.last_name, student.first_name))
 #                status_message = u"Студент %s %s успішно доданий" % (student.last_name,
 #                                student.first_name)
 
@@ -178,12 +207,41 @@ def students_add(request):
 
 # Edit Form
         
+class StudentUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ['first_name', 'last_name', 'middle_name', 'birthday',
+              'photo', 'student_group', 'ticket', 'notes']
+
+    def __init__(self, *args, **kwargs):
+        super(StudentUpdateForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+
+        # set form tag attributes
+        self.helper.action = reverse_lazy('students_edit', kwargs['instance'].id)
+        self.helper.form_method = 'POST'
+        self.helper.form_class = 'form-horizontal'
+
+        # set form field properties
+        self.helper.help_text_inline = True
+        self.helper.html5_required = False
+        self.helper.attrs = {'novalidate': ''}
+        self.helper.label_class = 'col-sm-2 control-label'
+        self.helper.field_class = 'col-sm-10'
+
+
+        # add buttons
+        self.helper.layout.append(Layout(
+            FormActions(
+                Submit('add_button', u'Зберегти'),
+                Submit('cancel_button', u'Скасувати', css_class='btn-link')
+            )
+        ))
+
 class StudentUpdateView(UpdateView):
     model = Student
     template_name = 'students/students_edit.html'
-    fields = ['first_name', 'last_name', 'middle_name', 'birthday',
-              'photo', 'student_group', 'ticket', 'notes']
-#    form_class = StudentUpdateForm
+    form_class = StudentUpdateForm
     
     @property
     def success_url(self):

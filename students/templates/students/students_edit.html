@@ -1,6 +1,7 @@
 {% extends "students/base.html" %}
 
 {% load static from staticfiles %}
+{% load crispy_forms_tags %}
 
 {% block meta_title %}Редагувати Студента{% endblock meta_title %}
 
@@ -15,25 +16,8 @@
   <div class="alert alert-error" role="alert">
        Будь-ласка, виправте наступні помилки</div>
 {% endif %}
-
-<form class="form-horizontal" action="" method="post" 
-      enctype="multipart/form-data">
   
-  {% csrf_token %}
+{% crispy form %}
   
-  {{ form.as_p }}
-  
-  <!-- Buttons -->
-  <div class="form-group controls">
-    <div class="col-sm-offset-2 col-sm-10">
-      <input type="submit" class="btn btn-primary" value="Зберегти"
-             name="add_button" />
-      <button type="submit" class="btn btn-link" value="Скасувати"
-             name="cancel_button" />Скасувати</button>
-    </div>
-  </div>
-</form>
-
-<!-- End FORM -->
         
 {% endblock content %}

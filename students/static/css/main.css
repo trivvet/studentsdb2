@@ -71,11 +71,6 @@ th.day {
 }
 
 /* Style for studentForm */
-h1.form {
-  font-size: 32px;
-  margin-left: 20px;
-}
-
 label {
   font-weight: normal;
 }
@@ -86,14 +81,6 @@ p.form {
 
 a.form {
   color: #333;
-}
-
-#inputGroup {
-  width: 100%;
-}
-
-#inputText {
-  width: 100%;
 }
 
 /* Form Styles */
