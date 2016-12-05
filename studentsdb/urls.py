@@ -34,7 +34,8 @@ urlpatterns = [
 #    url(r'^students/(?P<pk>\d+)/edit', StudentUpdateView.as_view(),         
     url(r'^students/(?P<sid>\d+)/edit', students.students_edit,
         name='students_edit'),
-    url(r'^students/(?P<pk>\d+)/delete', students.StudentDeleteView.as_view(),
+#    url(r'^students/(?P<pk>\d+)/delete', students.StudentDeleteView.as_view(),
+    url(r'^students/(?P<sid>\d+)/delete', students.students_delete,
         name='students_delete'),
   
     #Groups urls

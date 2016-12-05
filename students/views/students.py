@@ -367,6 +367,7 @@ def students_edit(request, sid):
   
 class StudentDeleteView(DeleteView):
     model = Student
+    template_name = 'students/student_confirm_delete_class.html'
 
     @property
     def success_url(self):
@@ -381,4 +382,45 @@ class StudentDeleteView(DeleteView):
             return super(StudentDeleteView, self).post(request, *args, **kwargs)
 
 def students_delete(request, sid):
-    return HttpResponse('<h1>Delete Student %s</h1>' % sid)
+    groups = Group.objects.all().order_by('title')
+    addition = {}
+    button = 0
+
+    try:
+        data = Student.objects.get(pk=sid)
+    except:
+        messages.error(request, u"Оберіть існуючого студента для видалення")
+        button = 1
+    else:
+        # was for posted?
+        if request.method == "POST":
+
+            # Check which button is pressed
+            if request.POST.get('delete_button') is not None:
+                # Press Delete Button
+
+                messages.success(request, u"Інформацію про студента %s %s видалено" %
+                    (data.last_name, data.first_name))
+                data.delete()
+                button += 1
+#               status_message = u"Студент %s %s успішно доданий" % (student.last_name,
+#                                student.first_name)
+
+            elif request.POST.get('cancel_button') is not None:
+            # Press Cancel Button
+                button += 1
+                messages.warning(request, u"Видалення студента скасовано")
+#                status_message = u"Додавання студента скасовано"
+        
+        else:
+            try:
+                addition['student'] = data
+            except:
+                messages.error(request, u"Оберіть існуючого студента для видалення")
+                button = 1
+    if button != 0:    
+        return HttpResponseRedirect(reverse('home'))#u"%s?status_message=%s" %
+#               (reverse('home'), status_message))
+    else:
+        return render(request, 'students/students_confirm_delete.html', 
+            {'groups_all': groups, 'addition': addition})

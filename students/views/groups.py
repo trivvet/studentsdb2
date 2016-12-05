@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.contrib import messages
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DeleteView
@@ -55,12 +56,125 @@ def groups_list(request):
 # Add Form
   
 def groups_add(request):
-    return HttpResponse('<h1>Groups Add Form</h1>')
+    groups_all = Group.objects.all().order_by('title')
+    addition = {}
+    addition['students_all'] = Student.objects.all().order_by('last_name')
+    button = 0
+    
+    # errors collections
+    errors = {}
+
+    # was for posted?
+    if request.method == "POST":
+
+        # Check which button is pressed
+        if request.POST.get('add_button') is not None:
+        # Press Add Button
+
+            # data for student object
+            data = {
+                'notes': request.POST.get('notes')
+            }
+            
+            # Validation
+            title = request.POST.get('title', '').strip()
+            if not title:
+                errors['title'] = u"Назва групи є обов'язковою"
+            else:
+                data['title'] = title
+
+            # if not errors save save data to database
+            if not errors:
+                group = Group(**data)
+                group.save()
+                button += 1
+                messages.success(request, u"Група %s успішно додана" % group.title)
+#                status_message = u"Студент %s %s успішно доданий" % (student.last_name,
+#                                student.first_name)
+
+        elif request.POST.get('cancel_button') is not None:
+        # Press Cancel Button
+            button += 1
+            messages.warning(request, u"Додавання групи скасовано")
+#            status_message = u"Додавання студента скасовано"
+        
+    if button != 0:    
+        return HttpResponseRedirect(reverse('groups'))#u"%s?status_message=%s" %
+#               (reverse('home'), status_message))
+    else:
+        return render(request, 'students/groups_add.html', 
+            {'groups_all': groups_all, 'addition': addition, 'errors': errors })
 
 # Edit Form
   
 def groups_edit(request, gid):
-    return HttpResponse('<h1>Edit Group %s</h1>' % gid)
+    groups_all = Group.objects.all().order_by('title')
+    addition = {}
+    button = 0
+    addition['students_all'] = Student.objects.all().order_by('last_name')
+
+    try:
+        data = Group.objects.get(pk=gid)
+    except:
+        messages.error(request, u"Оберіть існуючу групу для редагування")
+        button = 1
+    
+    # errors collections
+    errors = {}
+
+    # was for posted?
+    if request.method == "POST":
+
+        # Check which button is pressed
+        if request.POST.get('save_button') is not None:
+        # Press Save Button
+
+            # data for group object
+            data.notes = request.POST.get('notes')
+            
+            # Validation
+            title = request.POST.get('title', '').strip()
+            if not title:
+                errors['title'] = u"Назва групи є обов'язковою"
+            else:
+                data.title = title
+
+            leader = request.POST.get('leader', '').strip()
+            if leader:
+                try:
+                    data.leader = Student.objects.get(pk=leader)
+                except:
+                    errors['leader'] = u"Виберіть студента зі списку"
+
+            # if not errors save save data to database
+            if not errors:
+                data.save()
+                button += 1
+                messages.success(request, u"Інформацію про групу %s успішно змінено" %
+                    data.title)
+#                status_message = u"Студент %s %s успішно доданий" % (student.last_name,
+#                                student.first_name)
+            else:
+                addition['group'] = {'id': data.id}
+
+        elif request.POST.get('cancel_button') is not None:
+        # Press Cancel Button
+            button += 1
+            messages.warning(request, u"Редагування групи скасовано")
+#            status_message = u"Додавання студента скасовано"
+        
+    else:
+        try:
+            addition['group'] = data
+        except:
+            messages.error(request, u"Оберіть існуючу групу для редагування")
+            button = 1
+    if button != 0:    
+        return HttpResponseRedirect(reverse('groups'))#u"%s?status_message=%s" %
+#               (reverse('home'), status_message))
+    else:
+        return render(request, 'students/groups_edit.html', 
+            {'groups_all': groups_all, 'addition': addition, 'errors': errors })
 
 # Delete Page
 
