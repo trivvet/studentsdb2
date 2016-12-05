@@ -32,6 +32,10 @@ class Exam(models.Model):
         null=True,
         on_delete=models.CASCADE)
 
+    notes = models.TextField(
+        blank=True,
+        verbose_name=u"Додаткові нотатки")
+
     def __unicode__(self):
         return u"%s (%s, %s)" % (self.name, self.exam_group.title,
         self.date.date())

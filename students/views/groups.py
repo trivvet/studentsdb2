@@ -187,20 +187,37 @@ class GroupDeleteView(DeleteView):
         return u"%s?status_message=Групу успішно видалено!" % reverse('groups')
   
 def groups_delete(request, gid):
-    groups = Group.objects.all()
-    group = groups.get(pk=gid)
+    groups_all = Group.objects.all()
+    button = 0
+
+    try:
+        data = Group.objects.get(pk=gid)
+    except:
+        messages.error(request, u"Оберіть існуючу групу для видалення")
+        button = 1
+
     if request.method == "POST":
         if request.POST.get('delete_button') is not None:
-            try: 
-                group.delete()
-                message = u"=Групу успішно видалено"
-            except:
-                message = u"Виберіть коректну групу"
+            students_of_group = Student.objects.filter(student_group=data.id)
+            if students_of_group:
+                messages.error(request, u"Видалення неможливе - в групі %s є студенти" % data.title)
+                button += 1
+            else:
+                try: 
+                    data.delete()
+                    messages.success(request, u"Групу %s успішно видалено" % data.title)
+                    button += 1
+                except:
+                    messages.error(request, u"Оберіть існуючу групу для видалення")
+                    button += 1
         elif request.POST.get('cancel_button') is not None:
-            message = u"Видалення групи відмінено"
-        return HttpResponseRedirect(
-               u"%s?status_message=%s!" % (reverse('groups'), message))
+            messages.warning(request, u"Видалення групи скасовано")
+            button += 1
+            
+    if button != 0:    
+        return HttpResponseRedirect(reverse('groups'))#u"%s?status_message=%s" %
+#               (reverse('home'), status_message))
     else:
         return render(request, 'students/groups_confirm_delete.html', 
-            {'groups_all': groups, 'object': group})
+            {'groups_all': groups_all, 'object': data})
   
