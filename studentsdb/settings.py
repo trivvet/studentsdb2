@@ -86,15 +86,15 @@ DATABASES = {
 #        'NAME': os.path.join(BASE_DIR, '..', 'db.sqlite3'),
 #    }
      'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'students_db',
-         'HOST': 'localhost',
-         'USER': 'students_db_user',
-         'PASSWORD': 'password',
-#         'OPTIONS': {
-#             'read_default_file': os.path.join(BASE_DIR, '..', 'db.cnf'),
-#         },
+         'ENGINE': 'django.db.backends.mysql',
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'students_db',
+#         'HOST': 'localhost',
+#         'USER': 'students_db_user',
+#         'PASSWORD': 'password',
+         'OPTIONS': {
+             'read_default_file': os.path.join(BASE_DIR, '..', 'db.cnf'),
+         },
      }
 }
 

@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import UpdateView, ListView, DeleteView
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView
 from django.forms import ModelForm
 
 from crispy_forms.helper import FormHelper
@@ -206,6 +206,100 @@ def students_add(request):
             {'groups_all': groups, 'addition': addition, 'errors': errors })
 
 # Edit Form
+class StudentAddForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ['first_name', 'last_name', 'middle_name', 'birthday',
+              'photo', 'student_group', 'ticket', 'notes']
+        first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': u"Введіть ім'я студента"}))
+
+        #first_name = models.CharField(
+        #max_length=256,
+        #blank=False,
+        #verbose_name=u"Ім’я")
+        
+    #last_name = models.CharField(
+        #max_length=256,
+        #blank=False,
+        #verbose_name=u"Прізвище",
+        #widget=forms.TextInput(attrs={'placeholder': u"Введіть прізвище студента"}))
+        
+    #middle_name = models.CharField(
+        #max_length=256,
+        #blank=True,
+        #verbose_name=u"По-батькові",
+        #default='',
+        #widget=forms.TextInput(attrs={'placeholder': u"Введіть ім'я по-батькові студента"}))
+        
+    #birthday = models.DateField(
+        #blank=False,
+        #verbose_name=u"Дата народження",
+        #null=True,
+        #widget=forms.TextInput(attrs={'placeholder': u"напр. 1984-06-17"}))
+        
+    #photo = models.ImageField(
+        #blank=True,
+        #verbose_name=u"Фото",
+        #null=True)
+        
+    #ticket = models.CharField(
+        #max_length=256,
+        #blank=False,
+        #verbose_name=u"Білет",
+        #widget=forms.TextInput(attrs={'placeholder': u"напр. 123"}))
+
+    #student_group = models.ForeignKey('Group',
+        #verbose_name=u"Група",
+        #blank=False,
+        #null=True,
+        #on_delete=models.PROTECT)
+        
+    #notes = models.TextField(
+        #blank=True,
+        #verbose_name=u"Додаткові нотатки",
+        #widget=forms.Textarea(attrs={'placeholder': u"Додаткова інформація"}))
+
+    def __init__(self, *args, **kwargs):
+        super(StudentAddForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+
+        # set form tag attributes
+        self.helper.action = reverse('students_add')
+        self.helper.form_method = 'POST'
+        self.helper.form_class = 'form-horizontal'
+
+        # set form field properties
+        self.helper.help_text_inline = True
+        self.helper.html5_required = False
+        self.helper.attrs = {'novalidate': ''}
+        self.helper.label_class = 'col-sm-2 control-label'
+        self.helper.field_class = 'col-sm-10'
+
+
+        # add buttons
+        self.helper.layout.append(Layout(
+            FormActions(
+                Submit('add_button', u'Додати'),
+                Submit('cancel_button', u'Скасувати', css_class='btn-link')
+            )
+        ))
+
+class StudentAddView(CreateView):
+    model = Student
+    template_name = 'students/students_add_class.html'
+    form_class = StudentAddForm
+    
+    @property
+    def success_url(self):
+        return u"%s?status_message=Студента успішно додано!" % reverse('home')
+        
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            return HttpResponseRedirect(
+                   u"%s?status_message=Додавання студента відмінено!" % 
+                   reverse('home'))
+        else:
+            return super(StudentAddView, self).post(request, *args, **kwargs)
         
 class StudentUpdateForm(forms.ModelForm):
     class Meta:

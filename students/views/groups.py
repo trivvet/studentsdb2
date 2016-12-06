@@ -187,7 +187,7 @@ class GroupDeleteView(DeleteView):
         return u"%s?status_message=Групу успішно видалено!" % reverse('groups')
   
 def groups_delete(request, gid):
-    groups_all = Group.objects.all()
+    groups_all = Group.objects.all().order_by('title')
     button = 0
 
     try:
