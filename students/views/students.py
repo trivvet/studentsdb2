@@ -10,7 +10,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView
-from django.forms import ModelForm
+from django.forms import ModelForm, ValidationError
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -427,6 +427,16 @@ class StudentUpdateForm(forms.ModelForm):
                 Submit('cancel_button', u'Скасувати', css_class='btn-link')
             )
         ))
+
+    def clean(self):
+        cleaned_data = super(StudentUpdateForm, self).clean()
+
+        group = Group.objects.filter(leader=self.instance)
+        if len(group) > 0 and cleaned_data.get('student_group') != group[0]:
+            self.add_error('student_group', ValidationError(
+                u"Студент є старостою іншої групи"))
+        return cleaned_data
+    
 
 class StudentUpdateView(UpdateView):
     model = Student
