@@ -3,7 +3,7 @@
 {% load static from staticfiles %}
 {% load crispy_forms_tags %}
 
-{% block meta_title %} Додавання Студента{% endblock meta_title %}
+{% block meta_title %}{{ title }}{% endblock meta_title %}
 
 {% block status_message %}
 {% if form.errors %}
@@ -12,7 +12,7 @@
 {% endif %}
 {% endblock %}
 
-{% block title %}Додати Студента{% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
 
 {% block content %}
       

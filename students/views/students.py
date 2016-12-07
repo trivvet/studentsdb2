@@ -253,15 +253,19 @@ class StudentAddForm(forms.ModelForm):
 
 class StudentAddView(CreateView):
     model = Student
-    template_name = 'students/students_add_class.html'
+    template_name = 'students/form_class.html'
     form_class = StudentAddForm
     
-    @property
-    def success_url(self):
+    def get_success_url(self):
         messages.success(self.request,
             u"Студента %s успішно додано" % self.object)
         return reverse('home')
         
+    def get_context_data(self, **kwargs):
+        context = super(StudentAddView, self).get_context_data(**kwargs)
+        context['title'] = u'Додавання студента'
+        return context
+
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
             messages.warning(request, u"Додавання студента відмінено")
@@ -426,14 +430,18 @@ class StudentUpdateForm(forms.ModelForm):
 
 class StudentUpdateView(UpdateView):
     model = Student
-    template_name = 'students/students_edit_class.html'
+    template_name = 'students/form_class.html'
     form_class = StudentUpdateForm
     
-    @property
-    def success_url(self):
+    def get_success_url(self):
         messages.success(self.request,
             u"Студента %s успішно збережено" % self.object)
         return reverse('home')
+
+    def get_context_data(self, **kwargs):
+        context = super(StudentUpdateView, self).get_context_data(**kwargs)
+        context['title'] = u'Редагування студента'
+        return context
         
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
@@ -494,8 +502,7 @@ class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'students/student_confirm_delete_class.html'
 
-    @property
-    def success_url(self):
+    def get_success_url(self):
         messages.success(self.request,
             u"Студента %s успішно видалено" % self.object)
         return reverse('home')

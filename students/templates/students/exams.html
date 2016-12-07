@@ -50,7 +50,7 @@
     <tr>
       <td><a href="{% url "exams_edit" exam.id %}">{{ exam.name }}</a></td>
       <td>{{ exam.date }}</td>
-      <td><a href="#">{{ exam.teacher_name }}</a></td>
+      <td>{{ exam.teacher_name }}</td>
       <td><a href="{% url "groups_edit" exam.exam_group.id %}">
         {{ exam.exam_group.title }}</a></td>
       <td>

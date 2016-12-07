@@ -101,7 +101,6 @@
           {% endif %}
           {% if messages %}
           {% for message in messages %}
-          {{ message }}
             <div class="alert alert-{% if message.tags == 'error' %}danger
                  {% else %}{{ message.tags }}{% endif %}
                  "

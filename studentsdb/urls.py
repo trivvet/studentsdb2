@@ -19,7 +19,8 @@ from django.views import static
 
 from students.views import students, groups, journal, exams, results, contact_admin
 from students.views.students import StudentUpdateView, StudentList, StudentDeleteView
-from students.views.groups import GroupDeleteView
+from students.views.groups import GroupAddView, GroupUpdateView, GroupDeleteView
+from students.views.exams import ExamAddView, ExamUpdateView, ExamDeleteView
 # from contact_form.views import ContactFormView
 from students.views.contact_admin import ContactView
 
@@ -41,23 +42,27 @@ urlpatterns = [
   
     #Groups urls
     url(r'^groups/$', groups.groups_list, name='groups'),
-    url(r'^groups/add/$', groups.groups_add, name='groups_add'),
-    url(r'^groups/(?P<gid>\d+)/edit', groups.groups_edit, 
+#    url(r'^groups/add/$', groups.groups_add, name='groups_add'),
+    url(r'^groups/add/$', GroupAddView.as_view(), name='groups_add'),
+#    url(r'^groups/(?P<gid>\d+)/edit', groups.groups_edit,
+    url(r'^groups/(?P<pk>\d+)/edit', GroupUpdateView.as_view(),
         name='groups_edit'),
-    url(r'^groups/(?P<gid>\d+)/delete', groups.groups_delete,
+#    url(r'^groups/(?P<gid>\d+)/delete', groups.groups_delete,
+    url(r'^groups/(?P<pk>\d+)/delete', groups.GroupDeleteView.as_view(),
         name='groups_delete'),
-#    url(r'^groups/(?P<pk>\d+)/delete', groups.GroupDeleteView.as_view(),
-#        name='groups_delete'),
   
     # Journal url  
     url(r'^journal/$', journal.journal_list, name='journal'),
 
     # Exams urls
     url(r'^exams/$', exams.exams_list, name='exams'),
-    url(r'^exams/add/$', exams.exams_add, name='exams_add'),
-    url(r'^exams/(?P<eid>\d+)/edit', exams.exams_edit, 
+#    url(r'^exams/add/$', exams.exams_add, name='exams_add'),
+    url(r'^exams/add/$', ExamAddView.as_view(), name='exams_add'),
+#    url(r'^exams/(?P<eid>\d+)/edit', exams.exams_edit,
+    url(r'^exams/(?P<pk>\d+)/edit', ExamUpdateView.as_view(), 
         name='exams_edit'),
-    url(r'^exams/(?P<eid>\d+)/delete', exams.exams_delete,
+#    url(r'^exams/(?P<eid>\d+)/delete', exams.exams_delete,
+    url(r'^exams/(?P<pk>\d+)/delete', ExamDeleteView.as_view(),
         name='exams_delete'),
         
     # Results urls
