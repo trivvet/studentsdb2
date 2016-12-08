@@ -31,9 +31,20 @@ class StudentAdmin(admin.ModelAdmin):
     list_per_page = 5
     search_fields = ['last_name', 'first_name', 'middle_name', 'ticket', 'notes']
     form = StudentFormAdmin
+    actions = ['made_copies']
 
     def view_on_site(self, obj):
         return reverse('students_edit', kwargs={'pk': obj.id})
+
+    def made_copies(modeladmin, request, queryset):
+        for student in queryset.all():
+            new_queryset = Student(
+                first_name=student.first_name, last_name=student.last_name,
+                middle_name=student.middle_name, birthday=student.birthday,
+                photo=student.photo, student_group=student.student_group,
+                ticket=student.ticket, notes=student.notes)
+            new_queryset.save()
+    made_copies.short_description = u"Копіювати обраних студентів"
 
 class GroupFormAdmin(ModelForm):
     def clean_leader(self):

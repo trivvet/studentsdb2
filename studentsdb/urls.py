@@ -76,7 +76,6 @@ urlpatterns = [
     # Contact Admin Form
 #    url(r'^contact-admin/$', contact_admin.contact_admin, name="contact_admin"),
     url(r'^contact-admin/$', ContactView.as_view(), name="contact_admin"),
-#    url(r'^contact-admin/$', ContactFormView.as_view(), name="contact_admin"),
     
     url(r'^admin/', admin.site.urls),
 ]
