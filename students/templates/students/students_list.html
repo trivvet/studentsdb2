@@ -15,103 +15,118 @@
 {% block content %}
 <!-- Start Students Listing -->
 
-{% if students %}
-
-{% with order_by=request.GET.order_by reverse=request.GET.reverse %}
-<table class="table table-hover table-striped">
-  <thead>
-    <tr>
-      <th>
-        <a href="{% url "home" %}?order_by=id{% if order_by == 'id' and reverse != '1' %}&reverse=1
-          {% endif %}">
-           № {% if order_by == 'id' and reverse != '1' %} &uarr;
-          {% elif order_by == 'id' and reverse == '1' %}
-          &darr;
-          {% endif %}
-        </a>
-      </th>
-      <th>Фото</th>
-      <th>
-        <a href="{% url "home" %}?order_by=last_name{% if order_by == 'last_name' and reverse != '1' or order_by == ''%}&reverse=1
-          {% endif %}">
-           Прізвище {% if order_by == 'last_name' and reverse != '1' or order_by == '' %} &uarr;
-          {% elif order_by == 'last_name' and reverse == '1' %}
-          &darr;
-          {% endif %}
-        </a>
-      </th>
-      <th>
-        <a href="{% url "home" %}?order_by=first_name{% if order_by == 'first_name' and reverse != '1' %}&reverse=1
-          {% endif %}">
-          Ім’я{% if order_by == 'first_name' and reverse != '1' %} &uarr;
-          {% elif order_by == 'first_name' and reverse == '1' %}
-          &darr;
-          {% endif %}
-        </a>
-      </th>
-      <th>
-        <a href="{% url "home" %}?order_by=ticket{% if order_by == 'ticket' and reverse != '1' %}&reverse=1
-          {% endif %}">
-          № Білету{% if order_by == 'ticket' and reverse != '1' %} &uarr;
-          {% elif order_by == 'ticket' and reverse == '1' %}
-          &darr;
-          {% endif %}
-        </a>
-      </th>
-      <th>Дії</th>
-    </tr>
-  </thead>
-  <tbody>
+<form id="change-student-list" method="post" action=".">
+  {% csrf_token %}
   
-    {% for student in students %}
-      
+  {% if students %}
+  
+  {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
+  <table class="table table-hover table-striped">
+    <thead>
       <tr>
-        <td>{{ student.id }}</td>
-        <td>
-          <img height="30" width="30" 
-               {% if student.photo %}
-               src="{{ student.photo.url }}"
-               {% else %}
-               src={{ PORTAL_URL }}{% static "img/default_user.png" %}
-               {% endif %} 
-               class="img-circle">
-        </td>
-        <td>
-          <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}">
-             {{ student.last_name }}</a>
-        </td>
-        <td>
-          <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}">
-             {{ student.first_name }}</a></td>
-        <td>{{ student.ticket }}</td>
-        <td>
-          <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" 
-                    type="button" data-toggle="dropdown" >Дія
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" 
-                aria-labelledby="dropdownMenu1">
-              <li>
-                <a href="{{ PORTAL_URL }}{% url "journal" %}">Відвідування</a>
-              </li>
-              <li>
-                <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}">
-                   Редагувати</a>
-              </li>
-              <li>
-                <a href="{{ PORTAL_URL }}{% url "students_delete" student.id %}">
-                   Видалити</a>
-                </li>
-            </ul>
-          </div>
-        </td>
+        <th><input type="checkbox" name="delete-check" value="all"></th>
+        <th>
+          <a href="{% url "home" %}?order_by=id{% if order_by == 'id' and reverse != '1' %}&reverse=1
+            {% endif %}">
+             № {% if order_by == 'id' and reverse != '1' %} &uarr;
+            {% elif order_by == 'id' and reverse == '1' %}
+            &darr;
+            {% endif %}
+          </a>
+        </th>
+        <th>Фото</th>
+        <th>
+          <a href="{% url "home" %}?order_by=last_name{% if order_by == 'last_name' and reverse != '1' or order_by == ''%}&reverse=1
+            {% endif %}">
+             Прізвище {% if order_by == 'last_name' and reverse != '1' or order_by == '' %} &uarr;
+            {% elif order_by == 'last_name' and reverse == '1' %}
+            &darr;
+            {% endif %}
+          </a>
+        </th>
+        <th>
+          <a href="{% url "home" %}?order_by=first_name{% if order_by == 'first_name' and reverse != '1' %}&reverse=1
+            {% endif %}">
+            Ім’я{% if order_by == 'first_name' and reverse != '1' %} &uarr;
+            {% elif order_by == 'first_name' and reverse == '1' %}
+            &darr;
+            {% endif %}
+          </a>
+        </th>
+        <th>
+          <a href="{% url "home" %}?order_by=ticket{% if order_by == 'ticket' and reverse != '1' %}&reverse=1
+            {% endif %}">
+            № Білету{% if order_by == 'ticket' and reverse != '1' %} &uarr;
+            {% elif order_by == 'ticket' and reverse == '1' %}
+            &darr;
+            {% endif %}
+          </a>
+        </th>
+        <th>Дії</th>
       </tr>
+    </thead>
+    <tbody>
     
-    {% endfor %}
-    
-  </tbody>
-</table>
+      {% for student in students %}
+        
+        <tr>
+          <td><input type="checkbox" name="delete-check" value="{{ student.id }}"></td>
+          <td>{{ forloop.counter|add:addition.counter }}</td>
+          <td>
+            <img height="30" width="30" 
+                 {% if student.photo %}
+                 src="{{ student.photo.url }}"
+                 {% else %}
+                 src={{ PORTAL_URL }}{% static "img/default_user.png" %}
+                 {% endif %} 
+                 class="img-circle">
+          </td>
+          <td>
+            <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}">
+               {{ student.last_name }}</a>
+          </td>
+          <td>
+            <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}">
+               {{ student.first_name }}</a></td>
+          <td>{{ student.ticket }}</td>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" 
+                      type="button" data-toggle="dropdown" >Дія
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" 
+                  aria-labelledby="dropdownMenu1">
+                <li>
+                  <a href="{{ PORTAL_URL }}{% url "journal" %}">Відвідування</a>
+                </li>
+                <li>
+                  <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}">
+                     Редагувати</a>
+                </li>
+                <li>
+                  <a href="{{ PORTAL_URL }}{% url "students_delete" student.id %}">
+                     Видалити</a>
+                  </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      
+      {% endfor %}
+      
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <label class="control-label">Дія: </label>
+    <select class='work-options' name="action">
+      <option selected>--------------------------</option>
+      <option value="delete">Видалити обраних студентів</option>
+    </select>
+    <input type="submit" value="Виконати">
+  </div>
+</form>
 <!--
 <button class="btn btn-primary" href="{% url "home" %}" id="add_page">
    Додати Студента</button> 

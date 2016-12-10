@@ -47,6 +47,10 @@ class StudentList(ListView):
 
 def students_list(request):
   
+    if request.method == "POST":
+        if request.POST.get('action'):
+            import pdb; pdb.set_trace()
+
     students = Student.objects.all()
     
     # try to order student list
@@ -99,9 +103,11 @@ def students_list(request):
     else:
         addition = {}
     # end handmade paginator
+
+    addition['counter'] = 3* (addition['page'] - 1)
     
     groups = Group.objects.all().order_by('title')
-    
+        
     return render(request, 'students/students_list.html', 
         {'students': students, 'groups_all': groups, 'addition': addition})
 

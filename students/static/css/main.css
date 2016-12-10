@@ -12,6 +12,10 @@ a.header {
   text-decoration: none;
 }
 
+.subheader {
+  margin-bottom: 10px;
+}
+
 /* Group Selector */
 #group-selector {
   margin-top: 30px;

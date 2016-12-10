@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 from django.conf import global_settings
 
-from sensitive_data import PASSWORD, EMAIL_FROM, EMAIL_TO, PASSWORD2, EMAIL_FROM2, EMAIL_TO2
+from sensitive_data import PASSWORD, EMAIL_FROM, EMAIL_TO
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -86,15 +86,15 @@ DATABASES = {
 #        'NAME': os.path.join(BASE_DIR, '..', 'db.sqlite3'),
 #    }
      'default': {
-         'ENGINE': 'django.db.backends.mysql',
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'students_db',
-#         'HOST': 'localhost',
-#         'USER': 'students_db_user',
-#         'PASSWORD': 'password',
-         'OPTIONS': {
-             'read_default_file': os.path.join(BASE_DIR, '..', 'db.cnf'),
-         },
+#         'ENGINE': 'django.db.backends.mysql',
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'students_db',
+         'HOST': 'localhost',
+         'USER': 'students_db_user',
+         'PASSWORD': 'password',
+#         'OPTIONS': {
+#             'read_default_file': os.path.join(BASE_DIR, '..', 'db.cnf'),
+#         },
      }
 }
 
@@ -141,11 +141,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 
 # email settings
-ADMIN_EMAIL = EMAIL_TO2
-EMAIL_HOST = 'smtp.mandrillapp.com'
-EMAIL_PORT = '587'
-EMAIL_HOST_USER = EMAIL_FROM2
-EMAIL_HOST_PASSWORD = PASSWORD2
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+ADMIN_EMAIL = EMAIL_TO
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '465'
+EMAIL_HOST_USER = EMAIL_FROM
+EMAIL_HOST_PASSWORD = PASSWORD
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 

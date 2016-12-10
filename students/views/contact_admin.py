@@ -62,7 +62,6 @@ class ContactView(FormView):
         from_email = form.cleaned_data['from_email']
 
         send_mail(subject, message, from_email, [ADMIN_EMAIL])
-        import pdb; pdb.set_trace()
 
         return super(ContactView, self).form_valid(form)
 
