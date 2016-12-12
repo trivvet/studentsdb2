@@ -46,10 +46,6 @@ class StudentList(ListView):
       return qs.order_by('last_name')
 
 def students_list(request):
-  
-    if request.method == "POST":
-        if request.POST.get('action'):
-            import pdb; pdb.set_trace()
 
     students = Student.objects.all()
     
@@ -108,6 +104,50 @@ def students_list(request):
     
     groups = Group.objects.all().order_by('title')
         
+    # realisation checkboxes
+    message_error = 0
+    if request.method == "POST":
+
+        # if press act-button
+        if request.POST.get('action_button'):
+            # if selected at least one student and selected need action
+            if request.POST.get('action-group') == 'delete' and request.POST.get('delete-check'):
+                students_delete = []
+                students_id = []
+                for el in request.POST.getlist('delete-check'):
+                    try:
+                        students_delete.append(Student.objects.get(pk=int(el)))
+                        students_id.append(el)
+                    except:
+                        message_error += 1
+                        messages.danger(request,
+                            u"Будь-ласка, оберіть студентів зі списку")
+                if message_error == 0:
+                    return render(request, 'students/students_group_confirm_delete.html', 
+                        {'students': students_delete, 'groups_all': groups,
+                         'students_id': students_id})
+            # if selected action but didn't select students
+            elif request.POST.get('action-group') == 'delete':
+                messages.warning(request, u"Будь-ласка, оберіть хоча б одного студента")
+            # if didn't select action
+            else:
+                messages.warning(request, u"Будь-ласка, оберіть потрібну дію")
+        elif request.POST.get('delete_button'):
+            for el in request.POST.getlist('students_id'):
+                try:
+                    student_delete = Student.objects.get(pk=int(el))
+                    student_delete.delete()
+                except:
+                    message_error += 1
+                    break
+            if message_error == 0:
+                messages.success(request, u"Студентів успішно видалено")
+            else:
+                messages.error(request,
+                    u"Видалити обраних студентів неможливо, спробуйте пізніше")
+        elif request.POST.get('cancel_button'):
+            messages.warning(request, u"Видалення обраних студентів скасовано")
+
     return render(request, 'students/students_list.html', 
         {'students': students, 'groups_all': groups, 'addition': addition})
 
@@ -212,7 +252,7 @@ def students_add(request):
             {'groups_all': groups, 'addition': addition, 'errors': errors })
 
 # Add Form Class
-class StudentAddForm(forms.ModelForm):
+class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = ['first_name', 'last_name', 'middle_name', 'birthday',
@@ -233,11 +273,20 @@ class StudentAddForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(StudentAddForm, self).__init__(*args, **kwargs)
+        super(StudentForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
 
+        # add form or edit form
+        if kwargs['instance'] is None:
+            add_form = True
+        else:
+            add_form = False
+
         # set form tag attributes
-        self.helper.action = reverse('students_add')
+        if add_form:
+            self.helper.action = reverse('students_add')
+        else:
+            self.helper.action = reverse_lazy('students_edit', kwargs['instance'].id)
         self.helper.form_method = 'POST'
         self.helper.form_class = 'form-horizontal'
 
@@ -250,17 +299,32 @@ class StudentAddForm(forms.ModelForm):
 
 
         # add buttons
+        if add_form:
+            submit = Submit('add_button', u'Додати')
+        else:
+            submit = Submit('save_button', u'Зберегти')
+            
         self.helper.layout.append(Layout(
             FormActions(
-                Submit('add_button', u'Додати'),
+                submit,
                 Submit('cancel_button', u'Скасувати', css_class='btn-link')
             )
         ))
 
+    def clean(self):
+        cleaned_data = super(StudentForm, self).clean()
+        
+        if self.instance:
+            group = Group.objects.filter(leader=self.instance)
+            if len(group) > 0 and cleaned_data.get('student_group') != group[0]:
+                self.add_error('student_group', ValidationError(
+                    u"Студент є старостою іншої групи"))
+        return cleaned_data
+
 class StudentAddView(CreateView):
     model = Student
     template_name = 'students/form_class.html'
-    form_class = StudentAddForm
+    form_class = StudentForm
     
     def get_success_url(self):
         messages.success(self.request,
@@ -389,65 +453,10 @@ def students_edit(request, sid):
 
 # Edit Form Class
 
-class StudentUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Student
-        fields = ['first_name', 'last_name', 'middle_name', 'birthday',
-              'photo', 'student_group', 'ticket', 'notes']
-        widgets = {
-            'first_name': forms.TextInput(
-                attrs={'placeholder': u"Введіть ім’я студента"}),
-            'last_name': forms.TextInput(
-                attrs={'placeholder': u"Введіть прізвище студента"}),
-            'middle_name': forms.TextInput(
-                attrs={'placeholder': u"Введіть ім’я по-батькові студента"}),
-            'birthday': forms.TextInput(
-            attrs={'placeholder': u"напр. 1984-06-17"}),
-            'ticket': forms.TextInput(attrs={'placeholder': u"напр. 123"}),
-            'notes': forms.Textarea(
-                attrs={'placeholder': u"Додаткова інформація",
-                       'rows': '3'}),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(StudentUpdateForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-
-        # set form tag attributes
-        self.helper.action = reverse_lazy('students_edit', kwargs['instance'].id)
-        self.helper.form_method = 'POST'
-        self.helper.form_class = 'form-horizontal'
-
-        # set form field properties
-        self.helper.help_text_inline = True
-        self.helper.html5_required = False
-        self.helper.attrs = {'novalidate': ''}
-        self.helper.label_class = 'col-sm-2 control-label'
-        self.helper.field_class = 'col-sm-10'
-
-
-        # add buttons
-        self.helper.layout.append(Layout(
-            FormActions(
-                Submit('add_button', u'Зберегти'),
-                Submit('cancel_button', u'Скасувати', css_class='btn-link')
-            )
-        ))
-
-    def clean(self):
-        cleaned_data = super(StudentUpdateForm, self).clean()
-
-        group = Group.objects.filter(leader=self.instance)
-        if len(group) > 0 and cleaned_data.get('student_group') != group[0]:
-            self.add_error('student_group', ValidationError(
-                u"Студент є старостою іншої групи"))
-        return cleaned_data
-    
-
 class StudentUpdateView(UpdateView):
     model = Student
     template_name = 'students/form_class.html'
-    form_class = StudentUpdateForm
+    form_class = StudentForm
     
     def get_success_url(self):
         messages.success(self.request,

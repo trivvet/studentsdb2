@@ -80,24 +80,7 @@ WSGI_APPLICATION = 'studentsdb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, '..', 'db.sqlite3'),
-#    }
-     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'students_db',
-         'HOST': 'localhost',
-         'USER': 'students_db_user',
-         'PASSWORD': 'password',
-#         'OPTIONS': {
-#             'read_default_file': os.path.join(BASE_DIR, '..', 'db.cnf'),
-#         },
-     }
-}
-
+from sensitive_data import DATABASES
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -148,4 +131,22 @@ EMAIL_HOST_USER = EMAIL_FROM
 EMAIL_HOST_PASSWORD = PASSWORD
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
+
+#DATABASES = {
+##    'default': {
+##        'ENGINE': 'django.db.backends.sqlite3',
+##        'NAME': os.path.join(BASE_DIR, '..', 'db.sqlite3'),
+##    }
+     #'default': {
+         #'ENGINE': 'django.db.backends.mysql',
+##         'ENGINE': 'django.db.backends.postgresql',
+##         'NAME': 'students_db',
+##         'HOST': 'localhost',
+##         'USER': 'students_db_user',
+##         'PASSWORD': 'password',
+         #'OPTIONS': {
+             #'read_default_file': os.path.join(BASE_DIR, '..', 'db.cnf'),
+         #},
+     #}
+#}
 

@@ -24,7 +24,7 @@
   <table class="table table-hover table-striped">
     <thead>
       <tr>
-        <th><input type="checkbox" name="delete-check" value="all"></th>
+        <th><input type="checkbox" name="delete-check" value="all" disabled></th>
         <th>
           <a href="{% url "home" %}?order_by=id{% if order_by == 'id' and reverse != '1' %}&reverse=1
             {% endif %}">
@@ -70,7 +70,8 @@
       {% for student in students %}
         
         <tr>
-          <td><input type="checkbox" name="delete-check" value="{{ student.id }}"></td>
+          <td><input type="checkbox" name="delete-check"
+               value="{{ student.id }}"></td>
           <td>{{ forloop.counter|add:addition.counter }}</td>
           <td>
             <img height="30" width="30" 
@@ -120,11 +121,11 @@
 
   <div class="actions">
     <label class="control-label">Дія: </label>
-    <select class='work-options' name="action">
+    <select class='work-options' name="action-group">
       <option selected>--------------------------</option>
       <option value="delete">Видалити обраних студентів</option>
     </select>
-    <input type="submit" value="Виконати">
+    <input type="submit" value="Виконати" name="action_button">
   </div>
 </form>
 <!--
