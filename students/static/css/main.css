@@ -54,7 +54,7 @@ p.none {
 }
 
 /* Style for Journal */
-th.day {
+th.day-header {
   text-align: center;
 }
 
@@ -66,7 +66,7 @@ th.day {
   font-weight: bold;
 }
 
-.table-journal {
+#students-journal {
   margin-top: 60px;
 }
 
@@ -74,7 +74,7 @@ th.day {
   float: block;
 }
 
-/* Style for studentForm */
+/* Style for StudentForm */
 label {
   font-weight: normal;
 }

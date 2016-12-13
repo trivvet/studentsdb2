@@ -8,7 +8,7 @@
 
 {% block add_button %}
 <!-- Add Student Button -->
-<a class="btn btn-primary" href="{% url "students_add" %}">
+<a id='add_button' class="btn btn-primary" href="{% url "students_add" %}">
    Додати Студента</a>
 {% endblock add_button %}
    
@@ -146,8 +146,10 @@
   
 {% endblock content %}
 
-{% block extr_js %}
+{% block extra_js %}
 <script 
   src="{{ PORTAL_URL }}{% static "js/student_list.js" %}">
 </script> 
-{% endblock extr_js %}   
+{% endblock extra_js %}
+
+ 

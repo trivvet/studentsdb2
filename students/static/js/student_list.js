@@ -1,18 +1,15 @@
-$(document).ready(function(){
-  
-  $('#add_page').click(function(){
-    $.ajax({
-      url: $(this).attr('href'),
-      success: function(result){
-        var trLast = $('tbody tr:last-child').clone();
-        trLast.children('td:nth-child(1)').html('1');
-        $('tbody tr:last-child').after(trLast);
-        for (r in result){
-          console.log(r['id']);
-        }
-        console.log(result);
-      }
-    });  
-  });
-  
-});
+var mylink = document.getElementById('add_button');
+mylink.addEventListener('click',
+    function(event) {
+        alert('add_button is clicked')
+    }
+);
+mylink.addEventListener('mouseover',
+    function(event) {
+        this.style.display = 'none';
+    }
+).addEventListener('mouseout',
+    function(event) {
+        this.style.display = '';
+    }
+);

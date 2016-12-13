@@ -2,11 +2,15 @@
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic import TemplateView
 
 from ..models.students import Student
 from ..models.groups import Group
 
 # View for Journal
+
+class JournalView(TemplateView):
+    template_name = 'students/journal.html'
 
 def journal_list(request):
     students = Student.objects.all().order_by('id')

@@ -21,6 +21,7 @@ from students.views import students, groups, journal, exams, results, contact_ad
 from students.views.students import StudentUpdateView, StudentList, StudentDeleteView
 from students.views.groups import GroupAddView, GroupUpdateView, GroupDeleteView
 from students.views.exams import ExamAddView, ExamUpdateView, ExamDeleteView
+from students.views.journal import JournalView
 # from contact_form.views import ContactFormView
 from students.views.contact_admin import ContactView
 
@@ -53,6 +54,7 @@ urlpatterns = [
   
     # Journal url  
     url(r'^journal/$', journal.journal_list, name='journal'),
+#    url(r'^journal/$', JournalView.as_view(), name='journal'),
 
     # Exams urls
     url(r'^exams/$', exams.exams_list, name='exams'),

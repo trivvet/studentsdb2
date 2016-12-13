@@ -2,7 +2,7 @@
 
 {% load static from staticfiles %}
 
-{% block meta_title %}Журнал{% endblock meta_title %}
+{% block meta_title %}Облік Відвідування{% endblock meta_title %}
 
 {% block title %}Облік Відвідування{% endblock title %}
 
@@ -12,28 +12,51 @@
 
 {% if students %}
 
-<h5 class="month">&larr; Листопад 2016 &rarr;</h3>
+<p id="journal-nav" class="month text-center">
+  <a href="?month={{ prev_month }}"
+     title="Попередній Місяць">&larr;</a>
+  <strong>{{ month_verbose }} {{ year }}</strong>
+  <a href="?month={{ next_month }}"
+     title="Наступний Місяць">&rarr;</a>
+</p>
       
 <!-- Start Group Listing -->
-<table class="table table-hover table-striped table-bordered table-journal">
+<table class="table table-hover table-striped table-bordered" id="students-journal">
+
   <thead>
-    <tr>
-      <th>№</th>
-      <th>Студент</th>
+    <tr class="header">
+      <th class="num">№</th>
+      <th class="name">Студент</th>
       {% for day in days %}
-      <th class="day">{{ day }}</br>{{ forloop.counter }}</th>
+      <th class="day-header">{{ day }}</br>{{ forloop.counter }}</th>
       {% endfor %}
     </tr>
   </thead>
+  
   <tbody>
+
+    {% csrf_token %}
+    
     {% for student in students %}
-    <!-- First Student -->
     <tr>
-      <td>{{ student.id }}</td>
-      <td><a href="#">{{ student.last_name }} {{student.first_name}}</a></td>
+      
+      <td>
+        {% if is_paginated %}
+            {{ page_obj.start_index|add:forloop.counter|add:'-1' }}
+        {% else %}
+            {{ forloop.counter }}
+        {% endif %}
+      </td>
+      
+      <td><a title="Редагувати" target="_blank"
+           href="{% url "students_edit" student.id %}">
+           {{ student.last_name }} {{student.first_name}}</a></td>
       {% for day in days %}
-      <td><input type="checkbox"></td>
+      <td class="day-box">
+        <input type="checkbox">
+      </td>
       {% endfor %}
+      
     </tr>
     {% endfor %}
   
@@ -42,7 +65,8 @@
 </table>
 
 {% else %}
-<p class='none'></br></br>Поки немає студентів у базі</p>
+<p class='none'></br></br>Поки немає жодного студента в базі. Будь-ласка, <a
+        href="{% url "students_add" %}">додайте</a> першого</p>
 {% endif %}
 
 <!-- End Students Listing -->
