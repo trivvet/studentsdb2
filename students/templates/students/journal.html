@@ -27,8 +27,8 @@
     <tr class="header">
       <th class="num">№</th>
       <th class="name">Студент</th>
-      {% for day in days %}
-      <th class="day-header">{{ day }}</br>{{ forloop.counter }}</th>
+      {% for day in month_header %}
+      <th class="day-header">{{ day.verbose }}</br>{{ day.day }}</th>
       {% endfor %}
     </tr>
   </thead>
@@ -50,10 +50,12 @@
       
       <td><a title="Редагувати" target="_blank"
            href="{% url "students_edit" student.id %}">
-           {{ student.last_name }} {{student.first_name}}</a></td>
-      {% for day in days %}
+           {{ student.fullname }}</a></td>
+      {% for day in student.days %}
       <td class="day-box">
-        <input type="checkbox">
+        <input type="checkbox" data-student-id="{{ student.id }}"
+               data-date="{{ day.date }}" data-url="{{ student.update_url }}"
+               value="1" {%if day.present %}checked="checked"{% endif %}>
       </td>
       {% endfor %}
       
