@@ -5,4 +5,4 @@ setuptools
 django-crispy-forms
 psycopg2
 django-contact-form
-pip install django-mandrill
+python-dateutil

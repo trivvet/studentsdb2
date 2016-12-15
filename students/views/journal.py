@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime, date
+from dateutil.relativedelta import relativedelta
+from calendar import monthrange, weekday, day_abbr
 
 from django.shortcuts import render, reverse
 from django.http import HttpResponse
@@ -18,37 +20,39 @@ class JournalView(TemplateView):
         # get context data from TemplateView class
         context = super(JournalView, self).get_context_data(**kwargs)
 
-        # перевіряємо чи передали на місяць в параметрі,
-        # якщо ні - вичисляємо поточний;
-        # поки що ми віддаємо лише поточний:
+        # check if we need to display some specific month
+        if self.request.GET.get('month'):
+            month = datetime.strptime(self.request.GET['month'],
+                '%Y-%m-%d').date()
+        else:
+            # othewise just display current month data
+            today = datetime.today()
+            month = date(today.year, today.month, 1)
 
-        today = datetime.today()
-        month = date(today.year, today.month, 1)
+        # calculate current, previous and next month dateils;
+        # we need this for month navigarion element in template
+        next_month = month + relativedelta(months=1)
+        prev_month = month - relativedelta(months=1)
+        context['prev_month'] = prev_month.strftime('%Y-%m-%d')
+        context['next_month'] = next_month.strftime('%Y-%m-%d')
+        context['year'] = month.year
+        context['month_verbose'] = month.strftime('%B')
 
-        # Обчислюємо поточний рік, попередній і наступний місяці
-        # а поки прибиваємо їх статично
-        context['prev_month'] = '2016-10-01'
-        context['next_month'] = '2016-12-01'
-        context['year'] = '2016'
+        # we'll use this variable in students pagination
+        context['cur_month'] = month.strftime('%Y-%m-%d')
 
-        # також поточний місяць;
-        # змінну cur_month ми використовуватимемо пізніше
-        # в пагінації; а month_verbose в
-        # навігації помісячній
-        context['cur_month'] = '2016-11-01'
-        context['month_verbose'] = u"Листопад"
+        # prepare variable for template to generate
+        # journal table header elements
 
-        # тут будемо обчислювати список днів у місяці,
-        # а поки заб’ємо статично
+        myear, mmonth = month.year, month.month
+        number_of_days = monthrange(myear, mmonth)[1]
         context['month_header'] = [
-            {'day': 1, 'verbose': 'Пн'},
-            {'day': 2, 'verbose': 'Вт'},
-            {'day': 3, 'verbose': 'Ср'},
-            {'day': 4, 'verbose': 'Чт'},
-            {'day': 5, 'verbose': 'Пт'}]
+            {'day': d,
+             'verbose': day_abbr[weekday(myear, mmonth, d)][:2]}
+            for d in range(1, number_of_days+1)]
 
-        # витягуємо усіх студентів посортованих по Прізвищу
-        queryset = Student.objects.order_by('last_name')
+        # get all students from database
+        queryset = Student.objects.all().order_by('last_name')
 
         # це адреса для посту AJAX запиту, як бачите, ми
         # робитимемо його на цю ж в’юшку; в’юшка журналу
@@ -59,15 +63,20 @@ class JournalView(TemplateView):
         # пробігаємось по усіх студентах і збираємо необхідні дані
         students = []
         for student in queryset:
-            # TODO: витягуємо журнал для студента і вибраного місяця
+            # try to get journal object by month selected
+            try:
+                journal = MonthJournal.objects.get(student=student, date=month)
+            except Exception:
+                journal = None
 
             # набиваємо дні для студента
             days = []
-            for day in range(1, 31):
+            for day in range(1, number_of_days+1):
                 days.append({
                     'day': day,
-                    'present': True,
-                    'date': date(2016, 11, day).strftime('%Y-%m%d'),
+                    'present': journal and getattr(journal,
+                        'present_day%s' % day, False) or False,
+                    'date': date(myear, mmonth, day).strftime('%Y-%m%d'),
                 })
 
             # набиваємо усі решту даних студента
