@@ -5,7 +5,7 @@
   <ul class="pagination">
     <li>
       <a href=
-         "{{ url_page }}?page=1&amp;order_by={{order_by }}&amp;reverse{{ reverse }}" 
+         "{{ url_page }}?page=1{% if order_by %}&amp;order_by={{order_by }}{% endif %}{% if reverse %}&amp;reverse{{ reverse }}{% endif %}{% if cur_month %}&amp;month={{ cur_month }}{% endif %}" 
           aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
@@ -13,13 +13,13 @@
     {% for p in addition.page_range %}
     <li {% if addition.page == p %}class="active"{% endif %}>
       <a href=
-         "{{ url_page }}?page={{ p }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}"
+         "{{ url_page }}?page={{ p }}{% if order_by %}&amp;order_by={{ order_by }}{% endif %}{% if reverse %}&amp;reverse={{ reverse }}{% endif %}{% if cur_month %}&amp;month={{ cur_month }}{% endif %}"
          >{{ p }}</a>
     </li>
     {% endfor %}
     <li>
       <a href=
-         "{{ url_page }}?page={{ addition.page_range | length }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}" 
+         "{{ url_page }}?page={{ addition.page_range | length }}{% if order_by %}&amp;order_by={{ order_by }}{% endif %}{% if reverse %}&amp;reverse={{ reverse }}{% endif %}{% if cur_month %}&amp;month={{ cur_month }}{% endif %}" 
          aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>

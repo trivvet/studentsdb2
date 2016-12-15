@@ -10,6 +10,7 @@ from django.views.generic import TemplateView
 
 from ..models.students import Student
 from ..models.groups import Group
+from ..util import paginate_hand
 
 # View for Journal
 
@@ -89,33 +90,8 @@ class JournalView(TemplateView):
 
         # застосовуємо пагінацію до списку студентів
         # handmade paginator
-        if queryset.count() > 0:
-            number = 5
-            try:
-                page = int(self.request.GET.get('page'))
-            except:
-                page = 1
-            num_pages = queryset.count() / number
-            if queryset.count() % number > 0:
-                num_pages += 1
-            # block for student_list template
-            if num_pages > 0:
-                page_range = []
-                for i in range(1, num_pages+1):
-                    page_range.append(i)
-                context['addition'] = {
-                    'has_other_pages': True,
-                    'page_range': page_range}
+        context = paginate_hand(students, 5, self.request, context, var_name='students')
         
-            if page > 0 and page < num_pages:
-                context['students'] = students[number*(page-1):number*page]
-                context['addition']['page'] = page
-            else:
-                context['students'] = students[number*(num_pages-1):queryset.count()]
-                context['addition']['page'] = num_pages
-        else:
-            context['addition'] = {}
-        # end handmade paginator
         return context
  
 def journal_list(request):
@@ -144,6 +120,9 @@ def journal_list(request):
         else:
             students = students[number*(num_pages-1):students.count()]
             addition['page'] = num_pages
+
+        addition['counter'] = 3 * (addition['page'] - 1)
+         
     else:
         addition = {}
     # end handmade paginator

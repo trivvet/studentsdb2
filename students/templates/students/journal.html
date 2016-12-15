@@ -41,8 +41,8 @@
     <tr>
       
       <td>
-        {% if is_paginated %}
-            {{ page_obj.start_index|add:forloop.counter|add:'-1' }}
+        {% if addition.counter %}
+            {{ forloop.counter|add:addition.counter }}
         {% else %}
             {{ forloop.counter }}
         {% endif %}
