@@ -54,20 +54,25 @@ p.none {
 }
 
 /* Style for Journal */
-th.day-header {
+th.day-header,
+td.day-box {
+  padding: 4px !important;
+  vertical-align: middle !important;
   text-align: center;
+}
+
+.alert-info {
+  position: relative;
+  top: 25px;
 }
 
 .month {
   position:relative;
-  left: 21%;
   top: 25px;
-  float: left;
-  font-weight: bold;
 }
 
 #students-journal {
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 .none {

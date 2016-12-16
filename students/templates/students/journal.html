@@ -12,6 +12,11 @@
 
 {% if students %}
 
+<div class="alert alert-info" role="info">
+    Зміни в журнал зберігаються автоматично при кожному кліку в клітинці таблиці
+    <span id="ajax-progress-indicator">Йде збереження...</span>
+</div>
+
 <p id="journal-nav" class="month text-center">
   <a href="?month={{ prev_month }}"
      title="Попередній Місяць">&larr;</a>
@@ -55,7 +60,7 @@
       <td class="day-box">
         <input type="checkbox" data-student-id="{{ student.id }}"
                data-date="{{ day.date }}" data-url="{{ student.update_url }}"
-               value="1" {%if day.present %}checked="checked"{% endif %}>
+               value="1" {% if day.present %}checked="checked"{% endif %}>
       </td>
       {% endfor %}
       

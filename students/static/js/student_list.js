@@ -6,7 +6,7 @@ mylink.addEventListener('click',
 );
 mylink.addEventListener('mouseover',
     function(event) {
-        this.style.display = 'none';
+        this.style.dislay = '';
     }
 ).addEventListener('mouseout',
     function(event) {

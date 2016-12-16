@@ -5,11 +5,12 @@ from dateutil.relativedelta import relativedelta
 from calendar import monthrange, weekday, day_abbr
 
 from django.shortcuts import render, reverse
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.generic import TemplateView
 
 from ..models.students import Student
 from ..models.groups import Group
+from ..models.journal import MonthJournal
 from ..util import paginate_hand
 
 # View for Journal
@@ -66,7 +67,7 @@ class JournalView(TemplateView):
         for student in queryset:
             # try to get journal object by month selected
             try:
-                journal = MonthJournal.objects.get(student=student, date=month)
+                journal = MonthJournal.objects.get(student_name=student, date=month)
             except Exception:
                 journal = None
 
@@ -76,8 +77,8 @@ class JournalView(TemplateView):
                 days.append({
                     'day': day,
                     'present': journal and getattr(journal,
-                        'present_day%s' % day, False) or False,
-                    'date': date(myear, mmonth, day).strftime('%Y-%m%d'),
+                        'present_day%d' % day, False) or False,
+                    'date': date(myear, mmonth, day).strftime('%Y-%m-%d'),
                 })
 
             # набиваємо усі решту даних студента
@@ -93,6 +94,25 @@ class JournalView(TemplateView):
         context = paginate_hand(students, 5, self.request, context, var_name='students')
         
         return context
+
+    def post(self, request, *args, **kwargs):
+        data = request.POST
+
+        # prepare student, dates and presense data
+        current_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
+        month = date(current_date.year, current_date.month, 1)
+        present = data['present'] and True or False
+        student = Student.objects.get(pk=data['pk'])
+#        import pdb; pdb.set_trace()
+
+        # get or create journal object for given student and month
+        journal = MonthJournal.objects.get_or_create(student_name=student, date=month)[0]
+        # set new presence on journal for given student and save result
+        setattr(journal, 'present_day%s' % current_date.day, present)
+        journal.save()
+
+        # return success status
+        return JsonResponse({'status': 'success'})
  
 def journal_list(request):
     students = Student.objects.all().order_by('id')
