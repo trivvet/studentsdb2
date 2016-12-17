@@ -17,7 +17,6 @@ from ..models.groups import Group
 # Groups List
 def groups_list(request):
     groups = Group.objects.all()
-    groups_all = groups.order_by('title')
 
     # groups ordering
     order_by = request.GET.get('order_by')
@@ -57,12 +56,11 @@ def groups_list(request):
         addition = {}
     
     return render(request, 'students/groups.html', {'groups': groups,
-        'groups_all': groups_all, 'addition': addition})
+        'addition': addition})
         
 # Add Form
   
 def groups_add(request):
-    groups_all = Group.objects.all().order_by('title')
     addition = {}
     addition['students_all'] = Student.objects.all().order_by('last_name')
     button = 0
@@ -109,7 +107,7 @@ def groups_add(request):
 #               (reverse('home'), status_message))
     else:
         return render(request, 'students/groups_add.html', 
-            {'groups_all': groups_all, 'addition': addition, 'errors': errors })
+            {'addition': addition, 'errors': errors })
 
 class GroupAddForm(forms.ModelForm):
     class Meta:
@@ -172,7 +170,6 @@ class GroupAddView(CreateView):
 # Edit Form
   
 def groups_edit(request, gid):
-    groups_all = Group.objects.all().order_by('title')
     addition = {}
     button = 0
     addition['students_all'] = Student.objects.all().order_by('last_name')
@@ -238,7 +235,7 @@ def groups_edit(request, gid):
 #               (reverse('home'), status_message))
     else:
         return render(request, 'students/groups_edit.html', 
-            {'groups_all': groups_all, 'addition': addition, 'errors': errors })
+            {'addition': addition, 'errors': errors })
 
 class GroupUpdateForm(forms.ModelForm):
     class Meta:
@@ -304,7 +301,6 @@ class GroupUpdateView(UpdateView):
 # Delete Form
   
 def groups_delete(request, gid):
-    groups_all = Group.objects.all().order_by('title')
     button = 0
 
     try:
@@ -336,7 +332,7 @@ def groups_delete(request, gid):
 #               (reverse('home'), status_message))
     else:
         return render(request, 'students/groups_confirm_delete.html', 
-            {'groups_all': groups_all, 'object': data})
+            {'object': data})
 
 class GroupDeleteView(DeleteView):
     model = Group

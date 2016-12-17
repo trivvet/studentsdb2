@@ -54,7 +54,10 @@ class JournalView(TemplateView):
             for d in range(1, number_of_days+1)]
 
         # get all students from database
-        queryset = Student.objects.all().order_by('last_name')
+        if kwargs.get('pk'):
+            queryset = Student.objects.filter(pk=kwargs['pk'])
+        else:
+            queryset = Student.objects.all().order_by('last_name')
 
         # це адреса для посту AJAX запиту, як бачите, ми
         # робитимемо його на цю ж в’юшку; в’юшка журналу
@@ -111,6 +114,9 @@ class JournalView(TemplateView):
         setattr(journal, 'present_day%s' % current_date.day, present)
         journal.save()
 
+        i = 0
+        while i < 10000000:
+            i += 1
         # return success status
         return JsonResponse({'status': 'success'})
  

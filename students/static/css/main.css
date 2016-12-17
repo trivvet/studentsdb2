@@ -1,6 +1,6 @@
 /* Global Styles */
 .alert {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 h1, h2, h3 {
@@ -10,10 +10,6 @@ h1, h2, h3 {
 a.header {
   color: #333;
   text-decoration: none;
-}
-
-.subheader {
-  margin-bottom: 10px;
 }
 
 /* Group Selector */
@@ -32,18 +28,18 @@ a.header {
 }
 
 /* Main Content Styles */
-#content-columns {
-  margin-top: 15px;
-}
 
 #content-column h2 {
-  float: left;
-  margin-top: 0px;
-  margin-right: 15px;
+  display: inline-block;
+  margin-right: 15px;  
 }
 
+#content-column a {
+  margin-bottom: 10px;
+}
+
+
 p.none {
-  margin-top: 10px;
   font-size: 16px;
 }
 
@@ -61,22 +57,8 @@ td.day-box {
   text-align: center;
 }
 
-.alert-info {
-  position: relative;
-  top: 25px;
-}
-
-.month {
-  position:relative;
-  top: 25px;
-}
-
-#students-journal {
-  margin-top: 30px;
-}
-
-.none {
-  float: block;
+#ajax-progress-indicator {
+   display: none;
 }
 
 /* Style for StudentForm */
@@ -93,9 +75,6 @@ a.form {
 }
 
 /* Form Styles */
-.form-horizontal {
-  margin-top: 60px;
-}
 
 textarea,
 select,

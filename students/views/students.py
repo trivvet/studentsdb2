@@ -101,8 +101,6 @@ def students_list(request):
     # end handmade paginator
 
     addition['counter'] = 3* (addition['page'] - 1)
-    
-    groups = Group.objects.all().order_by('title')
         
     # realisation checkboxes
     message_error = 0
@@ -149,7 +147,7 @@ def students_list(request):
             messages.warning(request, u"Видалення обраних студентів скасовано")
 
     return render(request, 'students/students_list.html', 
-        {'students': students, 'groups_all': groups, 'addition': addition})
+        {'students': students, 'addition': addition})
 
 # Add Form View
 

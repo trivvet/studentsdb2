@@ -45,8 +45,9 @@
             <option value="">Усі студенти</option>
             {% for group in groups_all %}
             
-            <option value="">{{ group.title }}, {{ group.leader.last_name }}
-                     {{group.leader.first_name }}</option>
+            <option value="{{ group.id }}"
+                    {% if group.selected %}selected="1"{% endif %}>
+                    {{ group.title }}, {{ group.leader }}</option>
             
             {% endfor %}
           </select>
@@ -109,10 +110,8 @@
           {% endif %}
           {% endblock status_message %}
           
-          <div class="subheader">
             <h2>{% block title %}{% endblock title %}</h2>
             {% block add_button %}{% endblock add_button %}
-          </div>
           {% block content %}{% endblock content %}
         
         </div>

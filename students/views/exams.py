@@ -19,7 +19,6 @@ from ..models.exams import Exam
 
 def exams_list(request):
     addition = {}
-    groups = Group.objects.all().order_by('title')
     exams = Exam.objects.all()
 
     # exams ordering
@@ -60,12 +59,11 @@ def exams_list(request):
         addition = {}
   
     return render(request, 'students/exams.html', {'exams': exams,
-        'groups_all': groups, 'addition': addition})
+        'addition': addition})
 
 # Add Form
 
 def exams_add(request):
-    groups_all = Group.objects.all().order_by('title')
     addition = {}
     button = 0
     
@@ -132,7 +130,7 @@ def exams_add(request):
 #               (reverse('home'), status_message))
     else:
         return render(request, 'students/exams_add.html', 
-            {'groups_all': groups_all, 'addition': addition, 'errors': errors })
+            {'addition': addition, 'errors': errors })
 
 # Add Form Class
 class ExamAddForm(forms.ModelForm):
@@ -201,7 +199,6 @@ class ExamAddView(CreateView):
 # Edit Form
   
 def exams_edit(request, eid):
-    groups_all = Group.objects.all().order_by('title')
     addition = {}
     button = 0
 
@@ -284,7 +281,7 @@ def exams_edit(request, eid):
 #               (reverse('home'), status_message))
     else:
         return render(request, 'students/exams_edit.html', 
-            {'groups_all': groups_all, 'addition': addition, 'errors': errors })
+            {'addition': addition, 'errors': errors })
 
 # Edit Form Class
 
@@ -354,7 +351,6 @@ class ExamUpdateView(UpdateView):
 # Delete Page
   
 def exams_delete(request, eid):
-    groups_all = Group.objects.all().order_by('title')
     button = 0
     try:
         data = Exam.objects.get(pk=eid)
@@ -380,7 +376,7 @@ def exams_delete(request, eid):
         
     else:
         return render(request, 'students/exams_confirm_delete.html', 
-            {'groups_all': groups_all, 'object': data})
+            {'object': data})
 
 class ExamDeleteView(DeleteView):
     model = Exam
