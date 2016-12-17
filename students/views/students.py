@@ -18,6 +18,7 @@ from crispy_forms.layout import Layout, Submit, Button
 
 from ..models.students import Student
 from ..models.groups import Group
+from ..util import paginate_hand, get_current_group
 
 # Student List
 
@@ -46,8 +47,13 @@ class StudentList(ListView):
       return qs.order_by('last_name')
 
 def students_list(request):
-
-    students = Student.objects.all()
+    # check if we need to show only one group of students
+    current_group = get_current_group(request)
+    if current_group:
+        students = Student.objects.filter(student_group=current_group)
+    else:
+        # otherwise show all students
+        students = Student.objects.all()
     
     # try to order student list
     order_by = request.GET.get('order_by', '')
@@ -73,34 +79,9 @@ def students_list(request):
         
 #    import pdb;pdb.set_trace()  
     
-    # handmade paginator
-    if students.count() > 0:
-        number = 3
-        try:
-            page = int(request.GET.get('page'))
-        except:
-            page = 1
-        num_pages = students.count() / number
-        if students.count() % number > 0:
-            num_pages += 1
-            # block for student_list template
-        if num_pages > 0:
-            page_range = []
-            for i in range(1, num_pages+1):
-                page_range.append(i)
-            addition = {'has_other_pages': True, 'page_range': page_range}
-        
-        if page > 0 and page < num_pages:
-            students = students[number*(page-1):number*page]
-            addition['page'] = page
-        else:
-            students = students[number*(num_pages-1):students.count()]
-            addition['page'] = num_pages
-    else:
-        addition = {}
-    # end handmade paginator
-
-    addition['counter'] = 3* (addition['page'] - 1)
+    context = paginate_hand(students, 3, request, {}, var_name='students')
+    addition = context['addition']
+    students = context['students']
         
     # realisation checkboxes
     message_error = 0
@@ -262,7 +243,7 @@ class StudentForm(forms.ModelForm):
                 attrs={'placeholder': u"Введіть прізвище студента"}),
             'middle_name': forms.TextInput(
                 attrs={'placeholder': u"Введіть ім’я по-батькові студента"}),
-            'birthday': forms.TextInput(
+            'birthday': forms.DateInput(
             attrs={'placeholder': u"напр. 1984-06-17"}),
             'ticket': forms.TextInput(attrs={'placeholder': u"напр. 123"}),
             'notes': forms.Textarea(
