@@ -83,11 +83,13 @@
                  class="img-circle">
           </td>
           <td>
-            <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}">
+            <a class="student-edit-form-link"
+               href="{{ PORTAL_URL }}{% url "students_edit" student.id %}">
                {{ student.last_name }}</a>
           </td>
           <td>
-            <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}">
+            <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}"
+               class="student-edit-form-link">
                {{ student.first_name }}</a></td>
           <td>{{ student.ticket }}</td>
           <td>
@@ -102,7 +104,7 @@
                   <a href="{{ PORTAL_URL }}{% url "journal" student.id %}">Відвідування</a>
                 </li>
                 <li>
-                  <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}">
+                  <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}" class="student-edit-form-link">
                      Редагувати</a>
                 </li>
                 <li>
