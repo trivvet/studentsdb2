@@ -53,7 +53,7 @@
         {% endif %}
       </td>
       
-      <td><a title="Редагувати" target="_blank"
+      <td><a class="student-edit-form-link" title="Редагувати"
            href="{% url "students_edit" student.id %}">
            {{ student.fullname }}</a></td>
       {% for day in student.days %}

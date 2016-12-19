@@ -153,16 +153,75 @@ function initSubHeaderNav() {
         link.parent('li').addClass('active');
         link.blur();
         $('#content-column').html(newpage);
+
+        initFunctions();
+        initJournal();
       }
     });
     return false;
   });
 }
 
+function initOrderBy() {
+  $('th a').click(function(){
+    var link = $(this);
+    $.ajax({
+      'url': link.attr('href'),
+      'dataType': 'html',
+      'type': 'get',
+      'success': function(data, status, xhr) {
+        var newpage = $(data).find('table').children(),
+            newpaginate = $(data).find('nav').children();
+        $('table').html(newpage);
+        $('nav').html(newpaginate);
+
+        initFunctions();
+      }
+    });
+    return false;
+  });
+}
+
+function initPaginate() {
+    $('.pagination a').click(function() {
+    var link = $(this);
+    $.ajax({
+      'url': link.attr('href'),
+      'dataType': 'html',
+      'type': 'get',
+      'success': function(data, status, xhr) {
+        var html = $(data), newpage = html.find('tbody').children();
+        $('.pagination li.active').removeClass('active');
+        if (link.attr('aria-label') == 'Previous') {
+          $('.pagination li:nth-child(2)').addClass('active');
+        } else if (link.attr('aria-label') == 'Next') {
+          $('.pagination li:nth-last-child(2)').addClass('active');
+        } else {
+          link.parent('li').addClass('active');
+        }
+        link.blur();
+        $('tbody').html(newpage);
+
+        if ($('.nav-tabs li.active a').attr('href') == '/journal/') {
+          initJournal();
+        }
+        
+        initEditStudentPage();
+      }
+    });
+    return false;
+  });
+}
+
+function initFunctions() {
+  initEditStudentPage();
+  initOrderBy();
+  initPaginate();
+}
+
 $(document).ready(function(){
-  initJournal();
   initGroupSelector();
   initDateFields();
-  initEditStudentPage();
   initSubHeaderNav();
+  initFunctions();
 })
