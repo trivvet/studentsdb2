@@ -8,7 +8,7 @@
 
 {% block add_button %}
 <!-- Add Student Button -->
-<a id='add_button' class="btn btn-primary" href="{% url "students_add" %}">
+<a id='add_button' class="btn btn-primary form-link" href="{% url "students_add" %}">
    Додати Студента</a>
 {% endblock add_button %}
    
@@ -83,13 +83,13 @@
                  class="img-circle">
           </td>
           <td>
-            <a class="student-edit-form-link"
+            <a class="form-link"
                href="{{ PORTAL_URL }}{% url "students_edit" student.id %}">
                {{ student.last_name }}</a>
           </td>
           <td>
             <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}"
-               class="student-edit-form-link">
+               class="form-link">
                {{ student.first_name }}</a></td>
           <td>{{ student.ticket }}</td>
           <td>
@@ -104,11 +104,11 @@
                   <a href="{{ PORTAL_URL }}{% url "journal" student.id %}">Відвідування</a>
                 </li>
                 <li>
-                  <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}" class="student-edit-form-link">
+                  <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}" class="form-link">
                      Редагувати</a>
                 </li>
                 <li>
-                  <a href="{{ PORTAL_URL }}{% url "students_delete" student.id %}">
+                  <a class="form-link" href="{{ PORTAL_URL }}{% url "students_delete" student.id %}">
                      Видалити</a>
                   </li>
               </ul>

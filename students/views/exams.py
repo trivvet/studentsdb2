@@ -140,7 +140,7 @@ class ExamAddForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(
                 attrs={'placeholder': u"Введіть назву предмету"}),
-            'date': forms.TextInput(
+            'date': forms.DateTimeInput(
                 attrs={'placeholder': u"напр. 2016-12-12 10:00"}),
             'teacher_name': forms.TextInput(
                 attrs={'placeholder': u"Введіть прізвище та ініціали викладача"}),
@@ -292,7 +292,7 @@ class ExamUpdateForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(
                 attrs={'placeholder': u"Введіть назву предмету"}),
-            'date': forms.TextInput(
+            'date': forms.DateTimeInput(
                 attrs={'placeholder': u"напр. 2016-12-12 10:00"}),
             'teacher_name': forms.TextInput(
                 attrs={'placeholder': u"Введіть прізвище та ініціали викладача"}),

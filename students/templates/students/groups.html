@@ -8,7 +8,8 @@
 
 {% block add_button %}
 <!-- Add Group Button -->
-<a class="btn btn-primary" href="{% url "groups_add" %}">Додати Групу</a>
+<a class="btn btn-primary form-link"
+   href="{% url "groups_add" %}">Додати Групу</a>
 {% endblock add_button %}
           
 {% block content %}
@@ -45,9 +46,11 @@
     <!-- Test Group-->
     <tr>
       <td>{{ group.id }}</td>
-      <td><a href="{% url "groups_edit" group.id %}">{{ group.title }}</a></td>
+      <td><a class="form-link"
+             href="{% url "groups_edit" group.id %}">{{ group.title }}</a></td>
       <td>{% if group.leader %}
-          <a href="{% url "students_edit" group.leader.id %}">
+          <a href="{% url "students_edit" group.leader.id %}"
+             class="form-link">
           {{ group.leader.last_name }} {{ group.leader.first_name}}</a></td>
           {% endif %}
       <td>
@@ -58,8 +61,9 @@
           </button>
           <ul class="dropdown-menu" 
               aria-labelledby="dropdownMenu1">
-            <li><a href="{% url "groups_edit" group.id %}">Редагувати</a></li>
-            <li><a href="{% url "groups_delete" group.id %}">Видалити</a></li>
+            <li><a class="form-link" href="{% url "groups_edit" group.id %}">Редагувати</a></li>
+            <li><a href="{% url "groups_delete" group.id %}"
+                   class="form-link">Видалити</a></li>
           </ul>
         </div>
       </td>

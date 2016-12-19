@@ -7,7 +7,8 @@
 {% block title %}Іспити{% endblock title %}
 {% block add_button %}
 <!-- Add Group Button -->
-<a class="btn btn-primary" href="{% url "exams_add" %}">Додати Іспит</a>
+<a class="btn btn-primary form-link"
+   href="{% url "exams_add" %}">Додати Іспит</a>
 {% endblock add_button %}
 
 {% block content %}
@@ -48,10 +49,12 @@
     {% for exam in exams %}
     <!-- Test Group-->
     <tr>
-      <td><a href="{% url "exams_edit" exam.id %}">{{ exam.name }}</a></td>
+      <td><a href="{% url "exams_edit" exam.id %}"
+             class="form-link">{{ exam.name }}</a></td>
       <td>{{ exam.date }}</td>
       <td>{{ exam.teacher_name }}</td>
-      <td><a href="{% url "groups_edit" exam.exam_group.id %}">
+      <td><a href="{% url "groups_edit" exam.exam_group.id %}"
+             class="form-link">
         {{ exam.exam_group.title }}</a></td>
       <td>
         <div class="dropdown">
@@ -61,8 +64,10 @@
           </button>
           <ul class="dropdown-menu" 
               aria-labelledby="dropdownMenu1">
-            <li><a href="{% url "exams_edit" exam.id %}">Редагувати</a></li>
-            <li><a href="{% url "exams_delete" exam.id %}">Видалити</a></li>
+            <li><a href="{% url "exams_edit" exam.id %}"
+                   class="form-link">Редагувати</a></li>
+            <li><a href="{% url "exams_delete" exam.id %}"
+                   class="form-link">Видалити</a></li>
           </ul>
         </div>
       </td>

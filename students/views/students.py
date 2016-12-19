@@ -103,8 +103,7 @@ def students_list(request):
                             u"Будь-ласка, оберіть студентів зі списку")
                 if message_error == 0:
                     return render(request, 'students/students_group_confirm_delete.html', 
-                        {'students': students_delete, 'groups_all': groups,
-                         'students_id': students_id})
+                        {'students': students_delete, 'students_id': students_id})
             # if selected action but didn't select students
             elif request.POST.get('action-group') == 'delete':
                 messages.warning(request, u"Будь-ласка, оберіть хоча б одного студента")

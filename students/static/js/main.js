@@ -61,9 +61,14 @@ function initDateFields() {
   }).on('dp.hide', function(event) {
     $(this).blur();
   });
+  $('input.datetimeinput').datetimepicker({
+    'format': 'YYYY-MM-DD HH:mm'
+  }).on('dp.hide', function(event) {
+    $(this).blur();
+  });
 }
 
-function initEditStudentForm(form, modal, link) {
+function initForm(form, modal, link) {
   // attach datepicker
   initDateFields();
 
@@ -92,7 +97,7 @@ function initEditStudentForm(form, modal, link) {
         modal.find('.modal-body').append(newform);
 
         // initialize form fields and buttons
-        initEditStudentForm(newform, modal, link)
+        initForm(newform, modal, link)
       } else {
         // if no form, it means success and we need to reload page
         // to get updated students list;
@@ -104,8 +109,8 @@ function initEditStudentForm(form, modal, link) {
   });
 }
 
-function initEditStudentPage() {
-  $('a.student-edit-form-link').click(function(){
+function initFormPage() {
+  $('a.form-link').click(function(){
     var link = $(this)
     $.ajax({
       'url': link.attr('href'),
@@ -122,7 +127,7 @@ function initEditStudentPage() {
         modal.find('.modal-body').html(form);
 
         // init our edit form
-        initEditStudentForm(form, modal, link);
+        initForm(form, modal, link);
         
         modal.modal({
           'keyboard': false,
@@ -206,7 +211,7 @@ function initPaginate() {
           initJournal();
         }
         
-        initEditStudentPage();
+        initFormPage();
       }
     });
     return false;
@@ -214,7 +219,7 @@ function initPaginate() {
 }
 
 function initFunctions() {
-  initEditStudentPage();
+  initFormPage();
   initOrderBy();
   initPaginate();
 }
