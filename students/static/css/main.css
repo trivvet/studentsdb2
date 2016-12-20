@@ -12,6 +12,25 @@ a.header {
   text-decoration: none;
 }
 
+#modalAlert {
+  text-align: center;
+  paddin: 0!important;
+}
+
+#modalAlert:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+#modalAlert .modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
 /* Group Selector */
 #group-selector {
   margin-top: 30px;

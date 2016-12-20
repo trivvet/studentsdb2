@@ -444,6 +444,9 @@ class StudentUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(StudentUpdateView, self).get_context_data(**kwargs)
         context['title'] = u'Редагування студента'
+        k = 0
+        while k < 10000000:
+            k += 1
         return context
         
     def post(self, request, *args, **kwargs):
@@ -451,6 +454,7 @@ class StudentUpdateView(UpdateView):
             messages.warning(request, u"Редагування студента відмінено")
             return HttpResponseRedirect(reverse('home'))
         else:
+            return false
             return super(StudentUpdateView, self).post(request, *args, **kwargs)
         
 # Delete Form View

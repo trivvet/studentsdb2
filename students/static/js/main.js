@@ -15,6 +15,7 @@ function initJournal() {
       },
       'beforeSend': function(xhr, setting){
         indicator.show();
+        $('input').prop('disabled', true);
       },
       'error': function(xhr, status, error) {
         alert(error);
@@ -22,6 +23,7 @@ function initJournal() {
       },
       'success': function(data, status, xhr) {
         indicator.hide();
+        $('input').prop('disabled', false);
       }
     });
   });
@@ -83,8 +85,12 @@ function initForm(form, modal, link) {
     url: link.attr('href'),
     dataType: 'html',
     error: function() {
-      alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+      modal.find('#modalAlert .').show();
+      $('input, select, textarea').prop('disabled', false);
       return false;
+    },
+    beforeSend: function() {
+      $('input, select, textarea').prop('disabled', true);
     },
     success: function(data, status, xhr) {
       var html = $(data), newform = html.find('#content-column form.form-horizontal');
@@ -111,11 +117,19 @@ function initForm(form, modal, link) {
 
 function initFormPage() {
   $('a.form-link').click(function(){
-    var link = $(this)
+    var link = $(this), modal2 = $('#modalAlert');
     $.ajax({
       'url': link.attr('href'),
       'dataType': 'html',
       'type': 'get',
+      'beforeSend': function() {
+        modal2.find('.modal-body').html('Зачекайте');
+        modal2.modal({
+          'keyboard': false,
+          'backdrop': false,
+          'show': true
+        });
+      },
       'success': function(data, status, xhr) {
         if (status != 'success') {
           alert('Помилка на спрвері. Спробуйте будь-ласка пізніше');
@@ -134,6 +148,7 @@ function initFormPage() {
           'backdrop': false,
           'show': true
         });
+        modal2.modal('hide');
       },
       'error': function() {
         alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
