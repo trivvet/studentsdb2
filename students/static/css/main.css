@@ -27,8 +27,14 @@ a.header {
 
 #modalAlert .modal-dialog {
   display: inline-block;
-  text-align: left;
+  text-align: center;
   vertical-align: middle;
+}
+
+#modalAlert .modal-content {
+  box-shadow: none;
+  background-color: transparent;
+  border: none;
 }
 
 /* Group Selector */
@@ -100,4 +106,5 @@ select,
 input {
   max-width: 300px;
 }
+
 

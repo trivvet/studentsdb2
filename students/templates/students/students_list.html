@@ -101,7 +101,8 @@
               <ul class="dropdown-menu" 
                   aria-labelledby="dropdownMenu1">
                 <li>
-                  <a href="{{ PORTAL_URL }}{% url "journal" student.id %}">Відвідування</a>
+                  <a href="{{ PORTAL_URL }}{% url "journal" student.id %}"
+                     id="journalNavigate">Відвідування</a>
                 </li>
                 <li>
                   <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}" class="form-link">

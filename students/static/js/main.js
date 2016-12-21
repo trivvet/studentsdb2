@@ -1,5 +1,5 @@
 function initJournal() {
-  var indicator = $('#ajax-progress-indicator');
+  var indicator = $('#ajax-progress-indicator'), modal2 = $('#modalAlert');
   
   $('.day-box input[type="checkbox"]').click(function(event){
     var box = $(this)
@@ -16,6 +16,13 @@ function initJournal() {
       'beforeSend': function(xhr, setting){
         indicator.show();
         $('input').prop('disabled', true);
+        var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+        modal2.find('.modal-body').html(spinner);
+        modal2.modal({
+          'keyboard': false,
+          'backdrop': false,
+          'show': true
+      });
       },
       'error': function(xhr, status, error) {
         alert(error);
@@ -24,6 +31,7 @@ function initJournal() {
       'success': function(data, status, xhr) {
         indicator.hide();
         $('input').prop('disabled', false);
+        modal2.modal('hide');
       }
     });
   });
@@ -80,6 +88,8 @@ function initForm(form, modal, link) {
     return false;
   });
 
+  var modal2 = $('#modalAlert');
+
   // make form work in AJAX mode
   form.ajaxForm({
     url: link.attr('href'),
@@ -91,12 +101,20 @@ function initForm(form, modal, link) {
     },
     beforeSend: function() {
       $('input, select, textarea').prop('disabled', true);
+      var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+      modal2.find('.modal-body').html(spinner);
+      modal2.modal({
+        'keyboard': false,
+        'backdrop': false,
+        'show': true
+      });
     },
     success: function(data, status, xhr) {
       var html = $(data), newform = html.find('#content-column form.form-horizontal');
 
       // copy alert to modal window
       modal.find('.modal-body').html(html.find('.alert'));
+      modal2.modal('hide');
 
       // copy form to modal if we found it in server repsonse
       if (newform.length > 0) {
@@ -123,7 +141,9 @@ function initFormPage() {
       'dataType': 'html',
       'type': 'get',
       'beforeSend': function() {
-        modal2.find('.modal-body').html('Зачекайте');
+        var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+        $('.dropdown').removeClass('open');
+        modal2.find('.modal-body').html(spinner);
         modal2.modal({
           'keyboard': false,
           'backdrop': false,
@@ -162,20 +182,73 @@ function initFormPage() {
 
 function initSubHeaderNav() {
   $('.nav-tabs a').click(function() {
-    var link = $(this);
+    var link = $(this), modal2 = $('#modalAlert');
     $.ajax({
       'url': link.attr('href'),
       'dataType': 'html',
       'type': 'get',
+      'beforeSend': function() {
+        var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+        $('.dropdown').removeClass('open');
+        modal2.find('.modal-body').html(spinner);
+        modal2.modal({
+          'keyboard': false,
+          'backdrop': false,
+          'show': true
+        });
+      },
       'success': function(data, status, xhr) {
         var html = $(data), newpage = html.find('#content-column');
         $('.nav-tabs li.active').removeClass('active');
         link.parent('li').addClass('active');
         link.blur();
         $('#content-column').html(newpage);
-
+        modal2.modal('hide');
+  
         initFunctions();
         initJournal();
+        initDropDownNav();
+      },
+      'error': function() {
+        alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+        return false;
+      }
+    });
+    return false;
+  });
+}
+
+function initDropDownNav() {
+  $('#journalNavigate').click(function() {
+    var link = $(this), modal2 = $('#modalAlert');
+    $.ajax({
+      'url': link.attr('href'),
+      'dataType': 'html',
+      'type': 'get',
+      'beforeSend': function() {
+        var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+        $('.dropdown').removeClass('open');
+        modal2.find('.modal-body').html(spinner);
+        modal2.modal({
+          'keyboard': false,
+          'backdrop': false,
+          'show': true
+        });
+      },
+      'success': function(data, status, xhr) {
+        var html = $(data), newpage = html.find('#content-column');
+        $('.nav-tabs li.active').removeClass('active');
+        link.parent('li').addClass('active');
+        link.blur();
+        $('#content-column').html(newpage);
+        modal2.modal('hide');
+  
+        initFunctions();
+        initJournal();
+      },
+      'error': function() {
+        alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+        return false;
       }
     });
     return false;
@@ -222,11 +295,10 @@ function initPaginate() {
         link.blur();
         $('tbody').html(newpage);
 
-        if ($('.nav-tabs li.active a').attr('href') == '/journal/') {
-          initJournal();
-        }
-        
         initFormPage();
+        initOrderBy();
+        initDropDownNav();
+        initJournal();
       }
     });
     return false;
@@ -237,6 +309,7 @@ function initFunctions() {
   initFormPage();
   initOrderBy();
   initPaginate();
+  initDropDownNav()
 }
 
 $(document).ready(function(){

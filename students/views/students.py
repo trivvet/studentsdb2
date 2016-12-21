@@ -454,7 +454,6 @@ class StudentUpdateView(UpdateView):
             messages.warning(request, u"Редагування студента відмінено")
             return HttpResponseRedirect(reverse('home'))
         else:
-            return false
             return super(StudentUpdateView, self).post(request, *args, **kwargs)
         
 # Delete Form View
