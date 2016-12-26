@@ -12,6 +12,11 @@ a.header {
   text-decoration: none;
 }
 
+.modal-body {
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
+}
+
 #modalAlert {
   text-align: center;
   paddin: 0!important;
@@ -106,5 +111,6 @@ select,
 input {
   max-width: 300px;
 }
+
 
 

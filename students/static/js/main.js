@@ -1,3 +1,4 @@
+// run when click on chechbox
 function initJournal() {
   var indicator = $('#ajax-progress-indicator'), modal2 = $('#modalAlert');
   
@@ -78,6 +79,7 @@ function initDateFields() {
   });
 }
 
+// use when form is post
 function initForm(form, modal, link) {
   // attach datepicker
   initDateFields();
@@ -95,8 +97,12 @@ function initForm(form, modal, link) {
     url: link.attr('href'),
     dataType: 'html',
     error: function() {
-      modal.find('#modalAlert .').show();
       $('input, select, textarea').prop('disabled', false);
+      modal2.modal('hide');
+      modal.find('.modal-body').html('<div class="alert alert-danger">"Виникла помилка на сервері. Будь-ласка спробуйте пізніше"</div>');
+      setTimeout(function() {
+          modal.modal('hide');
+        }, 1500);
       return false;
     },
     beforeSend: function() {
@@ -127,7 +133,15 @@ function initForm(form, modal, link) {
         // to get updated students list;
         // reload after 2 second, so that user can read
         // success message
-        setTimeout(function(){location.reload(true);}, 500);
+        setTimeout(function() {
+          $('#sub-header').html(html.find('#sub-header div'));
+          $('#content-column').html(html.find('#content-column'));
+          modal.modal('hide');
+          initSubHeaderNav();
+          initFunctions();
+          
+        }, 1000);
+
       }
     }
   });
@@ -219,7 +233,7 @@ function initSubHeaderNav() {
 }
 
 function initDropDownNav() {
-  $('#journalNavigate').click(function() {
+  $('.journalNavigate').click(function() {
     var link = $(this), modal2 = $('#modalAlert');
     $.ajax({
       'url': link.attr('href'),
@@ -309,7 +323,7 @@ function initFunctions() {
   initFormPage();
   initOrderBy();
   initPaginate();
-  initDropDownNav()
+  initDropDownNav();
 }
 
 $(document).ready(function(){
