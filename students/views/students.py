@@ -243,7 +243,7 @@ class StudentForm(forms.ModelForm):
             'middle_name': forms.TextInput(
                 attrs={'placeholder': u"Введіть ім’я по-батькові студента"}),
             'birthday': forms.DateInput(
-            attrs={'placeholder': u"напр. 1984-06-17"}),
+                attrs={'placeholder': u"напр. 1984-06-17"}),
             'ticket': forms.TextInput(attrs={'placeholder': u"напр. 123"}),
             'notes': forms.Textarea(
                 attrs={'placeholder': u"Додаткова інформація",
@@ -272,8 +272,8 @@ class StudentForm(forms.ModelForm):
         self.helper.help_text_inline = True
         self.helper.html5_required = False
         self.helper.attrs = {'novalidate': ''}
-        self.helper.label_class = 'col-sm-2 control-label'
-        self.helper.field_class = 'col-sm-10'
+        self.helper.label_class = 'col-sm-3 control-label'
+        self.helper.field_class = 'col-sm-9'
 
 
         # add buttons

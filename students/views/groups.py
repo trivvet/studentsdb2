@@ -14,10 +14,17 @@ from crispy_forms.layout import Layout, Submit, Button
 from ..models.students import Student
 from ..models.groups import Group
 
+from ..util import get_current_group
+
 # Groups List
 def groups_list(request):
-    groups = Group.objects.all()
-
+    current_group = get_current_group(request)
+    if current_group:
+        groups = Group.objects.filter(pk=current_group.id)
+    else:
+        # otherwise show all students
+        groups = Group.objects.all()
+  
     # groups ordering
     order_by = request.GET.get('order_by')
     reverse = request.GET.get('reverse')
@@ -36,6 +43,8 @@ def groups_list(request):
         except:
             page = 1
         groups_count = groups.count()
+        num_pages = 1
+        addition = {}
         if groups_count > number:
             addition = {'has_other_pages': True}
             num_pages = groups_count / number
@@ -44,7 +53,7 @@ def groups_list(request):
                 num_pages += 1
             for i in range(1, num_pages+1):
                 page_range.append(i)
-            addition['page_range'] = page_range
+            addition['page_range'] = page_range            
 
         if page > 0 and page < num_pages:
             groups = groups[number*(page-1):number*page]
@@ -134,8 +143,8 @@ class GroupAddForm(forms.ModelForm):
         self.helper.help_text_inline = True
         self.helper.html5_required = False
         self.helper.attrs = {'novalidate': ''}
-        self.helper.label_class = 'col-sm-2 control-label'
-        self.helper.field_class = 'col-sm-10'
+        self.helper.label_class = 'col-sm-3 control-label'
+        self.helper.field_class = 'col-sm-9'
 
 
         # add buttons
@@ -264,8 +273,8 @@ class GroupUpdateForm(forms.ModelForm):
         self.helper.help_text_inline = True
         self.helper.html5_required = False
         self.helper.attrs = {'novalidate': ''}
-        self.helper.label_class = 'col-sm-2 control-label'
-        self.helper.field_class = 'col-sm-10'
+        self.helper.label_class = 'col-sm-3 control-label'
+        self.helper.field_class = 'col-sm-9'
 
 
         # add buttons

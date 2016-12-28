@@ -54,28 +54,55 @@ function initGroupSelector() {
     }
 
     // end reload a page
-    location.reload(true)
+    var link = $('.nav-tabs li.active a');
+    $.ajax({
+      'url': link.attr('href'),
+      'dataType': 'html',
+      'type': 'get',
+      'success': function(data, status, xhr) {
+        var html = $(data), newpage = html.find('tbody').children();
+        link.blur();
+        $('tbody').html(newpage);
 
-    return true;
+        initFormPage();
+        initOrderBy();
+        initDropDownNav();
+        initJournal();
+      }
+    });
+
+    return false;
   });
 }
 
 function initDateFields() {
-  var defaultDate = $('input.dateinput').val();
+  var defaultDate = $('input.dateinput').val(),
+      calendarButton = "<span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span>";
   if (!defaultDate) {
     defaultDate = '1998-01-01'
   }
   $('input.dateinput').datetimepicker({
     'useCurrent': false,
     'format': 'YYYY-MM-DD',
-    'viewDate': defaultDate
+    'viewDate': defaultDate,
+    'toolbarPlacement': 'bottom',
+    'allowInputToggle': true,
+    'locale': 'uk'
   }).on('dp.hide', function(event) {
     $(this).blur();
-  });
+  }).wrap('<div></div>').after(calendarButton).parent().addClass('input-group date');
   $('input.datetimeinput').datetimepicker({
-    'format': 'YYYY-MM-DD HH:mm'
+    'format': 'YYYY-MM-DD HH:mm',
+    'stepping': 15,
+    'daysOfWeekDisabled': [6, 0],
+    'toolbarPlacement': 'bottom',
+    'disabledHours': [0, 1, 2, 3, 4, 5, 6, 7, 8, 21, 22, 23, 24],
+    'locale': 'uk'
   }).on('dp.hide', function(event) {
-    $(this).blur();
+    $(this).blur().after(calendarButton);
+  });
+  $('.input-group-addon').click(function(){
+    $(this).siblings('input').focus();
   });
 }
 

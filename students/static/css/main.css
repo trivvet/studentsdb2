@@ -12,6 +12,11 @@ a.header {
   text-decoration: none;
 }
 
+.input-group {
+  padding-right: 110px;
+
+}
+
 .modal-body {
   max-height: calc(100vh - 210px);
   overflow-y: auto;

@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from ..models.students import Student
 from ..models.groups import Group
 from ..models.journal import MonthJournal
-from ..util import paginate_hand
+from ..util import paginate_hand, get_current_group
 
 # View for Journal
 
@@ -54,10 +54,14 @@ class JournalView(TemplateView):
             for d in range(1, number_of_days+1)]
 
         # get all students from database
-        if kwargs.get('pk'):
-            queryset = Student.objects.filter(pk=kwargs['pk'])
-        else:
-            queryset = Student.objects.all().order_by('last_name')
+        current_group = get_current_group(self.request)
+        if current_group:
+            queryset = Student.objects.filter(student_group=current_group)
+        else:    
+            if kwargs.get('pk'):
+                queryset = Student.objects.filter(pk=kwargs['pk'])
+            else:
+                queryset = Student.objects.all().order_by('last_name')
 
         # це адреса для посту AJAX запиту, як бачите, ми
         # робитимемо його на цю ж в’юшку; в’юшка журналу
@@ -121,7 +125,11 @@ class JournalView(TemplateView):
         return JsonResponse({'status': 'success'})
  
 def journal_list(request):
-    students = Student.objects.all().order_by('id')
+    current_group = get_current_group(request)
+    if current_group:
+        students = Student.objects.filter(student_group=current_group)
+    else:    
+        students = Student.objects.all().order_by('id')
 
     # handmade paginator
     if students.count() > 0:

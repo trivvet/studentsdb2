@@ -17,9 +17,15 @@ from ..models.students import Student
 from ..models.groups import Group
 from ..models.exams import Exam
 
+from ..util import get_current_group
+
 def exams_list(request):
     addition = {}
-    exams = Exam.objects.all()
+    current_group = get_current_group(request)
+    if current_group:
+        exams = Exam.objects.filter(exam_group=current_group)
+    else:
+        exams = Exam.objects.all()
 
     # exams ordering
     order_by = request.GET.get('order_by')
@@ -39,6 +45,7 @@ def exams_list(request):
         except:
             page = 1
         exams_count = exams.count()
+        num_pages = 1
         if exams_count > number:
             addition = {'has_other_pages': True}
             num_pages = exams_count / number
@@ -162,8 +169,8 @@ class ExamAddForm(forms.ModelForm):
         self.helper.help_text_inline = True
         self.helper.html5_required = False
         self.helper.attrs = {'novalidate': ''}
-        self.helper.label_class = 'col-sm-2 control-label'
-        self.helper.field_class = 'col-sm-10'
+        self.helper.label_class = 'col-sm-3 control-label'
+        self.helper.field_class = 'col-sm-9'
 
 
         # add buttons
