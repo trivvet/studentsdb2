@@ -26,7 +26,9 @@ function initJournal() {
       });
       },
       'error': function(xhr, status, error) {
-        alert(error);
+        $('#content-column .alert').removeClass('alert-info')
+            .addClass('alert-danger').html('Помилка на сервері (код - ' + error + '). Спробуйте пізніше');
+        modal2.modal('hide');
         indicator.hide();
       },
       'success': function(data, status, xhr) {
@@ -60,13 +62,11 @@ function initGroupSelector() {
       'dataType': 'html',
       'type': 'get',
       'success': function(data, status, xhr) {
-        var html = $(data), newpage = html.find('tbody').children();
+        var html = $(data), newpage = html.find('#content-column').children();
         link.blur();
-        $('tbody').html(newpage);
+        $('#content-column').html(newpage);
 
-        initFormPage();
-        initOrderBy();
-        initDropDownNav();
+        initFunctions();
         initJournal();
       }
     });

@@ -17,8 +17,8 @@
 
 <form id="change-student-list" method="post" action=".">
   {% csrf_token %}
-  
-  {% if students %}
+
+  {% if context.students %}
   
   {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
   <table class="table table-hover table-striped">
@@ -66,13 +66,12 @@
       </tr>
     </thead>
     <tbody>
-    
-      {% for student in students %}
+      {% for student in context.students %}
         
         <tr>
           <td><input type="checkbox" name="delete-check"
                value="{{ student.id }}"></td>
-          <td>{{ forloop.counter|add:addition.counter }}</td>
+          <td>{{ context.page_obj.start_index|add:forloop.counter|add:"-1" }}</td>
           <td>
             <img height="30" width="30" 
                  {% if student.photo %}
@@ -145,7 +144,9 @@
 
 <!-- Pagination -->
 
+{% with paginator=context.paginator page_obj=context.page_obj is_paginated=context.is_paginated %}
 {% include 'students/pagination.html' %}
+{% endwith %}
   
 {% endblock content %}
 

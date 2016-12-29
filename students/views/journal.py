@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from ..models.students import Student
 from ..models.groups import Group
 from ..models.journal import MonthJournal
-from ..util import paginate_hand, get_current_group
+from ..util import paginate, paginate_hand, get_current_group
 
 # View for Journal
 
@@ -69,9 +69,13 @@ class JournalView(TemplateView):
         # типу пост на оновлення журналу
         update_url = reverse('journal')
 
+        # застосовуємо пагінацію до списку студентів
+        # handmade paginator
+        context = paginate(queryset, 5, self.request, context, var_name='queryset')
+
         # пробігаємось по усіх студентах і збираємо необхідні дані
-        students = []
-        for student in queryset:
+        context['students'] = []
+        for student in context['queryset']:
             # try to get journal object by month selected
             try:
                 journal = MonthJournal.objects.get(student_name=student, date=month)
@@ -89,16 +93,14 @@ class JournalView(TemplateView):
                 })
 
             # набиваємо усі решту даних студента
-            students.append({
+            context['students'].append({
                 'fullname': u'%s %s' % (student.last_name, student.first_name),
                 'days': days,
                 'id': student.id,
                 'update_url': update_url,
             })
 
-        # застосовуємо пагінацію до списку студентів
-        # handmade paginator
-        context = paginate_hand(students, 5, self.request, context, var_name='students')
+        context['queryset'] = {}
         
         return context
 

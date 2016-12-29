@@ -17,7 +17,7 @@ from ..models.students import Student
 from ..models.groups import Group
 from ..models.exams import Exam
 
-from ..util import get_current_group
+from ..util import paginate, get_current_group
 
 def exams_list(request):
     addition = {}
@@ -38,35 +38,9 @@ def exams_list(request):
         exams = exams.order_by('date')
 
     # groups paginator
-    if exams.count() > 0:
-        number = 3
-        try:
-            page = int(request.GET.get('page'))
-        except:
-            page = 1
-        exams_count = exams.count()
-        num_pages = 1
-        if exams_count > number:
-            addition = {'has_other_pages': True}
-            num_pages = exams_count / number
-            page_range = []
-            if exams_count % number > 0:
-                num_pages += 1
-            for i in range(1, num_pages+1):
-                page_range.append(i)
-            addition['page_range'] = page_range
-
-        if page > 0 and page < num_pages:
-            exams = exams[number*(page-1):number*page]
-            addition['page'] = page
-        else:
-            exams = exams[number*(num_pages-1):exams_count]
-            addition['page'] = num_pages
-    else:
-        addition = {}
+    context = paginate(exams, 3, request, {}, var_name='exams')
   
-    return render(request, 'students/exams.html', {'exams': exams,
-        'addition': addition})
+    return render(request, 'students/exams.html', {'context': context})
 
 # Add Form
 

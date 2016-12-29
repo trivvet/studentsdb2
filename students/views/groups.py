@@ -14,7 +14,7 @@ from crispy_forms.layout import Layout, Submit, Button
 from ..models.students import Student
 from ..models.groups import Group
 
-from ..util import get_current_group
+from ..util import paginate, get_current_group
 
 # Groups List
 def groups_list(request):
@@ -36,36 +36,10 @@ def groups_list(request):
         groups = groups.order_by('title')
 
     # groups paginator
-    if groups.count() > 0:
-        number = 3
-        try:
-            page = int(request.GET.get('page'))
-        except:
-            page = 1
-        groups_count = groups.count()
-        num_pages = 1
-        addition = {}
-        if groups_count > number:
-            addition = {'has_other_pages': True}
-            num_pages = groups_count / number
-            page_range = []
-            if groups_count % number > 0:
-                num_pages += 1
-            for i in range(1, num_pages+1):
-                page_range.append(i)
-            addition['page_range'] = page_range            
+    context = paginate(groups, 3, request, {}, var_name='groups')
 
-        if page > 0 and page < num_pages:
-            groups = groups[number*(page-1):number*page]
-            addition['page'] = page
-        else:
-            groups = groups[number*(num_pages-1):groups_count]
-            addition['page'] = num_pages
-    else:
-        addition = {}
     
-    return render(request, 'students/groups.html', {'groups': groups,
-        'addition': addition})
+    return render(request, 'students/groups.html', {'context': context})
         
 # Add Form
   

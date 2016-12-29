@@ -46,11 +46,7 @@
     <tr>
       
       <td>
-        {% if addition.counter %}
-            {{ forloop.counter|add:addition.counter }}
-        {% else %}
-            {{ forloop.counter }}
-        {% endif %}
+        {{ page_obj.start_index|add:forloop.counter|add:"-1" }}
       </td>
       
       <td><a class="form-link" title="Редагувати"

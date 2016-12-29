@@ -18,7 +18,7 @@ from crispy_forms.layout import Layout, Submit, Button
 
 from ..models.students import Student
 from ..models.groups import Group
-from ..util import paginate_hand, get_current_group
+from ..util import paginate, paginate_hand, get_current_group
 
 # Student List
 
@@ -78,10 +78,14 @@ def students_list(request):
         students = paginator.page(paginator.num_pages) """
         
 #    import pdb;pdb.set_trace()  
-    
-    context = paginate_hand(students, 3, request, {}, var_name='students')
-    addition = context['addition']
-    students = context['students']
+
+    # paginate_hand
+#    context = paginate_hand(students, 3, request, {}, var_name='students')
+#    addition = context['addition']
+#    students = context['students']
+
+    # paginator
+    context = paginate(students, 3, request, {}, var_name='students')
         
     # realisation checkboxes
     message_error = 0
@@ -127,7 +131,7 @@ def students_list(request):
             messages.warning(request, u"Видалення обраних студентів скасовано")
 
     return render(request, 'students/students_list.html', 
-        {'students': students, 'addition': addition})
+        {'context': context})
 
 # Add Form View
 
