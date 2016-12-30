@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from django import forms
+from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import render, reverse
 from django.urls import reverse_lazy
@@ -20,13 +21,12 @@ from ..models.exams import Exam
 from ..util import paginate, get_current_group
 
 def exams_list(request):
-    addition = {}
     current_group = get_current_group(request)
     if current_group:
         exams = Exam.objects.filter(exam_group=current_group)
     else:
         exams = Exam.objects.all()
-
+    
     # exams ordering
     order_by = request.GET.get('order_by')
     reverse = request.GET.get('reverse')
@@ -35,10 +35,15 @@ def exams_list(request):
         if reverse == '1':
             exams = exams.reverse()
     else:
-        exams = exams.order_by('date')
+        exams = exams.order_by('date').reverse()
+
+    future_exams = []
+    for exam in exams:
+        if exam.date > datetime.now(timezone.utc):
+            future_exams.append(exam)
 
     # groups paginator
-    context = paginate(exams, 3, request, {}, var_name='exams')
+    context = paginate(future_exams, 3, request, {}, var_name='exams')
   
     return render(request, 'students/exams.html', {'context': context})
 

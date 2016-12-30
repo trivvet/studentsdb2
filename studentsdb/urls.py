@@ -21,6 +21,7 @@ from students.views import students, groups, journal, exams, results, contact_ad
 from students.views.students import StudentUpdateView, StudentList, StudentDeleteView
 from students.views.groups import GroupAddView, GroupUpdateView, GroupDeleteView
 from students.views.exams import ExamAddView, ExamUpdateView, ExamDeleteView
+from students.views.results import ResultAddView, results_list
 from students.views.journal import JournalView
 # from contact_form.views import ContactFormView
 from students.views.contact_admin import ContactView
@@ -69,11 +70,14 @@ urlpatterns = [
         
     # Results urls
     url(r'^results/$', results.results_list, name='results'),
-    url(r'^results/add/$', results.results_add, name='results_add'),
+#    url(r'^results/add/$', results.results_add, name='results_add'),
+    url(r'^results/add/$', ResultAddView.as_view(), name='results_add'),
     url(r'^results/(?P<rid>\d+)/edit', results.results_edit, 
         name='results_edit'),
     url(r'^results/(?P<rid>\d+)/delete', results.results_delete,
         name='results_delete'),
+    url(r'^results/(?P<rid>\d+)/list', results.exam_results,
+        name='results_list'),
 
     # Contact Admin Form
 #    url(r'^contact-admin/$', contact_admin.contact_admin, name="contact_admin"),

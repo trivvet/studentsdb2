@@ -78,6 +78,7 @@ function initGroupSelector() {
 function initDateFields() {
   var defaultDate = $('input.dateinput').val(),
       calendarButton = "<span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span>";
+      timeButton = "<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span>";
   if (!defaultDate) {
     defaultDate = '1998-01-01'
   }
@@ -99,8 +100,8 @@ function initDateFields() {
     'disabledHours': [0, 1, 2, 3, 4, 5, 6, 7, 8, 21, 22, 23, 24],
     'locale': 'uk'
   }).on('dp.hide', function(event) {
-    $(this).blur().after(calendarButton);
-  });
+    $(this).blur();
+  }).wrap('<div></div>').after(timeButton).parent().addClass('input-group date');;
   $('.input-group-addon').click(function(){
     $(this).siblings('input').focus();
   });
@@ -344,6 +345,25 @@ function initPaginate() {
     });
     return false;
   });
+}
+
+function initResultFilter() {
+  $('#id_result_student').change(function(event){
+    var element = $(this).val()
+
+    if (element) {
+      $.ajax({
+        'url': '/exams/',
+        'dataType': 'html',
+        'type': 'get',
+        'success': function(data, status, xhr) {
+        }
+      });
+    }
+
+    return false;
+  });
+
 }
 
 function initFunctions() {
