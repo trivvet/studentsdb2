@@ -115,7 +115,12 @@ function initForm(form, modal, link) {
   // close modal window on Cancel button click
   form.find('input[name="cancel_button"]').click(function(event) {
     modal.modal('hide');
+    $('input, select, textarea').removeAttr('disabled');
     return false;
+  });
+
+  modal.find('button.close').click(function(event){
+    $('input,select, textarea').removeAttr('disabled');
   });
 
   var modal2 = $('#modalAlert');
@@ -167,6 +172,7 @@ function initForm(form, modal, link) {
           modal.modal('hide');
           initSubHeaderNav();
           initFunctions();
+          initResultPage();
           
         }, 1000);
 
@@ -222,6 +228,41 @@ function initFormPage() {
   });
 }
 
+function initContactForm() {
+  $('#submit-id-send_button').click(function(){
+    var link = $("#contact-link"), form = $('form');
+    $.ajax({
+      'url': link.attr('href'),
+      'dataType': 'html',
+      'method': 'post',
+      'error': function() {
+        $('input, select, textarea').prop('disabled', false);
+        modal2.modal('hide');
+        $('h2').after('<div class="alert alert-danger">"Виникла помилка на сервері. Будь-ласка спробуйте пізніше"</div>');
+        return false;
+      },
+      'beforeSend': function() {
+        $('input, select, textarea').prop('disabled', true);
+        var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+        modal2.find('.modal-body').html(spinner);
+        modal2.modal({
+          'keyboard': false,
+          'backdrop': false,
+          'show': true
+        });
+      },
+      'success': function(data, status, xhr) {
+        $('h2').after('<div class="alert alert-danger">"Виникла помилка на сервері. Будь-ласка спробуйте пізніше"</div>');
+        modal2.modal('hide');
+
+        // initialize form fields and buttons
+        initContactForm()
+      }
+    });
+    return false;
+  });
+}
+
 function initSubHeaderNav() {
   $('.nav-tabs a').click(function() {
     var link = $(this), modal2 = $('#modalAlert');
@@ -250,6 +291,8 @@ function initSubHeaderNav() {
         initFunctions();
         initJournal();
         initDropDownNav();
+        initResultPage()
+        $('.contact-form').attr('action', $("#contact-link").attr('href'))
       },
       'error': function() {
         alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
@@ -306,9 +349,11 @@ function initOrderBy() {
       'type': 'get',
       'success': function(data, status, xhr) {
         var newpage = $(data).find('table').children(),
-            newpaginate = $(data).find('nav').children();
+            newpaginate = $(data).find('nav').children(),
+            newbutton = $(data).find('#buttonLoadMore');
         $('table').html(newpage);
         $('nav').html(newpaginate);
+        $('.buttonLoad').html(newbutton);
 
         initFunctions();
       }
@@ -325,7 +370,7 @@ function initPaginate() {
       'dataType': 'html',
       'type': 'get',
       'success': function(data, status, xhr) {
-        var html = $(data), newpage = html.find('tbody').children();
+        var html = $(data), newpage = html.find('tbody').children(), newbutton = html.find('#buttonLoadMore');
         $('.pagination li.active').removeClass('active');
         if (link.attr('aria-label') == 'Previous') {
           $('.pagination li:nth-child(2)').addClass('active');
@@ -334,6 +379,15 @@ function initPaginate() {
         } else {
           link.parent('li').addClass('active');
         }
+        if (newbutton) {
+          link.blur();
+          $('#buttonLoadMore').remove();
+          $('.buttonLoad').html(newbutton);
+          loadMore();
+        } else {
+          $('#buttonLoadMore').remove();
+        }
+
         link.blur();
         $('tbody').html(newpage);
 
@@ -347,30 +401,83 @@ function initPaginate() {
   });
 }
 
-function initResultFilter() {
-  $('#id_result_student').change(function(event){
-    var element = $(this).val()
-
-    if (element) {
-      $.ajax({
-        'url': '/exams/',
-        'dataType': 'html',
-        'type': 'get',
-        'success': function(data, status, xhr) {
+function loadMore() {
+  $('#buttonLoadMore').click(function() {
+    var link = $(this);
+    $.ajax({
+      'url': link.attr('href'),
+      'dataType': 'html',
+      'type': 'get',
+      'success': function(data, status, xhr) {
+        var html = $(data), newpage = html.find('tbody').children(), newbutton = html.find('#buttonLoadMore').attr('href');
+        $('tbody').append(newpage);
+        if (newbutton) {
+          link.blur();
+          $('#buttonLoadMore').attr('href', newbutton);
+        } else {
+          $('#buttonLoadMore').remove();
         }
-      });
-    }
+        $('ul.pagination').remove();
+        
+        $('a.form-link').off();
+        initFormPage();
+      }
+    });
+    return false;
+  });
+}
+
+function initResultPage() {
+  $('a.results-link').click(function(){
+    var link = $(this), modal2 = $('#modalAlert');
+    $.ajax({
+      'url': link.attr('href'),
+      'dataType': 'html',
+      'type': 'get',
+      'beforeSend': function() {
+        var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+        $('.dropdown').removeClass('open');
+        modal2.find('.modal-body').html(spinner);
+        modal2.modal({
+          'keyboard': false,
+          'backdrop': false,
+          'show': true
+        });
+      },
+      'success': function(data, status, xhr) {
+        if (status != 'success') {
+          alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+          return False;
+        }
+        var modal = $('#myModal'), html = $(data),
+            newpage = html.find('#content-column');
+        modal.find('.modal-title').html(html.find('#content-column h2'));
+        modal.find('.modal-body').html(newpage);
+        
+        modal.modal({
+          'keyboard': true,
+          'backdrop': true,
+          'show': true
+        });
+        modal2.modal('hide');
+      },
+      'error': function() {
+        alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+        return false;
+      }
+    });
 
     return false;
   });
-
 }
+
 
 function initFunctions() {
   initFormPage();
   initOrderBy();
   initPaginate();
   initDropDownNav();
+  loadMore();
 }
 
 $(document).ready(function(){
@@ -378,4 +485,5 @@ $(document).ready(function(){
   initDateFields();
   initSubHeaderNav();
   initFunctions();
+  initResultPage()
 })

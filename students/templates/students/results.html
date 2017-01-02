@@ -4,7 +4,7 @@
 
 {% block meta_title %}Результати{% endblock meta_title %}
 
-{% block title %}Результати Іспитів{% endblock title %}
+{% block title %}Завершені Іспити{% endblock title %}
 
 {% block add_button %}
 <!-- Add Result Button -->
@@ -52,8 +52,8 @@
     <!-- Test Group-->
     <tr>
       <td>{{ context.page_obj.start_index|add:forloop.counter|add:"-1" }}</td>
-      <td><a href="#"
-             class="form-link">{{ exam.name }}</a></td>
+      <td><a href="{% url "exam_results" exam.id %}"
+             class="results-link">{{ exam.name }}</a></td>
       <td>{{ exam.date }}</td>
       <td>{{ exam.teacher_name }}</td>
       <td><a href="{% url "groups_edit" exam.exam_group.id %}"
@@ -67,8 +67,8 @@
           </button>
           <ul class="dropdown-menu" 
               aria-labelledby="dropdownMenu1">
-            <li><a href="#"
-                   class="form-link">Редагувати результати</a></li>
+            <li><a href="{% url "exam_results" exam.id %}"
+                   class="results-link">Показати результати</a></li>
             <li><a href="{% url "results_delete" exam.id %}"
                    class="form-link">Видалити</a></li>
           </ul>

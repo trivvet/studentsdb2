@@ -117,9 +117,16 @@
         </tr>
       
       {% endfor %}
-      
+
     </tbody>
   </table>
+  {% if context.is_paginated and context.page_obj.number < context.paginator.num_pages %}
+    {% with order_by=request.GET.order_by reverse=request.GET.reverse url_page=request.path_info %}
+    <p class="buttonLoad">
+    <a type="button" class="btn btn-default" href="{{ url_page }}?page={{ context.page_obj.next_page_number }}{% if order_by %}&amp;order_by={{order_by }}{% endif %}{% if reverse %}&amp;reverse={{ reverse }}{% endif %}{% if cur_month %}&amp;month={{ cur_month }}{% endif %}" id="buttonLoadMore">Завантажити ще</a>
+    </p>
+    {% endwith %}
+  {% endif %}
 
   <div class="actions">
     <label class="control-label">Дія: </label>
@@ -130,6 +137,7 @@
     <input type="submit" value="Виконати" name="action_button">
   </div>
 </form>
+
 <!--
 <button class="btn btn-primary" href="{% url "home" %}" id="add_page">
    Додати Студента</button> 

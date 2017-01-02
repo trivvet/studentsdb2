@@ -22,7 +22,7 @@ class ContactForm(forms.Form):
         # set form tag attributes
         self.helper.action = reverse('contact_admin')
         self.helper.form_method = 'POST'
-        self.helper.form_class = 'form-horizontal'
+        self.helper.form_class = 'form-horizontal contact-form'
 
         # set form field properties
         self.helper.help_text_inline = True

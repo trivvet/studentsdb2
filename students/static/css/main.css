@@ -73,6 +73,9 @@ a.header {
   margin-bottom: 10px;
 }
 
+.buttonLoad {
+  text-align: center;
+}
 
 p.none {
   font-size: 16px;

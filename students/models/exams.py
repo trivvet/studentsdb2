@@ -36,6 +36,10 @@ class Exam(models.Model):
         blank=True,
         verbose_name=u"Додаткові нотатки")
 
+    is_completed = models.BooleanField(
+        blank=True,
+        default=False)
+
     def __unicode__(self):
-        return u"%s (%s, %s)" % (self.name, self.exam_group.title,
-        self.date.date())
+        return u"%s (%s, %s), зданий - %s" % (self.name, self.exam_group.title,
+        self.date.date(), self.is_completed)

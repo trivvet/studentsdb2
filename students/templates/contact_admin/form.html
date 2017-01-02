@@ -5,6 +5,8 @@
 
 {% block meta_title %}Зв'язок з адміністратором{% endblock meta_title %}
 
+{% block title %}Зв'язок з адміністратором{% endblock title %}
+
 {% block status_message %}
   {% if errors or form.errors %}
     <div class="alert alert-danger" role="alert">
@@ -14,8 +16,6 @@
   {{ block.super }}
   
 {% endblock status_message %}
-
-{% block title %}Зв'язок з адміністратором{% endblock title %}
 
 {% block content %}
 

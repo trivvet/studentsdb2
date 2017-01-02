@@ -6,7 +6,7 @@ from django import forms
 from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import render, reverse
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DeleteView, CreateView, UpdateView
 
 from crispy_forms.helper import FormHelper
@@ -43,86 +43,100 @@ def results_list(request):
             future_exams.append(exam)
 
     exams_result = []
-
     for exam in exams:
-        if exam.date < datetime.now(timezone.utc):
-            exams_result.append(exam)
+        if exam.is_completed == True:
+            exams_result.append(exam) 
 
     # groups paginator
     context = paginate(exams_result, 3, request, {}, var_name='results')
 
-    return render(request, 'students/results.html', { 'context': context })
+    return render(request, 'students/results.html', {'context': context})
         
 def results_add(request):
-    return HttpResponse('<h1>Results Add Form</h1>')
-
-
-# Add Form Class
-class ResultAddForm(forms.ModelForm):
-    class Meta:
-        model = Result
-        fields = ['result_student', 'result_exam', 'score']
-        widgets = {
-            'score': forms.TextInput(
-                attrs={'placeholder': u"Введіть оцінку в балах від 1 до 12"})
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(ResultAddForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-
-        # set form tag attributes
-        self.helper.action = reverse('results_add')
-        self.helper.form_method = 'POST'
-        self.helper.form_class = 'form-horizontal'
-
-        # set form field properties
-        self.helper.help_text_inline = True
-        self.helper.html5_required = False
-        self.helper.attrs = {'novalidate': ''}
-        self.helper.label_class = 'col-sm-3 control-label'
-        self.helper.field_class = 'col-sm-9'
-
-
-        # add buttons
-        self.helper.layout.append(Layout(
-            FormActions(
-                Submit('add_button', u'Додати'),
-                Submit('cancel_button', u'Скасувати', css_class='btn-link')
-            )
-        ))
-
-class ResultAddView(CreateView):
-    model = Result
-    template_name = 'students/form_class.html'
-    form_class = ResultAddForm
-    
-    def get_success_url(self):
-        messages.success(self.request,
-            u"Результат %s по %s успішно доданий" % (self.object.result_student, self.object.result_exam))
-        return reverse('results')
-        
-    def get_context_data(self, **kwargs):
-        context = super(ResultAddView, self).get_context_data(**kwargs)
-        context['title'] = u'Додавання результату іспиту'
-        return context
-
-    def post(self, request, *args, **kwargs):
-        if request.POST.get('cancel_button'):
-            messages.warning(request, u"Додавання результату відмінено")
+    if request.method == 'POST':
+        data = request.POST
+        if data.get('cancel_button'):
+            messages.warning(request, u"Введення результатів іспитів відмінено")
             return HttpResponseRedirect(reverse('results'))
-        else:
-            return super(ResultAddView, self).post(request, *args, **kwargs)
-
-# Edit Form
+        elif data.get('save_button'):
+            i = 0
+            errors = []
+            all_score = []
+            results = []
+            result_exam = Exam.objects.get(pk=data['exam_id'])
+            for student in Student.objects.filter(student_group=result_exam.exam_group):
+                if data['student_mark%s' % student.id]:
+                    score = data['student_mark%s' % student.id]
+                    try:
+                        score = int(score)
+                    except ValueError:
+                        errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть оцінку в балах"})
+                    else:
+                        if score > 0 and score < 12:
+                            all_score.append({'student_id': student.id, 'score': score})
+                            results.append(Result(result_student=student, result_exam=result_exam, score=score))
+                            result_exam.is_completed = True
+                        else:
+                            errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть оцінку від 0 до 12 балів"})
+                else:
+                    errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть оцінку студента"})
+                i += 1
+        
+            if not errors:
+                for result in results:
+                    result.save()
+                result_exam.save()
+                messages.success(request, u"Інформацію про результати іспиту %s успішно додано" % result_exam.name)
+                return HttpResponseRedirect(reverse('results'))
+            else:
+                students = Student.objects.all().filter(student_group=result_exam.exam_group)
+                return render(request, 'students/results_add_marks.html', { 'students': students, 'exam': result_exam, 'errors': errors, 'scores': all_score})
+    else:
+        errors = {}
+        if request.GET.get('cancel_button'):
+            messages.warning(request, u"Введення результатів іспитів відмінено")
+            return HttpResponseRedirect(reverse('results'))
+        elif request.GET.get('save_button'):
+            if request.GET.get('name') is not None:
+                if request.GET.get('name'):
+                    if Exam.objects.filter(pk=request.GET.get('name')):
+                        exam = Exam.objects.get(pk=request.GET.get('name'))
+                        students = Student.objects.all().filter(student_group=exam.exam_group)
+                        return render(request, 'students/results_add_marks.html', { 'students': students, 'exam': exam })
+                    else:
+                      errors['name'] = u"Будь-ласка виберіть завершений іспит"
+                else:
+                    errors['name'] = u"Будь-ласка виберіть іспит" 
+        
+        exams = Exam.objects.all().filter(is_completed=False)
+        return render(request, 'students/results_add.html', { 'exams': exams, 'errors': errors })
   
 def results_edit(request, rid):
-    return HttpResponse('<h1>Edit Result %s</h1>' % rid)
+    results = Result.objects.filter(result_exam=rid)
+    print results
+    return render(request, 'students/results_list.html', {'context': context})
 
 # Delete Page
   
 def results_delete(request, rid):
-    return HttpResponse('<h1>Delete Result %s</h1>' % rid)
+    if request.method == "POST":
+        exam = Exam.objects.get(pk=int(rid))
+        exam.is_completed = False
+        results = Result.objects.filter(result_exam=exam)
+        results.delete()
+        exam.save()
+        messages.success(request, u"Інформацію про результати іспиту %s успішно видалено" % exam.name)
+        return HttpResponseRedirect(reverse('results'))
+    else:
+        try:
+            exam = Exam.objects.get(pk=int(rid))
+        except:
+            pass
+        return render(request, 'students/results_confirm_delete.html', {'exam': exam})
 
 def exam_results(request, rid):
-    return HttpResponse('<h1>Results for %s</h1>' % rid)
+    context = {}
+    results = Result.objects.filter(result_exam=int(rid))
+    context['results'] = results
+    context['exam'] = Exam.objects.get(pk=int(rid))
+    return render(request, 'students/results_list.html', {'context': context})

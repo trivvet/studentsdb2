@@ -449,7 +449,7 @@ class StudentUpdateView(UpdateView):
         context = super(StudentUpdateView, self).get_context_data(**kwargs)
         context['title'] = u'Редагування студента'
         k = 0
-        while k < 10000000:
+        while k < 100000:
             k += 1
         return context
         
