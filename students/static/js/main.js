@@ -116,11 +116,13 @@ function initForm(form, modal, link) {
   form.find('input[name="cancel_button"]').click(function(event) {
     modal.modal('hide');
     $('input, select, textarea').removeAttr('disabled');
+    History.pushState({}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
     return false;
   });
 
   modal.find('button.close').click(function(event){
     $('input,select, textarea').removeAttr('disabled');
+    History.pushState({}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
   });
 
   var modal2 = $('#modalAlert');
@@ -136,6 +138,7 @@ function initForm(form, modal, link) {
       setTimeout(function() {
           modal.modal('hide');
         }, 1500);
+      History.pushState({}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
       return false;
     },
     beforeSend: function() {
@@ -175,6 +178,7 @@ function initForm(form, modal, link) {
           initResultPage();
           
         }, 1000);
+        History.pushState({}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
 
       }
     }
@@ -217,6 +221,7 @@ function initFormPage() {
           'show': true
         });
         modal2.modal('hide');
+        History.pushState({}, $('#myModal h2').text(), link.attr('href'));
       },
       'error': function() {
         alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
@@ -292,7 +297,8 @@ function initSubHeaderNav() {
         initJournal();
         initDropDownNav();
         initResultPage()
-        $('.contact-form').attr('action', $("#contact-link").attr('href'))
+        $('.contact-form').attr('action', $("#contact-link").attr('href'));
+        History.pushState({}, $('#content-column h2').text(), link.attr('href'));
       },
       'error': function() {
         alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
@@ -330,6 +336,7 @@ function initDropDownNav() {
   
         initFunctions();
         initJournal();
+        History.pushState({}, 'Відвідування Студента', link.attr('href'));
       },
       'error': function() {
         alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
@@ -471,6 +478,13 @@ function initResultPage() {
   });
 }
 
+function initBackButton() {
+  $(window).on('popstate', function(event) {
+    if(event.bubbles) {
+      location.reload();
+    }
+  });
+}
 
 function initFunctions() {
   initFormPage();
@@ -486,4 +500,5 @@ $(document).ready(function(){
   initSubHeaderNav();
   initFunctions();
   initResultPage()
+  initBackButton()
 })
