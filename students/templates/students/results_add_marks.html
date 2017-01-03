@@ -1,0 +1,52 @@
+{% extends "students/base.html" %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Додавання результатів іспиту{% endblock meta_title %}
+
+{% block status_message %}
+  {% if errors %}
+    <div class="alert alert-danger" role="alert">
+         Будь-ласка, виправте наступні помилки</div>
+  {% endif %}
+{% endblock status_message %}
+
+{% block title %}Додавання Результатів Іспиту{% endblock title %}
+
+{% block content %}
+       
+<!-- FORM -->
+
+<form class="form-horizontal" action="{% url "results_add" %}" method="post" enctype="multipart/form-data" role="form">
+  {% csrf_token %}
+
+  <h3>{{ exam.name }} ({{ exam.exam_group.title }}, {{ exam.date }})</h3>
+  <input type="hidden" name="exam_id" value="{{ exam.id }}" />
+  {% for student in students %}
+  <div class="form-group {% for error in errors %}{% if error.student_id|add:0 == student.id %}has-error{% endif %}{% endfor %}">
+    <label for="mark{{ student.id }}" class="col-sm-5 control-label">
+      {{ student.last_name }} {{ student.first_name }}</label>
+    <div class="col-sm-6">
+      <input type="number" class="form-control" min="0" max="12"
+             name="student_mark{{ student.id }}"
+             placeholder="Введіть оцінку від 0 до 12 балів" aria-describedby="helpMark{{ student.id }}"
+             value="{% for score in scores %}{% if score.student_id|add:0 == student.id %}{{ score.score }}{% endif %}{% endfor %}" />
+      <span class="help-block" id="helpMark{{ student.id }}">{% for error in errors %}{% if error.student_id|add:0 == student.id %}{{ error.text }}{% endif %}{% endfor %}</span>
+    </div>
+  </div>
+  {% endfor %}
+  
+  <!-- Buttons -->
+  <div class="form-group controls">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" class="btn btn-primary" value="Зберегти"
+             name="save_button" />
+      <input type="submit" class="btn btn-link" href="#" 
+             name="cancel_button" value="Скасувати" />
+    </div>
+  </div>
+</form>
+
+<!-- End FORM -->
+        
+{% endblock content %}
