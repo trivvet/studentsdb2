@@ -108,6 +108,11 @@ p.form {
   margin-bottom: 0px;
 }
 
+#id_photo {
+  display: inline-block;
+  max-width: 150px;
+}
+
 a.form {
   color: #333;
 }

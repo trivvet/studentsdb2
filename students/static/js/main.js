@@ -107,29 +107,50 @@ function initDateFields() {
   });
 }
 
+function initPhotoView() {
+  $('#id_photo').on('change', function(){
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        $('#photo-preview').remove();
+        $(this).after("<img id='photo-preview' alt='photo' src='#' class='img-circle' width='100' height='100'>")
+        reader.onload = function (e) {
+            $('#photo-preview').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(this.files[0]);
+    }
+  });
+  if ($('#id_photo').siblings('a').length > 0) {
+    var reader = new FileReader();
+    $('#photo-clear_id').before("<img id='photo-preview' alt='photo' src='#' class='img-circle' width='100' height='100'>")
+    $('#photo-preview').attr('src', $('#id_photo').siblings('a').attr('href'));
+  }
+}
+
 // use when form is post
 function initForm(form, modal, link) {
   // attach datepicker
   initDateFields();
+  initPhotoView();
 
   // close modal window on Cancel button click
   form.find('input[name="cancel_button"]').click(function(event) {
     modal.modal('hide');
     $('input, select, textarea').removeAttr('disabled');
-    History.pushState({}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
+    History.pushState({'page': ''}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
     return false;
   });
 
   modal.find('button.close').click(function(event){
     $('input,select, textarea').removeAttr('disabled');
-    History.pushState({}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
+    History.pushState({'page': ''}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
   });
 
   var modal2 = $('#modalAlert');
 
   // make form work in AJAX mode
   form.ajaxForm({
-    url: link.attr('href'),
+    url: link,
     dataType: 'html',
     error: function() {
       $('input, select, textarea').prop('disabled', false);
@@ -213,7 +234,7 @@ function initFormPage() {
         modal.find('.modal-body').html(form);
 
         // init our edit form
-        initForm(form, modal, link);
+        initForm(form, modal, link.attr('href'));
         
         modal.modal({
           'keyboard': false,
@@ -221,7 +242,7 @@ function initFormPage() {
           'show': true
         });
         modal2.modal('hide');
-        History.pushState({}, $('#myModal h2').text(), link.attr('href'));
+        History.pushState({'page': 'openForm'}, $('#myModal h2').text(), link.attr('href'));
       },
       'error': function() {
         alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
@@ -268,9 +289,8 @@ function initContactForm() {
   });
 }
 
-function initSubHeaderNav() {
-  $('.nav-tabs a').click(function() {
-    var link = $(this), modal2 = $('#modalAlert');
+function SubHeaderNavigation(link) {
+  var modal2 = $('#modalAlert');
     $.ajax({
       'url': link.attr('href'),
       'dataType': 'html',
@@ -286,25 +306,31 @@ function initSubHeaderNav() {
         });
       },
       'success': function(data, status, xhr) {
-        var html = $(data), newpage = html.find('#content-column');
-        $('.nav-tabs li.active').removeClass('active');
+        var html = $(data), newpage = html.find('#content-column'),
+            modal = $('#myModal');
+        $('#sub-header li.active').removeClass('active');
         link.parent('li').addClass('active');
         link.blur();
+        modal.modal('hide');
         $('#content-column').html(newpage);
         modal2.modal('hide');
   
         initFunctions();
         initJournal();
-        initDropDownNav();
         initResultPage()
         $('.contact-form').attr('action', $("#contact-link").attr('href'));
-        History.pushState({}, $('#content-column h2').text(), link.attr('href'));
+        History.pushState({'page': 'nav', 'url': link.attr('href')}, $('#content-column h2').text(), link.attr('href'));
       },
       'error': function() {
         alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
         return false;
       }
     });
+}
+
+function initSubHeaderNav() {
+  $('.nav-tabs a').click(function() {
+    SubHeaderNavigation($(this));
     return false;
   });
 }
@@ -480,8 +506,52 @@ function initResultPage() {
 
 function initBackButton() {
   $(window).on('popstate', function(event) {
-    if(event.bubbles) {
-      location.reload();
+    if (event.bubbles) {
+      var State = History.getState(), data = State.data;
+      if (data.page == 'nav') {
+        var linkurl = "[href='" + data.url + "']", link = $(linkurl);
+        SubHeaderNavigation(link);
+      } else if (data.page == 'openForm') {
+        var link = State.url, modal2 = $('#modalAlert');
+        $.ajax({
+          'url': link,
+          'dataType': 'html',
+          'type': 'get',
+          'beforeSend': function() {
+            var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+            modal2.find('.modal-body').html(spinner);
+            modal2.modal({
+              'keyboard': false,
+              'backdrop': false,
+              'show': true
+            });
+          },
+          'success': function(data, status, xhr) {
+            if (status != 'success') {
+              alert('Помилка на сeрвері. Спробуйте будь-ласка пізніше');
+              return False;
+            }
+            var modal = $('#myModal'), html = $(data),
+                form = html.find('#content-column form');
+            modal.find('.modal-title').html(html.find('#content-column h2'));
+            modal.find('.modal-body').html(form);
+    
+            // init our edit form
+            initForm(form, modal, link);
+            
+            modal.modal({
+              'keyboard': false,
+              'backdrop': false,
+              'show': true
+            });
+            modal2.modal('hide');
+          },
+          'error': function() {
+            alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+            return false;
+          }
+        });
+      }
     }
   });
 }
