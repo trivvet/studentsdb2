@@ -35,7 +35,7 @@ def exams_list(request):
         if reverse == '1':
             exams = exams.reverse()
     else:
-        exams = exams.order_by('date').reverse()
+        exams = exams.order_by('date')
 
     future_exams = []
     for exam in exams:

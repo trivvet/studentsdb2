@@ -41,7 +41,6 @@
   <tbody>
 
     {% csrf_token %}
-    
     {% for student in students %}
     <tr>
       
@@ -54,9 +53,13 @@
            {{ student.fullname }}</a></td>
       {% for day in student.days %}
       <td class="day-box">
+        {% if disabled is None and day.day|add:0 <= current_day|add:0 %}
         <input type="checkbox" data-student-id="{{ student.id }}"
                data-date="{{ day.date }}" data-url="{{ student.update_url }}"
                value="1" {% if day.present %}checked="checked"{% endif %}>
+        {% else %}
+        -
+        {% endif %}
       </td>
       {% endfor %}
       
@@ -66,6 +69,14 @@
   </tbody>
   
 </table>
+{{ context }}
+{% if is_paginated and page_obj.number < paginator.num_pages %}
+    {% with url_page=request.path_info %}
+    <p class="buttonLoad">
+      <a type="button" class="btn btn-default" href="{{ url_page }}?page={{ page_obj.next_page_number }}{% if cur_month %}&amp;month={{ cur_month }}{% endif %}" id="buttonLoadMore">Завантажити ще</a>
+    </p>
+    {% endwith %}
+  {% endif %}
 
 {% else %}
 <p class='none'></br></br>Поки немає жодного студента в базі. Будь-ласка, <a

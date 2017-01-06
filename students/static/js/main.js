@@ -33,6 +33,14 @@ function initJournal() {
       },
       'success': function(data, status, xhr) {
         indicator.hide();
+        if (data.status == 'error') {
+          if (box[0].checked) {
+            box[0].checked = false;
+          } else {
+            box[0].checked = true;
+          }
+          alert(data.message);
+        }
         $('input').prop('disabled', false);
         modal2.modal('hide');
       }
@@ -67,7 +75,6 @@ function initGroupSelector() {
         $('#content-column').html(newpage);
 
         initFunctions();
-        initJournal();
       }
     });
 
@@ -236,13 +243,13 @@ function initFormPage() {
         // init our edit form
         initForm(form, modal, link.attr('href'));
         
+        History.pushState({'page': 'openForm'}, $('#myModal h2').text(), link.attr('href'));
         modal.modal({
           'keyboard': false,
           'backdrop': false,
           'show': true
         });
         modal2.modal('hide');
-        History.pushState({'page': 'openForm'}, $('#myModal h2').text(), link.attr('href'));
       },
       'error': function() {
         alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
@@ -311,13 +318,14 @@ function SubHeaderNavigation(link) {
         $('#sub-header li.active').removeClass('active');
         link.parent('li').addClass('active');
         link.blur();
-        modal.modal('hide');
+        if (modal.attr('style')) {
+          modal.modal('hide');
+        }
         $('#content-column').html(newpage);
         modal2.modal('hide');
   
         initFunctions();
-        initJournal();
-        initResultPage()
+        initResultPage();
         $('.contact-form').attr('action', $("#contact-link").attr('href'));
         History.pushState({'page': 'nav', 'url': link.attr('href')}, $('#content-column h2').text(), link.attr('href'));
       },
@@ -361,7 +369,6 @@ function initDropDownNav() {
         modal2.modal('hide');
   
         initFunctions();
-        initJournal();
         History.pushState({}, 'Відвідування Студента', link.attr('href'));
       },
       'error': function() {
@@ -427,7 +434,6 @@ function initPaginate() {
         initFormPage();
         initOrderBy();
         initDropDownNav();
-        initJournal();
       }
     });
     return false;
@@ -450,10 +456,14 @@ function loadMore() {
         } else {
           $('#buttonLoadMore').remove();
         }
-        $('ul.pagination').remove();
+        $('.pagination li.active').next().addClass('active');
         
         $('a.form-link').off();
+        $(':checkbox').off();
+        $('.journalNavigate').off();
         initFormPage();
+        initJournal();
+        initDropDownNav();
       }
     });
     return false;
@@ -562,6 +572,7 @@ function initFunctions() {
   initPaginate();
   initDropDownNav();
   loadMore();
+  initJournal();
 }
 
 $(document).ready(function(){

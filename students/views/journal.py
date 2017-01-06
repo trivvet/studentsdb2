@@ -26,10 +26,18 @@ class JournalView(TemplateView):
         if self.request.GET.get('month'):
             month = datetime.strptime(self.request.GET['month'],
                 '%Y-%m-%d').date()
+            if month.year >= datetime.today().year and month.month > datetime.today().month:
+                context['disabled'] = True
+            elif month.year < datetime.today().year or month.month < datetime.today().month:
+                context['current_day'] = 32
+            else:
+                context['current_day'] = datetime.today().day
         else:
             # othewise just display current month data
             today = datetime.today()
             month = date(today.year, today.month, 1)
+            context['current_day'] = datetime.today().day
+
 
         # calculate current, previous and next month dateils;
         # we need this for month navigarion element in template
@@ -38,7 +46,9 @@ class JournalView(TemplateView):
         context['prev_month'] = prev_month.strftime('%Y-%m-%d')
         context['next_month'] = next_month.strftime('%Y-%m-%d')
         context['year'] = month.year
-        context['month_verbose'] = month.strftime('%B')
+        month_name = [u'Січень', u'Лютий', u'Березень', u'Квітень', u'Травень', u'Червень', u'Липень', u'Серпень', u'Вересень', u'Жовтень', u'Листопад', u'Грудень']
+#        context['month_verbose'] = month.strftime('%B')
+        context['month_verbose'] = month_name[month.month-1]
 
         # we'll use this variable in students pagination
         context['cur_month'] = month.strftime('%Y-%m-%d')
@@ -46,11 +56,12 @@ class JournalView(TemplateView):
         # prepare variable for template to generate
         # journal table header elements
 
+        day_name = [u'Пн', u'Вт', u'Ср', u'Чт', u'Пт', u'Сб', u'Нд']
         myear, mmonth = month.year, month.month
         number_of_days = monthrange(myear, mmonth)[1]
         context['month_header'] = [
             {'day': d,
-             'verbose': day_abbr[weekday(myear, mmonth, d)][:2]}
+             'verbose': day_name[weekday(myear, mmonth, d)]}
             for d in range(1, number_of_days+1)]
 
         # get all students from database
@@ -109,6 +120,8 @@ class JournalView(TemplateView):
 
         # prepare student, dates and presense data
         current_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
+        if current_date > datetime.today().date():
+            return JsonResponse({'status': 'error', 'message': u'Заборонено змінювати статуси майбутніх відвідувань'})
         month = date(current_date.year, current_date.month, 1)
         present = data['present'] and True or False
         student = Student.objects.get(pk=data['pk'])
