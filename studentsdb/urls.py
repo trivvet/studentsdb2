@@ -71,7 +71,7 @@ urlpatterns = [
     url(r'^results/$', results.results_list, name='results'),
     url(r'^results/add/$', results.results_add, name='results_add'),
 #    url(r'^results/add/$', ResultAddView.as_view(), name='results_add'),
-    url(r'^results/(?P<rid>\d+)/edit', results.results_edit, 
+    url(r'^results/(?P<rid>\d+)?/edit', results.results_edit, 
         name='results_edit'),
     url(r'^results/(?P<rid>\d+)/delete', results.results_delete,
         name='results_delete'),

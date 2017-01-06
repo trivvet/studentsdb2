@@ -69,6 +69,8 @@
               aria-labelledby="dropdownMenu1">
             <li><a href="{% url "exam_results" exam.id %}"
                    class="results-link">Показати результати</a></li>
+                   <li><a href="{% url "results_edit" exam.id %}"
+                   class="form-link">Редагувати результати</a></li>
             <li><a href="{% url "results_delete" exam.id %}"
                    class="form-link">Видалити</a></li>
           </ul>

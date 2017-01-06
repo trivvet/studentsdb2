@@ -110,7 +110,7 @@ def students_list(request):
                         {'students': students_delete, 'students_id': students_id})
             # if selected action but didn't select students
             elif request.POST.get('action-group') == 'delete':
-                messages.warning(request, u"Будь-ласка, оберіть хоча б одного студента")
+                messages.error(request, u"Будь-ласка, оберіть хоча б одного студента")
             # if didn't select action
             else:
                 messages.warning(request, u"Будь-ласка, оберіть потрібну дію")

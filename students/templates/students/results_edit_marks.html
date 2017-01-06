@@ -11,13 +11,13 @@
   {% endif %}
 {% endblock status_message %}
 
-{% block title %}Додавання Результатів Іспиту{% endblock title %}
+{% block title %}Редагування Результатів Іспиту{% endblock title %}
 
 {% block content %}
        
 <!-- FORM -->
 
-<form class="form-horizontal" action="{% url "results_add" %}" method="post" enctype="multipart/form-data" role="form">
+<form class="form-horizontal" action="{% url "results_edit" %}" method="post" enctype="multipart/form-data" role="form">
   {% csrf_token %}
   <h3 class="col-sm-offset-1 col-sm-11 result-header">{{ exam.name }}</br>({{ exam.exam_group.title }}, {{ exam.date }})</h3></br>
   <input type="hidden" name="exam_id" value="{{ exam.id }}" />

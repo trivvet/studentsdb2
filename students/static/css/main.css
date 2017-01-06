@@ -125,5 +125,10 @@ input {
   max-width: 300px;
 }
 
+.result-header {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
 
 

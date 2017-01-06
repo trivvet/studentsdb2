@@ -461,9 +461,11 @@ function loadMore() {
         $('a.form-link').off();
         $(':checkbox').off();
         $('.journalNavigate').off();
+        $('.result-link').off();
         initFormPage();
         initJournal();
         initDropDownNav();
+        initResultPage();
       }
     });
     return false;
@@ -573,6 +575,7 @@ function initFunctions() {
   initDropDownNav();
   loadMore();
   initJournal();
+  initResultPage();
 }
 
 $(document).ready(function(){
@@ -580,6 +583,6 @@ $(document).ready(function(){
   initDateFields();
   initSubHeaderNav();
   initFunctions();
-  initResultPage()
-  initBackButton()
+  initResultPage();
+  initBackButton();
 })

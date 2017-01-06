@@ -70,7 +70,7 @@ def results_add(request):
                     try:
                         score = int(score)
                     except ValueError:
-                        errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть оцінку в балах"})
+                        errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть число від 0 до 12"})
                     else:
                         if score > 0 and score < 12:
                             all_score.append({'student_id': student.id, 'score': score})
@@ -111,10 +111,52 @@ def results_add(request):
         exams = Exam.objects.all().filter(is_completed=False)
         return render(request, 'students/results_add.html', { 'exams': exams, 'errors': errors })
   
-def results_edit(request, rid):
-    results = Result.objects.filter(result_exam=rid)
-    print results
-    return render(request, 'students/results_list.html', {'context': context})
+def results_edit(request, rid=None):
+    if request.method == "POST":
+        data = request.POST
+        if data.get('cancel_button'):
+            messages.warning(request, u"Введення результатів іспитів відмінено")
+            return HttpResponseRedirect(reverse('results'))
+        elif data.get('save_button'):
+            i = 0
+            errors = []
+            all_score = []
+            results = []
+            result_exam = Exam.objects.get(pk=data['exam_id'])
+            for student in Student.objects.filter(student_group=result_exam.exam_group):
+                if data['student_mark%s' % student.id]:
+                    score = data['student_mark%s' % student.id]
+                    try:
+                        score = int(score)
+                    except ValueError:
+                        errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть число від 0 до 12"})
+                    else:
+                        if score > 0 and score < 12:
+                            all_score.append({'student_id': student.id, 'score': score})
+                            result = Result.objects.get(result_exam=data['exam_id'], result_student=student)
+                            result.score = score
+                            results.append(result)
+                        else:
+                            errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть оцінку від 0 до 12 балів"})
+                else:
+                    errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть оцінку студента"})
+                i += 1
+        
+            if not errors:
+                for result in results:
+                    result.save()
+                result_exam.save()
+                messages.success(request, u"Інформацію про результати іспиту %s успішно змінено" % result_exam.name)
+                return HttpResponseRedirect(reverse('results'))
+    else:
+        results = Result.objects.filter(result_exam=rid)
+        result_exam = Exam.objects.get(pk=rid)
+        all_score = []
+        for result in results:
+            score = result.score
+            all_score.append({'student_id': result.result_student.id, 'score': score})
+    students = Student.objects.all().filter(student_group=result_exam.exam_group)
+    return render(request, 'students/results_edit_marks.html', {'students': students, 'exam': result_exam, 'scores': all_score})
 
 # Delete Page
   
