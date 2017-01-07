@@ -200,6 +200,7 @@ function initForm(form, modal, link) {
         setTimeout(function() {
           $('#sub-header').html(html.find('#sub-header div'));
           $('#content-column').html(html.find('#content-column'));
+          $('input, select, textarea').prop('disabled', false);
           modal.modal('hide');
           initSubHeaderNav();
           initFunctions();
@@ -380,62 +381,74 @@ function initDropDownNav() {
   });
 }
 
+function OrderByNavigation(link) {
+  $.ajax({
+    'url': link.attr('href'),
+    'dataType': 'html',
+    'type': 'get',
+    'success': function(data, status, xhr) {
+      var newpage = $(data).find('table').children(),
+          newpaginate = $(data).find('nav').children(),
+          newbutton = $(data).find('#buttonLoadMore');
+      $('table').html(newpage);
+      $('nav').html(newpaginate);
+      $('.buttonLoad').html(newbutton);
+
+      History.pushState({'page': 'orderby', 'url': link.attr('href')}, $('#content-column h2').text(), link.attr('href'));
+
+      initFunctions();
+    }
+  });
+}
+
 function initOrderBy() {
   $('th a').click(function(){
     var link = $(this);
-    $.ajax({
-      'url': link.attr('href'),
-      'dataType': 'html',
-      'type': 'get',
-      'success': function(data, status, xhr) {
-        var newpage = $(data).find('table').children(),
-            newpaginate = $(data).find('nav').children(),
-            newbutton = $(data).find('#buttonLoadMore');
-        $('table').html(newpage);
-        $('nav').html(newpaginate);
-        $('.buttonLoad').html(newbutton);
-
-        initFunctions();
-      }
-    });
+    OrderByNavigation(link);
     return false;
   });
 }
 
-function initPaginate() {
-    $('.pagination a').click(function() {
-    var link = $(this);
-    $.ajax({
-      'url': link.attr('href'),
-      'dataType': 'html',
-      'type': 'get',
-      'success': function(data, status, xhr) {
-        var html = $(data), newpage = html.find('tbody').children(), newbutton = html.find('#buttonLoadMore');
-        $('.pagination li.active').removeClass('active');
-        if (link.attr('aria-label') == 'Previous') {
-          $('.pagination li:nth-child(2)').addClass('active');
-        } else if (link.attr('aria-label') == 'Next') {
-          $('.pagination li:nth-last-child(2)').addClass('active');
-        } else {
-          link.parent('li').addClass('active');
-        }
-        if (newbutton) {
-          link.blur();
-          $('#buttonLoadMore').remove();
-          $('.buttonLoad').html(newbutton);
-          loadMore();
-        } else {
-          $('#buttonLoadMore').remove();
-        }
-
-        link.blur();
-        $('tbody').html(newpage);
-
-        initFormPage();
-        initOrderBy();
-        initDropDownNav();
+function PageNavigation(link) {
+  $.ajax({
+    'url': link.attr('href'),
+    'dataType': 'html',
+    'type': 'get',
+    'success': function(data, status, xhr) {
+      var html = $(data), newpage = html.find('tbody').children(), newbutton = html.find('#buttonLoadMore');
+      $('.pagination li.active').removeClass('active');
+      if (link.attr('aria-label') == 'Previous') {
+        $('.pagination li:nth-child(2)').addClass('active');
+      } else if (link.attr('aria-label') == 'Next') {
+        $('.pagination li:nth-last-child(2)').addClass('active');
+      } else {
+        link.parent('li').addClass('active');
       }
-    });
+      if (newbutton) {
+        link.blur();
+        $('#buttonLoadMore').remove();
+        $('.buttonLoad').html(newbutton);
+        loadMore();
+      } else {
+        $('#buttonLoadMore').remove();
+      }
+  
+      link.blur();
+      $('tbody').html(newpage);
+  
+      initFormPage();
+      initOrderBy();
+      initDropDownNav();
+      
+      History.pushState({'page': 'pagenav', 'url': link.attr('href')}, $('#content-column h2').text(), link.attr('href'));
+    }
+  });
+}
+
+function initPaginate() {
+  $('.pagination a').click(function() {
+    var link = $(this);
+    PageNavigation(link);
     return false;
   });
 }
@@ -492,7 +505,7 @@ function initResultPage() {
       'success': function(data, status, xhr) {
         if (status != 'success') {
           alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
-          return False;
+          return false;
         }
         var modal = $('#myModal'), html = $(data),
             newpage = html.find('#content-column');
@@ -500,8 +513,8 @@ function initResultPage() {
         modal.find('.modal-body').html(newpage);
         
         modal.modal({
-          'keyboard': true,
-          'backdrop': true,
+          'keyboard': false,
+          'backdrop': false,
           'show': true
         });
         modal2.modal('hide');
@@ -523,6 +536,9 @@ function initBackButton() {
       if (data.page == 'nav') {
         var linkurl = "[href='" + data.url + "']", link = $(linkurl);
         SubHeaderNavigation(link);
+      } else if (data.page == 'orderby') {
+        var linkurl = "[href='" + data.url + "']", link = $(linkurl);
+        OrderByNavigation(link);
       } else if (data.page == 'openForm') {
         var link = State.url, modal2 = $('#modalAlert');
         $.ajax({
@@ -556,6 +572,43 @@ function initBackButton() {
               'backdrop': false,
               'show': true
             });
+            modal2.modal('hide');
+          },
+          'error': function() {
+            alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+            return false;
+          }
+        });
+      } else if (data.page == 'pagenav') {
+        var linkurl = "[href='" + data.url + "']", link = $(linkurl);
+        PageNavigation(link);
+      } else {
+        var link = State.url, modal2 = $('#modalAlert');
+        $.ajax({
+          'url': link,
+          'dataType': 'html',
+          'type': 'get',
+          'beforeSend': function() {
+            var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+            modal2.find('.modal-body').html(spinner);
+            modal2.modal({
+              'keyboard': false,
+              'backdrop': false,
+              'show': true
+            });
+          },
+          'success': function(data, status, xhr) {
+            if (status != 'success') {
+              alert('Помилка на сeрвері. Спробуйте будь-ласка пізніше');
+              return False;
+            }
+            var html = $(data);
+            $('#sub-header').html(html.find('#sub-header'));
+            $('#content-columns').html(html.find('#content-columns'));
+            initDateFields();
+            initSubHeaderNav();
+            initFunctions();
+            initResultPage();
             modal2.modal('hide');
           },
           'error': function() {
