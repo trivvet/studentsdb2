@@ -75,6 +75,48 @@ TEMPLATES = [
     },
 ]
 
+LOG_FILE = os.path.join(BASE_DIR, 'studentsdb.log')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s %(levelname)s %(module)s: %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': LOG_FILE
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
+        'students.signals': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
+        'students.views.contact_admin': {
+            'handlers': ['console', 'file'],
+            'level': 'ERROR',
+        }
+    }
+}
+
 WSGI_APPLICATION = 'studentsdb.wsgi.application'
 
 
@@ -126,7 +168,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 
 # email settings
 ADMIN_EMAIL = EMAIL_TO
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.gmail.co'
 EMAIL_PORT = '465'
 EMAIL_HOST_USER = EMAIL_FROM
 EMAIL_HOST_PASSWORD = PASSWORD

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 from django import forms
 from django.shortcuts import render, reverse
 from django.urls import reverse_lazy
@@ -57,13 +59,22 @@ class ContactView(FormView):
         return u"%s?status_message=Лист успішно відправлений!" % reverse('home')
 
     def form_valid(self, form):
+        context = super(ContactView, self).form_valid(form)
+
         subject = form.cleaned_data['subject']
         message = form.cleaned_data['message']
         from_email = form.cleaned_data['from_email']
 
-        send_mail(subject, message, from_email, [ADMIN_EMAIL])
+        try:
+            send_mail(subject, message, from_email, [ADMIN_EMAIL])
+        except Exception:
+            message = u'Під час відправки листа виникла непередбачувана помилка. Спробуйте скористатись даною формою пізніше'
+            logger = logging.getLogger(__name__)
+            logger.exception(message)
+        else:
+            context['message'] = u"Повідомлення успішно надіслане"
 
-        return super(ContactView, self).form_valid(form)
+        return context
 
 
 def contact_admin(request):
@@ -83,6 +94,8 @@ def contact_admin(request):
                send_mail(subject, message, from_email, [ADMIN_EMAIL])
            except:
                message = u"Під час відправки листа виникла непередбачувана помилка Спробуйте скористатись даною формою пізніше"
+               logger = logging.getLogger(__name__)
+               logger.exception(message)
            else:
                message = u"Повідомлення успішно надіслане"
 
