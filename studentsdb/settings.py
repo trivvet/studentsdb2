@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import colorlog
 from django.conf import global_settings
 
 from sensitive_data import PASSWORD, EMAIL_FROM, EMAIL_TO
@@ -82,20 +83,40 @@ LOGGING = {
     'disable_existing_loggers': True,
     'formatters': {
         'verbose': {
-            'format': '%(asctime)s %(levelname)s %(module)s: %(message)s'
+            '()': 'colorlog.ColoredFormatter',
+            'format': '%(log_color)s%(asctime)s %(levelname)s %(module)s: %(message)s',
+            'log_colors': {
+                'DEBUG': 'bold_black',
+                'INFO': 'white',
+                'WARNING': 'yellow',
+                'ERROR': 'red',
+                'CRITICAL': 'bold_red',
+            },
         },
         'simple': {
-            'format': '%(levelname)s %(message)s'
+            '()': 'colorlog.ColoredFormatter',
+            'format': '%(asctime)s %(log_color)s%(levelname)s %(message)s',
+            'log_colors': {
+                'DEBUG': 'bold_black',
+                'INFO': 'white',
+                'WARNING': 'yellow',
+                'ERROR': 'red',
+                'CRITICAL': 'bold_red',
+            },
         },
     },
     'handlers': {
-        'console': {
+        'null': {
             'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
         'file': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
             'filename': LOG_FILE
@@ -105,6 +126,7 @@ LOGGING = {
         'django': {
             'handlers': ['console'],
             'propagate': True,
+            'level': 'INFO',
         },
         'students.signals': {
             'handlers': ['console', 'file'],

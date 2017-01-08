@@ -166,7 +166,7 @@ function initForm(form, modal, link) {
       setTimeout(function() {
           modal.modal('hide');
         }, 1500);
-      History.pushState({}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
+      History.pushState({'page': 'openForm'}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
       return false;
     },
     beforeSend: function() {
@@ -207,7 +207,7 @@ function initForm(form, modal, link) {
           initResultPage();
           
         }, 1000);
-        History.pushState({}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
+        History.pushState({'page': 'openForm'}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
 
       }
     }
@@ -297,7 +297,7 @@ function initContactForm() {
   });
 }
 
-function SubHeaderNavigation(link) {
+function SubHeaderNavigation(link, pagination) {
   var modal2 = $('#modalAlert');
     $.ajax({
       'url': link.attr('href'),
@@ -314,21 +314,44 @@ function SubHeaderNavigation(link) {
         });
       },
       'success': function(data, status, xhr) {
-        var html = $(data), newpage = html.find('#content-column'),
-            modal = $('#myModal');
+        var html = $(data), newpage = html.find('#content-column');
         $('#sub-header li.active').removeClass('active');
         link.parent('li').addClass('active');
         link.blur();
-        if (modal.attr('style')) {
-          modal.modal('hide');
-        }
+
         $('#content-column').html(newpage);
         modal2.modal('hide');
   
         initFunctions();
         initResultPage();
+        initFormPage();
         $('.contact-form').attr('action', $("#contact-link").attr('href'));
-        History.pushState({'page': 'nav', 'url': link.attr('href')}, $('#content-column h2').text(), link.attr('href'));
+        if (pagination == false) {
+          History.pushState({'page': 'nav', 'url': link.attr('href')}, $('#content-column h2').text(), link.attr('href'));
+        } else {
+          var data = location.search, dataurl = location.pathname,    linkurl = "[href='" + dataurl + data + "']", link2 = $(linkurl);
+          if (link2.length > 0 && link2.parent().is('th')) {
+            OrderByNavigation(link2);
+          } else if (link2.length > 0) {
+            PageNavigation(link2);
+          } else {
+            $.ajax({
+              'url': dataurl + data,
+              'dataType': 'html',
+              'type': 'get',
+              'success': function(data, status, xhr) {
+                var newpage = $(data).find('table').children(),
+                    newpaginate = $(data).find('nav').children(),
+                    newbutton = $(data).find('#buttonLoadMore');
+                $('table').html(newpage);
+                $('nav').html(newpaginate);
+                $('.buttonLoad').html(newbutton);
+          
+                initFunctions();
+              }
+            });
+          }
+        }
       },
       'error': function() {
         alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
@@ -339,7 +362,7 @@ function SubHeaderNavigation(link) {
 
 function initSubHeaderNav() {
   $('.nav-tabs a').click(function() {
-    SubHeaderNavigation($(this));
+    SubHeaderNavigation($(this), false);
     return false;
   });
 }
@@ -410,6 +433,9 @@ function initOrderBy() {
 }
 
 function PageNavigation(link) {
+  if (link.length > 1) { 
+    link = link.first();
+  }
   $.ajax({
     'url': link.attr('href'),
     'dataType': 'html',
@@ -419,7 +445,7 @@ function PageNavigation(link) {
       $('.pagination li.active').removeClass('active');
       if (link.attr('aria-label') == 'Previous') {
         $('.pagination li:nth-child(2)').addClass('active');
-      } else if (link.attr('aria-label') == 'Next') {
+      } else if (link.attr('aria-label') == 'Next' || link.is('.btn')) {
         $('.pagination li:nth-last-child(2)').addClass('active');
       } else {
         link.parent('li').addClass('active');
@@ -436,7 +462,6 @@ function PageNavigation(link) {
       link.blur();
       $('tbody').html(newpage);
   
-      initFormPage();
       initOrderBy();
       initDropDownNav();
       
@@ -533,13 +558,69 @@ function initBackButton() {
   $(window).on('popstate', function(event) {
     if (event.bubbles) {
       var State = History.getState(), data = State.data;
-      if (data.page == 'nav') {
-        var linkurl = "[href='" + data.url + "']", link = $(linkurl);
-        SubHeaderNavigation(link);
-      } else if (data.page == 'orderby') {
-        var linkurl = "[href='" + data.url + "']", link = $(linkurl);
-        OrderByNavigation(link);
-      } else if (data.page == 'openForm') {
+      if (data.page != 'openForm') {
+        if ($('#myModal').attr('style') == 'display: block;') {
+          $('#myModal').modal('hide');
+        } else {
+          if (data.page == 'nav') {
+            var linkurl = "[href='" + data.url + "']", link = $(linkurl);
+            SubHeaderNavigation(link, false);
+          } else if (data.page == 'orderby') {
+            var linkurl = "[href='" + data.url + "']", link = $(linkurl);
+            if ($('#sub-header li.active a').attr('href') == location.pathname) {
+              OrderByNavigation(link);
+            } else {
+              var linkurl2 = "[href='" + location.pathname + "']", link2 = $(linkurl2);
+              SubHeaderNavigation(link2, '1');
+            }
+          } else if (data.page == 'pagenav') {
+            var linkurl = "[href='" + data.url + "']", link = $(linkurl);
+            if ($('#sub-header li.active a').attr('href') == location.pathname) {
+              PageNavigation(link);
+            } else {
+              var linkurl2 = "[href='" + location.pathname + "']", link2 = $(linkurl2);
+              SubHeaderNavigation(link2, '1');
+            }
+          } else {
+            var link = State.url, modal2 = $('#modalAlert');
+            $.ajax({
+              'url': link,
+              'dataType': 'html',
+              'type': 'get',
+              'beforeSend': function() {
+                var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+                modal2.find('.modal-body').html(spinner);
+                modal2.modal({
+                  'keyboard': false,
+                  'backdrop': false,
+                  'show': true
+                });
+              },
+              'success': function(data, status, xhr) {
+                if (status != 'success') {
+                  alert('Помилка на сeрвері. Спробуйте будь-ласка пізніше');
+                  return False;
+                }
+                var html = $(data), modal = $('#myModal');
+                $('#sub-header').html(html.find('#sub-header'));
+                $('#content-columns').html(html.find('#content-columns'));
+                if (modal.attr('style')) {
+                  modal.modal('hide');
+                }
+                initDateFields();
+                initSubHeaderNav();
+                initFunctions();
+                initResultPage();
+                modal2.modal('hide');
+              },
+              'error': function() {
+                alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+                return false;
+              }
+            });
+          }
+        }
+      } else {
         var link = State.url, modal2 = $('#modalAlert');
         $.ajax({
           'url': link,
@@ -579,50 +660,12 @@ function initBackButton() {
             return false;
           }
         });
-      } else if (data.page == 'pagenav') {
-        var linkurl = "[href='" + data.url + "']", link = $(linkurl);
-        PageNavigation(link);
-      } else {
-        var link = State.url, modal2 = $('#modalAlert');
-        $.ajax({
-          'url': link,
-          'dataType': 'html',
-          'type': 'get',
-          'beforeSend': function() {
-            var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
-            modal2.find('.modal-body').html(spinner);
-            modal2.modal({
-              'keyboard': false,
-              'backdrop': false,
-              'show': true
-            });
-          },
-          'success': function(data, status, xhr) {
-            if (status != 'success') {
-              alert('Помилка на сeрвері. Спробуйте будь-ласка пізніше');
-              return False;
-            }
-            var html = $(data);
-            $('#sub-header').html(html.find('#sub-header'));
-            $('#content-columns').html(html.find('#content-columns'));
-            initDateFields();
-            initSubHeaderNav();
-            initFunctions();
-            initResultPage();
-            modal2.modal('hide');
-          },
-          'error': function() {
-            alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
-            return false;
-          }
-        });
       }
     }
   });
 }
 
 function initFunctions() {
-  initFormPage();
   initOrderBy();
   initPaginate();
   initDropDownNav();
@@ -632,6 +675,7 @@ function initFunctions() {
 }
 
 $(document).ready(function(){
+  initFormPage();
   initGroupSelector();
   initDateFields();
   initSubHeaderNav();

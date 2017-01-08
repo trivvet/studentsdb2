@@ -4,6 +4,7 @@ import logging
 
 from django import forms
 from django.shortcuts import render, reverse
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
@@ -54,12 +55,14 @@ class ContactView(FormView):
     template_name = 'contact_admin/form.html'
     form_class = ContactForm
 
-    @property
-    def success_url(self):
-        return u"%s?status_message=Лист успішно відправлений!" % reverse('home')
+    def get_success_url(self):
+        if self.message:
+            messages.success(self.request, u"Лист успішно відправлений")
+        else:
+            messages.error(self.request, u"Під час відправки листа виникла непередбачувана помилка. Спробуйте скористатись даною формою пізніше")
+        return reverse('home')
 
     def form_valid(self, form):
-        context = super(ContactView, self).form_valid(form)
 
         subject = form.cleaned_data['subject']
         message = form.cleaned_data['message']
@@ -71,41 +74,11 @@ class ContactView(FormView):
             message = u'Під час відправки листа виникла непередбачувана помилка. Спробуйте скористатись даною формою пізніше'
             logger = logging.getLogger(__name__)
             logger.exception(message)
+            self.message = False
         else:
-            context['message'] = u"Повідомлення успішно надіслане"
+            self.message = True
 
-        return context
-
-
-def contact_admin(request):
-    # check if form was posted
-    if request.method == 'POST':
-       # create a form instance and populate it with data form the request
-       form = ContactForm(request.POST)
-
-       # check whether user data is valid
-       if form.is_valid():
-           # add validation data
-           subject = form.cleaned_data['subject']
-           message = form.cleaned_data['message']
-           from_email = form.cleaned_data['from_email']
-
-           try:
-               send_mail(subject, message, from_email, [ADMIN_EMAIL])
-           except:
-               message = u"Під час відправки листа виникла непередбачувана помилка Спробуйте скористатись даною формою пізніше"
-               logger = logging.getLogger(__name__)
-               logger.exception(message)
-           else:
-               message = u"Повідомлення успішно надіслане"
-
-           return HttpResponseRedirect(u"%s?status_message=%s" % (reverse(                            'contact_admin'), message))
-
-    # if there was not POST render blank form
-    else:
-        form = ContactForm()
-
-    return render(request, 'contact_admin/form.html', {'form': form})
+        return super(ContactView, self).form_valid(form)
                
 
            

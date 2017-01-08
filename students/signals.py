@@ -19,7 +19,7 @@ def log_models_changed_signal(sender, **kwargs):
     if kwargs['created'] is None:
         log = 'deleted'
     elif kwargs['created']:
-        log = 'created'
+        log = 'added'
     else:
         log = 'updated'
 
