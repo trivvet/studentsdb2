@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.apps import AppConfig
+from django.dispatch import Signal
   
 
 class StudentsAppConfig(AppConfig):
@@ -11,5 +12,3 @@ class StudentsAppConfig(AppConfig):
 
     def ready(self):
         from students import signals
-
-    

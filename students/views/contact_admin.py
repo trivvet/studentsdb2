@@ -2,7 +2,7 @@
 
 import logging
 
-from django import forms
+from django import forms, dispatch
 from django.shortcuts import render, reverse
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -15,6 +15,7 @@ from crispy_forms.bootstrap import FormActions
 from crispy_forms.layout import Layout, Submit, Button
 
 from studentsdb.settings import ADMIN_EMAIL
+from ..signals import send_mail_done
 
 class ContactForm(forms.Form):
 
@@ -70,6 +71,7 @@ class ContactView(FormView):
 
         try:
             send_mail(subject, message, from_email, [ADMIN_EMAIL])
+            send_mail_done.send(sender=self.__class__, subject=subject, from_email=from_email)
         except Exception:
             message = u'Під час відправки листа виникла непередбачувана помилка. Спробуйте скористатись даною формою пізніше'
             logger = logging.getLogger(__name__)
@@ -79,6 +81,9 @@ class ContactView(FormView):
             self.message = True
 
         return super(ContactView, self).form_valid(form)
+
+
+
                
 
            

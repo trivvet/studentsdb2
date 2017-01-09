@@ -4,7 +4,7 @@ import logging
 
 from django.db.models.signals import post_save, post_delete
 from django.core.signals import request_finished
-from django.dispatch import receiver
+from django.dispatch import receiver, Signal
 
 from models import Student, Group, Exam, MonthJournal, Result
 
@@ -43,3 +43,12 @@ def log_models_changed_signal(sender, **kwargs):
 #@receiver(request_finished)
 #def hello_world_callback(sender, **kwargs):
     #print 'Hello World!'
+
+send_mail_done = Signal(providing_args=["subject", "from_email"])
+
+@receiver(send_mail_done)
+def log_send_mail_done(sender, **kwargs):
+    logger = logging.getLogger(__name__)
+    email = kwargs['from_email']
+    subject = kwargs['subject']
+    logger.info(u'Send mail to Admin from %s, Theme - %s', email, subject)

@@ -121,12 +121,21 @@ LOGGING = {
             'formatter': 'verbose',
             'filename': LOG_FILE
         },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
     },
     'loggers': {
         'django': {
             'handlers': ['console'],
             'propagate': True,
             'level': 'INFO',
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
         },
         'students.signals': {
             'handlers': ['console', 'file'],
@@ -189,13 +198,17 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 
 # email settings
+ADMINS = [('Trivvet', 'vlasyuk@expert.km.ua')]
 ADMIN_EMAIL = EMAIL_TO
-EMAIL_HOST = 'smtp.gmail.co'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '465'
 EMAIL_HOST_USER = EMAIL_FROM
 EMAIL_HOST_PASSWORD = PASSWORD
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, '..', 'email')
 
 #DATABASES = {
 ##    'default': {
