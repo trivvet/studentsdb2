@@ -3,10 +3,13 @@
 import logging
 
 from django.db.models.signals import post_save, post_delete
-from django.core.signals import request_finished
+from django.core.signals import request_finished, request_started
 from django.dispatch import receiver, Signal
 
 from models import Student, Group, Exam, MonthJournal, Result
+
+counter = 0
+segment = 50
 
 @receiver([post_save, post_delete])
 def log_models_changed_signal(sender, **kwargs):
@@ -52,3 +55,19 @@ def log_send_mail_done(sender, **kwargs):
     email = kwargs['from_email']
     subject = kwargs['subject']
     logger.info(u'Send mail to Admin from %s, Theme - %s', email, subject)
+
+def log_migrate_dote(sender, **kwargs):
+    logger = logging.getLogger(__name__)
+    db_info = kwargs['using']
+    model_changed = sender.verbose_name
+    logger.info(u'Command of manage.py - mirgate is used: %s', db_info)
+
+@receiver(request_started)
+def log_request_counter(sender, **kwargs):
+    global counter
+    global segment
+    logger = logging.getLogger(__name__)
+    counter += 1
+    if counter > segment:
+        logger.info(u'Done %s requests', segment)
+        segment += 50
