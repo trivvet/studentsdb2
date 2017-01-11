@@ -1,0 +1,21 @@
+{% extends "students/base.html" %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Інфо події{% endblock meta_title %}
+
+{% block title %}Інформація про подію{% endblock title %}
+
+{% block add_button %}
+{% endblock add_button %}
+          
+{% block content %}
+
+<h4>{{ context.log.status }} {{ context.log.signal }}</br>{{context.log.log_datetime }}</h4></br>
+
+<div class="alert alert-info" role="info">
+    <p>{{ context.log.info }}</p>
+</div>
+
+        
+{% endblock content %}

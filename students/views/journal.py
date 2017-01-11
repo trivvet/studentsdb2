@@ -34,7 +34,7 @@ class JournalView(TemplateView):
                 context['current_day'] = datetime.today().day
         else:
             # othewise just display current month data
-            today = datetime.today()
+            today = datetime.utcnow()
             month = date(today.year, today.month, 1)
             context['current_day'] = datetime.today().day
 

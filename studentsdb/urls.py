@@ -17,11 +17,12 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views import static
 
-from students.views import students, groups, journal, exams, results, contact_admin
+from students.views import students, groups, journal, exams, results, contact_admin, logs
 from students.views.students import StudentUpdateView, StudentList, StudentDeleteView
 from students.views.groups import GroupAddView, GroupUpdateView, GroupDeleteView
 from students.views.exams import ExamAddView, ExamUpdateView, ExamDeleteView
 from students.views.journal import JournalView
+from students.views.logs import LogsView, LogDeleteView, LogUpdateView
 # from contact_form.views import ContactFormView
 from students.views.contact_admin import ContactView
 
@@ -77,6 +78,15 @@ urlpatterns = [
         name='results_delete'),
     url(r'^results/(?P<rid>\d+)/list', results.exam_results,
         name='exam_results'),
+
+    # Logs urls
+    url(r'^logs/$', LogsView.as_view(), name='logs'),
+    url(r'^logs/(?P<pk>\d+)/edit', LogUpdateView.as_view(), 
+        name='logs_edit'),
+    url(r'^logs/(?P<pk>\d+)/delete', LogDeleteView.as_view(),
+        name='logs_delete'),
+    url(r'^logs/(?P<lid>\d+)/list', logs.log_info,
+        name='log_info'),
 
     # Contact Admin Form
 #    url(r'^contact-admin/$', contact_admin.contact_admin, name="contact_admin"),

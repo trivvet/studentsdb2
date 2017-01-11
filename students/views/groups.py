@@ -265,7 +265,7 @@ class GroupUpdateView(UpdateView):
     form_class = GroupUpdateForm
     
     def get_success_url(self):
-        messages.succss(self.request,
+        messages.success(self.request,
             u"Група %s успішно збережена" % self.object.title)
         return reverse('groups')
 

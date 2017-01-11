@@ -1,0 +1,86 @@
+{% extends "students/base.html" %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Події{% endblock meta_title %}
+
+{% block title %}Записи подій{% endblock title %}
+   
+{% block content %}
+<!-- Start Logs Listing -->
+
+{% if logs %}
+
+{% with order_by=request.GET.order_by reverse=request.GET.reverse %}
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>№</th>
+      <th>Назва сигналу</th>
+      <th>Рівень</th>
+      <th>Час спрацювання</th>
+      <th>Дії</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for log in logs %}
+  
+      <tr>
+        <td>{{ page_obj.start_index|add:forloop.counter|add:"-1" }}</td>
+        <td><a href="{% url "log_info" log.id %}"
+             class="results-link">{{ log.signal }}</a></td>
+        <td>{{ log.status }}</td>
+        <td>{{ log.log_datetime }}</td>
+        <td>
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" 
+                    type="button" data-toggle="dropdown" >Дія
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" 
+                aria-labelledby="dropdownMenu1">
+              <li><a href="{{ PORTAL_URL }}{% url "log_info" log.id %}"
+                   class="results-link">Показати подробиці</a></li>
+              <li>
+                <a href="{{ PORTAL_URL }}{% url "logs_edit" log.id %}" class="form-link">
+                   Редагувати</a>
+              </li>
+              <li>
+                <a class="form-link" href="{{ PORTAL_URL }}{% url "logs_delete" log.id %}">
+                   Видалити</a>
+                </li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    
+    {% endfor %}
+
+  </tbody>
+</table>
+{% if is_paginated and page_obj.number < paginator.num_pages %}
+  {% with order_by=request.GET.order_by reverse=request.GET.reverse url_page=request.path_info %}
+  <p class="buttonLoad">
+  <a type="button" class="btn btn-default" href="{{ url_page }}?page={{ page_obj.next_page_number }}{% if order_by %}&amp;order_by={{order_by }}{% endif %}{% if reverse %}&amp;reverse={{ reverse }}{% endif %}{% if cur_month %}&amp;month={{ cur_month }}{% endif %}" id="buttonLoadMore">Завантажити ще</a>
+  </p>
+  {% endwith %}
+{% endif %}
+
+{% endwith %}
+
+{% else %}
+<p class='none'>Поки немає подій у базі</p>
+{% endif %}
+
+<!-- End Students Listing -->
+
+<!-- Pagination -->
+
+{% include 'students/pagination.html' %}
+  
+{% endblock content %}
+
+{% block extra_js %}
+{% endblock extra_js %}
+
+ 

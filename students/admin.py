@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.forms import ModelForm, ValidationError
 from django.shortcuts import reverse
 
-from .models import Student, Group, Exam, Result, MonthJournal
+from .models import Student, Group, Exam, Result, MonthJournal, LogEntry
 
 class StudentFormAdmin(ModelForm):
     def clean_student_group(self):
@@ -76,3 +76,4 @@ admin.site.register(MonthJournal)
 admin.site.register(Group, GroupAdmin)
 admin.site.register(Exam)
 admin.site.register(Result)
+admin.site.register(LogEntry)

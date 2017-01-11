@@ -65,6 +65,7 @@
       {% url 'exams' as url_exams %}
       {% url 'results' as url_results %}
       {% url 'contact_admin' as url_contact %}
+      {% url 'logs' as url_logs %}
       <!-- Start Subheader -->
       <div class="row" id="sub-header">
         <div class="col-xs-12">
@@ -87,6 +88,9 @@
             <li role="presentation" {% if url_contact in request.path %}
                 class="active"{% endif %}>
               <a href="{{ url_contact }}" id="contact-link">Контакт</a></li>
+            <li role="presentation" {% if url_logs in request.path %}
+                class="active"{% endif %}>
+              <a href="{{ url_logs }}" id="contact-link">Події</a></li>
         </ul>
         </div>
       </div>
