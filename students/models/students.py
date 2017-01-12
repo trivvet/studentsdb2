@@ -39,10 +39,10 @@ class Student(models.Model):
         verbose_name=u"Фото",
         null=True)
         
-    ticket = models.CharField(
-        max_length=256,
+    ticket = models.IntegerField(
         blank=False,
-        verbose_name=u"Білет")
+        verbose_name=u"Білет",
+        unique=True)
 
     student_group = models.ForeignKey('Group',
         verbose_name=u"Група",

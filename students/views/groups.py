@@ -20,6 +20,7 @@ from ..util import paginate, get_current_group
 def groups_list(request):
     current_group = get_current_group(request)
     if current_group:
+        # if group is selected return only than group
         groups = Group.objects.filter(pk=current_group.id)
     else:
         # otherwise show all students
@@ -38,11 +39,9 @@ def groups_list(request):
     # groups paginator
     context = paginate(groups, 3, request, {}, var_name='groups')
 
-    
     return render(request, 'students/groups.html', {'context': context})
         
-# Add Form
-  
+# Add Form  
 def groups_add(request):
     addition = {}
     addition['students_all'] = Student.objects.all().order_by('last_name')
@@ -92,6 +91,7 @@ def groups_add(request):
         return render(request, 'students/groups_add.html', 
             {'addition': addition, 'errors': errors })
 
+# Add Form Class
 class GroupAddForm(forms.ModelForm):
     class Meta:
         model = Group
@@ -115,11 +115,10 @@ class GroupAddForm(forms.ModelForm):
 
         # set form field properties
         self.helper.help_text_inline = True
-        self.helper.html5_required = False
+        self.helper.html5_required = True
         self.helper.attrs = {'novalidate': ''}
         self.helper.label_class = 'col-sm-3 control-label'
         self.helper.field_class = 'col-sm-9'
-
 
         # add buttons
         self.helper.layout.append(Layout(
@@ -129,29 +128,33 @@ class GroupAddForm(forms.ModelForm):
             )
         ))
 
+# Add Form View
 class GroupAddView(CreateView):
     model = Group
     template_name = 'students/form_class.html'
     form_class = GroupAddForm
     
+    # if post form is valid return success message
     def get_success_url(self):
         messages.success(self.request,
             u"Група %s успішно додана" % self.object.title)
         return reverse('groups')
-        
+
+    # render form title    
     def get_context_data(self, **kwargs):
         context = super(GroupAddView, self).get_context_data(**kwargs)
         context['title'] = u'Додавання групи'
         return context
 
+    # if cancel button is pressed render groups page
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
             messages.warning(request, u"Додавання групи відмінено")
             return HttpResponseRedirect(reverse('groups'))
         else:
             return super(GroupAddView, self).post(request, *args, **kwargs)
-# Edit Form
-  
+
+# Edit Form  
 def groups_edit(request, gid):
     addition = {}
     button = 0
@@ -220,6 +223,7 @@ def groups_edit(request, gid):
         return render(request, 'students/groups_edit.html', 
             {'addition': addition, 'errors': errors })
 
+# Edit Form Class
 class GroupUpdateForm(forms.ModelForm):
     class Meta:
         model = Group
@@ -245,11 +249,10 @@ class GroupUpdateForm(forms.ModelForm):
 
         # set form field properties
         self.helper.help_text_inline = True
-        self.helper.html5_required = False
+        self.helper.html5_required = True
         self.helper.attrs = {'novalidate': ''}
         self.helper.label_class = 'col-sm-3 control-label'
         self.helper.field_class = 'col-sm-9'
-
 
         # add buttons
         self.helper.layout.append(Layout(
@@ -259,6 +262,7 @@ class GroupUpdateForm(forms.ModelForm):
             )
         ))
 
+# Edit Form View
 class GroupUpdateView(UpdateView):
     model = Group
     template_name = 'students/form_class.html'
@@ -282,7 +286,6 @@ class GroupUpdateView(UpdateView):
             return super(GroupUpdateView, self).post(request, *args, **kwargs)
 
 # Delete Form
-  
 def groups_delete(request, gid):
     button = 0
 
@@ -317,6 +320,7 @@ def groups_delete(request, gid):
         return render(request, 'students/groups_confirm_delete.html', 
             {'object': data})
 
+# Delete Form View
 class GroupDeleteView(DeleteView):
     model = Group
     template_name = 'students/groups_confirm_delete.html'

@@ -4,7 +4,6 @@ from datetime import datetime
 from PIL import Image
 
 from django import forms
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
@@ -18,7 +17,7 @@ from crispy_forms.layout import Layout, Submit, Button
 
 from ..models.students import Student
 from ..models.groups import Group
-from ..util import paginate, paginate_hand, get_current_group
+from ..util import paginate, get_current_group
 
 # Student List
 
@@ -103,7 +102,6 @@ def students_list(request):
         {'context': context})
 
 # Add Form View
-
 def students_add(request):
     groups = Group.objects.all().order_by('title')
     addition = {}
@@ -243,7 +241,7 @@ class StudentForm(forms.ModelForm):
 
         # set form field properties
         self.helper.help_text_inline = True
-        self.helper.html5_required = False
+        self.helper.html5_required = True
         self.helper.attrs = {'novalidate': ''}
         self.helper.label_class = 'col-sm-3 control-label'
         self.helper.field_class = 'col-sm-9'
@@ -254,7 +252,7 @@ class StudentForm(forms.ModelForm):
             submit = Submit('add_button', u'Додати')
         else:
             submit = Submit('save_button', u'Зберегти')
-            
+
         self.helper.layout.append(Layout(
             FormActions(
                 submit,
@@ -265,6 +263,7 @@ class StudentForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(StudentForm, self).clean()
         
+        # validate select of group
         if self.instance:
             group = Group.objects.filter(leader=self.instance)
             if len(group) > 0 and cleaned_data.get('student_group') != group[0]:
@@ -272,21 +271,25 @@ class StudentForm(forms.ModelForm):
                     u"Студент є старостою іншої групи"))
         return cleaned_data
 
+# Add Form View
 class StudentAddView(CreateView):
     model = Student
     template_name = 'students/form_class.html'
     form_class = StudentForm
     
+    # if post form is valid retern success message
     def get_success_url(self):
         messages.success(self.request,
             u"Студента %s успішно додано" % self.object)
         return reverse('home')
-        
+
+    # render form title    
     def get_context_data(self, **kwargs):
         context = super(StudentAddView, self).get_context_data(**kwargs)
         context['title'] = u'Додавання студента'
         return context
 
+    # if cancel_button is pressed return home page
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
             messages.warning(request, u"Додавання студента відмінено")
@@ -295,7 +298,6 @@ class StudentAddView(CreateView):
             return super(StudentAddView, self).post(request, *args, **kwargs)
         
 # Edit Form View
-
 def students_edit(request, sid):
     groups = Group.objects.all().order_by('title')
     addition = {}
@@ -402,26 +404,25 @@ def students_edit(request, sid):
         return render(request, 'students/students_edit.html', 
             {'groups_all': groups, 'addition': addition, 'errors': errors })
 
-# Edit Form Class
-
+# Edit Form View
 class StudentUpdateView(UpdateView):
     model = Student
     template_name = 'students/form_class.html'
     form_class = StudentForm
     
+    # if post form is valid retern success message
     def get_success_url(self):
         messages.success(self.request,
             u"Студента %s успішно збережено" % self.object)
         return reverse('home')
 
+    # render form title
     def get_context_data(self, **kwargs):
         context = super(StudentUpdateView, self).get_context_data(**kwargs)
         context['title'] = u'Редагування студента'
-        k = 0
-        while k < 100000:
-            k += 1
         return context
-        
+
+    # if cancel_button is pressed return home page
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
             messages.warning(request, u"Редагування студента відмінено")
@@ -430,7 +431,6 @@ class StudentUpdateView(UpdateView):
             return super(StudentUpdateView, self).post(request, *args, **kwargs)
         
 # Delete Form View
-
 def students_delete(request, sid):
     groups = Group.objects.all().order_by('title')
     addition = {}
@@ -475,17 +475,18 @@ def students_delete(request, sid):
         return render(request, 'students/students_confirm_delete.html', 
             {'groups_all': groups, 'addition': addition})
 
-# Delete Form Class
-  
+# Delete Form View
 class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'students/student_confirm_delete_class.html'
 
+    # when post form is valid return success message
     def get_success_url(self):
         messages.success(self.request,
             u"Студента %s успішно видалено" % self.object)
         return reverse('home')
 
+    # if cancel button is pressed render home page
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
             messages.warning(request, u"Видалення студента відмінено")
