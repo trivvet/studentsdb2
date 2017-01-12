@@ -145,7 +145,6 @@ def results_edit(request, rid=None):
             if not errors:
                 for result in results:
                     result.save()
-                result_exam.save()
                 messages.success(request, u"Інформацію про результати іспиту %s успішно змінено" % result_exam.name)
                 return HttpResponseRedirect(reverse('results'))
     else:

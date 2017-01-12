@@ -28,6 +28,7 @@ def log_models_changed_signal(sender, **kwargs):
         log = 'updated'
 
     logger_info = ''
+    signal_name = sender.__doc__ + ' is ' + log
     
     if sender == Student:
         student = kwargs['instance']
@@ -45,6 +46,7 @@ def log_models_changed_signal(sender, **kwargs):
         result = kwargs['instance']
         logger.info(u'Result %s: Student %s %s got mark %s for %s (ID: %d)', log, result.result_student.first_name, result.result_student.last_name, result.score, result.result_exam.name, result.id)
         logger_info = u'Result %s: Student %s %s got mark %s for %s (ID: %d)' % (log, result.result_student.first_name, result.result_student.last_name, result.score, result.result_exam.name, result.id)
+        signal_name = 'Result Model is ' + log
     elif sender == MonthJournal:
         journal = kwargs['instance']
         month_name = [u'Січень', u'Лютий', u'Березень', u'Квітень', u'Травень', u'Червень', u'Липень', u'Серпень', u'Вересень', u'Жовтень', u'Листопад', u'Грудень']
@@ -55,7 +57,6 @@ def log_models_changed_signal(sender, **kwargs):
 
     if logger_info:
         current_time = timezone.now()
-        signal_name = sender.__doc__ + ' is ' + log
         log = LogEntry(log_datetime=current_time, status='INFO', signal=signal_name, info=logger_info)
         log.save()
 
@@ -71,6 +72,10 @@ def log_send_mail_done(sender, **kwargs):
     email = kwargs['from_email']
     subject = kwargs['subject']
     logger.info(u'Send mail to Admin from %s, Theme - %s', email, subject)
+    current_time = timezone.now()
+    logger_info = u'Send mail to Admin from %s, Theme - %s' % (email, subject)
+    log = LogEntry(log_datetime=current_time, status="INFO", signal='Send mail to Admin', info=logger_info)
+    log.save()
 
 def log_migrate_dote(sender, **kwargs):
     logger = logging.getLogger(__name__)
