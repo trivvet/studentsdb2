@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.views import static
 
 from students.views import students, groups, journal, exams, results, contact_admin, logs
-from students.views.students import StudentUpdateView, StudentList, StudentDeleteView
+from students.views.students import StudentUpdateView, StudentDeleteView
 from students.views.groups import GroupAddView, GroupUpdateView, GroupDeleteView
 from students.views.exams import ExamAddView, ExamUpdateView, ExamDeleteView
 from students.views.journal import JournalView
@@ -31,7 +31,6 @@ from .settings import MEDIA_ROOT, DEBUG
 urlpatterns = [
   
     #Students urls
-#    url(r'^$', StudentList.as_view(), name='home'),
     url(r'^$', students.students_list, name='home'),
 #    url(r'^students/add/$', students.students_add, name='students_add'),
     url(r'^students/add/$', students.StudentAddView.as_view(), name='students_add'),

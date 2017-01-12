@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from django.forms import ModelForm, ValidationError
 
 from crispy_forms.helper import FormHelper
@@ -22,34 +22,12 @@ from ..util import paginate, paginate_hand, get_current_group
 
 # Student List
 
-class StudentList(ListView):
-    model = Student
-    context_object_name = 'students'
-    template_name = 'students/student_class_based_view_template.html'
-    paginate_by = 3
-
-    def get_context_data(self, **kwargs):
-        """This method adds extra variables to template"""
-        # get original context data from parent class
-        context = super(StudentList, self).get_context_data(**kwargs)
-
-        # tell template not to show logo on a page
-        context['show_logo'] = False
-
-        # return context mapping
-        return context
-
-    def get_queryset(self):
-      """Order student by last_name."""
-      qs = super(StudentList, self).get_queryset()
-
-      # order by last name
-      return qs.order_by('last_name')
-
 def students_list(request):
+  
     # check if we need to show only one group of students
     current_group = get_current_group(request)
     if current_group:
+        # if check we show students only selected group
         students = Student.objects.filter(student_group=current_group)
     else:
         # otherwise show all students
@@ -62,58 +40,48 @@ def students_list(request):
         if request.GET.get('reverse', '') == '1':
             students = students.reverse()
     else:
+        # default is sorting by last_name of students
         students = students.order_by('last_name')
 
-    # paginate students
-    """    paginator = Paginator(students, 3)
-    page = request.GET.get('page')
-    try:
-        students = paginator.page(page)
-    except PageNotAnInteger:
-        # if page is not an integer, deliver first page
-        students = paginator.page(1)
-    except EmptyPage:
-        # if page is out of range (e.g. 9999), deliver
-        # last page of result
-        students = paginator.page(paginator.num_pages) """
-        
-#    import pdb;pdb.set_trace()  
-
-    # paginate_hand
-#    context = paginate_hand(students, 3, request, {}, var_name='students')
-#    addition = context['addition']
-#    students = context['students']
-
-    # paginator
+    # paginator (lay in util.py)
     context = paginate(students, 3, request, {}, var_name='students')
         
-    # realisation checkboxes
+    # realisation checkboxes for group action
     message_error = 0
     if request.method == "POST":
 
         # if press act-button
         if request.POST.get('action_button'):
-            # if selected at least one student and selected need action
+
+            # check if we selected at least one student and selected need action
             if request.POST.get('action-group') == 'delete' and request.POST.get('delete-check'):
                 students_delete = []
                 students_id = []
+
                 for el in request.POST.getlist('delete-check'):
                     try:
+                        # try get students from list
                         students_delete.append(Student.objects.get(pk=int(el)))
                         students_id.append(el)
                     except:
+                        # otherwise return error message
                         message_error += 1
                         messages.danger(request,
                             u"Будь-ласка, оберіть студентів зі списку")
                 if message_error == 0:
+                    # if not error messages render confirm page
                     return render(request, 'students/students_group_confirm_delete.html', 
                         {'students': students_delete, 'students_id': students_id})
+                        
             # if selected action but didn't select students
             elif request.POST.get('action-group') == 'delete':
                 messages.error(request, u"Будь-ласка, оберіть хоча б одного студента")
+
             # if didn't select action
             else:
                 messages.warning(request, u"Будь-ласка, оберіть потрібну дію")
+
+        # if we press delete on confirm page        
         elif request.POST.get('delete_button'):
             for el in request.POST.getlist('students_id'):
                 try:
@@ -127,6 +95,7 @@ def students_list(request):
             else:
                 messages.error(request,
                     u"Видалити обраних студентів неможливо, спробуйте пізніше")
+                    
         elif request.POST.get('cancel_button'):
             messages.warning(request, u"Видалення обраних студентів скасовано")
 
@@ -233,7 +202,7 @@ def students_add(request):
         return render(request, 'students/students_add.html', 
             {'groups_all': groups, 'addition': addition, 'errors': errors })
 
-# Add Form Class
+# Form Class
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student

@@ -16,9 +16,21 @@
   <thead>
     <tr>
       <th>№</th>
-      <th>Назва сигналу</th>
-      <th>Рівень</th>
-      <th>Час спрацювання</th>
+      <th><a href=
+             "{% url "logs" %}?order_by=signal{% if order_by == 'signal' and reverse != '1' %}&amp;reverse=1{% endif %}">
+             Назва сигналу {% if order_by == 'signal' and reverse != '1' %}
+             &uarr;{% elif order_by == 'signal' and reverse == '1' %}
+             &darr;{% endif %}</a></th>
+      <th><a href=
+             "{% url "logs" %}?order_by=status{% if order_by == 'status' and reverse != '1' %}&amp;reverse=1{% endif %}">
+             Рівень {% if order_by == 'status' and reverse != '1' %}
+             &uarr;{% elif order_by == 'status' and reverse == '1' %}
+             &darr;{% endif %}</a></th>
+      <th><a href=
+             "{% url "logs" %}?order_by=log_datetime{% if order_by == 'log_datetime' and reverse != '1' %}&amp;reverse=1{% endif %}">
+             Час спрацювання {% if order_by == 'log_datetime' and reverse != '1' %}
+             &uarr;{% elif order_by == 'log_datetime' and reverse == '1' or order_by == '' %}
+             &darr;{% endif %}</a></th>
       <th>Дії</th>
     </tr>
   </thead>

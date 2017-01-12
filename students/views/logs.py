@@ -25,8 +25,13 @@ class LogsView(TemplateView):
         # get context data from TemplateView class
         context = super(LogsView, self).get_context_data(**kwargs)
 
-        logs = LogEntry.objects.all().order_by('log_datetime').reverse()
-
+        order_by = self.request.GET.get('order_by', '')
+        if order_by in ('signal', 'status', 'log_datetime'):
+            logs = LogEntry.objects.all().order_by(order_by)
+            if self.request.GET.get('reverse', '') == '1':
+                logs = logs.reverse()
+        else:
+            logs = LogEntry.objects.all().order_by('log_datetime').reverse()
         context = paginate(logs, 10, self.request, {}, var_name='logs')
 
         # check if we need to display some specific month
