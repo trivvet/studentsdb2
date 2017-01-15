@@ -11,6 +11,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.forms import ModelForm, ValidationError
+from django.utils.translation import ugettext as _
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -67,7 +68,7 @@ def students_list(request):
                         # otherwise return error message
                         message_error += 1
                         messages.danger(request,
-                            u"Будь-ласка, оберіть студентів зі списку")
+                            _(u"Please, select student from list"))
                 if message_error == 0:
                     # if not error messages render confirm page
                     return render(request, 'students/students_group_confirm_delete.html', 
@@ -75,11 +76,11 @@ def students_list(request):
                         
             # if selected action but didn't select students
             elif request.POST.get('action-group') == 'delete':
-                messages.error(request, u"Будь-ласка, оберіть хоча б одного студента")
+                messages.error(request, _(u"Please, select at least one student"))
 
             # if didn't select action
             else:
-                messages.warning(request, u"Будь-ласка, оберіть потрібну дію")
+                messages.warning(request, _(u"Please, select the desired action"))
 
         # if we press delete on confirm page        
         elif request.POST.get('delete_button'):
@@ -91,13 +92,13 @@ def students_list(request):
                     message_error += 1
                     break
             if message_error == 0:
-                messages.success(request, u"Студентів успішно видалено")
+                messages.success(request, _(u"Students successfully removed"))
             else:
                 messages.error(request,
-                    u"Видалити обраних студентів неможливо, спробуйте пізніше")
+                    _(u"Selected students can't delete, try later"))
                     
         elif request.POST.get('cancel_button'):
-            messages.warning(request, u"Видалення обраних студентів скасовано")
+            messages.warning(request, _(u"Delete of selected student is canceled"))
 
     return render(request, 'students/students_list.html', 
         {'context': context})
@@ -110,16 +111,16 @@ class StudentForm(forms.ModelForm):
               'photo', 'student_group', 'ticket', 'notes']
         widgets = {
             'first_name': forms.TextInput(
-                attrs={'placeholder': u"Введіть ім’я студента"}),
+                attrs={'placeholder': _(u"Please, type student's first name")}),
             'last_name': forms.TextInput(
-                attrs={'placeholder': u"Введіть прізвище студента"}),
+                attrs={'placeholder': _(u"Please, type student's last name")}),
             'middle_name': forms.TextInput(
-                attrs={'placeholder': u"Введіть ім’я по-батькові студента"}),
+                attrs={'placeholder': _(u"Please, type student's middle name")}),
             'birthday': forms.DateInput(
-                attrs={'placeholder': u"напр. 1984-06-17"}),
-            'ticket': forms.TextInput(attrs={'placeholder': u"напр. 123"}),
+                attrs={'placeholder': _(u"e.g. 1984-06-17")}),
+            'ticket': forms.TextInput(attrs={'placeholder': _(u"e.g. 123")}),
             'notes': forms.Textarea(
-                attrs={'placeholder': u"Додаткова інформація",
+                attrs={'placeholder': _(u"Adition information"),
                        'rows': '3'}),
         }
 
@@ -153,12 +154,12 @@ class StudentForm(forms.ModelForm):
         if add_form:
             submit = Submit('add_button', u'Додати')
         else:
-            submit = Submit('save_button', u'Зберегти')
+            submit = Submit('save_button', _(u'Save'))
 
         self.helper.layout.append(Layout(
             FormActions(
                 submit,
-                Submit('cancel_button', u'Скасувати', css_class='btn-link')
+                Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
             )
         ))
 
@@ -170,14 +171,14 @@ class StudentForm(forms.ModelForm):
             group = Group.objects.filter(leader=self.instance)
             if len(group) > 0 and cleaned_data.get('student_group') != group[0]:
                 self.add_error('student_group', ValidationError(
-                    u"Студент є старостою іншої групи"))
+                    _(u"Student is leader of other group")))
 
         # validate birthday
         if cleaned_data['birthday']:
             birthday = cleaned_data['birthday']
             min_date = datetime.today().date() - relativedelta(years=17)
             if birthday > min_date:
-                self.add_error('birthday', ValidationError(u"Вік студента не може бути менше 17 років"))
+                self.add_error('birthday', ValidationError(_(u"Student's age can't be less then 17 years")))
                 
         return cleaned_data
 
@@ -190,19 +191,19 @@ class StudentAddView(CreateView):
     # if post form is valid retern success message
     def get_success_url(self):
         messages.success(self.request,
-            u"Студента %s успішно додано" % self.object)
+            _(u"Student %s created successfully") % self.object)
         return reverse('home')
 
     # render form title    
     def get_context_data(self, **kwargs):
         context = super(StudentAddView, self).get_context_data(**kwargs)
-        context['title'] = u'Додавання студента'
+        context['title'] = _(u'Adding Student')
         return context
 
     # if cancel_button is pressed return home page
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.warning(request, u"Додавання студента відмінено")
+            messages.warning(request, _(u"Adding student canceled"))
             return HttpResponseRedirect(reverse('home'))
         else:
             return super(StudentAddView, self).post(request, *args, **kwargs)
@@ -216,19 +217,19 @@ class StudentUpdateView(UpdateView):
     # if post form is valid retern success message
     def get_success_url(self):
         messages.success(self.request,
-            u"Студента %s успішно збережено" % self.object)
+            _(u"Student %s saved successfully!") % self.object)
         return reverse('home')
 
     # render form title
     def get_context_data(self, **kwargs):
         context = super(StudentUpdateView, self).get_context_data(**kwargs)
-        context['title'] = u'Редагування студента'
+        context['title'] = _(u'Editing student')
         return context
 
     # if cancel_button is pressed return home page
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.warning(request, u"Редагування студента відмінено")
+            messages.warning(request, _(u"Editing student canceled!"))
             return HttpResponseRedirect(reverse('home'))
         else:
             return super(StudentUpdateView, self).post(request, *args, **kwargs)
@@ -241,13 +242,13 @@ class StudentDeleteView(DeleteView):
     # when post form is valid return success message
     def get_success_url(self):
         messages.success(self.request,
-            u"Студента %s успішно видалено" % self.object)
+            _(u"Student %s deleted successfully") % self.object)
         return reverse('home')
 
     # if cancel button is pressed render home page
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.warning(request, u"Видалення студента відмінено")
+            messages.warning(request, _(u"Deleting student canceled"))
             return HttpResponseRedirect(reverse('home'))
         else:
             return super(StudentDeleteView, self).post(request, *args, **kwargs)

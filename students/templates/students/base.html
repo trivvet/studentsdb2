@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static from staticfiles %}
 
 <!DOCTYPE html>
@@ -5,11 +6,10 @@
   
   <head>
     <meta charset="UTF-8"/>
-    <title>
-      Сервіс Обліку Студентів - {% block meta_title %}{% endblock meta_title %}
+    <title>{% trans "Students Accounting Service" %} - {% block meta_title %}{% endblock meta_title %}
     </title>
     <meta name="description"
-          value="Система Обліку Студентів Навчального Закладу" />
+          value="{% trans "Students Accounting Service" %}" />
     
     <!-- Include Styles -->
     <link rel="stylesheet" 
@@ -36,16 +36,16 @@
         <!-- Logo -->
         <div class="col-xs-8">
           <a href={% url "home" %} class="header">
-             <h1>Сервіс Обліку Студентів</h1></a>
+             <h1>{% trans "Students Accounting Service" %}</h1></a>
         </div>
         {% endblock logo %}
         
         {% block menu_groups %}
         <!-- Group Selector -->
         <div class="col-xs-4" id="group-selector">
-          <strong>Група:</strong>
+          <strong>{% trans "Group" %}:</strong>
           <select>
-            <option value="">Усі студенти</option>
+            <option value="">{% trans "All Students" %}</option>
             {% for group in groups_all %}
             
             <option value="{{ group.id }}"
@@ -72,25 +72,25 @@
           <ul class="nav nav-tabs">
             <li role="presentation" {% if request.path == url_home %}
                 class="active"{% endif %}>
-              <a href="{{ url_home }}">Студенти</a></li>
+              <a href="{{ url_home }}">{% trans "Students" %}</a></li>
             <li role="presentation" {% if url_journal in request.path %}
                 class="active"{% endif %}>
-              <a href="{{ url_journal }}">Відвідування</a></li>
+              <a href="{{ url_journal }}">{% trans "Journal" %}</a></li>
             <li role="presentation" {% if url_groups in request.path %}
                 class="active"{% endif %}>
-              <a href="{{ url_groups }}">Групи</a></li>
+              <a href="{{ url_groups }}">{% trans "Groups" %}</a></li>
             <li role="presentation" {% if url_exams in request.path %}
                 class="active"{% endif %}>
-              <a href="{{ url_exams }}">Іспити</a></li>
+              <a href="{{ url_exams }}">{% trans "Exams" %}</a></li>
             <li role="presentation" {% if url_results in request.path %}
                 class="active"{% endif %}>
-              <a href="{{ url_results }}">Результати</a></li>
+              <a href="{{ url_results }}">{% trans "Results" %}</a></li>
             <li role="presentation" {% if url_contact in request.path %}
                 class="active"{% endif %}>
-              <a href="{{ url_contact }}" id="contact-link">Контакт</a></li>
+              <a href="{{ url_contact }}" id="contact-link">{% trans "Contact" %}</a></li>
             <li role="presentation" {% if url_logs in request.path %}
                 class="active"{% endif %}>
-              <a href="{{ url_logs }}" id="contact-link">Події</a></li>
+              <a href="{{ url_logs }}" id="contact-link">{% trans "Events"%}</a></li>
         </ul>
         </div>
       </div>
@@ -130,7 +130,7 @@
       <!-- Start Footer -->
       <div class="row" id="footer">
         <div class="col-xs-12">
-          &copy; 2016 Сервіс Обліку Студентів
+          &copy; 2017 {% trans "Students Accounting Service" %}
         </div>
       </div>
       <!-- End Footer -->

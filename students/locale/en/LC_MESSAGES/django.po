@@ -1,0 +1,103 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-15 15:49+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: students/templates/students/base.html:9
+#: students/templates/students/base.html:12
+#: students/templates/students/base.html:39
+#: students/templates/students/base.html:133
+msgid "Students Accounting Service"
+msgstr ""
+
+#: students/templates/students/base.html:46
+msgid "Group"
+msgstr ""
+
+#: students/templates/students/base.html:48
+msgid "All Students"
+msgstr ""
+
+#: students/templates/students/base.html:75
+#: students/templates/students/students_list.html:6
+msgid "Students"
+msgstr ""
+
+#: students/templates/students/base.html:78
+#: students/templates/students/students_list.html:105
+msgid "Journal"
+msgstr ""
+
+#: students/templates/students/base.html:81
+msgid "Groups"
+msgstr ""
+
+#: students/templates/students/base.html:84
+msgid "Exams"
+msgstr ""
+
+#: students/templates/students/base.html:87
+msgid "Results"
+msgstr ""
+
+#: students/templates/students/base.html:90
+msgid "Contact"
+msgstr ""
+
+#: students/templates/students/base.html:93
+msgid "Events"
+msgstr ""
+
+#: students/templates/students/students_list.html:8
+msgid "Students List"
+msgstr ""
+
+#: students/templates/students/students_list.html:13
+msgid "Add Student"
+msgstr ""
+
+#: students/templates/students/students_list.html:38
+msgid "Photo"
+msgstr ""
+
+#: students/templates/students/students_list.html:42
+msgid "Last Name"
+msgstr ""
+
+#: students/templates/students/students_list.html:51
+msgid "First Name"
+msgstr ""
+
+#: students/templates/students/students_list.html:60
+msgid "Ticket #"
+msgstr ""
+
+#: students/templates/students/students_list.html:66
+msgid "Actions"
+msgstr ""
+
+#: students/templates/students/students_list.html:98
+msgid "Action"
+msgstr ""
+
+#: students/templates/students/students_list.html:109
+msgid "Edit"
+msgstr ""
+
+#: students/templates/students/students_list.html:113
+msgid "Delete"
+msgstr ""
