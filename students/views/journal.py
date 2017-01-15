@@ -26,6 +26,8 @@ class JournalView(TemplateView):
         if self.request.GET.get('month'):
             month = datetime.strptime(self.request.GET['month'],
                 '%Y-%m-%d').date()
+
+            # check which days we need to disable
             if month.year >= datetime.today().year and month.month > datetime.today().month:
                 context['disabled'] = True
             elif month.year < datetime.today().year or month.month < datetime.today().month:
@@ -40,7 +42,7 @@ class JournalView(TemplateView):
 
 
         # calculate current, previous and next month dateils;
-        # we need this for month navigarion element in template
+        # we need this for month navigation element in template
         next_month = month + relativedelta(months=1)
         prev_month = month - relativedelta(months=1)
         context['prev_month'] = prev_month.strftime('%Y-%m-%d')
@@ -74,17 +76,13 @@ class JournalView(TemplateView):
             else:
                 queryset = Student.objects.all().order_by('last_name')
 
-        # це адреса для посту AJAX запиту, як бачите, ми
-        # робитимемо його на цю ж в’юшку; в’юшка журналу
-        # буде і показувати журнал і обслуговувати запити
-        # типу пост на оновлення журналу
+        # це адреса для посту AJAX запиту
         update_url = reverse('journal')
 
         # застосовуємо пагінацію до списку студентів
-        # handmade paginator
         context = paginate(queryset, 5, self.request, context, var_name='queryset')
 
-        # пробігаємось по усіх студентах і збираємо необхідні дані
+        # take needed elements for each students
         context['students'] = []
         for student in context['queryset']:
             # try to get journal object by month selected
@@ -125,66 +123,13 @@ class JournalView(TemplateView):
         month = date(current_date.year, current_date.month, 1)
         present = data['present'] and True or False
         student = Student.objects.get(pk=data['pk'])
-#        import pdb; pdb.set_trace()
 
         # get or create journal object for given student and month
         journal = MonthJournal.objects.get_or_create(student_name=student, date=month)[0]
+        
         # set new presence on journal for given student and save result
         setattr(journal, 'present_day%s' % current_date.day, present)
         journal.save()
 
-        i = 0
-        while i < 10000000:
-            i += 1
         # return success status
         return JsonResponse({'status': 'success'})
- 
-def journal_list(request):
-    current_group = get_current_group(request)
-    if current_group:
-        students = Student.objects.filter(student_group=current_group)
-    else:    
-        students = Student.objects.all().order_by('id')
-
-    # handmade paginator
-    if students.count() > 0:
-        number = 3
-        try:
-            page = int(request.GET.get('page'))
-        except:
-            page = 1
-        num_pages = students.count() / number
-        if students.count() % number > 0:
-            num_pages += 1
-            # block for student_list template
-        if num_pages > 0:
-            page_range = []
-            for i in range(1, num_pages+1):
-                page_range.append(i)
-            addition = {'has_other_pages': True, 'page_range': page_range}
-        
-        if page > 0 and page < num_pages:
-            students = students[number*(page-1):number*page]
-            addition['page'] = page
-        else:
-            students = students[number*(num_pages-1):students.count()]
-            addition['page'] = num_pages
-
-        addition['counter'] = 3 * (addition['page'] - 1)
-         
-    else:
-        addition = {}
-    # end handmade paginator
-    
-    groups = Group.objects.all().order_by('title')
-    days = []
-    day_names = [u'Пн', u'Вт', u'Ср', u'Чт', u'Пт', u'Сб', u'Нд']
-    for i in range(1, 31):
-        days.append(day_names[i%7-1])
-#   import pdb;pdb.set_trace()
-    return render(request, 'students/journal.html', 
-        {'students': students, 'groups_all': groups, 'days': days, 
-         'day_names': day_names, 'addition': addition})
-
-
-# Create your views here.

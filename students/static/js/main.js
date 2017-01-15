@@ -205,8 +205,9 @@ function initForm(form, modal, link) {
           initSubHeaderNav();
           initFunctions();
           initResultPage();
-          
         }, 1000);
+        $('a.form-link').off();
+        initFormPage();
         History.pushState({'page': 'openForm'}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
 
       }

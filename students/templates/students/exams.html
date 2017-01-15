@@ -52,7 +52,7 @@
     <tr>
       <td>{{ context.page_obj.start_index|add:forloop.counter|add:"-1" }}</td>
       <td><a href="{% url "exams_edit" exam.id %}"
-             class="form-link">{{ exam.name }}</a></td>
+             class="form-link">{{ exam.name }}</a> {% if exam.is_completed %}(завершений){% endif %}</td>
       <td>{{ exam.date }}</td>
       <td>{{ exam.teacher_name }}</td>
       <td><a href="{% url "groups_edit" exam.exam_group.id %}"

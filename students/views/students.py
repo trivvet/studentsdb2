@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from PIL import Image
+from dateutil.relativedelta import relativedelta
 
 from django import forms
 from django.contrib import messages
@@ -101,105 +102,6 @@ def students_list(request):
     return render(request, 'students/students_list.html', 
         {'context': context})
 
-# Add Form View
-def students_add(request):
-    groups = Group.objects.all().order_by('title')
-    addition = {}
-    button = 0
-    
-    # errors collections
-    errors = {}
-
-    # was for posted?
-    if request.method == "POST":
-
-        # Check which button is pressed
-        if request.POST.get('add_button') is not None:
-        # Press Add Button
-
-            # data for student object
-            data = {
-                'middle_name': request.POST.get('middle_name'),
-                'notes': request.POST.get('notes')
-            }
-            
-            # Validation
-            first_name = request.POST.get('first_name', '').strip()
-            if not first_name:
-                errors['first_name'] = u"Ім'я є обов'язковим"
-            else:
-                data['first_name'] = first_name
-                
-            last_name = request.POST.get('last_name', '').strip()
-            if not last_name:
-                errors['last_name'] = u"Прізвище є обов'язковим"
-            else:
-                data['last_name'] = last_name
-                
-            birthday = request.POST.get('birthday', '').strip()
-            if not birthday:
-                errors['birthday'] = u"Дата народження є обов'язковою"
-            else:
-                try: 
-                    data['birthday'] = datetime.strptime(birthday, '%Y-%m-%d')
-                except Exception:
-                    errors['birthday'] = u"Введіть коректний формат дати (напр. 1980-01-01)"
-                
-            photo = request.FILES.get('photo')
-            if photo:
-                try:
-                    Image.open(photo)
-                    if photo.size < 1048576:
-                        data['photo'] = photo
-                    else:
-                        errors['photo'] = u"Завантажте файл не більше 1Мб"
-                except:
-                    errors['photo'] = u"Завантажте файл зображення"
-
-            ticket = request.POST.get('ticket', '').strip()
-            if not ticket:
-                errors['ticket'] = u"Номер білету є обов'язковим"
-            else:
-                try:
-                    if not Student.objects.filter(ticket=int(ticket)):
-                        data['ticket'] = int(ticket)
-                    else:
-                        errors['ticket'] = u"Номер білету повинен бути унікальним"
-                except:
-                    errors['ticket'] = u"Номер білету повинен складатись тільки з цифр"
-
-            student_group = request.POST.get('student_group', '').strip()
-            if not student_group:
-                errors['student_group'] = u"Оберіть групу для студента"
-            else:
-                try:
-                    data['student_group'] = Group.objects.get(pk=student_group)
-                except:
-                    errors['student_group'] = u"Виберіть групу зі списку"
-
-            # if not errors save save data to database
-            if not errors:
-                student = Student(**data)
-                student.save()
-                button += 1
-                messages.success(request, u"Студент %s %s успішно доданий" %
-                    (student.last_name, student.first_name))
-#                status_message = u"Студент %s %s успішно доданий" % (student.last_name,
-#                                student.first_name)
-
-        elif request.POST.get('cancel_button') is not None:
-        # Press Cancel Button
-            button += 1
-            messages.warning(request, u"Додавання студента скасовано")
-#            status_message = u"Додавання студента скасовано"
-        
-    if button != 0:    
-        return HttpResponseRedirect(reverse('home'))#u"%s?status_message=%s" %
-#               (reverse('home'), status_message))
-    else:
-        return render(request, 'students/students_add.html', 
-            {'groups_all': groups, 'addition': addition, 'errors': errors })
-
 # Form Class
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -269,6 +171,14 @@ class StudentForm(forms.ModelForm):
             if len(group) > 0 and cleaned_data.get('student_group') != group[0]:
                 self.add_error('student_group', ValidationError(
                     u"Студент є старостою іншої групи"))
+
+        # validate birthday
+        if cleaned_data['birthday']:
+            birthday = cleaned_data['birthday']
+            min_date = datetime.today().date() - relativedelta(years=17)
+            if birthday > min_date:
+                self.add_error('birthday', ValidationError(u"Вік студента не може бути менше 17 років"))
+                
         return cleaned_data
 
 # Add Form View
@@ -298,113 +208,6 @@ class StudentAddView(CreateView):
             return super(StudentAddView, self).post(request, *args, **kwargs)
         
 # Edit Form View
-def students_edit(request, sid):
-    groups = Group.objects.all().order_by('title')
-    addition = {}
-    button = 0
-    data = Student.objects.get(pk=sid)
-    data.birthday = data.birthday.isoformat()
-    
-    # errors collections
-    errors = {}
-
-    # was for posted?
-    if request.method == "POST":
-
-        # Check which button is pressed
-        if request.POST.get('add_button') is not None:
-        # Press Add Button
-
-            # data for student object
-            data.middle_name = request.POST.get('middle_name', '').strip()
-            data.notes = request.POST.get('notes')
-            
-            # Validation
-            first_name = request.POST.get('first_name', '').strip()
-            if not first_name:
-                errors['first_name'] = u"Ім'я є обов'язковим"
-            else:
-                data.first_name = first_name
-                
-            last_name = request.POST.get('last_name', '').strip()
-            if not last_name:
-                errors['last_name'] = u"Прізвище є обов'язковим"
-            else:
-                data.last_name = last_name
-             
-            birthday = request.POST.get('birthday', '').strip()
-            if not birthday:
-                errors['birthday'] = u"Дата народження є обов'язковою"
-            else:
-                try: 
-                    data.birthday = datetime.strptime(birthday, '%Y-%m-%d')
-                except Exception:
-                    errors['birthday'] = u"Введіть коректний формат дати (напр. 1980-01-01)"
-                
-            photo = request.FILES.get('photo')
-            if photo:
-                try:
-                    Image.open(photo)
-                    if photo.size < 1048576:
-                        data.photo = photo
-                    else:
-                        errors['photo'] = u"Завантажте файл не більше 1Мб"
-                except:
-                    errors['photo'] = u"Завантажте файл зображення"
-
-            ticket = request.POST.get('ticket', '').strip()
-            if not ticket:
-                errors['ticket'] = u"Номер білету є обов'язковим"
-            else:
-                try:
-                    int(ticket)
-                    if Student.objects.filter(ticket=int(ticket)).count() == 0 or Student.objects.get(pk=sid).ticket == ticket: 
-                        data.ticket = int(ticket)
-                    else:
-                        errors['ticket'] = u"Номер білету повинен бути унікальним"
-                except:
-                    errors['ticket'] = u"Номер білету повинен складатись тільки з цифр"
-
-            student_group = request.POST.get('student_group', '').strip()
-            if not student_group:
-                errors['student_group'] = u"Оберіть групу для студента"
-            else:
-                try:
-                    data.student_group = Group.objects.get(pk=student_group)
-                except:
-                    errors['student_group'] = u"Виберіть групу зі списку"
-
-            # if not errors save save data to database
-            if not errors:
-                data.save()
-                button += 1
-                messages.success(request, u"Інформацію про студента %s %s успішно змінено" %
-                    (data.last_name, data.first_name))
-#                status_message = u"Студент %s %s успішно доданий" % (student.last_name,
-#                                student.first_name)
-            else:
-                addition['student'] = {'id': data.id}
-
-        elif request.POST.get('cancel_button') is not None:
-        # Press Cancel Button
-            button += 1
-            messages.warning(request, u"Редагування студента скасовано")
-#            status_message = u"Додавання студента скасовано"
-        
-    else:
-        try:
-            addition['student'] = data
-        except:
-            messages.error(request, u"Оберіть існуючого студента для редагування")
-            button = 1
-    if button != 0:    
-        return HttpResponseRedirect(reverse('home'))#u"%s?status_message=%s" %
-#               (reverse('home'), status_message))
-    else:
-        return render(request, 'students/students_edit.html', 
-            {'groups_all': groups, 'addition': addition, 'errors': errors })
-
-# Edit Form View
 class StudentUpdateView(UpdateView):
     model = Student
     template_name = 'students/form_class.html'
@@ -429,51 +232,6 @@ class StudentUpdateView(UpdateView):
             return HttpResponseRedirect(reverse('home'))
         else:
             return super(StudentUpdateView, self).post(request, *args, **kwargs)
-        
-# Delete Form View
-def students_delete(request, sid):
-    groups = Group.objects.all().order_by('title')
-    addition = {}
-    button = 0
-
-    try:
-        data = Student.objects.get(pk=sid)
-    except:
-        messages.error(request, u"Оберіть існуючого студента для видалення")
-        button = 1
-    else:
-        # was for posted?
-        if request.method == "POST":
-
-            # Check which button is pressed
-            if request.POST.get('delete_button') is not None:
-                # Press Delete Button
-
-                messages.success(request, u"Інформацію про студента %s %s видалено" %
-                    (data.last_name, data.first_name))
-                data.delete()
-                button += 1
-#               status_message = u"Студент %s %s успішно доданий" % (student.last_name,
-#                                student.first_name)
-
-            elif request.POST.get('cancel_button') is not None:
-            # Press Cancel Button
-                button += 1
-                messages.warning(request, u"Видалення студента скасовано")
-#                status_message = u"Додавання студента скасовано"
-        
-        else:
-            try:
-                addition['student'] = data
-            except:
-                messages.error(request, u"Оберіть існуючого студента для видалення")
-                button = 1
-    if button != 0:    
-        return HttpResponseRedirect(reverse('home'))#u"%s?status_message=%s" %
-#               (reverse('home'), status_message))
-    else:
-        return render(request, 'students/students_confirm_delete.html', 
-            {'groups_all': groups, 'addition': addition})
 
 # Delete Form View
 class StudentDeleteView(DeleteView):

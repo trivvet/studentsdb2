@@ -40,56 +40,6 @@ def groups_list(request):
     context = paginate(groups, 3, request, {}, var_name='groups')
 
     return render(request, 'students/groups.html', {'context': context})
-        
-# Add Form  
-def groups_add(request):
-    addition = {}
-    addition['students_all'] = Student.objects.all().order_by('last_name')
-    button = 0
-    
-    # errors collections
-    errors = {}
-
-    # was for posted?
-    if request.method == "POST":
-
-        # Check which button is pressed
-        if request.POST.get('add_button') is not None:
-        # Press Add Button
-
-            # data for student object
-            data = {
-                'notes': request.POST.get('notes')
-            }
-            
-            # Validation
-            title = request.POST.get('title', '').strip()
-            if not title:
-                errors['title'] = u"Назва групи є обов'язковою"
-            else:
-                data['title'] = title
-
-            # if not errors save save data to database
-            if not errors:
-                group = Group(**data)
-                group.save()
-                button += 1
-                messages.success(request, u"Група %s успішно додана" % group.title)
-#                status_message = u"Студент %s %s успішно доданий" % (student.last_name,
-#                                student.first_name)
-
-        elif request.POST.get('cancel_button') is not None:
-        # Press Cancel Button
-            button += 1
-            messages.warning(request, u"Додавання групи скасовано")
-#            status_message = u"Додавання студента скасовано"
-        
-    if button != 0:    
-        return HttpResponseRedirect(reverse('groups'))#u"%s?status_message=%s" %
-#               (reverse('home'), status_message))
-    else:
-        return render(request, 'students/groups_add.html', 
-            {'addition': addition, 'errors': errors })
 
 # Add Form Class
 class GroupAddForm(forms.ModelForm):
@@ -154,75 +104,6 @@ class GroupAddView(CreateView):
         else:
             return super(GroupAddView, self).post(request, *args, **kwargs)
 
-# Edit Form  
-def groups_edit(request, gid):
-    addition = {}
-    button = 0
-    addition['students_all'] = Student.objects.all().order_by('last_name')
-
-    try:
-        data = Group.objects.get(pk=gid)
-    except:
-        messages.error(request, u"Оберіть існуючу групу для редагування")
-        button = 1
-    
-    # errors collections
-    errors = {}
-
-    # was for posted?
-    if request.method == "POST":
-
-        # Check which button is pressed
-        if request.POST.get('save_button') is not None:
-        # Press Save Button
-
-            # data for group object
-            data.notes = request.POST.get('notes')
-            
-            # Validation
-            title = request.POST.get('title', '').strip()
-            if not title:
-                errors['title'] = u"Назва групи є обов'язковою"
-            else:
-                data.title = title
-
-            leader = request.POST.get('leader', '').strip()
-            if leader:
-                try:
-                    data.leader = Student.objects.get(pk=leader)
-                except:
-                    errors['leader'] = u"Виберіть студента зі списку"
-
-            # if not errors save save data to database
-            if not errors:
-                data.save()
-                button += 1
-                messages.success(request, u"Інформацію про групу %s успішно змінено" %
-                    data.title)
-#                status_message = u"Студент %s %s успішно доданий" % (student.last_name,
-#                                student.first_name)
-            else:
-                addition['group'] = {'id': data.id}
-
-        elif request.POST.get('cancel_button') is not None:
-        # Press Cancel Button
-            button += 1
-            messages.warning(request, u"Редагування групи скасовано")
-#            status_message = u"Додавання студента скасовано"
-        
-    else:
-        try:
-            addition['group'] = data
-        except:
-            messages.error(request, u"Оберіть існуючу групу для редагування")
-            button = 1
-    if button != 0:    
-        return HttpResponseRedirect(reverse('groups'))#u"%s?status_message=%s" %
-#               (reverse('home'), status_message))
-    else:
-        return render(request, 'students/groups_edit.html', 
-            {'addition': addition, 'errors': errors })
-
 # Edit Form Class
 class GroupUpdateForm(forms.ModelForm):
     class Meta:
@@ -284,41 +165,6 @@ class GroupUpdateView(UpdateView):
             return HttpResponseRedirect(reverse('groups'))
         else:
             return super(GroupUpdateView, self).post(request, *args, **kwargs)
-
-# Delete Form
-def groups_delete(request, gid):
-    button = 0
-
-    try:
-        data = Group.objects.get(pk=gid)
-    except:
-        messages.error(request, u"Оберіть існуючу групу для видалення")
-        button = 1
-
-    if request.method == "POST":
-        if request.POST.get('delete_button') is not None:
-            students_of_group = Student.objects.filter(student_group=data.id)
-            if students_of_group:
-                messages.error(request, u"Видалення неможливе - в групі %s є студенти" % data.title)
-                button += 1
-            else:
-                try: 
-                    data.delete()
-                    messages.success(request, u"Групу %s успішно видалено" % data.title)
-                    button += 1
-                except:
-                    messages.error(request, u"Оберіть існуючу групу для видалення")
-                    button += 1
-        elif request.POST.get('cancel_button') is not None:
-            messages.warning(request, u"Видалення групи скасовано")
-            button += 1
-            
-    if button != 0:    
-        return HttpResponseRedirect(reverse('groups'))#u"%s?status_message=%s" %
-#               (reverse('home'), status_message))
-    else:
-        return render(request, 'students/groups_confirm_delete.html', 
-            {'object': data})
 
 # Delete Form View
 class GroupDeleteView(DeleteView):
