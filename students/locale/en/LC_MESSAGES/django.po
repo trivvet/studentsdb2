@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-15 15:49+0000\n"
+"POT-Creation-Date: 2017-01-16 17:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,4 +100,123 @@ msgstr ""
 
 #: students/templates/students/students_list.html:113
 msgid "Delete"
+msgstr ""
+
+#: students/templates/students/students_list.html:127
+msgid "Load More"
+msgstr ""
+
+#: students/templates/students/students_list.html:136
+msgid "Delete selected students"
+msgstr ""
+
+#: students/templates/students/students_list.html:138
+msgid "Execute"
+msgstr ""
+
+#: students/templates/students/students_list.html:145
+msgid "Currently there aren't students in the database"
+msgstr ""
+
+#: students/views/students.py:71
+msgid "Please, select student from list"
+msgstr ""
+
+#: students/views/students.py:79
+msgid "Please, select at least one student"
+msgstr ""
+
+#: students/views/students.py:83
+msgid "Please, select the desired action"
+msgstr ""
+
+#: students/views/students.py:95
+msgid "Students successfully removed"
+msgstr ""
+
+#: students/views/students.py:98
+msgid "Selected students can't delete, try later"
+msgstr ""
+
+#: students/views/students.py:101
+msgid "Delete of selected student canceled"
+msgstr ""
+
+#: students/views/students.py:114
+msgid "Please, type student's first name"
+msgstr ""
+
+#: students/views/students.py:116
+msgid "Please, type student's last name"
+msgstr ""
+
+#: students/views/students.py:118
+msgid "Please, type student's middle name"
+msgstr ""
+
+#: students/views/students.py:120
+msgid "e.g. 1984-06-17"
+msgstr ""
+
+#: students/views/students.py:121
+msgid "e.g. 123"
+msgstr ""
+
+#: students/views/students.py:123
+msgid "Aditional information"
+msgstr ""
+
+#: students/views/students.py:155
+msgid "Add"
+msgstr ""
+
+#: students/views/students.py:157
+msgid "Save"
+msgstr ""
+
+#: students/views/students.py:162
+msgid "Cancel"
+msgstr ""
+
+#: students/views/students.py:174
+msgid "Student is leader of other group"
+msgstr ""
+
+#: students/views/students.py:181
+msgid "Student's age can't be less then 17 years"
+msgstr ""
+
+#: students/views/students.py:194
+#, python-format
+msgid "Student %s created successfully"
+msgstr ""
+
+#: students/views/students.py:200
+msgid "Adding Student"
+msgstr ""
+
+#: students/views/students.py:206
+msgid "Adding student canceled"
+msgstr ""
+
+#: students/views/students.py:220
+#, python-format
+msgid "Student %s saved successfully!"
+msgstr ""
+
+#: students/views/students.py:226
+msgid "Editing student"
+msgstr ""
+
+#: students/views/students.py:232
+msgid "Editing student canceled!"
+msgstr ""
+
+#: students/views/students.py:245
+#, python-format
+msgid "Student %s deleted successfully"
+msgstr ""
+
+#: students/views/students.py:251
+msgid "Deleting student canceled"
 msgstr ""

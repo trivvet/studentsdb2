@@ -98,7 +98,7 @@ def students_list(request):
                     _(u"Selected students can't delete, try later"))
                     
         elif request.POST.get('cancel_button'):
-            messages.warning(request, _(u"Delete of selected student is canceled"))
+            messages.warning(request, _(u"Delete of selected student canceled"))
 
     return render(request, 'students/students_list.html', 
         {'context': context})
@@ -120,7 +120,7 @@ class StudentForm(forms.ModelForm):
                 attrs={'placeholder': _(u"e.g. 1984-06-17")}),
             'ticket': forms.TextInput(attrs={'placeholder': _(u"e.g. 123")}),
             'notes': forms.Textarea(
-                attrs={'placeholder': _(u"Adition information"),
+                attrs={'placeholder': _(u"Aditional information"),
                        'rows': '3'}),
         }
 
@@ -152,7 +152,7 @@ class StudentForm(forms.ModelForm):
 
         # add buttons
         if add_form:
-            submit = Submit('add_button', u'Додати')
+            submit = Submit('add_button', _(u'Add'))
         else:
             submit = Submit('save_button', _(u'Save'))
 
