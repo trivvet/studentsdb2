@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from datetime import datetime
 
 from django import forms
@@ -9,6 +7,7 @@ from django.shortcuts import render, reverse
 from django.urls import reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DeleteView, CreateView, UpdateView
+from django.utils.translation import ugettext as _
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -64,13 +63,13 @@ class ExamAddForm(forms.ModelForm):
         fields = ['name', 'date', 'teacher_name', 'exam_group', 'notes']
         widgets = {
             'name': forms.TextInput(
-                attrs={'placeholder': u"Введіть назву предмету"}),
+                attrs={'placeholder': _(u"Please, type subject name")}),
             'date': forms.DateTimeInput(
-                attrs={'placeholder': u"напр. 2016-12-12 10:00"}),
+                attrs={'placeholder': _(u"e.g. 2016-12-12 10:00")}),
             'teacher_name': forms.TextInput(
-                attrs={'placeholder': u"Введіть прізвище та ініціали викладача"}),
+                attrs={'placeholder': _(u"Please, type teacher's surname and initials")}),
             'notes': forms.Textarea(
-                attrs={'placeholder': u"Додаткова інформація про іспит",
+                attrs={'placeholder': _(u"Additional informantion about exam"),
                        'rows': '3'}),
         }
 
@@ -96,19 +95,19 @@ class ExamAddForm(forms.ModelForm):
         self.helper.help_text_inline = True
         self.helper.html5_required = False
         self.helper.attrs = {'novalidate': ''}
-        self.helper.label_class = 'col-sm-3 control-label'
-        self.helper.field_class = 'col-sm-9'
+        self.helper.label_class = 'col-sm-4 control-label'
+        self.helper.field_class = 'col-sm-8'
 
         # add buttons
         if add_form:
-            submit = Submit('add_button', u'Додати')
+            submit = Submit('add_button', _(u'Add'))
         else:
-            submit = Submit('save_button', u'Зберегти')
+            submit = Submit('save_button', _(u'Save'))
             
         self.helper.layout.append(Layout(
             FormActions(
                 submit,
-                Submit('cancel_button', u'Скасувати', css_class='btn-link')
+                Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
             )
         ))
 
@@ -120,17 +119,17 @@ class ExamAddView(CreateView):
     
     def get_success_url(self):
         messages.success(self.request,
-            u"Іспит %s успішно доданий" % self.object.name)
+            _(u"Exav %s added successfully") % self.object.name)
         return reverse('exams')
         
     def get_context_data(self, **kwargs):
         context = super(ExamAddView, self).get_context_data(**kwargs)
-        context['title'] = u'Додавання іспиту'
+        context['title'] = _(u'Adding Exam')
         return context
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.warning(request, u"Додавання іспиту відмінено")
+            messages.warning(request, _(u"Adding exam canceled"))
             return HttpResponseRedirect(reverse('exams'))
         else:
             return super(ExamAddView, self).post(request, *args, **kwargs)
@@ -143,17 +142,17 @@ class ExamUpdateView(UpdateView):
     
     def get_success_url(self):
         messages.success(self.request,
-            u"Іспит %s успішно збережено" % self.object.name)
+            _(u"Exam %s saved successfully") % self.object.name)
         return reverse('exams')
 
     def get_context_data(self, **kwargs):
         context = super(ExamUpdateView, self).get_context_data(**kwargs)
-        context['title'] = u'Редагування іспиту'
+        context['title'] = _(u'Editing Exam')
         return context
         
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.warning(request, u"Редагування іспиту відмінено")
+            messages.warning(request, _(u"Editing exam canceled"))
             return HttpResponseRedirect(reverse('exams'))
         else:
             return super(ExamUpdateView, self).post(request, *args, **kwargs)
@@ -165,12 +164,12 @@ class ExamDeleteView(DeleteView):
 
     def get_success_url(self):
         messages.success(self.request,
-            u"Іспит %s успішно видалено" % self.object.name)
+            _(u"Exam %s deleted successfully") % self.object.name)
         return reverse('exams')
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.warning(request, u"Видалення іспиту відмінено")
+            messages.warning(request, _(u"Deleting exam canceled"))
             return HttpResponseRedirect(reverse('exams'))
         else:
             return super(ExamDeleteView, self).post(request, *args, **kwargs)

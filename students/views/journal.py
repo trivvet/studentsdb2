@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 from calendar import monthrange, weekday, day_abbr
@@ -7,6 +5,7 @@ from calendar import monthrange, weekday, day_abbr
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import TemplateView
+from django.utils.translation import ugettext as _
 
 from ..models.students import Student
 from ..models.groups import Group
@@ -48,9 +47,7 @@ class JournalView(TemplateView):
         context['prev_month'] = prev_month.strftime('%Y-%m-%d')
         context['next_month'] = next_month.strftime('%Y-%m-%d')
         context['year'] = month.year
-        month_name = [u'Січень', u'Лютий', u'Березень', u'Квітень', u'Травень', u'Червень', u'Липень', u'Серпень', u'Вересень', u'Жовтень', u'Листопад', u'Грудень']
-#        context['month_verbose'] = month.strftime('%B')
-        context['month_verbose'] = month_name[month.month-1]
+        context['month_verbose'] = month.strftime('%B')
 
         # we'll use this variable in students pagination
         context['cur_month'] = month.strftime('%Y-%m-%d')
@@ -58,12 +55,11 @@ class JournalView(TemplateView):
         # prepare variable for template to generate
         # journal table header elements
 
-        day_name = [u'Пн', u'Вт', u'Ср', u'Чт', u'Пт', u'Сб', u'Нд']
         myear, mmonth = month.year, month.month
         number_of_days = monthrange(myear, mmonth)[1]
         context['month_header'] = [
             {'day': d,
-             'verbose': day_name[weekday(myear, mmonth, d)]}
+             'verbose': day_abbr[weekday(myear, mmonth, d)]}
             for d in range(1, number_of_days+1)]
 
         # get all students from database
@@ -76,10 +72,10 @@ class JournalView(TemplateView):
             else:
                 queryset = Student.objects.all().order_by('last_name')
 
-        # це адреса для посту AJAX запиту
+        # this url for post AJAX request
         update_url = reverse('journal')
 
-        # застосовуємо пагінацію до списку студентів
+        # use pagination for student's list
         context = paginate(queryset, 5, self.request, context, var_name='queryset')
 
         # take needed elements for each students
@@ -91,7 +87,7 @@ class JournalView(TemplateView):
             except Exception:
                 journal = None
 
-            # набиваємо дні для студента
+            # add days for student
             days = []
             for day in range(1, number_of_days+1):
                 days.append({
@@ -101,7 +97,7 @@ class JournalView(TemplateView):
                     'date': date(myear, mmonth, day).strftime('%Y-%m-%d'),
                 })
 
-            # набиваємо усі решту даних студента
+            # add all other data for student
             context['students'].append({
                 'fullname': u'%s %s' % (student.last_name, student.first_name),
                 'days': days,
@@ -119,7 +115,8 @@ class JournalView(TemplateView):
         # prepare student, dates and presense data
         current_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
         if current_date > datetime.today().date():
-            return JsonResponse({'status': 'error', 'message': u'Заборонено змінювати статуси майбутніх відвідувань'})
+            return JsonResponse({'status': 'error', 'message':
+              _(u'Forbidden to change status future visits!')})
         month = date(current_date.year, current_date.month, 1)
         present = data['present'] and True or False
         student = Student.objects.get(pk=data['pk'])

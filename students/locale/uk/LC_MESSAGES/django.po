@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-17 17:05+0000\n"
+"POT-Creation-Date: 2017-01-17 19:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,14 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: students/models/students.py:12
+#: students/apps.py:10 students/templates/students/base.html:9
+#: students/templates/students/base.html:12
+#: students/templates/students/base.html:39
+#: students/templates/students/base.html:133
+msgid "Students Accounting Service"
+msgstr "Сервіс Обліку Студентів"
+
+#: students/models/students.py:12 students/templates/students/journal.html:35
 msgid "Student"
 msgstr "Студент"
 
@@ -63,13 +70,6 @@ msgstr "Група"
 msgid "Additional notes"
 msgstr "Додаткові нотатки"
 
-#: students/templates/students/base.html:9
-#: students/templates/students/base.html:12
-#: students/templates/students/base.html:39
-#: students/templates/students/base.html:133
-msgid "Students Accounting Service"
-msgstr "Сервіс Обліку Студентів"
-
 #: students/templates/students/base.html:48
 msgid "All Students"
 msgstr "Усі Студенти"
@@ -99,6 +99,37 @@ msgstr "Контакт"
 msgid "Events"
 msgstr "Події"
 
+#: students/templates/students/journal.html:6
+#: students/templates/students/journal.html:8
+msgid "Accounting Visits"
+msgstr "Журнал Відвідувань"
+
+#: students/templates/students/journal.html:17
+msgid ""
+"Changes in journal page save automatically at every click on the table cell."
+msgstr "Зміни в журналі зберігаються автоматично при кожному кліку на клітинці таблиці"
+
+#: students/templates/students/journal.html:18
+msgid "Is saving"
+msgstr "Йде збереження"
+
+#: students/templates/students/journal.html:77
+#: students/templates/students/students_list.html:127
+msgid "Load More"
+msgstr "Завантажити ще"
+
+#: students/templates/students/journal.html:83
+msgid "Currently there aren't students in the database. Please,"
+msgstr "Поки що немає студентів у базі. Будь-ласка"
+
+#: students/templates/students/journal.html:84
+msgid "add"
+msgstr "додати"
+
+#: students/templates/students/journal.html:84
+msgid "first"
+msgstr "першого"
+
 #: students/templates/students/students_list.html:8
 msgid "Students List"
 msgstr "Список Студентів"
@@ -127,10 +158,6 @@ msgstr "Редагувати"
 msgid "Delete"
 msgstr "Видалити"
 
-#: students/templates/students/students_list.html:127
-msgid "Load More"
-msgstr "Завантажити ще"
-
 #: students/templates/students/students_list.html:136
 msgid "Delete selected students"
 msgstr "Видалити обраних студентів"
@@ -142,6 +169,10 @@ msgstr "Виконати"
 #: students/templates/students/students_list.html:145
 msgid "Currently there aren't students in the database"
 msgstr "Поки що немає студентів у базі"
+
+#: students/views/journal.py:119
+msgid "Forbidden to change status future visits!"
+msgstr "Заборонено змінювати статуси майбутніх відвідувань!"
 
 #: students/views/students.py:69
 msgid "Please, select student from list"
@@ -245,4 +276,3 @@ msgstr "Дані про студента %s успішно видалено"
 #: students/views/students.py:249
 msgid "Deleting student canceled"
 msgstr "Видалення студента скасовано"
-

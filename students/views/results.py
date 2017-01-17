@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DeleteView, CreateView, UpdateView
+from django.utils.translation import ugettext as _
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -56,7 +57,7 @@ def results_add(request):
     if request.method == 'POST':
         data = request.POST
         if data.get('cancel_button'):
-            messages.warning(request, u"Введення результатів іспитів відмінено")
+            messages.warning(request, _(u"Entry results of exam canceled"))
             return HttpResponseRedirect(reverse('results'))
         elif data.get('save_button'):
             i = 0
@@ -70,7 +71,7 @@ def results_add(request):
                     try:
                         score = int(score)
                     except ValueError:
-                        errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть число від 0 до 12"})
+                        errors.append({'student_id': student.id, 'text': _(u"Please enter the number from 0 to 12")})
                     else:
                         if score > 0 and score < 12:
                             all_score.append({'student_id': student.id, 'score': score})

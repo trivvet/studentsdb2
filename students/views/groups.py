@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
-
 from django import forms
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DeleteView, CreateView, UpdateView
+from django.utils.translation import ugettext as _
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -48,9 +47,9 @@ class GroupAddForm(forms.ModelForm):
         fields = ['title', 'notes']
         widgets = {
             'title': forms.TextInput(
-                attrs={'placeholder': u"Введіть назву групи"}),
+                attrs={'placeholder': _(u"Type group's title")}),
             'notes': forms.Textarea(
-                attrs={'placeholder': u"Додаткова інформація про групу",
+                attrs={'placeholder': _(u"Additional information about group"),
                        'rows': '3'}),
         }
 
@@ -67,14 +66,14 @@ class GroupAddForm(forms.ModelForm):
         self.helper.help_text_inline = True
         self.helper.html5_required = True
         self.helper.attrs = {'novalidate': ''}
-        self.helper.label_class = 'col-sm-3 control-label'
-        self.helper.field_class = 'col-sm-9'
+        self.helper.label_class = 'col-sm-4 control-label'
+        self.helper.field_class = 'col-sm-8'
 
         # add buttons
         self.helper.layout.append(Layout(
             FormActions(
-                Submit('add_button', u'Додати'),
-                Submit('cancel_button', u'Скасувати', css_class='btn-link')
+                Submit('add_button', _(u'Add')),
+                Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
             )
         ))
 
@@ -87,19 +86,19 @@ class GroupAddView(CreateView):
     # if post form is valid return success message
     def get_success_url(self):
         messages.success(self.request,
-            u"Група %s успішно додана" % self.object.title)
+            _(u"Group %s added successfully") % self.object.title)
         return reverse('groups')
 
     # render form title    
     def get_context_data(self, **kwargs):
         context = super(GroupAddView, self).get_context_data(**kwargs)
-        context['title'] = u'Додавання групи'
+        context['title'] = _(u'Adding Group')
         return context
 
     # if cancel button is pressed render groups page
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.warning(request, u"Додавання групи відмінено")
+            messages.warning(request, _(u"Adding group canceled"))
             return HttpResponseRedirect(reverse('groups'))
         else:
             return super(GroupAddView, self).post(request, *args, **kwargs)
@@ -111,9 +110,9 @@ class GroupUpdateForm(forms.ModelForm):
         fields = ['title', 'leader', 'notes']
         widgets = {
             'title': forms.TextInput(
-                attrs={'placeholder': u"Введіть назву групи"}),
+                attrs={'placeholder': _(u"Type group's title")}),
             'notes': forms.Textarea(
-                attrs={'placeholder': u"Додаткова інформація про групу",
+                attrs={'placeholder': _(u"Addiotional information about group"),
                        'rows': '3'}),
         }
 
@@ -132,14 +131,14 @@ class GroupUpdateForm(forms.ModelForm):
         self.helper.help_text_inline = True
         self.helper.html5_required = True
         self.helper.attrs = {'novalidate': ''}
-        self.helper.label_class = 'col-sm-3 control-label'
-        self.helper.field_class = 'col-sm-9'
+        self.helper.label_class = 'col-sm-4 control-label'
+        self.helper.field_class = 'col-sm-8'
 
         # add buttons
         self.helper.layout.append(Layout(
             FormActions(
-                Submit('add_button', u'Зберегти'),
-                Submit('cancel_button', u'Скасувати', css_class='btn-link')
+                Submit('add_button', _(u'Save')),
+                Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
             )
         ))
 
@@ -151,17 +150,17 @@ class GroupUpdateView(UpdateView):
     
     def get_success_url(self):
         messages.success(self.request,
-            u"Група %s успішно збережена" % self.object.title)
+            _(u"Group %s saved successfully") % self.object.title)
         return reverse('groups')
 
     def get_context_data(self, **kwargs):
         context = super(GroupUpdateView, self).get_context_data(**kwargs)
-        context['title'] = u'Редагування групи'
+        context['title'] = _(u'Editing Group')
         return context
         
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.warning(request, u"Редагування групи відмінено")
+            messages.warning(request, _(u"Editing group canceled"))
             return HttpResponseRedirect(reverse('groups'))
         else:
             return super(GroupUpdateView, self).post(request, *args, **kwargs)
@@ -173,12 +172,12 @@ class GroupDeleteView(DeleteView):
 
     def get_success_url(self):
         messages.success(self.request,
-            u"Групу %s успішно видалено" % self.object.title)
+            _(u"Group %s deleted successfully") % self.object.title)
         return reverse('groups')
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.warning(request, u"Видалення групи відмінено")
+            messages.warning(request, _(u"Deleting group calceled"))
             return HttpResponseRedirect(reverse('groups'))
         else:
             return super(GroupDeleteView, self).post(request, *args, **kwargs)

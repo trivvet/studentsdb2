@@ -1,10 +1,11 @@
 {% extends "students/base.html" %}
 
+{% load i18n %}
 {% load static from staticfiles %}
 
-{% block meta_title %}Облік Відвідування{% endblock meta_title %}
+{% block meta_title %}{% trans "Accounting Visits" %}{% endblock meta_title %}
 
-{% block title %}Облік Відвідування{% endblock title %}
+{% block title %}{% trans "Accounting Visits" %}{% endblock title %}
 
 {% block content %}
    
@@ -13,14 +14,14 @@
 {% if students %}
 
 <div class="alert alert-info" role="info">
-    Зміни в журнал зберігаються автоматично при кожному кліку в клітинці таблиці.
-    <span id="ajax-progress-indicator">Йде збереження...</span>
+    {% trans "Changes in journal page save automatically at every click on the table cell." %}
+    <span id="ajax-progress-indicator">{% trans "Is saving" %}...</span>
 </div>
 
 <p id="journal-nav" class="month text-center">
   <a href="?month={{ prev_month }}"
      title="Попередній Місяць">&larr;</a>
-  <strong>{{ month_verbose }} {{ year }}</strong>
+  <strong>{% trans month_verbose %} {{ year }}</strong>
   <a href="?month={{ next_month }}"
      title="Наступний Місяць">&rarr;</a>
 </p>
@@ -31,9 +32,9 @@
   <thead>
     <tr class="header">
       <th class="num">№</th>
-      <th class="name">Студент</th>
+      <th class="name">{% trans "Student" %}</th>
       {% for day in month_header %}
-      <th class="day-header">{{ day.verbose }}</br>{{ day.day }}</th>
+      <th class="day-header">{% trans day.verbose %}</br>{{ day.day }}</th>
       {% endfor %}
     </tr>
   </thead>
@@ -73,14 +74,14 @@
 {% if is_paginated and page_obj.number < paginator.num_pages %}
     {% with url_page=request.path_info %}
     <p class="buttonLoad">
-      <a type="button" class="btn btn-default" href="{{ url_page }}?page={{ page_obj.next_page_number }}{% if cur_month %}&amp;month={{ cur_month }}{% endif %}" id="buttonLoadMore">Завантажити ще</a>
+      <a type="button" class="btn btn-default" href="{{ url_page }}?page={{ page_obj.next_page_number }}{% if cur_month %}&amp;month={{ cur_month }}{% endif %}" id="buttonLoadMore">{% trans "Load More" %}</a>
     </p>
     {% endwith %}
   {% endif %}
 
 {% else %}
-<p class='none'></br></br>Поки немає жодного студента в базі. Будь-ласка, <a
-        href="{% url "students_add" %}">додайте</a> першого</p>
+<p class='none'></br></br>{% trans "Currently there aren't students in the database. Please," %} <a
+        href="{% url "students_add" %}">{% trans "add" %}</a> {% trans "first" %}</p>
 {% endif %}
 
 <!-- End Students Listing -->
