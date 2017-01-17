@@ -142,10 +142,28 @@ function initForm(form, modal, link) {
 
   // close modal window on Cancel button click
   form.find('input[name="cancel_button"]').click(function(event) {
-    modal.modal('hide');
-    $('input, select, textarea').removeAttr('disabled');
-    History.pushState({'page': ''}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
-    return false;
+    form.ajaxForm({
+      url: link,
+      dataType: 'html',
+      error: function() {
+        $('input, select, textarea').prop('disabled', false);
+        modal2.modal('hide');
+        modal.find('.modal-body').html('<div class="alert alert-danger">"Виникла помилка на сервері. Будь-ласка спробуйте пізніше"</div>');
+        setTimeout(function() {
+          modal.modal('hide');
+        }, 1500);
+        History.pushState({'page': 'openForm'}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
+        return false;
+      },
+      success: function(data, status, xhr) {
+        var html = $(data), message = html.find('div.alert-warning');
+        $('div.alert-warning').remove();
+        $('#content-column').prepend(message);
+        modal.modal('hide');
+        $('input, select, textarea').removeAttr('disabled');
+        History.pushState({'page': ''}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
+      }
+    });
   });
 
   modal.find('button.close').click(function(event){

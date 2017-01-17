@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from datetime import datetime
 from PIL import Image
 from dateutil.relativedelta import relativedelta
@@ -146,8 +144,8 @@ class StudentForm(forms.ModelForm):
         self.helper.help_text_inline = True
         self.helper.html5_required = True
         self.helper.attrs = {'novalidate': ''}
-        self.helper.label_class = 'col-sm-3 control-label'
-        self.helper.field_class = 'col-sm-9'
+        self.helper.label_class = 'col-sm-4 control-label'
+        self.helper.field_class = 'col-sm-8'
 
 
         # add buttons

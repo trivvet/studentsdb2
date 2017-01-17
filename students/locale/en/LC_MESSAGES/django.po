@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-16 17:13+0000\n"
+"POT-Creation-Date: 2017-01-17 17:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,50 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: students/models/students.py:12
+msgid "Student"
+msgstr ""
+
+#: students/models/students.py:13 students/templates/students/base.html:75
+#: students/templates/students/students_list.html:6
+msgid "Students"
+msgstr ""
+
+#: students/models/students.py:18
+#: students/templates/students/students_list.html:51
+msgid "First Name"
+msgstr ""
+
+#: students/models/students.py:23
+#: students/templates/students/students_list.html:42
+msgid "Last Name"
+msgstr ""
+
+#: students/models/students.py:28
+msgid "Middle Name"
+msgstr ""
+
+#: students/models/students.py:33
+msgid "Birthday"
+msgstr ""
+
+#: students/models/students.py:38
+#: students/templates/students/students_list.html:38
+msgid "Photo"
+msgstr ""
+
+#: students/models/students.py:43
+msgid "Ticket"
+msgstr ""
+
+#: students/models/students.py:47 students/templates/students/base.html:46
+msgid "Group"
+msgstr ""
+
+#: students/models/students.py:54
+msgid "Additional notes"
+msgstr ""
+
 #: students/templates/students/base.html:9
 #: students/templates/students/base.html:12
 #: students/templates/students/base.html:39
@@ -24,17 +68,8 @@ msgstr ""
 msgid "Students Accounting Service"
 msgstr ""
 
-#: students/templates/students/base.html:46
-msgid "Group"
-msgstr ""
-
 #: students/templates/students/base.html:48
 msgid "All Students"
-msgstr ""
-
-#: students/templates/students/base.html:75
-#: students/templates/students/students_list.html:6
-msgid "Students"
 msgstr ""
 
 #: students/templates/students/base.html:78
@@ -68,18 +103,6 @@ msgstr ""
 
 #: students/templates/students/students_list.html:13
 msgid "Add Student"
-msgstr ""
-
-#: students/templates/students/students_list.html:38
-msgid "Photo"
-msgstr ""
-
-#: students/templates/students/students_list.html:42
-msgid "Last Name"
-msgstr ""
-
-#: students/templates/students/students_list.html:51
-msgid "First Name"
 msgstr ""
 
 #: students/templates/students/students_list.html:60
@@ -118,105 +141,105 @@ msgstr ""
 msgid "Currently there aren't students in the database"
 msgstr ""
 
-#: students/views/students.py:71
+#: students/views/students.py:69
 msgid "Please, select student from list"
 msgstr ""
 
-#: students/views/students.py:79
+#: students/views/students.py:77
 msgid "Please, select at least one student"
 msgstr ""
 
-#: students/views/students.py:83
+#: students/views/students.py:81
 msgid "Please, select the desired action"
 msgstr ""
 
-#: students/views/students.py:95
+#: students/views/students.py:93
 msgid "Students successfully removed"
 msgstr ""
 
-#: students/views/students.py:98
+#: students/views/students.py:96
 msgid "Selected students can't delete, try later"
 msgstr ""
 
-#: students/views/students.py:101
+#: students/views/students.py:99
 msgid "Delete of selected student canceled"
 msgstr ""
 
-#: students/views/students.py:114
+#: students/views/students.py:112
 msgid "Please, type student's first name"
 msgstr ""
 
-#: students/views/students.py:116
+#: students/views/students.py:114
 msgid "Please, type student's last name"
 msgstr ""
 
-#: students/views/students.py:118
+#: students/views/students.py:116
 msgid "Please, type student's middle name"
 msgstr ""
 
-#: students/views/students.py:120
+#: students/views/students.py:118
 msgid "e.g. 1984-06-17"
 msgstr ""
 
-#: students/views/students.py:121
+#: students/views/students.py:119
 msgid "e.g. 123"
 msgstr ""
 
-#: students/views/students.py:123
+#: students/views/students.py:121
 msgid "Aditional information"
 msgstr ""
 
-#: students/views/students.py:155
+#: students/views/students.py:153
 msgid "Add"
 msgstr ""
 
-#: students/views/students.py:157
+#: students/views/students.py:155
 msgid "Save"
 msgstr ""
 
-#: students/views/students.py:162
+#: students/views/students.py:160
 msgid "Cancel"
 msgstr ""
 
-#: students/views/students.py:174
+#: students/views/students.py:172
 msgid "Student is leader of other group"
 msgstr ""
 
-#: students/views/students.py:181
+#: students/views/students.py:179
 msgid "Student's age can't be less then 17 years"
 msgstr ""
 
-#: students/views/students.py:194
+#: students/views/students.py:192
 #, python-format
 msgid "Student %s created successfully"
 msgstr ""
 
-#: students/views/students.py:200
+#: students/views/students.py:198
 msgid "Adding Student"
 msgstr ""
 
-#: students/views/students.py:206
+#: students/views/students.py:204
 msgid "Adding student canceled"
 msgstr ""
 
-#: students/views/students.py:220
+#: students/views/students.py:218
 #, python-format
 msgid "Student %s saved successfully!"
 msgstr ""
 
-#: students/views/students.py:226
+#: students/views/students.py:224
 msgid "Editing student"
 msgstr ""
 
-#: students/views/students.py:232
+#: students/views/students.py:230
 msgid "Editing student canceled!"
 msgstr ""
 
-#: students/views/students.py:245
+#: students/views/students.py:243
 #, python-format
 msgid "Student %s deleted successfully"
 msgstr ""
 
-#: students/views/students.py:251
+#: students/views/students.py:249
 msgid "Deleting student canceled"
 msgstr ""

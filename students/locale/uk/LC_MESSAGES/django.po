@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-16 17:13+0000\n"
+"POT-Creation-Date: 2017-01-17 17:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,50 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
+#: students/models/students.py:12
+msgid "Student"
+msgstr "Студент"
+
+#: students/models/students.py:13 students/templates/students/base.html:75
+#: students/templates/students/students_list.html:6
+msgid "Students"
+msgstr "Студенти"
+
+#: students/models/students.py:18
+#: students/templates/students/students_list.html:51
+msgid "First Name"
+msgstr "Ім’я"
+
+#: students/models/students.py:23
+#: students/templates/students/students_list.html:42
+msgid "Last Name"
+msgstr "Прізвище"
+
+#: students/models/students.py:28
+msgid "Middle Name"
+msgstr "По-батькові"
+
+#: students/models/students.py:33
+msgid "Birthday"
+msgstr "Дата народження"
+
+#: students/models/students.py:38
+#: students/templates/students/students_list.html:38
+msgid "Photo"
+msgstr "Фото"
+
+#: students/models/students.py:43
+msgid "Ticket"
+msgstr "Білет"
+
+#: students/models/students.py:47 students/templates/students/base.html:46
+msgid "Group"
+msgstr "Група"
+
+#: students/models/students.py:54
+msgid "Additional notes"
+msgstr "Додаткові нотатки"
+
 #: students/templates/students/base.html:9
 #: students/templates/students/base.html:12
 #: students/templates/students/base.html:39
@@ -26,18 +70,9 @@ msgstr ""
 msgid "Students Accounting Service"
 msgstr "Сервіс Обліку Студентів"
 
-#: students/templates/students/base.html:46
-msgid "Group"
-msgstr "Група"
-
 #: students/templates/students/base.html:48
 msgid "All Students"
 msgstr "Усі Студенти"
-
-#: students/templates/students/base.html:75
-#: students/templates/students/students_list.html:6
-msgid "Students"
-msgstr "Студенти"
 
 #: students/templates/students/base.html:78
 #: students/templates/students/students_list.html:105
@@ -71,18 +106,6 @@ msgstr "Список Студентів"
 #: students/templates/students/students_list.html:13
 msgid "Add Student"
 msgstr "Додати Студента"
-
-#: students/templates/students/students_list.html:38
-msgid "Photo"
-msgstr "Фото"
-
-#: students/templates/students/students_list.html:42
-msgid "Last Name"
-msgstr "Прізвище"
-
-#: students/templates/students/students_list.html:51
-msgid "First Name"
-msgstr "Ім’я"
 
 #: students/templates/students/students_list.html:60
 msgid "Ticket #"
@@ -120,105 +143,106 @@ msgstr "Виконати"
 msgid "Currently there aren't students in the database"
 msgstr "Поки що немає студентів у базі"
 
-#: students/views/students.py:71
+#: students/views/students.py:69
 msgid "Please, select student from list"
 msgstr "Будь-ласка, оберіть студента зі списку"
 
-#: students/views/students.py:79
+#: students/views/students.py:77
 msgid "Please, select at least one student"
 msgstr "Будь ласка, виберіть хоча б одного студента"
 
-#: students/views/students.py:83
+#: students/views/students.py:81
 msgid "Please, select the desired action"
 msgstr "Будь ласка, оберіть необхідну дію"
 
-#: students/views/students.py:95
+#: students/views/students.py:93
 msgid "Students successfully removed"
 msgstr "Студента успішно видалено"
 
-#: students/views/students.py:98
+#: students/views/students.py:96
 msgid "Selected students can't delete, try later"
 msgstr "Видалення обраних студентів не виконано, спробуйте пізніше"
 
-#: students/views/students.py:101
+#: students/views/students.py:99
 msgid "Delete of selected student canceled"
 msgstr "Видалення обраних студентів скасовано"
 
-#: students/views/students.py:114
+#: students/views/students.py:112
 msgid "Please, type student's first name"
 msgstr "Введіть ім'я студента"
 
-#: students/views/students.py:116
+#: students/views/students.py:114
 msgid "Please, type student's last name"
 msgstr "Введіть прізвище студента"
 
-#: students/views/students.py:118
+#: students/views/students.py:116
 msgid "Please, type student's middle name"
 msgstr "Введіть ім'я по-батькові студента"
 
-#: students/views/students.py:120
+#: students/views/students.py:118
 msgid "e.g. 1984-06-17"
 msgstr "напр. 1984-06-17"
 
-#: students/views/students.py:121
+#: students/views/students.py:119
 msgid "e.g. 123"
 msgstr "напр. 123"
 
-#: students/views/students.py:123
+#: students/views/students.py:121
 msgid "Aditional information"
 msgstr "Додаткова інформація"
 
-#: students/views/students.py:155
+#: students/views/students.py:153
 msgid "Add"
 msgstr "Додати"
 
-#: students/views/students.py:157
+#: students/views/students.py:155
 msgid "Save"
 msgstr "Зберегти"
 
-#: students/views/students.py:162
+#: students/views/students.py:160
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: students/views/students.py:174
+#: students/views/students.py:172
 msgid "Student is leader of other group"
 msgstr "Студенти є старостою іншої групи"
 
-#: students/views/students.py:181
+#: students/views/students.py:179
 msgid "Student's age can't be less then 17 years"
 msgstr "Студенту не може бути менше 17 років"
 
-#: students/views/students.py:194
+#: students/views/students.py:192
 #, python-format
 msgid "Student %s created successfully"
 msgstr "Дані про студента %s успішно додано"
 
-#: students/views/students.py:200
+#: students/views/students.py:198
 msgid "Adding Student"
 msgstr "Додавання Студента"
 
-#: students/views/students.py:206
+#: students/views/students.py:204
 msgid "Adding student canceled"
 msgstr "Додавання студента скасовано"
 
-#: students/views/students.py:220
+#: students/views/students.py:218
 #, python-format
 msgid "Student %s saved successfully!"
 msgstr "Дані про студента %s успішно змінені"
 
-#: students/views/students.py:226
+#: students/views/students.py:224
 msgid "Editing student"
 msgstr "Редагування Студента"
 
-#: students/views/students.py:232
+#: students/views/students.py:230
 msgid "Editing student canceled!"
 msgstr "Редагування студента скасовано"
 
-#: students/views/students.py:245
+#: students/views/students.py:243
 #, python-format
 msgid "Student %s deleted successfully"
 msgstr "Дані про студента %s успішно видалено"
 
-#: students/views/students.py:251
+#: students/views/students.py:249
 msgid "Deleting student canceled"
 msgstr "Видалення студента скасовано"
+
