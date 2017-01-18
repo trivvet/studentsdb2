@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-17 19:20+0000\n"
+"POT-Creation-Date: 2017-01-18 17:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -168,8 +168,228 @@ msgstr ""
 msgid "Currently there aren't students in the database"
 msgstr ""
 
+#: students/views/contact_admin.py:39
+msgid "Submit"
+msgstr ""
+
+#: students/views/contact_admin.py:42
+msgid "Your Email Address"
+msgstr ""
+
+#: students/views/contact_admin.py:45
+msgid "Message header"
+msgstr ""
+
+#: students/views/contact_admin.py:49
+msgid "Message text"
+msgstr ""
+
+#: students/views/contact_admin.py:60
+msgid "Letter send successfully"
+msgstr ""
+
+#: students/views/contact_admin.py:62
+msgid ""
+"When senging mail unexpected error ocured. Please try this service later"
+msgstr ""
+
+#: students/views/exams.py:66
+msgid "Please, type subject name"
+msgstr ""
+
+#: students/views/exams.py:68
+msgid "e.g. 2016-12-12 10:00"
+msgstr ""
+
+#: students/views/exams.py:70
+msgid "Please, type teacher's surname and initials"
+msgstr ""
+
+#: students/views/exams.py:72
+msgid "Additional informantion about exam"
+msgstr ""
+
+#: students/views/exams.py:103 students/views/groups.py:75
+#: students/views/students.py:153
+msgid "Add"
+msgstr ""
+
+#: students/views/exams.py:105 students/views/groups.py:140
+#: students/views/logs.py:76 students/views/students.py:155
+msgid "Save"
+msgstr ""
+
+#: students/views/exams.py:110 students/views/groups.py:76
+#: students/views/groups.py:141 students/views/logs.py:77
+#: students/views/students.py:160
+msgid "Cancel"
+msgstr ""
+
+#: students/views/exams.py:122
+#, python-format
+msgid "Exav %s added successfully"
+msgstr ""
+
+#: students/views/exams.py:127
+msgid "Adding Exam"
+msgstr ""
+
+#: students/views/exams.py:132
+msgid "Adding exam canceled"
+msgstr ""
+
+#: students/views/exams.py:145
+#, python-format
+msgid "Exam %s saved successfully"
+msgstr ""
+
+#: students/views/exams.py:150
+msgid "Editing Exam"
+msgstr ""
+
+#: students/views/exams.py:155
+msgid "Editing exam canceled"
+msgstr ""
+
+#: students/views/exams.py:167
+#, python-format
+msgid "Exam %s deleted successfully"
+msgstr ""
+
+#: students/views/exams.py:172
+msgid "Deleting exam canceled"
+msgstr ""
+
+#: students/views/groups.py:50 students/views/groups.py:113
+msgid "Type group's title"
+msgstr ""
+
+#: students/views/groups.py:52
+msgid "Additional information about group"
+msgstr ""
+
+#: students/views/groups.py:89
+#, python-format
+msgid "Group %s added successfully"
+msgstr ""
+
+#: students/views/groups.py:95
+msgid "Adding Group"
+msgstr ""
+
+#: students/views/groups.py:101
+msgid "Adding group canceled"
+msgstr ""
+
+#: students/views/groups.py:115
+msgid "Addiotional information about group"
+msgstr ""
+
+#: students/views/groups.py:153
+#, python-format
+msgid "Group %s saved successfully"
+msgstr ""
+
+#: students/views/groups.py:158
+msgid "Editing Group"
+msgstr ""
+
+#: students/views/groups.py:163
+msgid "Editing group canceled"
+msgstr ""
+
+#: students/views/groups.py:175
+#, python-format
+msgid "Group %s deleted successfully"
+msgstr ""
+
+#: students/views/groups.py:180
+msgid "Deleting group calceled"
+msgstr ""
+
 #: students/views/journal.py:119
 msgid "Forbidden to change status future visits!"
+msgstr ""
+
+#: students/views/logs.py:46
+msgid "Please enter subject name"
+msgstr ""
+
+#: students/views/logs.py:50
+msgid "Please enter event time"
+msgstr ""
+
+#: students/views/logs.py:52
+msgid "Detailed information about event"
+msgstr ""
+
+#: students/views/logs.py:88
+#, python-format
+msgid "Event %s saved successfully"
+msgstr ""
+
+#: students/views/logs.py:93
+msgid "Editing event"
+msgstr ""
+
+#: students/views/logs.py:98
+msgid "Editing event canceled"
+msgstr ""
+
+#: students/views/logs.py:109
+#, python-format
+msgid "Event %s deleted successfully"
+msgstr ""
+
+#: students/views/logs.py:114
+msgid "Deleting event canceled"
+msgstr ""
+
+#: students/views/results.py:58
+msgid "Entry results of exam canceled"
+msgstr ""
+
+#: students/views/results.py:72 students/views/results.py:131
+msgid "Please enter the number from 0 to 12"
+msgstr ""
+
+#: students/views/results.py:79 students/views/results.py:139
+msgid "Please enter mark from 0 to 12"
+msgstr ""
+
+#: students/views/results.py:81 students/views/results.py:141
+msgid "Please enter student's mark"
+msgstr ""
+
+#: students/views/results.py:88
+#, python-format
+msgid "Information about results of exam %s added successfully"
+msgstr ""
+
+#: students/views/results.py:96
+msgid "Adding results of exam canceled"
+msgstr ""
+
+#: students/views/results.py:106
+msgid "Plese select completion exam"
+msgstr ""
+
+#: students/views/results.py:108
+msgid "Please select exam"
+msgstr ""
+
+#: students/views/results.py:117
+msgid "Editing results of exam canceled"
+msgstr ""
+
+#: students/views/results.py:147
+#, python-format
+msgid "Information about results of exam %s edited successfully"
+msgstr ""
+
+#: students/views/results.py:168
+#, python-format
+msgid "Information about results of exam %s deleted successfully"
 msgstr ""
 
 #: students/views/students.py:69
@@ -218,18 +438,6 @@ msgstr ""
 
 #: students/views/students.py:121
 msgid "Aditional information"
-msgstr ""
-
-#: students/views/students.py:153
-msgid "Add"
-msgstr ""
-
-#: students/views/students.py:155
-msgid "Save"
-msgstr ""
-
-#: students/views/students.py:160
-msgid "Cancel"
 msgstr ""
 
 #: students/views/students.py:172

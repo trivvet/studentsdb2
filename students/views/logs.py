@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from datetime import datetime, date
 
 from django import forms
@@ -7,6 +5,7 @@ from django.shortcuts import render, reverse
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views.generic import TemplateView, DeleteView, UpdateView
+from django.utils.translation import ugettext as _
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -44,13 +43,13 @@ class LogUpdateForm(forms.ModelForm):
         fields = ['signal', 'status', 'log_datetime', 'info']
         widgets = {
             'signal': forms.TextInput(
-                attrs={'placeholder': u"Введіть назву предмету"}),
+                attrs={'placeholder': _(u"Please enter subject name")}),
             'status': forms.Select(
                 choices=(("INFO", "INFO"), ("DEBUG", "DEBUG"), ("WARNING", "WARNING"), ("ERROR", "ERROR"), ("CRITICAL", "CRITICAL"))),
             'teacher_name': forms.DateTimeInput(
-                attrs={'placeholder': u"Введіть час події"}),
+                attrs={'placeholder': _(u"Please enter event time")}),
             'info': forms.Textarea(
-                attrs={'placeholder': u"Детальна інформація про подію",
+                attrs={'placeholder': _(u"Detailed information about event"),
                        'rows': '10'}),
         }
 
@@ -74,8 +73,8 @@ class LogUpdateForm(forms.ModelForm):
         # add buttons
         self.helper.layout.append(Layout(
             FormActions(
-                Submit('add_button', u'Зберегти'),
-                Submit('cancel_button', u'Скасувати', css_class='btn-link')
+                Submit('add_button', _(u'Save')),
+                Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
             )
         ))
 
@@ -86,17 +85,17 @@ class LogUpdateView(UpdateView):
     
     def get_success_url(self):
         messages.success(self.request,
-            u"Подія %s успішно збережена" % self.object.signal)
+            _(u"Event %s saved successfully") % self.object.signal)
         return reverse('logs')
 
     def get_context_data(self, **kwargs):
         context = super(LogUpdateView, self).get_context_data(**kwargs)
-        context['title'] = u'Редагування події'
+        context['title'] = _(u'Editing event')
         return context
         
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.warning(request, u"Редагування події відмінено")
+            messages.warning(request, _(u"Editing event canceled"))
             return HttpResponseRedirect(reverse('logs'))
         else:
             return super(LogUpdateView, self).post(request, *args, **kwargs)
@@ -107,12 +106,12 @@ class LogDeleteView(DeleteView):
 
     def get_success_url(self):
         messages.success(self.request,
-            u"Подія %s успішно видалена" % self.object.signal)
+            _(u"Event %s deleted successfully") % self.object.signal)
         return reverse('logs')
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.warning(request, u"Видалення події відмінено")
+            messages.warning(request, _(u"Deleting event canceled"))
             return HttpResponseRedirect(reverse('logs'))
         else:
             return super(LogDeleteView, self).post(request, *args, **kwargs)

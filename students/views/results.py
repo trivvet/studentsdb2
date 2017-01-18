@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from datetime import datetime
 
 from django import forms
@@ -78,16 +76,16 @@ def results_add(request):
                             results.append(Result(result_student=student, result_exam=result_exam, score=score))
                             result_exam.is_completed = True
                         else:
-                            errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть оцінку від 0 до 12 балів"})
+                            errors.append({'student_id': student.id, 'text': _(u"Please enter mark from 0 to 12")})
                 else:
-                    errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть оцінку студента"})
+                    errors.append({'student_id': student.id, 'text': _(u"Please enter student's mark")})
                 i += 1
         
             if not errors:
                 for result in results:
                     result.save()
                 result_exam.save()
-                messages.success(request, u"Інформацію про результати іспиту %s успішно додано" % result_exam.name)
+                messages.success(request, _(u"Information about results of exam %s added successfully") % result_exam.name)
                 return HttpResponseRedirect(reverse('results'))
             else:
                 students = Student.objects.all().filter(student_group=result_exam.exam_group)
@@ -95,7 +93,7 @@ def results_add(request):
     else:
         errors = {}
         if request.GET.get('cancel_button'):
-            messages.warning(request, u"Введення результатів іспитів відмінено")
+            messages.warning(request, _(u"Adding results of exam canceled"))
             return HttpResponseRedirect(reverse('results'))
         elif request.GET.get('save_button'):
             if request.GET.get('name') is not None:
@@ -105,9 +103,9 @@ def results_add(request):
                         students = Student.objects.all().filter(student_group=exam.exam_group)
                         return render(request, 'students/results_add_marks.html', { 'students': students, 'exam': exam })
                     else:
-                      errors['name'] = u"Будь-ласка виберіть завершений іспит"
+                      errors['name'] = _(u"Plese select completion exam")
                 else:
-                    errors['name'] = u"Будь-ласка виберіть іспит" 
+                    errors['name'] = _(u"Please select exam")
         
         exams = Exam.objects.all().filter(is_completed=False)
         return render(request, 'students/results_add.html', { 'exams': exams, 'errors': errors })
@@ -116,7 +114,7 @@ def results_edit(request, rid=None):
     if request.method == "POST":
         data = request.POST
         if data.get('cancel_button'):
-            messages.warning(request, u"Введення результатів іспитів відмінено")
+            messages.warning(request, _(u"Editing results of exam canceled"))
             return HttpResponseRedirect(reverse('results'))
         elif data.get('save_button'):
             i = 0
@@ -130,7 +128,7 @@ def results_edit(request, rid=None):
                     try:
                         score = int(score)
                     except ValueError:
-                        errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть число від 0 до 12"})
+                        errors.append({'student_id': student.id, 'text': _(u"Please enter the number from 0 to 12")})
                     else:
                         if score > 0 and score < 12:
                             all_score.append({'student_id': student.id, 'score': score})
@@ -138,15 +136,15 @@ def results_edit(request, rid=None):
                             result.score = score
                             results.append(result)
                         else:
-                            errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть оцінку від 0 до 12 балів"})
+                            errors.append({'student_id': student.id, 'text': _(u"Please enter mark from 0 to 12")})
                 else:
-                    errors.append({'student_id': student.id, 'text': u"Будь-ласка введіть оцінку студента"})
+                    errors.append({'student_id': student.id, 'text': _(u"Please enter student's mark")})
                 i += 1
         
             if not errors:
                 for result in results:
                     result.save()
-                messages.success(request, u"Інформацію про результати іспиту %s успішно змінено" % result_exam.name)
+                messages.success(request, _(u"Information about results of exam %s edited successfully") % result_exam.name)
                 return HttpResponseRedirect(reverse('results'))
     else:
         results = Result.objects.filter(result_exam=rid)
@@ -167,7 +165,7 @@ def results_delete(request, rid):
         results = Result.objects.filter(result_exam=exam)
         results.delete()
         exam.save()
-        messages.success(request, u"Інформацію про результати іспиту %s успішно видалено" % exam.name)
+        messages.success(request, _(u"Information about results of exam %s deleted successfully") % exam.name)
         return HttpResponseRedirect(reverse('results'))
     else:
         try:

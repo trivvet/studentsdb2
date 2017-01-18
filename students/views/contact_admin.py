@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import logging
 
 from django import forms, dispatch
@@ -9,6 +7,7 @@ from django.urls import reverse_lazy
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.views.generic import FormView
+from django.utils.translation import ugettext as _
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -37,17 +36,17 @@ class ContactForm(forms.Form):
 
 
         # add buttons
-        self.helper.add_input(Submit('send_button', u'Надіслати'))
+        self.helper.add_input(Submit('send_button', _(u'Submit')))
 
     from_email = forms.EmailField(
-        label=u"Ваша Емейл Адреса")
+        label=_(u"Your Email Address"))
 
     subject = forms.CharField(
-        label=u"Заголовок листа",
+        label=_(u"Message header"),
         max_length=128)
 
     message = forms.CharField(
-        label=u"Текст повідомлення",
+        label=_(u"Message text"),
         max_length=2560,
         widget=forms.Textarea)
 
@@ -58,9 +57,9 @@ class ContactView(FormView):
 
     def get_success_url(self):
         if self.message:
-            messages.success(self.request, u"Лист успішно відправлений")
+            messages.success(self.request, _(u"Letter send successfully"))
         else:
-            messages.error(self.request, u"Під час відправки листа виникла непередбачувана помилка. Спробуйте скористатись даною формою пізніше")
+            messages.error(self.request, _(u"When senging mail unexpected error ocured. Please try this service later"))
         return reverse('home')
 
     def form_valid(self, form):
@@ -73,7 +72,7 @@ class ContactView(FormView):
             send_mail(subject, message, from_email, [ADMIN_EMAIL])
             send_mail_done.send(sender=self.__class__, subject=subject, from_email=from_email)
         except Exception:
-            message = u'Під час відправки листа виникла непередбачувана помилка. Спробуйте скористатись даною формою пізніше'
+            message = u'When senging mail unexpected error ocured. Please try this service later'
             logger = logging.getLogger(__name__)
             logger.exception(message)
             self.message = False
