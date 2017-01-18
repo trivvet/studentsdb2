@@ -1,10 +1,11 @@
 {% extends "students/base.html" %}
 
+{% load i18n %}
 {% load static from staticfiles %}
 
-{% block meta_title %}Події{% endblock meta_title %}
+{% block meta_title %}{% trans "Events" %}{% endblock meta_title %}
 
-{% block title %}Записи подій{% endblock title %}
+{% block title %}{% trans "Event Recors" %}{% endblock title %}
    
 {% block content %}
 <!-- Start Logs Listing -->
@@ -18,20 +19,20 @@
       <th>№</th>
       <th><a href=
              "{% url "logs" %}?order_by=signal{% if order_by == 'signal' and reverse != '1' %}&amp;reverse=1{% endif %}">
-             Назва сигналу {% if order_by == 'signal' and reverse != '1' %}
+             {% trans "Signal name" %} {% if order_by == 'signal' and reverse != '1' %}
              &uarr;{% elif order_by == 'signal' and reverse == '1' %}
              &darr;{% endif %}</a></th>
       <th><a href=
              "{% url "logs" %}?order_by=status{% if order_by == 'status' and reverse != '1' %}&amp;reverse=1{% endif %}">
-             Рівень {% if order_by == 'status' and reverse != '1' %}
+             {% trans "Level" %} {% if order_by == 'status' and reverse != '1' %}
              &uarr;{% elif order_by == 'status' and reverse == '1' %}
              &darr;{% endif %}</a></th>
       <th><a href=
              "{% url "logs" %}?order_by=log_datetime{% if order_by == 'log_datetime' and reverse != '1' %}&amp;reverse=1{% endif %}">
-             Час спрацювання {% if order_by == 'log_datetime' and reverse != '1' %}
+             {% trans "Timing" %} {% if order_by == 'log_datetime' and reverse != '1' %}
              &uarr;{% elif order_by == 'log_datetime' and reverse == '1' or order_by == '' %}
              &darr;{% endif %}</a></th>
-      <th>Дії</th>
+      <th>{% trans "Actions" %}</th>
     </tr>
   </thead>
   <tbody>
@@ -46,20 +47,20 @@
         <td>
           <div class="dropdown">
             <button class="btn btn-default dropdown-toggle" 
-                    type="button" data-toggle="dropdown" >Дія
+                    type="button" data-toggle="dropdown" >{% trans "Action" %}
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" 
                 aria-labelledby="dropdownMenu1">
               <li><a href="{{ PORTAL_URL }}{% url "log_info" log.id %}"
-                   class="results-link">Показати подробиці</a></li>
+                   class="results-link">{% trans "Show details" %}</a></li>
               <li>
                 <a href="{{ PORTAL_URL }}{% url "logs_edit" log.id %}" class="form-link">
-                   Редагувати</a>
+                   {% trans "Edit" %}</a>
               </li>
               <li>
                 <a class="form-link" href="{{ PORTAL_URL }}{% url "logs_delete" log.id %}">
-                   Видалити</a>
+                   {% trans "Delete" %}</a>
                 </li>
             </ul>
           </div>
@@ -73,7 +74,7 @@
 {% if is_paginated and page_obj.number < paginator.num_pages %}
   {% with order_by=request.GET.order_by reverse=request.GET.reverse url_page=request.path_info %}
   <p class="buttonLoad">
-  <a type="button" class="btn btn-default" href="{{ url_page }}?page={{ page_obj.next_page_number }}{% if order_by %}&amp;order_by={{order_by }}{% endif %}{% if reverse %}&amp;reverse={{ reverse }}{% endif %}{% if cur_month %}&amp;month={{ cur_month }}{% endif %}" id="buttonLoadMore">Завантажити ще</a>
+  <a type="button" class="btn btn-default" href="{{ url_page }}?page={{ page_obj.next_page_number }}{% if order_by %}&amp;order_by={{order_by }}{% endif %}{% if reverse %}&amp;reverse={{ reverse }}{% endif %}{% if cur_month %}&amp;month={{ cur_month }}{% endif %}" id="buttonLoadMore">{% trans "Load More" %}</a>
   </p>
   {% endwith %}
 {% endif %}
@@ -81,7 +82,7 @@
 {% endwith %}
 
 {% else %}
-<p class='none'>Поки немає подій у базі</p>
+<p class='none'>{% trans "Currently there aren't logs in the database" %}</p>
 {% endif %}
 
 <!-- End Students Listing -->
@@ -94,5 +95,3 @@
 
 {% block extra_js %}
 {% endblock extra_js %}
-
- 

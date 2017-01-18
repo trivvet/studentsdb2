@@ -1,15 +1,16 @@
 {% extends "students/base.html" %}
 
+{% load i18n %}
 {% load static from staticfiles %}
 
-{% block meta_title %}Результати{% endblock meta_title %}
+{% block meta_title %}{% trans "Results" %}{% endblock meta_title %}
 
-{% block title %}Завершені Іспити{% endblock title %}
+{% block title %}{% trans "Results" %}{% endblock title %}
 
 {% block add_button %}
 <!-- Add Result Button -->
 <a class="btn btn-primary form-link"
-   href="{% url "results_add" %}">Додати Результат</a>
+   href="{% url "results_add" %}">{% trans "Add Result" %}</a>
 {% endblock add_button %}
           
 {% block content %}
@@ -24,25 +25,25 @@
       <th>№</th>
       <th><a href=
              "{% url "results" %}?order_by=name{% if order_by == 'name' and reverse != '1' %}&amp;reverse=1{% endif %}">
-             Предмет {% if order_by == 'name' and reverse != '1' %}
+             {% trans "Subject" %} {% if order_by == 'name' and reverse != '1' %}
              &uarr;{% elif order_by == 'name' and reverse == '1' %}
              &darr;{% endif %}</a></th>
       <th><a href=
              "{% url "results" %}?order_by=date{% if order_by == 'date' and reverse != '1' or order_by == '' %}&amp;reverse=1{% endif %}">
-             Дата проведення {% if order_by == 'date' and reverse != '1' or order_by == '' %}
+             {% trans "Data of exam" %} {% if order_by == 'date' and reverse != '1' or order_by == '' %}
              &uarr;{% elif order_by == 'date' and reverse == '1' %}
              &darr;{% endif %}</a></th>
       <th><a href=
              "{% url "results" %}?order_by=teacher_name{% if order_by == 'teacher_name' and reverse != '1' %}&amp;reverse=1{% endif %}">
-             Викладач {% if order_by == 'teacher_name' and reverse != '1' %}
+             {% trans "Lecturer" %} {% if order_by == 'teacher_name' and reverse != '1' %}
              &uarr;{% elif order_by == 'teacher_name' and reverse == '1' %}
              &darr;{% endif %}</a></th>
       <th><a href=
              "{% url "results" %}?order_by=exam_group__title{% if order_by == 'exam_group__title' and reverse != '1' %}&amp;reverse=1{% endif %}">
-             Група {% if order_by == 'exam_group__title' and reverse != '1' %}
+             {% trans "Group" %} {% if order_by == 'exam_group__title' and reverse != '1' %}
              &uarr;{% elif order_by == 'exam_group__title' and reverse == '1' %}
              &darr;{% endif %}</a></th>
-      <th>Дії</th>
+      <th>{% trans "Actions" %}</th>
     {% endwith %}
     </tr>
   </thead>
@@ -62,17 +63,17 @@
       <td>
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" 
-                  type="button" data-toggle="dropdown" >Дія
+                  type="button" data-toggle="dropdown" >{% trans "Action" %}
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" 
               aria-labelledby="dropdownMenu1">
             <li><a href="{% url "exam_results" exam.id %}"
-                   class="results-link">Показати результати</a></li>
+                   class="results-link">{% trans "Show results" %}</a></li>
                    <li><a href="{% url "results_edit" exam.id %}"
-                   class="form-link">Редагувати результати</a></li>
+                   class="form-link">{% trans "Edit results" %}</a></li>
             <li><a href="{% url "results_delete" exam.id %}"
-                   class="form-link">Видалити</a></li>
+                   class="form-link">{% trans "Delete" %}</a></li>
           </ul>
         </div>
       </td>
@@ -87,15 +88,14 @@
 {% if context.is_paginated and context.page_obj.number < context.paginator.num_pages %}
   {% with order_by=request.GET.order_by reverse=request.GET.reverse url_page=request.path_info %}
     <p class="buttonLoad">
-    <a type="button" class="btn btn-default" href="{{ url_page }}?page={{ context.page_obj.next_page_number }}{% if order_by %}&amp;order_by={{order_by }}{% endif %}{% if reverse %}&amp;reverse={{ reverse }}{% endif %}{% if cur_month %}&amp;month={{ cur_month }}{% endif %}" id="buttonLoadMore">Завантажити ще</a>
+    <a type="button" class="btn btn-default" href="{{ url_page }}?page={{ context.page_obj.next_page_number }}{% if order_by %}&amp;order_by={{order_by }}{% endif %}{% if reverse %}&amp;reverse={{ reverse }}{% endif %}{% if cur_month %}&amp;month={{ cur_month }}{% endif %}" id="buttonLoadMore">{% trans "Load More" %}</a>
     </p>
   {% endwith %}
 {% endif %}
 
 {% else %}
-<p class='none'>Поки немає іспитів у базі</p>
+<p class='none'>{% trans "Currently there aren't results in the database" %}</p>
 {% endif %}
-
 
 
 {% with paginator=context.paginator page_obj=context.page_obj is_paginated=context.is_paginated %}

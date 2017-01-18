@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-18 17:13+0000\n"
+"POT-Creation-Date: 2017-01-18 19:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,6 +63,8 @@ msgid "Ticket"
 msgstr "Білет"
 
 #: students/models/students.py:47 students/templates/students/base.html:46
+#: students/templates/students/exams.html:42
+#: students/templates/students/results.html:43
 msgid "Group"
 msgstr "Група"
 
@@ -80,14 +82,20 @@ msgid "Journal"
 msgstr "Відвідування"
 
 #: students/templates/students/base.html:81
+#: students/templates/students/groups.html:6
+#: students/templates/students/groups.html:8
 msgid "Groups"
 msgstr "Групи"
 
 #: students/templates/students/base.html:84
+#: students/templates/students/exams.html:6
+#: students/templates/students/exams.html:8
 msgid "Exams"
 msgstr "Іспити"
 
 #: students/templates/students/base.html:87
+#: students/templates/students/results.html:6
+#: students/templates/students/results.html:8
 msgid "Results"
 msgstr "Результати"
 
@@ -96,8 +104,122 @@ msgid "Contact"
 msgstr "Контакт"
 
 #: students/templates/students/base.html:93
+#: students/templates/students/logs_list.html:6
 msgid "Events"
 msgstr "Події"
+
+#: students/templates/students/exams.html:12
+msgid "Add Exam"
+msgstr "Дадати Іспиту"
+
+#: students/templates/students/exams.html:27
+#: students/templates/students/results.html:28
+msgid "Subject"
+msgstr "Предмет"
+
+#: students/templates/students/exams.html:37
+#: students/templates/students/results.html:38
+msgid "Lecturer"
+msgstr "Викладач"
+
+#: students/templates/students/exams.html:45
+#: students/templates/students/groups.html:40
+#: students/templates/students/logs_list.html:35
+#: students/templates/students/results.html:46
+#: students/templates/students/students_list.html:66
+msgid "Actions"
+msgstr "Дії"
+
+#: students/templates/students/exams.html:65
+#: students/templates/students/groups.html:60
+#: students/templates/students/logs_list.html:50
+#: students/templates/students/results.html:66
+#: students/templates/students/students_list.html:98
+msgid "Action"
+msgstr "Дія"
+
+#: students/templates/students/exams.html:71
+#: students/templates/students/groups.html:65
+#: students/templates/students/logs_list.html:59
+#: students/templates/students/students_list.html:109
+msgid "Edit"
+msgstr "Редагувати"
+
+#: students/templates/students/exams.html:73
+#: students/templates/students/groups.html:67
+#: students/templates/students/logs_list.html:63
+#: students/templates/students/results.html:76
+#: students/templates/students/students_list.html:113
+msgid "Delete"
+msgstr "Видалити"
+
+#: students/templates/students/exams.html:88
+#: students/templates/students/groups.html:82
+#: students/templates/students/journal.html:77
+#: students/templates/students/logs_list.html:77
+#: students/templates/students/results.html:91
+#: students/templates/students/students_list.html:127
+msgid "Load More"
+msgstr "Завантажити ще"
+
+#: students/templates/students/exams.html:94
+msgid "Currently there aren't exams in the database"
+msgstr "Поки що немає іспитів у базі"
+
+#: students/templates/students/exams_confirm_delete.html:7
+#: students/templates/students/exams_confirm_delete.html:9
+msgid "Deleting Exam"
+msgstr "Видалення Іспиту"
+
+#: students/templates/students/exams_confirm_delete.html:20
+msgid "Do you realy want to delete exam "
+msgstr "Ви дійсно хочете видалити іспит "
+
+#: students/templates/students/exams_confirm_delete.html:27
+#: students/templates/students/groups_confirm_delete.html:27
+#: students/templates/students/logs_confirm_delete.html:27
+msgid "Yes"
+msgstr "Так"
+
+#: students/templates/students/exams_confirm_delete.html:29
+#: students/templates/students/groups_confirm_delete.html:29
+#: students/templates/students/logs_confirm_delete.html:29
+#: students/views/exams.py:110 students/views/groups.py:76
+#: students/views/groups.py:141 students/views/logs.py:77
+#: students/views/students.py:160
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: students/templates/students/form_class.html:12
+msgid "Please, correct the following errors"
+msgstr "Виправте будь-ласка наступні помилки"
+
+#: students/templates/students/groups.html:13
+msgid "Add Group"
+msgstr "Додати Групу"
+
+#: students/templates/students/groups.html:32
+msgid "Name"
+msgstr "Назва"
+
+#: students/templates/students/groups.html:37
+msgid "Leader"
+msgstr "Староста"
+
+#: students/templates/students/groups.html:88
+msgid "Currently there aren't groups in the database"
+msgstr "Поки що немає груп у базі"
+
+#: students/templates/students/groups_confirm_delete.html:7
+#: students/templates/students/groups_confirm_delete.html:9
+#, fuzzy
+#| msgid "Editing Group"
+msgid "Deleting Group"
+msgstr "Редагування Групи"
+
+#: students/templates/students/groups_confirm_delete.html:20
+msgid "Do you realy want to detele group"
+msgstr "Ви дійсно хочете видалити групу"
 
 #: students/templates/students/journal.html:6
 #: students/templates/students/journal.html:8
@@ -115,11 +237,6 @@ msgstr ""
 msgid "Is saving"
 msgstr "Йде збереження"
 
-#: students/templates/students/journal.html:77
-#: students/templates/students/students_list.html:127
-msgid "Load More"
-msgstr "Завантажити ще"
-
 #: students/templates/students/journal.html:83
 msgid "Currently there aren't students in the database. Please,"
 msgstr "Поки що немає студентів у базі. Будь-ласка"
@@ -132,6 +249,71 @@ msgstr "додати"
 msgid "first"
 msgstr "першого"
 
+#: students/templates/students/log_info.html:6
+msgid "Event Info"
+msgstr "Інфо Події"
+
+#: students/templates/students/log_info.html:8
+msgid "About Event"
+msgstr "Інформація про подію"
+
+#: students/templates/students/log_info.html:17
+msgid "Detail"
+msgstr "Деталі"
+
+#: students/templates/students/logs_confirm_delete.html:7
+#: students/templates/students/logs_confirm_delete.html:9
+msgid "Deleting Event"
+msgstr "Видалення Події"
+
+#: students/templates/students/logs_confirm_delete.html:20
+msgid "Do you realy want to delete event"
+msgstr "Ви дійсно хочете видалити подію"
+
+#: students/templates/students/logs_list.html:8
+msgid "Event Recors"
+msgstr "Записи Події"
+
+#: students/templates/students/logs_list.html:22
+msgid "Signal name"
+msgstr "Назва сигналу"
+
+#: students/templates/students/logs_list.html:27
+msgid "Level"
+msgstr "Статус"
+
+#: students/templates/students/logs_list.html:32
+msgid "Timing"
+msgstr "Час спрацювання"
+
+#: students/templates/students/logs_list.html:56
+msgid "Show details"
+msgstr "Показати деталі"
+
+#: students/templates/students/logs_list.html:85
+msgid "Currently there aren't logs in the database"
+msgstr "Поки що немає подій у базі"
+
+#: students/templates/students/results.html:13
+msgid "Add Result"
+msgstr "Додати Результат"
+
+#: students/templates/students/results.html:33
+msgid "Data of exam"
+msgstr "Дата іспиту"
+
+#: students/templates/students/results.html:72
+msgid "Show results"
+msgstr "Показати результати"
+
+#: students/templates/students/results.html:74
+msgid "Edit results"
+msgstr "Редагувати результати"
+
+#: students/templates/students/results.html:97
+msgid "Currently there aren't results in the database"
+msgstr "Поки що немає результатів у базі"
+
 #: students/templates/students/students_list.html:8
 msgid "Students List"
 msgstr "Список Студентів"
@@ -143,22 +325,6 @@ msgstr "Додати Студента"
 #: students/templates/students/students_list.html:60
 msgid "Ticket #"
 msgstr "№ Білету"
-
-#: students/templates/students/students_list.html:66
-msgid "Actions"
-msgstr "Дії"
-
-#: students/templates/students/students_list.html:98
-msgid "Action"
-msgstr "Дія"
-
-#: students/templates/students/students_list.html:109
-msgid "Edit"
-msgstr "Редагувати"
-
-#: students/templates/students/students_list.html:113
-msgid "Delete"
-msgstr "Видалити"
 
 #: students/templates/students/students_list.html:136
 msgid "Delete selected students"
@@ -195,7 +361,9 @@ msgstr "Лист успішно відправлений"
 #: students/views/contact_admin.py:62
 msgid ""
 "When senging mail unexpected error ocured. Please try this service later"
-msgstr "Під час відправки листа виникла неочікувана помилка. Спробуйте будь-ласка даний сервіс пізніше"
+msgstr ""
+"Під час відправки листа виникла неочікувана помилка. Спробуйте будь-ласка "
+"даний сервіс пізніше"
 
 #: students/views/exams.py:66
 msgid "Please, type subject name"
@@ -222,12 +390,6 @@ msgstr "Додати"
 #: students/views/logs.py:76 students/views/students.py:155
 msgid "Save"
 msgstr "Зберегти"
-
-#: students/views/exams.py:110 students/views/groups.py:76
-#: students/views/groups.py:141 students/views/logs.py:77
-#: students/views/students.py:160
-msgid "Cancel"
-msgstr "Скасувати"
 
 #: students/views/exams.py:122
 #, python-format
