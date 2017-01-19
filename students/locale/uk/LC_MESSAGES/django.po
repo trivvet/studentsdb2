@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-18 19:59+0000\n"
+"POT-Creation-Date: 2017-01-19 17:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,9 +26,112 @@ msgstr ""
 msgid "Students Accounting Service"
 msgstr "Сервіс Обліку Студентів"
 
+#: students/models/exams.py:12 students/templates/students/results_add.html:26
+msgid "Exam"
+msgstr "Іспит"
+
+#: students/models/exams.py:13 students/templates/students/base.html:84
+#: students/templates/students/exams.html:6
+#: students/templates/students/exams.html:8
+msgid "Exams"
+msgstr "Іспити"
+
+#: students/models/exams.py:18 students/models/results.py:22
+#: students/templates/students/exams.html:27
+#: students/templates/students/results.html:28
+msgid "Subject"
+msgstr "Предмет"
+
+#: students/models/exams.py:22
+msgid "Data and time of event"
+msgstr "Дача та час проведення"
+
+#: students/models/exams.py:28 students/templates/students/exams.html:37
+#: students/templates/students/results.html:38
+msgid "Lecturer"
+msgstr "Викладач"
+
+#: students/models/exams.py:31 students/models/groups.py:12
+#: students/models/students.py:47 students/templates/students/base.html:46
+#: students/templates/students/exams.html:42
+#: students/templates/students/results.html:43
+msgid "Group"
+msgstr "Група"
+
+#: students/models/exams.py:38 students/models/groups.py:28
+#: students/models/students.py:54
+msgid "Additional notes"
+msgstr "Додаткові нотатки"
+
+#: students/models/exams.py:46 students/templates/students/exams.html:56
+msgid "completed"
+msgstr "завершений"
+
+#: students/models/groups.py:13 students/templates/students/base.html:81
+#: students/templates/students/groups.html:6
+#: students/templates/students/groups.html:8
+msgid "Groups"
+msgstr "Групи"
+
+#: students/models/groups.py:18
+msgid "Title"
+msgstr "Назва"
+
+#: students/models/groups.py:21 students/templates/students/groups.html:37
+msgid "Leader"
+msgstr "Староста"
+
+#: students/models/journal.py:13
+msgid "Month Journal"
+msgstr "Місячний Журнал"
+
+#: students/models/journal.py:14
+msgid "Month Journals"
+msgstr "Місячні Журнали"
+
+#: students/models/journal.py:17 students/models/results.py:16
 #: students/models/students.py:12 students/templates/students/journal.html:35
+#: students/templates/students/results_list.html:21
 msgid "Student"
 msgstr "Студент"
+
+#: students/models/journal.py:22
+msgid "Date"
+msgstr "Дата"
+
+#: students/models/logs.py:14
+msgid "Event"
+msgstr "Подія"
+
+#: students/models/logs.py:15 students/templates/students/base.html:93
+#: students/templates/students/logs_list.html:6
+msgid "Events"
+msgstr "Події"
+
+#: students/models/logs.py:18
+msgid "Date and time"
+msgstr "Дата та час"
+
+#: students/models/logs.py:24
+msgid "Status"
+msgstr "Статус"
+
+#: students/models/logs.py:34
+msgid "Signal text"
+msgstr "Текст сигналу"
+
+#: students/models/results.py:12
+msgid "Exam results"
+msgstr "Результати екзамену"
+
+#: students/models/results.py:13
+msgid "Exams results"
+msgstr "Результати екзаменів"
+
+#: students/models/results.py:28
+#: students/templates/students/results_list.html:22
+msgid "Mark"
+msgstr "Бал"
 
 #: students/models/students.py:13 students/templates/students/base.html:75
 #: students/templates/students/students_list.html:6
@@ -62,16 +165,6 @@ msgstr "Фото"
 msgid "Ticket"
 msgstr "Білет"
 
-#: students/models/students.py:47 students/templates/students/base.html:46
-#: students/templates/students/exams.html:42
-#: students/templates/students/results.html:43
-msgid "Group"
-msgstr "Група"
-
-#: students/models/students.py:54
-msgid "Additional notes"
-msgstr "Додаткові нотатки"
-
 #: students/templates/students/base.html:48
 msgid "All Students"
 msgstr "Усі Студенти"
@@ -80,18 +173,6 @@ msgstr "Усі Студенти"
 #: students/templates/students/students_list.html:105
 msgid "Journal"
 msgstr "Відвідування"
-
-#: students/templates/students/base.html:81
-#: students/templates/students/groups.html:6
-#: students/templates/students/groups.html:8
-msgid "Groups"
-msgstr "Групи"
-
-#: students/templates/students/base.html:84
-#: students/templates/students/exams.html:6
-#: students/templates/students/exams.html:8
-msgid "Exams"
-msgstr "Іспити"
 
 #: students/templates/students/base.html:87
 #: students/templates/students/results.html:6
@@ -103,24 +184,14 @@ msgstr "Результати"
 msgid "Contact"
 msgstr "Контакт"
 
-#: students/templates/students/base.html:93
-#: students/templates/students/logs_list.html:6
-msgid "Events"
-msgstr "Події"
-
 #: students/templates/students/exams.html:12
 msgid "Add Exam"
 msgstr "Дадати Іспиту"
 
-#: students/templates/students/exams.html:27
-#: students/templates/students/results.html:28
-msgid "Subject"
-msgstr "Предмет"
-
-#: students/templates/students/exams.html:37
-#: students/templates/students/results.html:38
-msgid "Lecturer"
-msgstr "Викладач"
+#: students/templates/students/exams.html:32
+#: students/templates/students/results.html:33
+msgid "Date of exam"
+msgstr "Дата іспиту"
 
 #: students/templates/students/exams.html:45
 #: students/templates/students/groups.html:40
@@ -166,24 +237,33 @@ msgstr "Завантажити ще"
 msgid "Currently there aren't exams in the database"
 msgstr "Поки що немає іспитів у базі"
 
-#: students/templates/students/exams_confirm_delete.html:7
-#: students/templates/students/exams_confirm_delete.html:9
+#: students/templates/students/exams_confirm_delete.html:6
+#: students/templates/students/exams_confirm_delete.html:8
 msgid "Deleting Exam"
 msgstr "Видалення Іспиту"
 
-#: students/templates/students/exams_confirm_delete.html:20
+#: students/templates/students/exams_confirm_delete.html:19
 msgid "Do you realy want to delete exam "
 msgstr "Ви дійсно хочете видалити іспит "
 
-#: students/templates/students/exams_confirm_delete.html:27
-#: students/templates/students/groups_confirm_delete.html:27
-#: students/templates/students/logs_confirm_delete.html:27
+#: students/templates/students/exams_confirm_delete.html:26
+#: students/templates/students/groups_confirm_delete.html:26
+#: students/templates/students/logs_confirm_delete.html:26
+#: students/templates/students/results_confirm_delete.html:26
+#: students/templates/students/student_confirm_delete_class.html:26
+#: students/templates/students/students_group_confirm_delete.html:32
 msgid "Yes"
 msgstr "Так"
 
-#: students/templates/students/exams_confirm_delete.html:29
-#: students/templates/students/groups_confirm_delete.html:29
-#: students/templates/students/logs_confirm_delete.html:29
+#: students/templates/students/exams_confirm_delete.html:28
+#: students/templates/students/groups_confirm_delete.html:28
+#: students/templates/students/logs_confirm_delete.html:28
+#: students/templates/students/results_add.html:46
+#: students/templates/students/results_add_marks.html:45
+#: students/templates/students/results_confirm_delete.html:28
+#: students/templates/students/results_edit_marks.html:45
+#: students/templates/students/student_confirm_delete_class.html:28
+#: students/templates/students/students_group_confirm_delete.html:34
 #: students/views/exams.py:110 students/views/groups.py:76
 #: students/views/groups.py:141 students/views/logs.py:77
 #: students/views/students.py:160
@@ -191,6 +271,9 @@ msgid "Cancel"
 msgstr "Скасувати"
 
 #: students/templates/students/form_class.html:12
+#: students/templates/students/results_add.html:11
+#: students/templates/students/results_add_marks.html:11
+#: students/templates/students/results_edit_marks.html:11
 msgid "Please, correct the following errors"
 msgstr "Виправте будь-ласка наступні помилки"
 
@@ -202,22 +285,16 @@ msgstr "Додати Групу"
 msgid "Name"
 msgstr "Назва"
 
-#: students/templates/students/groups.html:37
-msgid "Leader"
-msgstr "Староста"
-
 #: students/templates/students/groups.html:88
 msgid "Currently there aren't groups in the database"
 msgstr "Поки що немає груп у базі"
 
-#: students/templates/students/groups_confirm_delete.html:7
-#: students/templates/students/groups_confirm_delete.html:9
-#, fuzzy
-#| msgid "Editing Group"
+#: students/templates/students/groups_confirm_delete.html:6
+#: students/templates/students/groups_confirm_delete.html:8
 msgid "Deleting Group"
-msgstr "Редагування Групи"
+msgstr "Видаленя Групи"
 
-#: students/templates/students/groups_confirm_delete.html:20
+#: students/templates/students/groups_confirm_delete.html:19
 msgid "Do you realy want to detele group"
 msgstr "Ви дійсно хочете видалити групу"
 
@@ -261,12 +338,12 @@ msgstr "Інформація про подію"
 msgid "Detail"
 msgstr "Деталі"
 
-#: students/templates/students/logs_confirm_delete.html:7
-#: students/templates/students/logs_confirm_delete.html:9
+#: students/templates/students/logs_confirm_delete.html:6
+#: students/templates/students/logs_confirm_delete.html:8
 msgid "Deleting Event"
 msgstr "Видалення Події"
 
-#: students/templates/students/logs_confirm_delete.html:20
+#: students/templates/students/logs_confirm_delete.html:19
 msgid "Do you realy want to delete event"
 msgstr "Ви дійсно хочете видалити подію"
 
@@ -298,10 +375,6 @@ msgstr "Поки що немає подій у базі"
 msgid "Add Result"
 msgstr "Додати Результат"
 
-#: students/templates/students/results.html:33
-msgid "Data of exam"
-msgstr "Дата іспиту"
-
 #: students/templates/students/results.html:72
 msgid "Show results"
 msgstr "Показати результати"
@@ -313,6 +386,70 @@ msgstr "Редагувати результати"
 #: students/templates/students/results.html:97
 msgid "Currently there aren't results in the database"
 msgstr "Поки що немає результатів у базі"
+
+#: students/templates/students/results_add.html:6
+#: students/templates/students/results_add.html:15
+#: students/templates/students/results_add_marks.html:6
+#: students/templates/students/results_add_marks.html:15
+msgid "Adding Exam Results"
+msgstr "Дадавання Результатів Іспиту"
+
+#: students/templates/students/results_add.html:30
+msgid "Select completed exam"
+msgstr "Будь ласка, виберіть завершений іспит"
+
+#: students/templates/students/results_add.html:43
+msgid "Next"
+msgstr "Далі"
+
+#: students/templates/students/results_add_marks.html:32
+#: students/templates/students/results_edit_marks.html:32
+msgid "Enter mark from 0 to 12"
+msgstr "Введіть оцінку від 0 до 12"
+
+#: students/templates/students/results_add_marks.html:42
+#: students/templates/students/results_edit_marks.html:42
+#: students/views/exams.py:105 students/views/groups.py:140
+#: students/views/logs.py:76 students/views/students.py:155
+msgid "Save"
+msgstr "Зберегти"
+
+#: students/templates/students/results_confirm_delete.html:6
+#: students/templates/students/results_confirm_delete.html:8
+msgid "Deleting Exam Results"
+msgstr "Видалення Результатів Іспиту"
+
+#: students/templates/students/results_confirm_delete.html:19
+msgid "Do you realy want to delete results of exam"
+msgstr "Ви дійсно хочете видалити результати іспиту"
+
+#: students/templates/students/results_edit_marks.html:6
+#: students/templates/students/results_edit_marks.html:15
+msgid "Editing Exam Results"
+msgstr "Редагування Результатів Іспиту"
+
+#: students/templates/students/results_list.html:6
+#: students/templates/students/results_list.html:8
+msgid "Exam Results"
+msgstr "Результати Екзамену"
+
+#: students/templates/students/student_confirm_delete_class.html:6
+#: students/templates/students/student_confirm_delete_class.html:8
+msgid "Deleting Student"
+msgstr "Видалення Студента"
+
+#: students/templates/students/student_confirm_delete_class.html:19
+msgid "Do you realy want to delete student"
+msgstr "Ви дійсно хочете видалити студента"
+
+#: students/templates/students/students_group_confirm_delete.html:6
+#: students/templates/students/students_group_confirm_delete.html:8
+msgid "Deleting Selected Students"
+msgstr "Видалення Обраних Студентів"
+
+#: students/templates/students/students_group_confirm_delete.html:19
+msgid "Do you realy want to delete this students"
+msgstr "Ви дійсно хочете видалити цих студентів"
 
 #: students/templates/students/students_list.html:8
 msgid "Students List"
@@ -385,11 +522,6 @@ msgstr "Додаткова інформація про іспит"
 #: students/views/students.py:153
 msgid "Add"
 msgstr "Додати"
-
-#: students/views/exams.py:105 students/views/groups.py:140
-#: students/views/logs.py:76 students/views/students.py:155
-msgid "Save"
-msgstr "Зберегти"
 
 #: students/views/exams.py:122
 #, python-format

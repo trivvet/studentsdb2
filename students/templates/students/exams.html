@@ -29,7 +29,7 @@
              &darr;{% endif %}</a></th>
       <th><a href=
              "{% url "exams" %}?order_by=date{% if order_by == 'date' and reverse != '1' or order_by == '' %}&amp;reverse=1{% endif %}">
-             {% tran "Date of exam" %} {% if order_by == 'date' and reverse != '1' or order_by == '' %}
+             {% trans "Date of exam" %} {% if order_by == 'date' and reverse != '1' or order_by == '' %}
              &uarr;{% elif order_by == 'date' and reverse == '1' %}
              &darr;{% endif %}</a></th>
       <th><a href=
@@ -53,7 +53,7 @@
     <tr>
       <td>{{ context.page_obj.start_index|add:forloop.counter|add:"-1" }}</td>
       <td><a href="{% url "exams_edit" exam.id %}"
-             class="form-link">{{ exam.name }}</a> {% if exam.is_completed %}(завершений){% endif %}</td>
+             class="form-link">{{ exam.name }}</a> {% if exam.is_completed %}({% trans "completed" %}){% endif %}</td>
       <td>{{ exam.date }}</td>
       <td>{{ exam.teacher_name }}</td>
       <td><a href="{% url "groups_edit" exam.exam_group.id %}"

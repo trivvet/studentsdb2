@@ -1,17 +1,18 @@
 {% extends "students/base.html" %}
 
+{% load i18n %}
 {% load static from staticfiles %}
 
-{% block meta_title %}Додавання результатів іспиту{% endblock meta_title %}
+{% block meta_title %}{% trans "Editing Exam Results" %}{% endblock meta_title %}
 
 {% block status_message %}
   {% if errors %}
     <div class="alert alert-danger" role="alert">
-         Будь-ласка, виправте наступні помилки</div>
+          {% trans "Please, correct the following errors" %}</div>
   {% endif %}
 {% endblock status_message %}
 
-{% block title %}Редагування Результатів Іспиту{% endblock title %}
+{% block title %}{% trans "Editing Exam Results" %}{% endblock title %}
 
 {% block content %}
        
@@ -28,7 +29,7 @@
     <div class="col-sm-6">
       <input type="number" class="form-control" min="0" max="12"
              name="student_mark{{ student.id }}"
-             placeholder="Введіть оцінку від 0 до 12 балів" aria-describedby="helpMark{{ student.id }}"
+             placeholder="В{% trans "Enter mark from 0 to 12" %}" aria-describedby="helpMark{{ student.id }}"
              value="{% for score in scores %}{% if score.student_id|add:0 == student.id %}{{ score.score }}{% endif %}{% endfor %}" />
       <span class="help-block" id="helpMark{{ student.id }}">{% for error in errors %}{% if error.student_id|add:0 == student.id %}{{ error.text }}{% endif %}{% endfor %}</span>
     </div>
@@ -38,10 +39,10 @@
   <!-- Buttons -->
   <div class="form-group controls">
     <div class="col-sm-offset-2 col-sm-10">
-      <input type="submit" class="btn btn-primary" value="Зберегти"
+      <input type="submit" class="btn btn-primary" value="{% trans "Save" %}"
              name="save_button" />
       <input type="submit" class="btn btn-link" href="#" 
-             name="cancel_button" value="Скасувати" />
+             name="cancel_button" value="{% trans "Cancel" %}" />
     </div>
   </div>
 </form>

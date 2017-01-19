@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-18 19:59+0000\n"
+"POT-Creation-Date: 2017-01-19 17:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,8 +24,115 @@ msgstr ""
 msgid "Students Accounting Service"
 msgstr ""
 
+#: students/models/exams.py:12 students/templates/students/results_add.html:26
+msgid "Exam"
+msgstr ""
+
+#: students/models/exams.py:13 students/templates/students/base.html:84
+#: students/templates/students/exams.html:6
+#: students/templates/students/exams.html:8
+msgid "Exams"
+msgstr ""
+
+#: students/models/exams.py:18 students/models/results.py:22
+#: students/templates/students/exams.html:27
+#: students/templates/students/results.html:28
+msgid "Subject"
+msgstr ""
+
+#: students/models/exams.py:22
+msgid "Data and time of event"
+msgstr ""
+
+#: students/models/exams.py:28 students/templates/students/exams.html:37
+#: students/templates/students/results.html:38
+msgid "Lecturer"
+msgstr ""
+
+#: students/models/exams.py:31 students/models/groups.py:12
+#: students/models/students.py:47 students/templates/students/base.html:46
+#: students/templates/students/exams.html:42
+#: students/templates/students/results.html:43
+msgid "Group"
+msgstr ""
+
+#: students/models/exams.py:38 students/models/groups.py:28
+#: students/models/students.py:54
+msgid "Additional notes"
+msgstr ""
+
+#: students/models/exams.py:46 students/templates/students/exams.html:56
+msgid "completed"
+msgstr ""
+
+#: students/models/groups.py:13 students/templates/students/base.html:81
+#: students/templates/students/groups.html:6
+#: students/templates/students/groups.html:8
+msgid "Groups"
+msgstr ""
+
+#: students/models/groups.py:18
+msgid "Title"
+msgstr ""
+
+#: students/models/groups.py:21 students/templates/students/groups.html:37
+msgid "Leader"
+msgstr ""
+
+#: students/models/journal.py:13
+msgid "Month Journal"
+msgstr ""
+
+#: students/models/journal.py:14
+msgid "Month Journals"
+msgstr ""
+
+#: students/models/journal.py:17 students/models/results.py:16
 #: students/models/students.py:12 students/templates/students/journal.html:35
+#: students/templates/students/results_list.html:21
 msgid "Student"
+msgstr ""
+
+#: students/models/journal.py:22
+msgid "Date"
+msgstr ""
+
+#: students/models/logs.py:14
+msgid "Event"
+msgstr ""
+
+#: students/models/logs.py:15 students/templates/students/base.html:93
+#: students/templates/students/logs_list.html:6
+msgid "Events"
+msgstr ""
+
+#: students/models/logs.py:18
+msgid "Date and time"
+msgstr ""
+
+#: students/models/logs.py:24
+msgid "Status"
+msgstr ""
+
+#: students/models/logs.py:29
+msgid "Signal title"
+msgstr ""
+
+#: students/models/logs.py:34
+msgid "Signal text"
+msgstr ""
+
+#: students/models/results.py:12
+msgid "Exam results"
+msgstr ""
+
+#: students/models/results.py:13
+msgid "Exams results"
+msgstr ""
+
+#: students/models/results.py:28
+#: students/templates/students/results_list.html:22
+msgid "Mark"
 msgstr ""
 
 #: students/models/students.py:13 students/templates/students/base.html:75
@@ -60,16 +167,6 @@ msgstr ""
 msgid "Ticket"
 msgstr ""
 
-#: students/models/students.py:47 students/templates/students/base.html:46
-#: students/templates/students/exams.html:42
-#: students/templates/students/results.html:43
-msgid "Group"
-msgstr ""
-
-#: students/models/students.py:54
-msgid "Additional notes"
-msgstr ""
-
 #: students/templates/students/base.html:48
 msgid "All Students"
 msgstr ""
@@ -77,18 +174,6 @@ msgstr ""
 #: students/templates/students/base.html:78
 #: students/templates/students/students_list.html:105
 msgid "Journal"
-msgstr ""
-
-#: students/templates/students/base.html:81
-#: students/templates/students/groups.html:6
-#: students/templates/students/groups.html:8
-msgid "Groups"
-msgstr ""
-
-#: students/templates/students/base.html:84
-#: students/templates/students/exams.html:6
-#: students/templates/students/exams.html:8
-msgid "Exams"
 msgstr ""
 
 #: students/templates/students/base.html:87
@@ -101,23 +186,13 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: students/templates/students/base.html:93
-#: students/templates/students/logs_list.html:6
-msgid "Events"
-msgstr ""
-
 #: students/templates/students/exams.html:12
 msgid "Add Exam"
 msgstr ""
 
-#: students/templates/students/exams.html:27
-#: students/templates/students/results.html:28
-msgid "Subject"
-msgstr ""
-
-#: students/templates/students/exams.html:37
-#: students/templates/students/results.html:38
-msgid "Lecturer"
+#: students/templates/students/exams.html:32
+#: students/templates/students/results.html:33
+msgid "Date of exam"
 msgstr ""
 
 #: students/templates/students/exams.html:45
@@ -164,24 +239,33 @@ msgstr ""
 msgid "Currently there aren't exams in the database"
 msgstr ""
 
-#: students/templates/students/exams_confirm_delete.html:7
-#: students/templates/students/exams_confirm_delete.html:9
+#: students/templates/students/exams_confirm_delete.html:6
+#: students/templates/students/exams_confirm_delete.html:8
 msgid "Deleting Exam"
 msgstr ""
 
-#: students/templates/students/exams_confirm_delete.html:20
+#: students/templates/students/exams_confirm_delete.html:19
 msgid "Do you realy want to delete exam "
 msgstr ""
 
-#: students/templates/students/exams_confirm_delete.html:27
-#: students/templates/students/groups_confirm_delete.html:27
-#: students/templates/students/logs_confirm_delete.html:27
+#: students/templates/students/exams_confirm_delete.html:26
+#: students/templates/students/groups_confirm_delete.html:26
+#: students/templates/students/logs_confirm_delete.html:26
+#: students/templates/students/results_confirm_delete.html:26
+#: students/templates/students/student_confirm_delete_class.html:26
+#: students/templates/students/students_group_confirm_delete.html:32
 msgid "Yes"
 msgstr ""
 
-#: students/templates/students/exams_confirm_delete.html:29
-#: students/templates/students/groups_confirm_delete.html:29
-#: students/templates/students/logs_confirm_delete.html:29
+#: students/templates/students/exams_confirm_delete.html:28
+#: students/templates/students/groups_confirm_delete.html:28
+#: students/templates/students/logs_confirm_delete.html:28
+#: students/templates/students/results_add.html:46
+#: students/templates/students/results_add_marks.html:45
+#: students/templates/students/results_confirm_delete.html:28
+#: students/templates/students/results_edit_marks.html:45
+#: students/templates/students/student_confirm_delete_class.html:28
+#: students/templates/students/students_group_confirm_delete.html:34
 #: students/views/exams.py:110 students/views/groups.py:76
 #: students/views/groups.py:141 students/views/logs.py:77
 #: students/views/students.py:160
@@ -189,6 +273,9 @@ msgid "Cancel"
 msgstr ""
 
 #: students/templates/students/form_class.html:12
+#: students/templates/students/results_add.html:11
+#: students/templates/students/results_add_marks.html:11
+#: students/templates/students/results_edit_marks.html:11
 msgid "Please, correct the following errors"
 msgstr ""
 
@@ -200,20 +287,16 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: students/templates/students/groups.html:37
-msgid "Leader"
-msgstr ""
-
 #: students/templates/students/groups.html:88
 msgid "Currently there aren't groups in the database"
 msgstr ""
 
-#: students/templates/students/groups_confirm_delete.html:7
-#: students/templates/students/groups_confirm_delete.html:9
+#: students/templates/students/groups_confirm_delete.html:6
+#: students/templates/students/groups_confirm_delete.html:8
 msgid "Deleting Group"
 msgstr ""
 
-#: students/templates/students/groups_confirm_delete.html:20
+#: students/templates/students/groups_confirm_delete.html:19
 msgid "Do you realy want to detele group"
 msgstr ""
 
@@ -255,12 +338,12 @@ msgstr ""
 msgid "Detail"
 msgstr ""
 
-#: students/templates/students/logs_confirm_delete.html:7
-#: students/templates/students/logs_confirm_delete.html:9
+#: students/templates/students/logs_confirm_delete.html:6
+#: students/templates/students/logs_confirm_delete.html:8
 msgid "Deleting Event"
 msgstr ""
 
-#: students/templates/students/logs_confirm_delete.html:20
+#: students/templates/students/logs_confirm_delete.html:19
 msgid "Do you realy want to delete event"
 msgstr ""
 
@@ -292,10 +375,6 @@ msgstr ""
 msgid "Add Result"
 msgstr ""
 
-#: students/templates/students/results.html:33
-msgid "Data of exam"
-msgstr ""
-
 #: students/templates/students/results.html:72
 msgid "Show results"
 msgstr ""
@@ -306,6 +385,70 @@ msgstr ""
 
 #: students/templates/students/results.html:97
 msgid "Currently there aren't results in the database"
+msgstr ""
+
+#: students/templates/students/results_add.html:6
+#: students/templates/students/results_add.html:15
+#: students/templates/students/results_add_marks.html:6
+#: students/templates/students/results_add_marks.html:15
+msgid "Adding Exam Results"
+msgstr ""
+
+#: students/templates/students/results_add.html:30
+msgid "Select completed exam"
+msgstr ""
+
+#: students/templates/students/results_add.html:43
+msgid "Next"
+msgstr ""
+
+#: students/templates/students/results_add_marks.html:32
+#: students/templates/students/results_edit_marks.html:32
+msgid "Enter mark from 0 to 12"
+msgstr ""
+
+#: students/templates/students/results_add_marks.html:42
+#: students/templates/students/results_edit_marks.html:42
+#: students/views/exams.py:105 students/views/groups.py:140
+#: students/views/logs.py:76 students/views/students.py:155
+msgid "Save"
+msgstr ""
+
+#: students/templates/students/results_confirm_delete.html:6
+#: students/templates/students/results_confirm_delete.html:8
+msgid "Deleting Exam Results"
+msgstr ""
+
+#: students/templates/students/results_confirm_delete.html:19
+msgid "Do you realy want to delete results of exam"
+msgstr ""
+
+#: students/templates/students/results_edit_marks.html:6
+#: students/templates/students/results_edit_marks.html:15
+msgid "Editing Exam Results"
+msgstr ""
+
+#: students/templates/students/results_list.html:6
+#: students/templates/students/results_list.html:8
+msgid "Exam Results"
+msgstr ""
+
+#: students/templates/students/student_confirm_delete_class.html:6
+#: students/templates/students/student_confirm_delete_class.html:8
+msgid "Deleting Student"
+msgstr ""
+
+#: students/templates/students/student_confirm_delete_class.html:19
+msgid "Do you realy want to delete student"
+msgstr ""
+
+#: students/templates/students/students_group_confirm_delete.html:6
+#: students/templates/students/students_group_confirm_delete.html:8
+msgid "Deleting Selected Students"
+msgstr ""
+
+#: students/templates/students/students_group_confirm_delete.html:19
+msgid "Do you realy want to delete this students"
 msgstr ""
 
 #: students/templates/students/students_list.html:8
@@ -376,11 +519,6 @@ msgstr ""
 #: students/views/exams.py:103 students/views/groups.py:75
 #: students/views/students.py:153
 msgid "Add"
-msgstr ""
-
-#: students/views/exams.py:105 students/views/groups.py:140
-#: students/views/logs.py:76 students/views/students.py:155
-msgid "Save"
 msgstr ""
 
 #: students/views/exams.py:122

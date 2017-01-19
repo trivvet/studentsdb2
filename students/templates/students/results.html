@@ -30,7 +30,7 @@
              &darr;{% endif %}</a></th>
       <th><a href=
              "{% url "results" %}?order_by=date{% if order_by == 'date' and reverse != '1' or order_by == '' %}&amp;reverse=1{% endif %}">
-             {% trans "Data of exam" %} {% if order_by == 'date' and reverse != '1' or order_by == '' %}
+             {% trans "Date of exam" %} {% if order_by == 'date' and reverse != '1' or order_by == '' %}
              &uarr;{% elif order_by == 'date' and reverse == '1' %}
              &darr;{% endif %}</a></th>
       <th><a href=

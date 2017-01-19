@@ -1,11 +1,11 @@
 {% extends "students/base.html" %}
 
+{% load i18n %}
 {% load static from staticfiles %}
-{% load crispy_forms_tags %}
 
-{% block meta_title %}Видалення Вибраних Студентів{% endblock meta_title %}
+{% block meta_title %}{% trans "Deleting Selected Students" %}{% endblock meta_title %}
 
-{% block title %}Видалення Студентів{% endblock title %}
+{% block title %}{% trans "Deleting Selected Students" %}{% endblock title %}
 
 {% block content %}
       
@@ -16,7 +16,7 @@
   <div class="form-group">
     <div class="col-sm-2"></div>
     <div class="col-sm-10">
-      <h4>Ви дійсно хочете видалити обраних студентів?</h4>
+      <h4>{% trans "Do you realy want to delete this students" %}?</h4>
       <ul>
         {% for student in students %}
         <li>{{ student.last_name }} {{ student.first_name }}</li>
@@ -29,9 +29,9 @@
     <div class="col-sm-2"></div>
     <div class="col-sm-10">
       <input type="submit" class="btn btn-danger" name="delete_button"
-             value="Так" />
+             value="{% trans "Yes" %}" />
       <input type="submit" class="btn btn-link" href="#" 
-              name="cancel_button" value="Скасувати"/>
+              name="cancel_button" value="{% trans "Cancel" %}"/>
     </div>
   </div>
 </form>

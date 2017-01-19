@@ -1,10 +1,11 @@
 {% extends "students/base.html" %}
 
+{% load i18n %}
 {% load static from staticfiles %}
 
-{% block meta_title %}Результати{% endblock meta_title %}
+{% block meta_title %}{% trans "Exam Results" %}{% endblock meta_title %}
 
-{% block title %}Результати іспитів{% endblock title %}
+{% block title %}{% trans "Exam Results" %}{% endblock title %}
 
 {% block add_button %}
 {% endblock add_button %}
@@ -17,8 +18,8 @@
   <thead>
     <tr>
       <th>№</th>
-      <th>Студент</th>
-      <th>Бал</th>
+      <th>{% trans "Student" %}</th>
+      <th>{% trans "Mark" %}</th>
     </tr>
   </thead>
   <tbody>

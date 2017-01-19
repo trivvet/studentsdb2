@@ -1,24 +1,25 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from datetime import date
 
 from django.db import models
-from datetime import date
+from django.utils.translation import ugettext as _
 
 class MonthJournal(models.Model):
     """Journal Model"""
 
     class Meta(object):
-        verbose_name=u"Місячний Журнал"
-        verbose_name_plural=u"Місячні Журнали"
+        verbose_name=_(u"Month Journal")
+        verbose_name_plural=_(u"Month Journals")
 
     student_name = models.ForeignKey('Student',
-        verbose_name=u"Студент",
+        verbose_name=_(u"Student"),
         blank=False,
         unique_for_month='date')
 
     date = models.DateField(
-        verbose_name=u"Дата",
+        verbose_name=_(u"Date"),
         blank=False)
 
     for day in range(1,32):
