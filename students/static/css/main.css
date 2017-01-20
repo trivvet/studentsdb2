@@ -14,7 +14,6 @@ a.header {
 
 .input-group {
   padding-right: 60px;
-
 }
 
 .modal-body {
@@ -48,11 +47,11 @@ a.header {
 }
 
 /* Group Selector */
-#group-selector {
+#group-selector, #lang-selector {
   margin-top: 30px;
 }
 
-#group-selector select {
+#header select {
   margin: 0;
   height: 30px;
   background-color: #ffffff;
@@ -60,6 +59,11 @@ a.header {
   line-height: 30px;
   color: #555555;
   width: 85%;
+}
+
+#header #lang-selector select {
+  width: 40%;
+  text-align: right;
 }
 
 /* Main Content Styles */

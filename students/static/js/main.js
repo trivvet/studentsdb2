@@ -27,7 +27,7 @@ function initJournal() {
       },
       'error': function(xhr, status, error) {
         $('#content-column .alert').removeClass('alert-info')
-            .addClass('alert-danger').html('Помилка на сервері (код - ' + error + '). Спробуйте пізніше');
+            .addClass('alert-danger').html(gettext('There was an error on the server') + gettext('(code - ') + error + gettext('). Please, try again later'));
         modal2.modal('hide');
         indicator.hide();
       },
@@ -79,6 +79,19 @@ function initGroupSelector() {
     });
 
     return false;
+  });
+}
+
+function initLanguageSelector() {
+  $('#lang-selector select').change(function(event){
+    var language = $(this).val()
+
+    // set cookie with expiration date 1 year since now;
+    // cookie creation function takes period in days
+    Cookies.set('django_language', language, {'path': '/', 'expires': 365});
+
+    // and reload a page
+    location.reload();
   });
 }
 
@@ -148,7 +161,7 @@ function initForm(form, modal, link) {
       error: function() {
         $('input, select, textarea').prop('disabled', false);
         modal2.modal('hide');
-        modal.find('.modal-body').html('<div class="alert alert-danger">"Виникла помилка на сервері. Будь-ласка спробуйте пізніше"</div>');
+        modal.find('.modal-body').html('<div class="alert alert-danger">"' + gettext('There was an error on the server. Please try again later') + '"</div>');
         setTimeout(function() {
           modal.modal('hide');
         }, 1500);
@@ -180,7 +193,7 @@ function initForm(form, modal, link) {
     error: function() {
       $('input, select, textarea').prop('disabled', false);
       modal2.modal('hide');
-      modal.find('.modal-body').html('<div class="alert alert-danger">"Виникла помилка на сервері. Будь-ласка спробуйте пізніше"</div>');
+      modal.find('.modal-body').html('<div class="alert alert-danger">"' + gettext('There was an error on the server. Please try again later') + '"</div>');
       setTimeout(function() {
           modal.modal('hide');
         }, 1500);
@@ -251,7 +264,7 @@ function initFormPage() {
       },
       'success': function(data, status, xhr) {
         if (status != 'success') {
-          alert('Помилка на спрвері. Спробуйте будь-ласка пізніше');
+          alert(gettext('There was an error on the server. Please try again later'));
           return False;
         }
         var modal = $('#myModal'), html = $(data),
@@ -271,7 +284,7 @@ function initFormPage() {
         modal2.modal('hide');
       },
       'error': function() {
-        alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+        alert(gettext('There was an error on the server. Please try again later'));
         return false;
       }
     });
@@ -290,7 +303,7 @@ function initContactForm() {
       'error': function() {
         $('input, select, textarea').prop('disabled', false);
         modal2.modal('hide');
-        $('h2').after('<div class="alert alert-danger">"Виникла помилка на сервері. Будь-ласка спробуйте пізніше"</div>');
+        $('h2').after('<div class="alert alert-danger">"' + gettext('There was an error on the server. Please try again later') + '"</div>');
         return false;
       },
       'beforeSend': function() {
@@ -304,7 +317,7 @@ function initContactForm() {
         });
       },
       'success': function(data, status, xhr) {
-        $('h2').after('<div class="alert alert-danger">"Виникла помилка на сервері. Будь-ласка спробуйте пізніше"</div>');
+        $('h2').after('<div class="alert alert-danger">"' + gettext('There was an error on the server. Please try again later') + '"</div>');
         modal2.modal('hide');
 
         // initialize form fields and buttons
@@ -372,7 +385,7 @@ function SubHeaderNavigation(link, pagination) {
         }
       },
       'error': function() {
-        alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+        alert(gettext('There was an error on the server. Please try again later'));
         return false;
       }
     });
@@ -411,10 +424,10 @@ function initDropDownNav() {
         modal2.modal('hide');
   
         initFunctions();
-        History.pushState({}, 'Відвідування Студента', link.attr('href'));
+        History.pushState({}, gettext('Student Visiting'), link.attr('href'));
       },
       'error': function() {
-        alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+        alert(gettext('There was an error on the server. Please try again later'));
         return false;
       }
     });
@@ -547,7 +560,7 @@ function initResultPage() {
       },
       'success': function(data, status, xhr) {
         if (status != 'success') {
-          alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+          alert(gettext('There was an error on the server. Please try again later'));
           return false;
         }
         var modal = $('#myModal'), html = $(data),
@@ -563,7 +576,7 @@ function initResultPage() {
         modal2.modal('hide');
       },
       'error': function() {
-        alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+        alert(gettext('There was an error on the server. Please try again later'));
         return false;
       }
     });
@@ -616,7 +629,7 @@ function initBackButton() {
               },
               'success': function(data, status, xhr) {
                 if (status != 'success') {
-                  alert('Помилка на сeрвері. Спробуйте будь-ласка пізніше');
+                  alert(gettext('There was an error on the server. Please try again later'));
                   return False;
                 }
                 var html = $(data), modal = $('#myModal');
@@ -632,7 +645,7 @@ function initBackButton() {
                 modal2.modal('hide');
               },
               'error': function() {
-                alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+                alert(gettext('There was an error on the server. Please try again later'));
                 return false;
               }
             });
@@ -655,7 +668,7 @@ function initBackButton() {
           },
           'success': function(data, status, xhr) {
             if (status != 'success') {
-              alert('Помилка на сeрвері. Спробуйте будь-ласка пізніше');
+              alert(gettext('There was an error on the server. Please try again later'));
               return False;
             }
             var modal = $('#myModal'), html = $(data),
@@ -674,7 +687,7 @@ function initBackButton() {
             modal2.modal('hide');
           },
           'error': function() {
-            alert('Помилка на сервері. Спробуйте будь-ласка пізніше');
+            alert(gettext('There was an error on the server. Please try again later'));
             return false;
           }
         });
@@ -700,4 +713,5 @@ $(document).ready(function(){
   initFunctions();
   initResultPage();
   initBackButton();
+  initLanguageSelector()
 })

@@ -34,7 +34,7 @@
       
         {% block logo %}
         <!-- Logo -->
-        <div class="col-xs-8">
+        <div class="col-xs-6">
           <a href={% url "home" %} class="header">
              <h1>{% trans "Students Accounting Service" %}</h1></a>
         </div>
@@ -56,6 +56,15 @@
           </select>
         </div>
         {% endblock menu_groups %}
+        <div class="col-xs-2" id="lang-selector">
+          <select>
+            {% with lang=request.COOKIES.django_language %}
+            <option value='uk' {% if lang == 'uk' %}selected{% endif %}>UKR</option>
+            <option value='en' {% if lang == 'en' %}selected{% endif %}>ENG</option>
+            <option value='ru' {% if lang == 'ru' %}selected{% endif %}>RUS</option>
+            {% endwith %}
+          </select>
+        </div>
       </div>
       <!-- End Header -->
       
@@ -190,6 +199,7 @@
     <script
           src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/uk.js"></script>
+    <script type="text/javascript" src="{{ PORTAL_URL }}{% url "javascript-catalog" %}"></script>
     <script type="text/javascript"
             src="{{ PORTAL_URL }}{% static "js/main.js" %}"></script>
     {% block extra_js %}{% endblock extra_js %}      

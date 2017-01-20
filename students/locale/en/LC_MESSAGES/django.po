@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-19 17:43+0000\n"
+"POT-Creation-Date: 2017-01-19 19:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,8 +114,8 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: students/models/logs.py:29
-msgid "Signal title"
+#: students/models/logs.py:29 students/templates/students/logs_list.html:22
+msgid "Signal name"
 msgstr ""
 
 #: students/models/logs.py:34
@@ -349,10 +349,6 @@ msgstr ""
 
 #: students/templates/students/logs_list.html:8
 msgid "Event Recors"
-msgstr ""
-
-#: students/templates/students/logs_list.html:22
-msgid "Signal name"
 msgstr ""
 
 #: students/templates/students/logs_list.html:27
