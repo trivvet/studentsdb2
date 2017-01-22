@@ -1,16 +1,17 @@
 {% extends "students/base.html" %}
 
+{% load i18n %}
 {% load static from staticfiles %}
 {% load crispy_forms_tags %}
 
-{% block meta_title %}Зв'язок з адміністратором{% endblock meta_title %}
+{% block meta_title %}{% trans "Connect with administrator" %}{% endblock meta_title %}
 
-{% block title %}Зв'язок з адміністратором{% endblock title %}
+{% block title %}{% trans "Connect with administrator" %}{% endblock title %}
 
 {% block status_message %}
   {% if errors or form.errors %}
     <div class="alert alert-danger" role="alert">
-         Будь-ласка, виправте наступні помилки</div>
+         {% trans "Please, correct the following errors" %}</div>
   {% endif %}
 
   {{ block.super }}

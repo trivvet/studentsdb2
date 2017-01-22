@@ -160,19 +160,25 @@ def results_edit(request, rid=None):
   
 def results_delete(request, rid):
     if request.method == "POST":
-        exam = Exam.objects.get(pk=int(rid))
-        exam.is_completed = False
-        results = Result.objects.filter(result_exam=exam)
-        results.delete()
-        exam.save()
-        messages.success(request, _(u"Information about results of exam %s deleted successfully") % exam.name)
-        return HttpResponseRedirect(reverse('results'))
+        if request.POST.get('cancel_button'):
+            messages.warning(request, _(u"Deleting results of exam canceled"))
+            return HttpResponseRedirect(reverse('results'))
+        else:
+            exam = Exam.objects.get(pk=int(rid))
+            exam.is_completed = False
+            results = Result.objects.filter(result_exam=exam)
+            results.delete()
+            exam.save()
+            messages.success(request, _(u"Information about results of exam %s deleted successfully") % exam.name)
+            return HttpResponseRedirect(reverse('results'))
     else:
         try:
             exam = Exam.objects.get(pk=int(rid))
         except:
-            pass
-        return render(request, 'students/results_confirm_delete.html', {'exam': exam})
+            messages.error(_(u'There was an error on the server. Please try again later'))
+            return HttpResponseRedirect(reverse('results'))
+        else:
+            return render(request, 'students/results_confirm_delete.html', {'exam': exam})
 
 def exam_results(request, rid):
     context = {}

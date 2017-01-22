@@ -30,7 +30,7 @@ from students.views.contact_admin import ContactView
 from .settings import MEDIA_ROOT, DEBUG
 
 js_packages = {
-    'packages': ('students',),
+    'packages': ('students', 'contact-admin',),
 }
 
 urlpatterns = [

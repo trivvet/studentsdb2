@@ -16,20 +16,20 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 #: students/static/js/main.js:30
 msgid "There was an error on the server"
-msgstr "На сервері виникла помилка"
+msgstr "Случилась ошибка не сервере"
 
 #: students/static/js/main.js:30
 msgid "(code - "
-msgstr "код - "
+msgstr "(код - "
 
 #: students/static/js/main.js:30
 msgid "). Please, try again later"
-msgstr "). Будь-ласка, спробуйте пізніше"
+msgstr "). Пожалуйста попробуйте позже"
 
 #: students/static/js/main.js:164 students/static/js/main.js:196
 #: students/static/js/main.js:267 students/static/js/main.js:287
@@ -39,8 +39,8 @@ msgstr "). Будь-ласка, спробуйте пізніше"
 #: students/static/js/main.js:632 students/static/js/main.js:648
 #: students/static/js/main.js:671 students/static/js/main.js:690
 msgid "There was an error on the server. Please try again later"
-msgstr "Виникла помилка на сервері. Будь-ласка спробуйте пізніше"
+msgstr "Случилась ошибка на сервере. Попробуйте пожалуйста позже"
 
 #: students/static/js/main.js:427
 msgid "Student Visiting"
-msgstr "Відвідування студента"
+msgstr "Посещения Студента"
