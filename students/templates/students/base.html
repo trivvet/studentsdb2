@@ -71,7 +71,8 @@
 
         <!-- User Panel-->
         <div class="col-xs-2" id="user-button">
-          <button type="button" class="btn btn-default navbar-btn">Sign up</button>
+          <a href="{% url 'user-register' %}" class="btn btn-default navbar-btn form-link">Sign in</a>
+          <a href="{% url 'user-register' %}" class="btn btn-info navbar-btn form-link">Sign up</a>
         </div>
         
       </div>
