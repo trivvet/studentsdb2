@@ -56,7 +56,10 @@
           </select>
         </div>
         {% endblock menu_groups %}
-        <div class="col-xs-2" id="lang-selector">
+
+        <!-- Language Selector-->
+        <!--
+        <div class="col-xs-1" id="lang-selector">
           <select>
             {% with lang=request.COOKIES.django_language %}
             <option value='uk' {% if lang == 'uk' %}selected{% endif %}>UKR</option>
@@ -64,19 +67,28 @@
             <option value='ru' {% if lang == 'ru' %}selected{% endif %}>RUS</option>
             {% endwith %}
           </select>
+        </div> -->
+
+        <!-- User Panel-->
+        <div class="col-xs-2" id="user-button">
+          <button type="button" class="btn btn-default navbar-btn">Sign up</button>
         </div>
+        
       </div>
       <!-- End Header -->
-      
-      {% url 'home' as url_home %}
-      {% url 'journal' as url_journal %}
-      {% url 'groups' as url_groups %}
-      {% url 'exams' as url_exams %}
-      {% url 'results' as url_results %}
-      {% url 'contact_admin' as url_contact %}
-      {% url 'logs' as url_logs %}
+
+
       <!-- Start Subheader -->
       <div class="row" id="sub-header">
+
+        <!-- Navbar -->
+        {% url 'home' as url_home %}
+        {% url 'journal' as url_journal %}
+        {% url 'groups' as url_groups %}
+        {% url 'exams' as url_exams %}
+        {% url 'results' as url_results %}
+        {% url 'contact_admin' as url_contact %}
+        {% url 'logs' as url_logs %}
         <div class="col-xs-12">
           <ul class="nav nav-tabs">
             <li role="presentation" {% if request.path == url_home %}

@@ -1,4 +1,5 @@
 /* Global Styles */
+
 .alert {
   margin-bottom: 5px;
 }
@@ -47,8 +48,13 @@ a.header {
 }
 
 /* Group Selector */
-#group-selector, #lang-selector {
+#group-selector, #lang-selector, #user-button {
   margin-top: 30px;
+}
+
+.navbar-btn {
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 
 #header select {
