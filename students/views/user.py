@@ -9,26 +9,36 @@ from django.views.generic import FormView
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _lazy
+from django.forms import ValidationError
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.layout import Layout, Submit, Button
 
 class UserRegisterForm(forms.ModelForm):
+    password2 = forms.CharField(
+        label=_lazy(u"Confirm password"),
+        max_length=128,
+        widget=forms.PasswordInput(
+            attrs={'placeholder':_(u"Please, cofirm your password")}
+        )
+    )
+
     class Meta:
         model = User
-        fields = ['last_name', 'first_name', 'username', 'password', 'email']
+        fields = ['username', 'last_name', 'first_name', 'email', 'password']
         widgets = {
+            'username': forms.TextInput(
+                attrs={'placeholder': _(u"Please, enter your username")}),
             'last_name': forms.TextInput(
                 attrs={'placeholder': _(u"Please, enter your last name")}),
             'first_name': forms.TextInput(
                 attrs={'placeholder': _(u"Please, enter your first name")}),
-            'username': forms.TextInput(
-                attrs={'placeholder': _(u"Please, enter your username")}),
-            'password': forms.PasswordInput(
-                attrs={'placeholder': _(u"Please, enter you password")}),
             'email': forms.EmailInput(
-                attrs={'placeholder': _(u"Please, enter you email")}),
+                attrs={'placeholder': _(u"Please, enter your email")}),
+            'password': forms.PasswordInput(
+                attrs={'placeholder': _(u"Please, enter your password")},
+                render_value=False),
         }
 
     def __init__(self, *args, **kwargs):
@@ -73,6 +83,20 @@ class UserRegisterForm(forms.ModelForm):
             )
         ))
 
+    def clean(self):
+        cleaned_data = super(UserRegisterForm, self).clean()
+        try:
+            password = cleaned_data['password']
+            password2 = cleaned_data['password2']
+        except:
+            password = None
+            password2 = None
+        # validate confirm password
+        if password and password2 and password != password2:
+            self.add_error('password2', ValidationError(_(u"Both passwords must be the same")))
+            
+        return cleaned_data
+
 
 class UserRegisterView(FormView):
     template_name = 'students/form_class.html'
@@ -80,7 +104,7 @@ class UserRegisterView(FormView):
 
     def get_success_url(self):
         if self.message:
-            messages.success(self.request, _(u"Letter send successfully"))
+            messages.success(self.request, _(u"User %s registered successfully") % self.request.POST.get('username'))
         else:
             messages.error(self.request, _(u"When registration new user unexpected error ocured. Please try this service later"))
         return reverse('home')
@@ -104,14 +128,11 @@ class UserRegisterView(FormView):
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
         email = form.cleaned_data['email']
-        
+
 
         try:
-            user = User.objects.create_user(username=username, email=email, password=password, last_name=last_name, first_name=first_name)
+            User.objects.create_user(username=username, email=email, password=password, last_name=last_name, first_name=first_name)
         except Exception:
-            message = _(u"When registration new user unexpected error ocured. Please try this service later")
-            logger = logging.getLogger(__name__)
-            logger.exception(message)
             self.message = False
         else:
             self.message = True
