@@ -216,6 +216,7 @@ function initForm(form, modal, link) {
       // copy alert to modal window
       modal.find('.modal-body').html(html.find('.alert'));
       modal2.modal('hide');
+      
 
       // copy form to modal if we found it in server repsonse
       if (newform.length > 0) {
@@ -232,11 +233,14 @@ function initForm(form, modal, link) {
           $('#sub-header').html(html.find('#sub-header div'));
           $('#content-column').html(html.find('#content-column'));
           $('input, select, textarea').prop('disabled', false);
+          if (link == '/user-auth/'){
+            location.replace('/');
+          }
           modal.modal('hide');
           initSubHeaderNav();
           initFunctions();
           initResultPage();
-        }, 1000);
+        }, 1500);
       }
 //      $('a.form-link').off();
       initFormPage();

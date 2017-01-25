@@ -5,9 +5,9 @@ from django.shortcuts import render, reverse
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from django.views.generic import FormView
+from django.views.generic import FormView, UpdateView
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _lazy
 from django.forms import ValidationError
@@ -122,6 +122,48 @@ class UserRegisterView(FormView):
 
         return super(UserRegisterView, self).form_valid(form)
 
+class UserPreferenceView(UpdateView):
+    form = User
+    template_name = 'students/form_class.html'
+    form_class = UserRegisterForm
+
+    def get_success_url(self):
+        if self.message:
+            messages.success(self.request, _(u"User %s registered successfully") % self.request.POST.get('username'))
+        else:
+            messages.error(self.request, _(u"When registration new user unexpected error ocured. Please try this service later"))
+        return reverse('home')
+
+    def get_context_data(self, **kwargs):
+        context = super(UserPreferenceView, self).get_context_data(**kwargs)
+        context['title'] = _(u'User Preference')
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            messages.warning(request, _(u"Register user canceled"))
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            return super(UserPreferenceView, self).post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+
+        last_name = form.cleaned_data['last_name']
+        first_name = form.cleaned_data['first_name']
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        email = form.cleaned_data['email']
+
+
+        try:
+            User.objects.create_user(username=username, email=email, password=password, last_name=last_name, first_name=first_name)
+        except Exception:
+            self.message = False
+        else:
+            self.message = True
+
+        return super(UserPreferenceView, self).form_valid(form)
+
 class UserAuthForm(forms.ModelForm):
 
     class Meta:
@@ -187,5 +229,9 @@ class UserAuthView(FormView):
         else:
             messages.error(request, _(u"User with such username or password doesn't exist"))
             return HttpResponseRedirect(reverse('home'))
+
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
 
            

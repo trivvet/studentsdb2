@@ -72,11 +72,21 @@
         <!-- User Panel-->
         <div class="col-xs-2" id="user-button">
           {% if user.is_authenticated %}
-          <span>{{ user }}</span>
-          <a href="{% url 'user-register' %}" class="btn btn-default navbar-btn form-link">Sign out</a>
+            <div class="btn-group">
+              <button type="button" class="btn btn-success navbar-btn">{{ user }}</button>
+              <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'user-logout' %}">Preference</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="{% url 'user-logout' %}">Sign out</a></li>
+              </ul>
+            </div>
           {% else %}
-          <a href="{% url 'user-auth' %}" class="btn btn-default navbar-btn form-link">Sign in</a>
-          <a href="{% url 'user-register' %}" class="btn btn-info navbar-btn form-link">Sign up</a>
+            <a href="{% url 'user-auth' %}" class="btn btn-default navbar-btn form-link">Sign in</a>
+            <a href="{% url 'user-register' %}" class="btn btn-info navbar-btn form-link">Sign up</a>
           {% endif %}
         </div>
         
@@ -171,7 +181,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"        aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel"><!-- --></h4>
             <div class="alert alert-danger" role="alert" hidden>

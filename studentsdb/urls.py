@@ -18,15 +18,15 @@ from django.contrib import admin
 from django.views import static
 from django.views.i18n import javascript_catalog
 
-from students.views import students, groups, journal, exams, results, contact_admin, logs
-from students.views.students import StudentUpdateView, StudentDeleteView
+from students.views import students, groups, exams, results, contact_admin, logs, user
+from students.views.students import StudentAddView, StudentUpdateView, StudentDeleteView
 from students.views.groups import GroupAddView, GroupUpdateView, GroupDeleteView
 from students.views.exams import ExamAddView, ExamUpdateView, ExamDeleteView
 from students.views.journal import JournalView
 from students.views.logs import LogsView, LogDeleteView, LogUpdateView
 # from contact_form.views import ContactFormView
 from students.views.contact_admin import ContactView
-from students.views.user import UserRegisterView, UserAuthView
+from students.views.user import UserRegisterView, UserAuthView, UserPreferenceView
 
 from .settings import MEDIA_ROOT, DEBUG
 
@@ -39,11 +39,11 @@ urlpatterns = [
     #Students urls
     url(r'^$', students.students_list, name='home'),
 #    url(r'^students/add/$', students.students_add, name='students_add'),
-    url(r'^students/add/$', students.StudentAddView.as_view(), name='students_add'),
+    url(r'^students/add/$', StudentAddView.as_view(), name='students_add'),
     url(r'^students/(?P<pk>\d+)/edit', StudentUpdateView.as_view(),         
 #    url(r'^students/(?P<sid>\d+)/edit', students.students_edit,
         name='students_edit'),
-    url(r'^students/(?P<pk>\d+)/delete', students.StudentDeleteView.as_view(),
+    url(r'^students/(?P<pk>\d+)/delete', StudentDeleteView.as_view(),
 #    url(r'^students/(?P<sid>\d+)/delete', students.students_delete,
         name='students_delete'),
   
@@ -99,7 +99,9 @@ urlpatterns = [
 
     # User Forms
     url(r'^user-register/$', UserRegisterView.as_view(), name='user-register'),
+#    url(r'^user-preference/$', UserPreferenceView.as_view(), name='user-preference'),
     url(r'^user-auth/$', UserAuthView.as_view(), name='user-auth'),
+    url(r'^user-logout/$', user.user_logout, name='user-logout'),
     
     # Javascript Catalog File
     url(r'^jsi18n/$', javascript_catalog, js_packages, name="javascript-catalog"),
