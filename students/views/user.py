@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views.generic import FormView
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _lazy
 from django.forms import ValidationError
@@ -44,21 +45,8 @@ class UserRegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        try:
-            kwargs['instance']
-        except:
-            kwargs['instance'] = None
-            
-        # add form or edit form
-        if kwargs['instance'] is None:
-            add_form = True
-        else:
-            add_form = False
         
         # set form tag attributes
-#        if add_form:
-#            self.helper.action = reverse('user_add')
-#       else:
         self.helper.action = reverse('user-register')
         self.helper.form_method = 'POST'
         self.helper.form_class = 'form-horizontal'
@@ -71,14 +59,9 @@ class UserRegisterForm(forms.ModelForm):
         self.helper.field_class = 'col-sm-8'
 
         # add buttons
-        if add_form:
-            submit = Submit('add_button', _(u'Register'))
-        else:
-            submit = Submit('save_button', _(u'Save Change'))
-            
         self.helper.layout.append(Layout(
             FormActions(
-                submit,
+                Submit('add_button', _(u'Register')),
                 Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
             )
         ))
@@ -139,8 +122,70 @@ class UserRegisterView(FormView):
 
         return super(UserRegisterView, self).form_valid(form)
 
+class UserAuthForm(forms.ModelForm):
 
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+        widgets = {
+            'username': forms.TextInput(),
+            'password': forms.PasswordInput(),
+        }
 
-               
+    def __init__(self, *args, **kwargs):
+        super(UserAuthForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        
+        # set form tag attributes
+        self.helper.action = reverse('user-auth')
+        self.helper.form_method = 'POST'
+        self.helper.form_class = 'form-horizontal'
+
+        # set form field properties
+        self.helper.help_text_inline = True
+        self.helper.html5_required = False
+        self.helper.attrs = {'novalidate': ''}
+        self.helper.label_class = 'col-sm-4 control-label'
+        self.helper.field_class = 'col-sm-8'
+
+        # add buttons
+        self.helper.layout.append(Layout(
+            FormActions(
+                Submit('add_button', _(u'Login')),
+                Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
+            )
+        ))
+
+class UserAuthView(FormView):
+    template_name = 'students/form_class.html'
+    form_class = UserAuthForm
+
+    def get_success_url(self):
+        if self.message:
+            messages.success(self.request, _(u"You authorization successfully"))
+        else:
+            messages.error(self.request, _(u"When you try to log unexpected error ocured. Please try this service later"))
+        return reverse('home')
+
+    def get_context_data(self, **kwargs):
+        context = super(UserAuthView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Authorization')
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            messages.warning(request, _(u"Authorization canceled"))
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, _(u"You're logged in as %s" % username))
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            messages.error(request, _(u"User with such username or password doesn't exist"))
+            return HttpResponseRedirect(reverse('home'))
 
            
