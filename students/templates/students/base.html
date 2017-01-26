@@ -39,7 +39,8 @@
              <h1>{% trans "Students Accounting Service" %}</h1></a>
         </div>
         {% endblock logo %}
-        
+
+        {% if user.is_authenticated %}
         {% block menu_groups %}
         <!-- Group Selector -->
         <div class="col-xs-4" id="group-selector">
@@ -57,9 +58,10 @@
         </div>
         {% endblock menu_groups %}
 
+        {% else %}
         <!-- Language Selector-->
-        <!--
-        <div class="col-xs-1" id="lang-selector">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-2" id="lang-selector">
           <select>
             {% with lang=request.COOKIES.django_language %}
             <option value='uk' {% if lang == 'uk' %}selected{% endif %}>UKR</option>
@@ -67,7 +69,8 @@
             <option value='ru' {% if lang == 'ru' %}selected{% endif %}>RUS</option>
             {% endwith %}
           </select>
-        </div> -->
+        </div>
+        {% endif %}
 
         <!-- User Panel-->
         <div class="col-xs-2" id="user-button">
@@ -79,9 +82,9 @@
                 <span class="sr-only">Toggle Dropdown</span>
               </button>
               <ul class="dropdown-menu">
-                <li><a href="{% url 'user-logout' %}">Preference</a></li>
+                <li><a href="{% url 'user-preference' %}" class='form-link'>Preference</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="{% url 'user-logout' %}">Sign out</a></li>
+                <li><a href="{% url 'user-logout' %}">Log out</a></li>
               </ul>
             </div>
           {% else %}
@@ -132,12 +135,13 @@
         </div>
       </div>
       <!-- End Subheader -->
+
       
       <!-- Start Main Page Content -->
       <div class="row" id="content-columns">
       
         <div class="col-xs-12" id="content-column">
-          
+          {% if user.is_authenticated %}
           <!-- Status Message -->
           {% block status_message %}
           {% if request.GET.status_message %}
@@ -154,9 +158,16 @@
           {% endif %}
           {% endblock status_message %}
           
-            <h2>{% block title %}{% endblock title %}</h2>
-            {% block add_button %}{% endblock add_button %}
+          <h2>{% block title %}{% endblock title %}</h2>
+          {% block add_button %}{% endblock add_button %}
           {% block content %}{% endblock content %}
+
+          {% else %}
+            {% block title_anonymous %}{% endblock title_anonymous %}
+            {% block anonymous %}
+              <h3>Access for anonymous users is closed</h2>
+            {% endblock anonymous %}
+          {% endif %}
         
         </div>
         

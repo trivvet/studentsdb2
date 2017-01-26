@@ -234,4 +234,14 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
 
+def user_preference(request):
+    if request.method == 'POST':
+        if request.POST.get('cancel_button'):
+            messages.warning(request, _(u"Changing user settings canceled"))
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            pass
+    else:
+        return render(request, 'students/user_preference.html', {})
+
            

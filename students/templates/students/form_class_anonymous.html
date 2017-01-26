@@ -1,0 +1,25 @@
+{% extends "students/base.html" %}
+
+{% load i18n %}
+{% load static from staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block meta_title %}{{ title }}{% endblock meta_title %}
+
+{% block status_message %}
+{% if form.errors %}
+  <div class="alert alert-danger" role="alert">
+       {% trans "Please, correct the following errors" %}</div>
+{% endif %}
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+      
+<!-- FORM -->
+  
+{% crispy form %}
+  
+        
+{% endblock content %}

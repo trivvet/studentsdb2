@@ -1,0 +1,49 @@
+{% extends "students/base.html" %}
+
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block meta_title %}{% trans "User Settings" %}{% endblock meta_title %}
+
+{% block title_anonymous %}{% trans "User Settings" %}{% endblock title_anonymous %}
+
+{% block anonymous %}
+      
+<!-- FORM -->
+  
+<form action="{% url "user-preference" %}" method="post" class="form-horizontal">
+  {% csrf_token %}
+  <div class="form-group">
+    <label class="col-sm-3">User Name</label>
+    <div class="col-sm-9">{{ user }}</div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-3">Select Language</label>
+    <div class="col-sm-9  ">
+      <select>
+        {% with lang=request.COOKIES.django_language %}
+        <option value='uk' {% if lang == 'uk' %}selected{% endif %}>
+          Ukrainian
+        </option>
+        <option value='en' {% if lang == 'en' %}selected{% endif %}>
+          English
+        </option>
+        <option value='ru' {% if lang == 'ru' %}selected{% endif %}>
+          Russian
+        </option>
+            {% endwith %}
+      </select>
+    </div>
+  </div>
+  <div class="form-group controls">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+      <input type="submit" class="btn btn-danger" name="delete_button"
+             value="{% trans "Save" %}" />
+      <input type="submit" class="btn btn-link" href="#" 
+              name="cancel_button" value="{% trans "Cancel" %}"/>
+    </div>
+  </div>
+</form>
+  
+{% endblock anonymous %}
