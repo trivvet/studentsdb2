@@ -82,7 +82,7 @@ class UserRegisterForm(forms.ModelForm):
 
 
 class UserRegisterView(FormView):
-    template_name = 'students/form_class.html'
+    template_name = 'students/form_class_anonymous.html'
     form_class = UserRegisterForm
 
     def get_success_url(self):
@@ -199,7 +199,7 @@ class UserAuthForm(forms.ModelForm):
         ))
 
 class UserAuthView(FormView):
-    template_name = 'students/form_class.html'
+    template_name = 'students/form_class_anonymous.html'
     form_class = UserAuthForm
 
     def get_success_url(self):
@@ -240,8 +240,23 @@ def user_preference(request):
             messages.warning(request, _(u"Changing user settings canceled"))
             return HttpResponseRedirect(reverse('home'))
         else:
-            pass
+            current_user = User.objects.get(username=request.user.username)
+            if request.POST.get('newpassword'):
+                password = request.POST.get('newpassword')
+                if request.POST.get('newpassword2') and password == request.POST.get('newpassword2'):
+                    current_user.set_password(password)
+                    current_user.save()
+                    user = authenticate(username=current_user, password=password)
+                    login(request, user)
+                    messages.success(request, _(u"User settings changed successfully"))
+                    return HttpResponseRedirect(reverse('home'))
+                else:
+                    messages.error(request, _(u"Both passwords must be the same"))
+                    return render(request, 'students/user_preference.html', {})
+            else:
+                return HttpResponseRedirect(reverse('home'))
     else:
+    #    import pdb; pdb.set_trace()
         return render(request, 'students/user_preference.html', {})
 
            

@@ -5,9 +5,9 @@
 
 {% block meta_title %}{% trans "User Settings" %}{% endblock meta_title %}
 
-{% block title_anonymous %}{% trans "User Settings" %}{% endblock title_anonymous %}
+{% block title %}{% trans "User Settings" %}{% endblock title %}
 
-{% block anonymous %}
+{% block content %}
       
 <!-- FORM -->
   
@@ -19,7 +19,7 @@
   </div>
   <div class="form-group">
     <label class="col-sm-3">Select Language</label>
-    <div class="col-sm-9  ">
+    <div class="col-sm-9">
       <select>
         {% with lang=request.COOKIES.django_language %}
         <option value='uk' {% if lang == 'uk' %}selected{% endif %}>
@@ -35,6 +35,20 @@
       </select>
     </div>
   </div>
+  <div class="form-group">
+    <label class="col-sm-3">New Password</label>
+    <div class="col-sm-9">
+      <input type='password' name='newpassword' class="form-control"
+          placeholder="{% trans "Enter your new password" %}" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-3">Password Confirmation</label>
+    <div class="col-sm-9">
+      <input type='password' name='newpassword2' class="form-control"
+          placeholder="{% trans "Enter confirmation of your new password" %}" >
+    </div>
+  </div>
   <div class="form-group controls">
     <div class="col-sm-2"></div>
     <div class="col-sm-10">
@@ -46,4 +60,4 @@
   </div>
 </form>
   
-{% endblock anonymous %}
+{% endblock content %}

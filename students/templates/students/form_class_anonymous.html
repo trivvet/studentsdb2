@@ -13,13 +13,13 @@
 {% endif %}
 {% endblock %}
 
-{% block title %}{{ title }}{% endblock title %}
+{% block title_anonymous %}<h2>{{ title }}</h2>{% endblock title_anonymous %}
 
-{% block content %}
+{% block anonymous %}
       
 <!-- FORM -->
   
 {% crispy form %}
   
         
-{% endblock content %}
+{% endblock anonymous %}
