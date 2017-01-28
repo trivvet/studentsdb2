@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load static from staticfiles %}
+{% load tz %}
 
 {% block meta_title %}{% trans "User Settings" %}{% endblock meta_title %}
 
@@ -14,19 +15,40 @@
 <form action="{% url "user-preference" %}" method="post" class="form-horizontal">
   {% csrf_token %}
   <div class="form-group">
-    <label class="col-sm-3">User Name</label>
-    <div class="col-sm-9">{{ user }}</div>
+    <div class="col-sm-3 control-label">User Name</div>
+    <div class="col-sm-9"><h4>{{ user }}</h4></div>
   </div>
   <div class="form-group">
-    <label class="col-sm-3">Select Language</label>
+    <label class="col-sm-3 control-label" for="first_name">First Name</label>
     <div class="col-sm-9">
-      <select>
-        {% with lang=request.COOKIES.django_language %}
-        <option value='uk' {% if lang == 'uk' %}selected{% endif %}>
-          Ukrainian
-        </option>
+      <input type='text' name='first_name' class="form-control"
+          placeholder="{% trans "Enter your first name" %}" value="{{ user.first_name }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label" for="last_name">Last Name</label>
+    <div class="col-sm-9">
+      <input type='text' name='last_name' class="form-control"
+          placeholder="{% trans "Enter your last name" %}" value="{{ user.last_name }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label" for="email">Email</label>
+    <div class="col-sm-9">
+      <input type='text' name='email' class="form-control"
+          placeholder="{% trans "Enter your email" %}" value="{{ user.email }}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label" for="lang">Select Language</label>
+    <div class="col-sm-9">
+      <select name="lang">
+        {% with lang=current_user.language %}
         <option value='en' {% if lang == 'en' %}selected{% endif %}>
           English
+        </option>
+        <option value='uk' {% if lang == 'uk' %}selected{% endif %}>
+          Ukrainian
         </option>
         <option value='ru' {% if lang == 'ru' %}selected{% endif %}>
           Russian
@@ -36,22 +58,34 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-3">New Password</label>
+    <label class="col-sm-3 control-label" for="timezone">Time Zone</label>
+    <div class="col-sm-9">
+      {% get_current_timezone as TIME_ZONE %}
+      <select name="time_zone">
+        <option>{% trans "Choose your time zone" %}</option>
+        {% for zone in timezones %}
+        <option value="{{ zone }}" {% if zone == TIME_ZONE %}selected{% endif %}>{{ zone }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="form-group" for="newpassword">
+    <label class="col-sm-3 control-label">New Password</label>
     <div class="col-sm-9">
       <input type='password' name='newpassword' class="form-control"
           placeholder="{% trans "Enter your new password" %}" >
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-3">Password Confirmation</label>
+    <label class="col-sm-3 control-label" for="newpassword2">Password Confirmation</label>
     <div class="col-sm-9">
       <input type='password' name='newpassword2' class="form-control"
           placeholder="{% trans "Enter confirmation of your new password" %}" >
     </div>
   </div>
   <div class="form-group controls">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-10">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-9">
       <input type="submit" class="btn btn-danger" name="delete_button"
              value="{% trans "Save" %}" />
       <input type="submit" class="btn btn-link" href="#" 

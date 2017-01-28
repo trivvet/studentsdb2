@@ -7,3 +7,4 @@ psycopg2
 django-contact-form
 python-dateutil
 colorlog
+pytz

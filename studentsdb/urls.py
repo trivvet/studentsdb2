@@ -26,7 +26,7 @@ from students.views.journal import JournalView
 from students.views.logs import LogsView, LogDeleteView, LogUpdateView
 # from contact_form.views import ContactFormView
 from students.views.contact_admin import ContactView
-from students.views.user import UserRegisterView, UserAuthView, UserPreferenceView
+from students.views.user import UserRegisterView, UserAuthView
 
 from .settings import MEDIA_ROOT, DEBUG
 

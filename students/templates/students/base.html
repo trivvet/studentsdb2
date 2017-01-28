@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static from staticfiles %}
+{% load tz %}
 
 <!DOCTYPE html>
 <html lang="uk">
@@ -179,8 +180,11 @@
       {% block footer %}
       <!-- Start Footer -->
       <div class="row" id="footer">
-        <div class="col-xs-12">
+        <div class="col-xs-8">
           &copy; 2017 {% trans "Students Accounting Service" %}
+        </div>
+        <div class="col-xs-4">
+          Current Time: {{ time|time }} {% get_current_timezone as TIME_ZONE %}{{ TIME_ZONE }}
         </div>
       </div>
       <!-- End Footer -->

@@ -229,18 +229,19 @@ function initForm(form, modal, link) {
         // to get updated students list;
         // reload after 2 second, so that user can read
         // success message
-        setTimeout(function() {
-          $('#sub-header').html(html.find('#sub-header div'));
-          $('#content-column').html(html.find('#content-column'));
-          $('input, select, textarea').prop('disabled', false);
-          if (link == '/user-auth/'){
-            location.replace('/');
-          }
-          modal.modal('hide');
-          initSubHeaderNav();
-          initFunctions();
-          initResultPage();
-        }, 1500);
+        if (link == '/user-auth/' || link == '/user-preference/'){
+          location.replace('/');
+        } else {
+          setTimeout(function() {
+            $('#sub-header').html(html.find('#sub-header div'));
+            $('#content-column').html(html.find('#content-column'));
+            $('input, select, textarea').prop('disabled', false);
+            modal.modal('hide');
+            initSubHeaderNav();
+            initFunctions();
+            initResultPage();
+          }, 1500);
+        }
       }
 //      $('a.form-link').off();
       initFormPage();

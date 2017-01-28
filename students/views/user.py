@@ -1,4 +1,5 @@
 import logging
+import pytz
 
 from django import forms, dispatch
 from django.shortcuts import render, reverse
@@ -8,26 +9,27 @@ from django.http import HttpResponseRedirect
 from django.views.generic import FormView, UpdateView
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.utils import translation, timezone
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _lazy
+from django.utils.deprecation import MiddlewareMixin
 from django.forms import ValidationError
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.layout import Layout, Submit, Button
 
+from ..models.users import MainUser
+
 class UserRegisterForm(forms.ModelForm):
-    password2 = forms.CharField(
-        label=_lazy(u"Confirm password"),
-        max_length=128,
-        widget=forms.PasswordInput(
-            attrs={'placeholder':_(u"Please, cofirm your password")}
-        )
-    )
 
     class Meta:
-        model = User
-        fields = ['username', 'last_name', 'first_name', 'email', 'password']
+        choices = pytz.common_timezones
+        choices_list = [('', 'Select your time zone')]
+        for value in choices:
+            choices_list.append((value, value))
+        model = MainUser
+        fields = ['username', 'last_name', 'first_name', 'email', 'language', 'time_zone', 'password']
         widgets = {
             'username': forms.TextInput(
                 attrs={'placeholder': _(u"Please, enter your username")}),
@@ -37,6 +39,10 @@ class UserRegisterForm(forms.ModelForm):
                 attrs={'placeholder': _(u"Please, enter your first name")}),
             'email': forms.EmailInput(
                 attrs={'placeholder': _(u"Please, enter your email")}),
+            'language': forms.Select(
+                choices=(("en", "English"), ("uk", "Ukranian"), ("ru", "Russian"))),
+            'time_zone': forms.Select(
+                choices=choices_list),
             'password': forms.PasswordInput(
                 attrs={'placeholder': _(u"Please, enter your password")},
                 render_value=False),
@@ -65,20 +71,6 @@ class UserRegisterForm(forms.ModelForm):
                 Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
             )
         ))
-
-    def clean(self):
-        cleaned_data = super(UserRegisterForm, self).clean()
-        try:
-            password = cleaned_data['password']
-            password2 = cleaned_data['password2']
-        except:
-            password = None
-            password2 = None
-        # validate confirm password
-        if password and password2 and password != password2:
-            self.add_error('password2', ValidationError(_(u"Both passwords must be the same")))
-            
-        return cleaned_data
 
 
 class UserRegisterView(FormView):
@@ -111,10 +103,11 @@ class UserRegisterView(FormView):
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
         email = form.cleaned_data['email']
-
+        language = form.cleaned_data['language']
+        time_zone = form.cleaned_data['time_zone']
 
         try:
-            User.objects.create_user(username=username, email=email, password=password, last_name=last_name, first_name=first_name)
+            MainUser.objects.create_user(username=username, email=email, password=password, last_name=last_name, first_name=first_name, language=language, time_zone=time_zone)
         except Exception:
             self.message = False
         else:
@@ -122,52 +115,10 @@ class UserRegisterView(FormView):
 
         return super(UserRegisterView, self).form_valid(form)
 
-class UserPreferenceView(UpdateView):
-    form = User
-    template_name = 'students/form_class.html'
-    form_class = UserRegisterForm
-
-    def get_success_url(self):
-        if self.message:
-            messages.success(self.request, _(u"User %s registered successfully") % self.request.POST.get('username'))
-        else:
-            messages.error(self.request, _(u"When registration new user unexpected error ocured. Please try this service later"))
-        return reverse('home')
-
-    def get_context_data(self, **kwargs):
-        context = super(UserPreferenceView, self).get_context_data(**kwargs)
-        context['title'] = _(u'User Preference')
-        return context
-
-    def post(self, request, *args, **kwargs):
-        if request.POST.get('cancel_button'):
-            messages.warning(request, _(u"Register user canceled"))
-            return HttpResponseRedirect(reverse('home'))
-        else:
-            return super(UserPreferenceView, self).post(request, *args, **kwargs)
-
-    def form_valid(self, form):
-
-        last_name = form.cleaned_data['last_name']
-        first_name = form.cleaned_data['first_name']
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
-        email = form.cleaned_data['email']
-
-
-        try:
-            User.objects.create_user(username=username, email=email, password=password, last_name=last_name, first_name=first_name)
-        except Exception:
-            self.message = False
-        else:
-            self.message = True
-
-        return super(UserPreferenceView, self).form_valid(form)
-
 class UserAuthForm(forms.ModelForm):
 
     class Meta:
-        model = User
+        model = MainUser
         fields = ['username', 'password']
         widgets = {
             'username': forms.TextInput(),
@@ -224,6 +175,11 @@ class UserAuthView(FormView):
             user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
+            current_user = MainUser.objects.get(username=username)
+            translation.activate(current_user.language)
+            timezone.activate(current_user.time_zone)
+            request.session[translation.LANGUAGE_SESSION_KEY] = current_user.language
+            request.session['django_timezone'] = current_user.time_zone
             messages.success(request, _(u"You're logged in as %s" % username))
             return HttpResponseRedirect(reverse('home'))
         else:
@@ -232,6 +188,7 @@ class UserAuthView(FormView):
 
 def user_logout(request):
     logout(request)
+    request.session.flush()
     return HttpResponseRedirect(reverse('home'))
 
 def user_preference(request):
@@ -240,7 +197,38 @@ def user_preference(request):
             messages.warning(request, _(u"Changing user settings canceled"))
             return HttpResponseRedirect(reverse('home'))
         else:
-            current_user = User.objects.get(username=request.user.username)
+            current_user = MainUser.objects.get(username=request.user.username)
+            data = 0
+            first_name=request.POST.get('first_name', '').strip()
+            if first_name:
+                current_user.first_name = first_name
+                data += 1
+
+            last_name=request.POST.get('last_name', '').strip()
+            if first_name:
+                current_user.last_name = last_name
+                data += 1
+
+            email=request.POST.get('email', '').strip()
+            if email:
+                current_user.email = email
+                data += 1
+
+            language=request.POST.get('lang')
+            if current_user.language != language:
+                current_user.language = language
+                translation.activate(language)
+                request.session[translation.LANGUAGE_SESSION_KEY] = language
+                data += 1
+
+            time_zone=request.POST.get('time_zone')
+            current_user.time_zone = time_zone
+            timezone.activate(time_zone)
+            request.session['django_timezone'] = time_zone
+
+            if data > 0:
+                current_user.save()
+                
             if request.POST.get('newpassword'):
                 password = request.POST.get('newpassword')
                 if request.POST.get('newpassword2') and password == request.POST.get('newpassword2'):
@@ -254,9 +242,19 @@ def user_preference(request):
                     messages.error(request, _(u"Both passwords must be the same"))
                     return render(request, 'students/user_preference.html', {})
             else:
+                messages.success(request, _(u"User settings changed successfully"))
                 return HttpResponseRedirect(reverse('home'))
     else:
-    #    import pdb; pdb.set_trace()
-        return render(request, 'students/user_preference.html', {})
+        current_user = MainUser.objects.get(username=request.user.username)
+        return render(request, 'students/user_preference.html', {'current_user': current_user, 'timezones': pytz.common_timezones})
+
+
+class TimezoneMiddleware(MiddlewareMixin):
+    def process_request(self, request):
+        tzname = request.session.get('django_timezone')
+        if tzname:
+            timezone.activate(pytz.timezone(tzname))
+        else:
+            timezone.deactivate()
 
            
