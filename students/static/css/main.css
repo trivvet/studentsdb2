@@ -131,6 +131,10 @@ a.form {
   color: #333;
 }
 
+#content-column .nav a {
+  margin-bottom: 0;
+}
+
 /* Form Styles */
 
 textarea,

@@ -8,3 +8,4 @@ django-contact-form
 python-dateutil
 colorlog
 pytz
+django-modeltranslation

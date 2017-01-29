@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
+from django.utils import translation, timezone
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.forms import ModelForm, ValidationError
 from django.utils.translation import ugettext as _
@@ -14,6 +15,8 @@ from django.utils.translation import ugettext as _
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.layout import Layout, Submit, Button
+
+from modeltranslation.forms import TranslationModelForm
 
 from ..models.students import Student
 from ..models.groups import Group
@@ -103,11 +106,12 @@ def students_list(request):
         {'context': context})
 
 # Form Class
-class StudentForm(forms.ModelForm):
+class StudentForm(TranslationModelForm):
     class Meta:
         model = Student
         fields = ['first_name', 'last_name', 'middle_name', 'birthday',
               'photo', 'student_group', 'ticket', 'notes']
+        
         widgets = {
             'first_name': forms.TextInput(
                 attrs={'placeholder': _(u"Please, type student's first name")}),

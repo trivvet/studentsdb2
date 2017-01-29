@@ -184,6 +184,7 @@
       <div class="row" id="footer">
         <div class="col-xs-8">
           &copy; 2017 {% trans "Students Accounting Service" %}
+          {{ get_language }}
         </div>
         <div class="col-xs-4">
           {% trans "Current Time:" %} {{ time|time }} {% get_current_timezone as TIME_ZONE %}{{ TIME_ZONE }}

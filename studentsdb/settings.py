@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'students',
+    'modeltranslation',
 ]
 
 MIDDLEWARE = [
@@ -183,6 +184,15 @@ AUTH_PASSWORD_VALIDATORS = [
 USE_I18N = True
 
 LANGUAGE_CODE = 'uk'
+
+gettext = lambda s: s
+LANGUAGES = (
+    ('en', gettext('English')),
+    ('uk', gettext('Ukrainian')),
+    ('ru', gettext('Russian')),
+)
+
+MODELTRANSLATION_LANGUAGES = ('uk', 'en', 'ru')
 
 USE_TZ = True
 

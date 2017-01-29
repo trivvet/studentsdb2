@@ -7,7 +7,11 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
 class MainUser(User):
-    """Exam Model"""
+    """User Model"""
+
+    class Meta(object):
+        verbose_name=_(u"User")
+        verbose_name_plural=_(u"Users")
 
     language = models.CharField(
         verbose_name=_(u"Language"),
