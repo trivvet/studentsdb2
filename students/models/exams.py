@@ -41,6 +41,10 @@ class Exam(models.Model):
         blank=True,
         default=False)
 
+    time_change = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_(u"Time of last modification"))
+
     def __unicode__(self):
         return u"%s (%s, %s), %s - %s" % (self.name, self.exam_group.title,
         self.date.date(), _("completed"), self.is_completed)

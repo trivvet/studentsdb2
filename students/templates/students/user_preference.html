@@ -15,53 +15,53 @@
 <form action="{% url "user-preference" %}" method="post" class="form-horizontal">
   {% csrf_token %}
   <div class="form-group">
-    <div class="col-sm-3 control-label">User Name</div>
-    <div class="col-sm-9"><h4>{{ user }}</h4></div>
+    <div class="col-sm-4 control-label">{% trans "User Name" %}</div>
+    <div class="col-sm-8"><h4>{{ user }}</h4></div>
   </div>
   <div class="form-group">
-    <label class="col-sm-3 control-label" for="first_name">First Name</label>
-    <div class="col-sm-9">
+    <label class="col-sm-4 control-label" for="first_name">{% trans "First Name" %}</label>
+    <div class="col-sm-8">
       <input type='text' name='first_name' class="form-control"
           placeholder="{% trans "Enter your first name" %}" value="{{ user.first_name }}">
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-3 control-label" for="last_name">Last Name</label>
-    <div class="col-sm-9">
+    <label class="col-sm-4 control-label" for="last_name">{% trans "Last Name" %}</label>
+    <div class="col-sm-8">
       <input type='text' name='last_name' class="form-control"
           placeholder="{% trans "Enter your last name" %}" value="{{ user.last_name }}">
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-3 control-label" for="email">Email</label>
-    <div class="col-sm-9">
+    <label class="col-sm-4 control-label" for="email">{% trans "Email" %}</label>
+    <div class="col-sm-8">
       <input type='text' name='email' class="form-control"
           placeholder="{% trans "Enter your email" %}" value="{{ user.email }}">
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-3 control-label" for="lang">Select Language</label>
-    <div class="col-sm-9">
-      <select name="lang">
+    <label class="col-sm-4 control-label" for="lang">{% trans "Select Language" %}</label>
+    <div class="col-sm-8">
+      <select name="lang" class="form-control">
         {% with lang=current_user.language %}
         <option value='en' {% if lang == 'en' %}selected{% endif %}>
-          English
+          {% trans "English" %}
         </option>
         <option value='uk' {% if lang == 'uk' %}selected{% endif %}>
-          Ukrainian
+          {% trans "Ukrainian" %}
         </option>
         <option value='ru' {% if lang == 'ru' %}selected{% endif %}>
-          Russian
+          {% trans "Russian" %}
         </option>
-            {% endwith %}
+        {% endwith %}
       </select>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-3 control-label" for="timezone">Time Zone</label>
-    <div class="col-sm-9">
+    <label class="col-sm-4 control-label" for="timezone">{% trans "Time Zone" %}</label>
+    <div class="col-sm-8">
       {% get_current_timezone as TIME_ZONE %}
-      <select name="time_zone">
+      <select class="form-control" name="time_zone">
         <option>{% trans "Choose your time zone" %}</option>
         {% for zone in timezones %}
         <option value="{{ zone }}" {% if zone == TIME_ZONE %}selected{% endif %}>{{ zone }}</option>
@@ -70,22 +70,22 @@
     </div>
   </div>
   <div class="form-group" for="newpassword">
-    <label class="col-sm-3 control-label">New Password</label>
-    <div class="col-sm-9">
+    <label class="col-sm-4 control-label">{% trans "New Password" %}</label>
+    <div class="col-sm-8">
       <input type='password' name='newpassword' class="form-control"
           placeholder="{% trans "Enter your new password" %}" >
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-3 control-label" for="newpassword2">Password Confirmation</label>
-    <div class="col-sm-9">
+    <label class="col-sm-4 control-label" for="newpassword2">{% trans "Password Confirmation" %}</label>
+    <div class="col-sm-8">
       <input type='password' name='newpassword2' class="form-control"
           placeholder="{% trans "Enter confirmation of your new password" %}" >
     </div>
   </div>
   <div class="form-group controls">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-9">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-8">
       <input type="submit" class="btn btn-danger" name="delete_button"
              value="{% trans "Save" %}" />
       <input type="submit" class="btn btn-link" href="#" 

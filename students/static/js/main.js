@@ -276,6 +276,7 @@ function initFormPage() {
             form = html.find('#content-column form');
         modal.find('.modal-title').html(html.find('#content-column h2'));
         modal.find('.modal-body').html(form);
+        modal.find('.modal-footer').html(html.find('#content-column p'));
 
         // init our edit form
         initForm(form, modal, link.attr('href'));

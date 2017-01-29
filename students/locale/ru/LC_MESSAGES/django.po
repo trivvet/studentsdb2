@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-22 08:19+0000\n"
+"POT-Creation-Date: 2017-01-29 08:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,754 +20,979 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: apps.py:10 templates/students/base.html:9 templates/students/base.html:12
-#: templates/students/base.html:39 templates/students/base.html:142
+#: students/apps.py:10 students/templates/students/base.html:10
+#: students/templates/students/base.html:13
+#: students/templates/students/base.html:40
+#: students/templates/students/base.html:184
 msgid "Students Accounting Service"
 msgstr "База Учёта Студентов"
 
-#: models/exams.py:12 templates/students/results_add.html:26
+#: students/models/exams.py:12 students/templates/students/results_add.html:26
 msgid "Exam"
 msgstr "Экзамен"
 
-#: models/exams.py:13 templates/students/base.html:93
-#: templates/students/exams.html:6 templates/students/exams.html:8
+#: students/models/exams.py:13 students/templates/students/base.html:125
+#: students/templates/students/exams.html:6
+#: students/templates/students/exams.html:8
 msgid "Exams"
 msgstr "Экзамены"
 
-#: models/exams.py:18 models/results.py:22 templates/students/exams.html:27
-#: templates/students/results.html:28
+#: students/models/exams.py:18 students/models/results.py:22
+#: students/templates/students/exams.html:27
+#: students/templates/students/results.html:28
 msgid "Subject"
 msgstr "Предмет"
 
-#: models/exams.py:22
+#: students/models/exams.py:22
 msgid "Data and time of event"
 msgstr "Дата и время сдачи"
 
-#: models/exams.py:28 templates/students/exams.html:37
-#: templates/students/results.html:38
+#: students/models/exams.py:28 students/templates/students/exams.html:37
+#: students/templates/students/results.html:38
 msgid "Lecturer"
 msgstr "Преподаватель"
 
-#: models/exams.py:31 models/groups.py:12 models/students.py:47
-#: templates/students/base.html:46 templates/students/exams.html:42
-#: templates/students/results.html:43
+#: students/models/exams.py:31 students/models/groups.py:12
+#: students/models/students.py:47 students/templates/students/base.html:48
+#: students/templates/students/exams.html:42
+#: students/templates/students/results.html:43
 msgid "Group"
 msgstr "Группа"
 
-#: models/exams.py:38 models/groups.py:28 models/students.py:54
+#: students/models/exams.py:38 students/models/groups.py:28
+#: students/models/students.py:54
 msgid "Additional notes"
 msgstr "Дополнительные нотатки"
 
-#: models/exams.py:46 templates/students/exams.html:56
+#: students/models/exams.py:46 students/models/groups.py:32
+#: students/models/results.py:33 students/models/students.py:58
+msgid "Time of last modification"
+msgstr "Время последней модификации"
+
+#: students/models/exams.py:50 students/templates/students/exams.html:56
 msgid "completed"
 msgstr "завершенный"
 
-#: models/groups.py:13 templates/students/base.html:90
-#: templates/students/groups.html:6 templates/students/groups.html:8
+#: students/models/groups.py:13 students/templates/students/base.html:122
+#: students/templates/students/groups.html:6
+#: students/templates/students/groups.html:8
 msgid "Groups"
 msgstr "Группы"
 
-#: models/groups.py:18
+#: students/models/groups.py:18
 msgid "Title"
 msgstr "Название"
 
-#: models/groups.py:21 templates/students/groups.html:37
+#: students/models/groups.py:21 students/templates/students/groups.html:37
 msgid "Leader"
 msgstr "Староста"
 
-#: models/journal.py:13
+#: students/models/journal.py:13
 msgid "Month Journal"
 msgstr "Месячный Журнал"
 
-#: models/journal.py:14
+#: students/models/journal.py:14
 msgid "Month Journals"
 msgstr "Месячные Журналы"
 
-#: models/journal.py:17 models/results.py:16 models/students.py:12
-#: templates/students/journal.html:35 templates/students/results_list.html:21
+#: students/models/journal.py:17 students/models/results.py:16
+#: students/models/students.py:12 students/templates/students/journal.html:35
+#: students/templates/students/results_list.html:21
 msgid "Student"
 msgstr "Студент"
 
-#: models/journal.py:22
+#: students/models/journal.py:22
 msgid "Date"
 msgstr "Дата"
 
-#: models/logs.py:14
+#: students/models/logs.py:14
 msgid "Event"
 msgstr "Событие"
 
-#: models/logs.py:15 templates/students/base.html:102
-#: templates/students/logs_list.html:6
+#: students/models/logs.py:15 students/templates/students/base.html:134
+#: students/templates/students/logs_list.html:6
 msgid "Events"
 msgstr "События"
 
-#: models/logs.py:18
+#: students/models/logs.py:18
 msgid "Date and time"
 msgstr "Дата и время"
 
-#: models/logs.py:24
+#: students/models/logs.py:24
 msgid "Status"
 msgstr "Статус"
 
-#: models/logs.py:29 templates/students/logs_list.html:22
+#: students/models/logs.py:29 students/templates/students/logs_list.html:22
 msgid "Signal name"
 msgstr "Имя сигнала"
 
-#: models/logs.py:34
+#: students/models/logs.py:34
 msgid "Signal text"
 msgstr "Текст сигнала"
 
-#: models/results.py:12
+#: students/models/results.py:12
 msgid "Exam results"
 msgstr "Результаты экзамена"
 
-#: models/results.py:13
+#: students/models/results.py:13
 msgid "Exams results"
 msgstr "Результаты экзаменов"
 
-#: models/results.py:28 templates/students/results_list.html:22
+#: students/models/results.py:28
+#: students/templates/students/results_list.html:22
 msgid "Mark"
 msgstr "Оценка"
 
-#: models/students.py:13 templates/students/base.html:84
-#: templates/students/students_list.html:6
+#: students/models/students.py:13 students/templates/students/base.html:116
+#: students/templates/students/students_list.html:7
 msgid "Students"
 msgstr "Студенты"
 
-#: models/students.py:18 templates/students/students_list.html:51
+#: students/models/students.py:18
+#: students/templates/students/students_list.html:52
+#: students/templates/students/user_preference.html:22
 msgid "First Name"
 msgstr "Имя"
 
-#: models/students.py:23 templates/students/students_list.html:42
+#: students/models/students.py:23
+#: students/templates/students/students_list.html:43
+#: students/templates/students/user_preference.html:29
 msgid "Last Name"
 msgstr "Фамилия"
 
-#: models/students.py:28
+#: students/models/students.py:28
 msgid "Middle Name"
 msgstr "Отчество"
 
-#: models/students.py:33
+#: students/models/students.py:33
 msgid "Birthday"
 msgstr "Дата рождения"
 
-#: models/students.py:38 templates/students/students_list.html:38
+#: students/models/students.py:38
+#: students/templates/students/students_list.html:39
 msgid "Photo"
 msgstr "Фото"
 
-#: models/students.py:43
+#: students/models/students.py:43
 msgid "Ticket"
 msgstr "Билет"
 
-#: templates/contact_admin/form.html:7 templates/contact_admin/form.html:9
+#: students/models/users.py:13
+msgid "Language"
+msgstr "Язык интерфейса"
+
+#: students/models/users.py:19
+#: students/templates/students/user_preference.html:61
+msgid "Time Zone"
+msgstr "Временная зона"
+
+#: students/templates/contact_admin/form.html:7
+#: students/templates/contact_admin/form.html:9
 msgid "Connect with administrator"
 msgstr "Связь с администратором"
 
-#: templates/contact_admin/form.html:14 templates/students/form_class.html:12
-#: templates/students/results_add.html:11
-#: templates/students/results_add_marks.html:11
-#: templates/students/results_edit_marks.html:11
+#: students/templates/contact_admin/form.html:14
+#: students/templates/students/form_class.html:12
+#: students/templates/students/form_class_anonymous.html:12
+#: students/templates/students/results_add.html:11
+#: students/templates/students/results_add_marks.html:11
+#: students/templates/students/results_edit_marks.html:11
 msgid "Please, correct the following errors"
 msgstr "Пожалуйста, исправте следуещие ошибки"
 
-#: templates/students/base.html:48
+#: students/templates/students/base.html:50
 msgid "All Students"
 msgstr "Все студенты"
 
-#: templates/students/base.html:87 templates/students/students_list.html:105
+#: students/templates/students/base.html:86
+msgid "Preference"
+msgstr "Настройки"
+
+#: students/templates/students/base.html:88
+msgid "Log out"
+msgstr "Выход"
+
+#: students/templates/students/base.html:92
+msgid "Sign in"
+msgstr "Вход"
+
+#: students/templates/students/base.html:93
+msgid "Sign up"
+msgstr "Регистрация"
+
+#: students/templates/students/base.html:119
+#: students/templates/students/students_list.html:106
 msgid "Journal"
 msgstr "Журнал"
 
-#: templates/students/base.html:96 templates/students/results.html:6
-#: templates/students/results.html:8
+#: students/templates/students/base.html:128
+#: students/templates/students/results.html:6
+#: students/templates/students/results.html:8
 msgid "Results"
 msgstr "Результаты"
 
-#: templates/students/base.html:99
+#: students/templates/students/base.html:131
 msgid "Contact"
 msgstr "Контакт"
 
-#: templates/students/exams.html:12
+#: students/templates/students/base.html:171
+msgid "Access for anonymous users is closed"
+msgstr "Для анонимных пользователей доступ закрыт"
+
+#: students/templates/students/base.html:187
+msgid "Current Time:"
+msgstr "Текущее время:"
+
+#: students/templates/students/exams.html:12
 msgid "Add Exam"
 msgstr "Добавить Экзамен"
 
-#: templates/students/exams.html:32 templates/students/results.html:33
+#: students/templates/students/exams.html:32
+#: students/templates/students/results.html:33
 msgid "Date of exam"
 msgstr "Дата экзамена"
 
-#: templates/students/exams.html:45 templates/students/groups.html:40
-#: templates/students/logs_list.html:35 templates/students/results.html:46
-#: templates/students/students_list.html:66
+#: students/templates/students/exams.html:45
+#: students/templates/students/groups.html:40
+#: students/templates/students/logs_list.html:35
+#: students/templates/students/results.html:46
+#: students/templates/students/students_list.html:67
 msgid "Actions"
 msgstr "Действия"
 
-#: templates/students/exams.html:65 templates/students/groups.html:60
-#: templates/students/logs_list.html:50 templates/students/results.html:66
-#: templates/students/students_list.html:98
+#: students/templates/students/exams.html:65
+#: students/templates/students/groups.html:60
+#: students/templates/students/logs_list.html:50
+#: students/templates/students/results.html:66
+#: students/templates/students/students_list.html:99
 msgid "Action"
 msgstr "Действие"
 
-#: templates/students/exams.html:71 templates/students/groups.html:65
-#: templates/students/logs_list.html:59
-#: templates/students/students_list.html:109
+#: students/templates/students/exams.html:71
+#: students/templates/students/groups.html:65
+#: students/templates/students/logs_list.html:59
+#: students/templates/students/students_list.html:110
 msgid "Edit"
 msgstr "Редактировать"
 
-#: templates/students/exams.html:73 templates/students/groups.html:67
-#: templates/students/logs_list.html:63 templates/students/results.html:76
-#: templates/students/students_list.html:113
+#: students/templates/students/exams.html:73
+#: students/templates/students/groups.html:67
+#: students/templates/students/logs_list.html:63
+#: students/templates/students/results.html:76
+#: students/templates/students/students_list.html:114
 msgid "Delete"
 msgstr "Удалить"
 
-#: templates/students/exams.html:88 templates/students/groups.html:82
-#: templates/students/journal.html:77 templates/students/logs_list.html:77
-#: templates/students/results.html:91
-#: templates/students/students_list.html:127
+#: students/templates/students/exams.html:88
+#: students/templates/students/groups.html:82
+#: students/templates/students/journal.html:77
+#: students/templates/students/logs_list.html:77
+#: students/templates/students/results.html:91
+#: students/templates/students/students_list.html:128
 msgid "Load More"
 msgstr "Загрузить Ещё"
 
-#: templates/students/exams.html:94
+#: students/templates/students/exams.html:94
 msgid "Currently there aren't exams in the database"
 msgstr "Пока ещё нет экзаменов в базе"
 
-#: templates/students/exams_confirm_delete.html:6
-#: templates/students/exams_confirm_delete.html:8
+#: students/templates/students/exams_confirm_delete.html:6
+#: students/templates/students/exams_confirm_delete.html:8
 msgid "Deleting Exam"
 msgstr "Удаление Экзамена"
 
-#: templates/students/exams_confirm_delete.html:18
+#: students/templates/students/exams_confirm_delete.html:18
 #, python-format
 msgid "Do you realy want to delete exam: %(object)s?"
 msgstr "Вы действительно хотите удалить экзамен: %(object)s?"
 
-#: templates/students/exams_confirm_delete.html:25
-#: templates/students/groups_confirm_delete.html:26
-#: templates/students/logs_confirm_delete.html:26
-#: templates/students/results_confirm_delete.html:26
-#: templates/students/student_confirm_delete_class.html:26
-#: templates/students/students_group_confirm_delete.html:32
+#: students/templates/students/exams_confirm_delete.html:25
+#: students/templates/students/groups_confirm_delete.html:26
+#: students/templates/students/logs_confirm_delete.html:26
+#: students/templates/students/results_confirm_delete.html:26
+#: students/templates/students/student_confirm_delete_class.html:26
+#: students/templates/students/students_group_confirm_delete.html:32
 msgid "Yes"
 msgstr "Да"
 
-#: templates/students/exams_confirm_delete.html:27
-#: templates/students/groups_confirm_delete.html:28
-#: templates/students/logs_confirm_delete.html:28
-#: templates/students/results_add.html:46
-#: templates/students/results_add_marks.html:45
-#: templates/students/results_confirm_delete.html:28
-#: templates/students/results_edit_marks.html:45
-#: templates/students/student_confirm_delete_class.html:28
-#: templates/students/students_group_confirm_delete.html:34 views/exams.py:110
-#: views/groups.py:76 views/groups.py:141 views/logs.py:77
-#: views/students.py:160
+#: students/templates/students/exams_confirm_delete.html:27
+#: students/templates/students/groups_confirm_delete.html:28
+#: students/templates/students/logs_confirm_delete.html:28
+#: students/templates/students/results_add.html:46
+#: students/templates/students/results_add_marks.html:45
+#: students/templates/students/results_confirm_delete.html:28
+#: students/templates/students/results_edit_marks.html:45
+#: students/templates/students/student_confirm_delete_class.html:28
+#: students/templates/students/students_group_confirm_delete.html:34
+#: students/templates/students/user_preference.html:92
+#: students/views/exams.py:110 students/views/groups.py:76
+#: students/views/groups.py:141 students/views/logs.py:77
+#: students/views/students.py:161 students/views/user.py:71
+#: students/views/user.py:148
 msgid "Cancel"
 msgstr "Отменить"
 
-#: templates/students/groups.html:13
+#: students/templates/students/groups.html:13
 msgid "Add Group"
 msgstr "Добавить Группу"
 
-#: templates/students/groups.html:32
+#: students/templates/students/groups.html:32
 msgid "Name"
 msgstr "Название"
 
-#: templates/students/groups.html:88
+#: students/templates/students/groups.html:88
 msgid "Currently there aren't groups in the database"
 msgstr "Пока еще нет групп в базе"
 
-#: templates/students/groups_confirm_delete.html:6
-#: templates/students/groups_confirm_delete.html:8
+#: students/templates/students/groups_confirm_delete.html:6
+#: students/templates/students/groups_confirm_delete.html:8
 msgid "Deleting Group"
 msgstr "Удаление Группы"
 
-#: templates/students/groups_confirm_delete.html:19
+#: students/templates/students/groups_confirm_delete.html:19
 #, python-format
 msgid "Do you realy want to detele group: %(object)s?"
 msgstr "Вы действительно хотите удалить группу: %(object)s?"
 
-#: templates/students/journal.html:6 templates/students/journal.html:8
+#: students/templates/students/journal.html:6
+#: students/templates/students/journal.html:8
 msgid "Accounting Visits"
 msgstr "Журнал Посещений"
 
-#: templates/students/journal.html:17
+#: students/templates/students/journal.html:17
 msgid ""
 "Changes in journal page save automatically at every click on the table cell."
 msgstr ""
 "Изменения на странице журнала сохраняються автоматически при каждом клике на "
 "ячейке таблицы"
 
-#: templates/students/journal.html:18
+#: students/templates/students/journal.html:18
 msgid "Is saving"
 msgstr "Сохранение"
 
-#: templates/students/journal.html:83
+#: students/templates/students/journal.html:83
 msgid "Currently there aren't students in the database. Please,"
 msgstr "Пока еще нет студентова в базе. Пожалуйста,"
 
-#: templates/students/journal.html:84
+#: students/templates/students/journal.html:84
 msgid "add"
 msgstr "добавить"
 
-#: templates/students/journal.html:84
+#: students/templates/students/journal.html:84
 msgid "first"
 msgstr "первого"
 
-#: templates/students/log_info.html:6
+#: students/templates/students/log_info.html:6
 msgid "Event Info"
 msgstr "Информация про Событие"
 
-#: templates/students/log_info.html:8
+#: students/templates/students/log_info.html:8
 msgid "About Event"
 msgstr "О Событии"
 
-#: templates/students/log_info.html:17
+#: students/templates/students/log_info.html:17
 msgid "Detail"
 msgstr "Детали"
 
-#: templates/students/logs_confirm_delete.html:6
-#: templates/students/logs_confirm_delete.html:8
+#: students/templates/students/logs_confirm_delete.html:6
+#: students/templates/students/logs_confirm_delete.html:8
 msgid "Deleting Event"
 msgstr "Удаление События"
 
-#: templates/students/logs_confirm_delete.html:19
+#: students/templates/students/logs_confirm_delete.html:19
 #, python-format
 msgid "Do you realy want to delete event: \"%(object)s\"?"
 msgstr "Вы действительно хотите удалить событие: \"%(object)s\"?"
 
-#: templates/students/logs_list.html:8
+#: students/templates/students/logs_list.html:8
 msgid "Event Recors"
 msgstr "Запись События"
 
-#: templates/students/logs_list.html:27
+#: students/templates/students/logs_list.html:27
 msgid "Level"
 msgstr "Уровень"
 
-#: templates/students/logs_list.html:32
+#: students/templates/students/logs_list.html:32
 msgid "Timing"
 msgstr "Время события"
 
-#: templates/students/logs_list.html:56
+#: students/templates/students/logs_list.html:56
 msgid "Show details"
 msgstr "Показать детали"
 
-#: templates/students/logs_list.html:85
+#: students/templates/students/logs_list.html:85
 msgid "Currently there aren't logs in the database"
 msgstr "Пока еще нет событий в базе"
 
-#: templates/students/results.html:13
+#: students/templates/students/results.html:13
 msgid "Add Result"
 msgstr "Добавить Результат"
 
-#: templates/students/results.html:72
+#: students/templates/students/results.html:72
 msgid "Show results"
 msgstr "Показать результаты"
 
-#: templates/students/results.html:74
+#: students/templates/students/results.html:74
 msgid "Edit results"
 msgstr "Редактировать результаты"
 
-#: templates/students/results.html:97
+#: students/templates/students/results.html:97
 msgid "Currently there aren't results in the database"
 msgstr "Пока еще нет результатов в базе"
 
-#: templates/students/results_add.html:6
-#: templates/students/results_add.html:15
-#: templates/students/results_add_marks.html:6
-#: templates/students/results_add_marks.html:15
+#: students/templates/students/results_add.html:6
+#: students/templates/students/results_add.html:15
+#: students/templates/students/results_add_marks.html:6
+#: students/templates/students/results_add_marks.html:15
 msgid "Adding Exam Results"
 msgstr "Добавление Результатов Экзамена"
 
-#: templates/students/results_add.html:30
+#: students/templates/students/results_add.html:30
 msgid "Select completed exam"
 msgstr "Вибрать завершенный экзамен"
 
-#: templates/students/results_add.html:43
+#: students/templates/students/results_add.html:43
 msgid "Next"
 msgstr "Далее"
 
-#: templates/students/results_add_marks.html:32
-#: templates/students/results_edit_marks.html:32
+#: students/templates/students/results_add_marks.html:32
+#: students/templates/students/results_edit_marks.html:32
 msgid "Enter mark from 0 to 12"
 msgstr "Введите оценку от 0 до 12"
 
-#: templates/students/results_add_marks.html:42
-#: templates/students/results_edit_marks.html:42 views/exams.py:105
-#: views/groups.py:140 views/logs.py:76 views/students.py:155
+#: students/templates/students/results_add_marks.html:42
+#: students/templates/students/results_edit_marks.html:42
+#: students/templates/students/user_preference.html:90
+#: students/views/exams.py:105 students/views/groups.py:140
+#: students/views/logs.py:76 students/views/students.py:156
 msgid "Save"
 msgstr "Сохранить"
 
-#: templates/students/results_confirm_delete.html:6
-#: templates/students/results_confirm_delete.html:8
+#: students/templates/students/results_confirm_delete.html:6
+#: students/templates/students/results_confirm_delete.html:8
 msgid "Deleting Exam Results"
 msgstr "Удаление Результатов Экзаменов"
 
-#: templates/students/results_confirm_delete.html:19
+#: students/templates/students/results_confirm_delete.html:19
 msgid "Do you realy want to delete results of exam: "
 msgstr "Вы действительно хотите удалить результаты экзамена: "
 
-#: templates/students/results_edit_marks.html:6
-#: templates/students/results_edit_marks.html:15
+#: students/templates/students/results_edit_marks.html:6
+#: students/templates/students/results_edit_marks.html:15
 msgid "Editing Exam Results"
 msgstr "Редактирование Результатов Экзамена"
 
-#: templates/students/results_list.html:6
-#: templates/students/results_list.html:8
+#: students/templates/students/results_list.html:6
+#: students/templates/students/results_list.html:8
 msgid "Exam Results"
 msgstr "Результаты Экзамена"
 
-#: templates/students/student_confirm_delete_class.html:6
-#: templates/students/student_confirm_delete_class.html:8
+#: students/templates/students/student_confirm_delete_class.html:6
+#: students/templates/students/student_confirm_delete_class.html:8
 msgid "Deleting Student"
 msgstr "Удаление Студента"
 
-#: templates/students/student_confirm_delete_class.html:19
+#: students/templates/students/student_confirm_delete_class.html:19
 #, python-format
 msgid "Do you realy want to delete student: \"%(object)s\"?"
 msgstr "Вы действительно хотите удалить информацию о студенте: \"%(object)s\"?"
 
-#: templates/students/students_group_confirm_delete.html:6
-#: templates/students/students_group_confirm_delete.html:8
+#: students/templates/students/students_group_confirm_delete.html:6
+#: students/templates/students/students_group_confirm_delete.html:8
 msgid "Deleting Selected Students"
 msgstr "Удаление Выбраных Студентов"
 
-#: templates/students/students_group_confirm_delete.html:19
+#: students/templates/students/students_group_confirm_delete.html:19
 msgid "Do you realy want to delete this students"
 msgstr "Вы действительно хотите удалить информацию об этих студентах"
 
-#: templates/students/students_list.html:8
+#: students/templates/students/students_list.html:9
 msgid "Students List"
 msgstr "Список Студентов"
 
-#: templates/students/students_list.html:13
+#: students/templates/students/students_list.html:14
 msgid "Add Student"
-msgstr "Добввить Студента"
+msgstr "Добавить Студента"
 
-#: templates/students/students_list.html:60
+#: students/templates/students/students_list.html:61
 msgid "Ticket #"
 msgstr "№ Билета"
 
-#: templates/students/students_list.html:136
+#: students/templates/students/students_list.html:137
 msgid "Delete selected students"
 msgstr "Удаление вибранных студентов"
 
-#: templates/students/students_list.html:138
+#: students/templates/students/students_list.html:139
 msgid "Execute"
 msgstr "Выполнить"
 
-#: templates/students/students_list.html:145
+#: students/templates/students/students_list.html:146
 msgid "Currently there aren't students in the database"
 msgstr "Пока еще нет студентов в базе"
 
-#: views/contact_admin.py:40
+#: students/templates/students/user_preference.html:7
+#: students/templates/students/user_preference.html:9
+msgid "User Settings"
+msgstr "Настройки Пользователя"
+
+#: students/templates/students/user_preference.html:18
+msgid "User Name"
+msgstr "Имя Пользователя"
+
+#: students/templates/students/user_preference.html:25
+msgid "Enter your first name"
+msgstr "Введите свое имя"
+
+#: students/templates/students/user_preference.html:32
+msgid "Enter your last name"
+msgstr "Введите свою фамилию"
+
+#: students/templates/students/user_preference.html:36
+msgid "Email"
+msgstr "Эмейл"
+
+#: students/templates/students/user_preference.html:39
+msgid "Enter your email"
+msgstr "Введите свое эмейл"
+
+#: students/templates/students/user_preference.html:43
+msgid "Select Language"
+msgstr "Язык интерфейса"
+
+#: students/templates/students/user_preference.html:48
+msgid "English"
+msgstr "Английский"
+
+#: students/templates/students/user_preference.html:51
+msgid "Ukrainian"
+msgstr "Украинский"
+
+#: students/templates/students/user_preference.html:54
+msgid "Russian"
+msgstr "Русский"
+
+#: students/templates/students/user_preference.html:65
+msgid "Choose your time zone"
+msgstr "Выберите свою временную зону"
+
+#: students/templates/students/user_preference.html:73
+msgid "New Password"
+msgstr "Новый Пароль"
+
+#: students/templates/students/user_preference.html:76
+msgid "Enter your new password"
+msgstr "Введите ваш новый пароль"
+
+#: students/templates/students/user_preference.html:80
+msgid "Password Confirmation"
+msgstr "Подтверджение пароля"
+
+#: students/templates/students/user_preference.html:83
+msgid "Enter confirmation of your new password"
+msgstr "Введите подтвердждение вашего нового пароля"
+
+#: students/views/contact_admin.py:40
 msgid "Submit"
 msgstr "Отправить"
 
-#: views/contact_admin.py:61
-msgid "Letter send successfully"
-msgstr "Письму успешно отправленно"
+#: students/views/contact_admin.py:43
+msgid "Your Email Address"
+msgstr "Ваш Электронний Адрес"
 
-#: views/contact_admin.py:63
+#: students/views/contact_admin.py:46
+msgid "Message header"
+msgstr "Оглавление сообщения"
+
+#: students/views/contact_admin.py:50
+msgid "Message text"
+msgstr "Текст сообщения"
+
+#: students/views/contact_admin.py:62
+msgid "Letter send successfully"
+msgstr "Письмо успешно отправленно"
+
+#: students/views/contact_admin.py:64
 msgid ""
 "When senging mail unexpected error ocured. Please try this service later"
 msgstr "Во время отправки письма случилась ошибка. Пожалуйста попробуйте позже"
 
-#: views/exams.py:66
+#: students/views/exams.py:66
 msgid "Please, type subject name"
 msgstr "Введите название предмета"
 
-#: views/exams.py:68
+#: students/views/exams.py:68
 msgid "e.g. 2016-12-12 10:00"
 msgstr "напр. 2016-12-12 10:00"
 
-#: views/exams.py:70
+#: students/views/exams.py:70
 msgid "Please, type teacher's surname and initials"
 msgstr "Пожалуйста, ввдедите фамилию и инициалы учителя"
 
-#: views/exams.py:72
+#: students/views/exams.py:72
 msgid "Additional informantion about exam"
 msgstr "Дополнительная информация о экзамене"
 
-#: views/exams.py:103 views/groups.py:75 views/students.py:153
+#: students/views/exams.py:103 students/views/groups.py:75
+#: students/views/students.py:154
 msgid "Add"
 msgstr "Добавить"
 
-#: views/exams.py:122
+#: students/views/exams.py:122
 #, python-format
 msgid "Exav %s added successfully"
 msgstr "Экзамен %s успешно добавлен"
 
-#: views/exams.py:127
+#: students/views/exams.py:127
 msgid "Adding Exam"
 msgstr "Добавление Єкзамена"
 
-#: views/exams.py:132
+#: students/views/exams.py:132
 msgid "Adding exam canceled"
 msgstr "Добавление єкзамена отменено"
 
-#: views/exams.py:145
+#: students/views/exams.py:145
 #, python-format
 msgid "Exam %s saved successfully"
 msgstr "Экзамен %s успешно сохранен"
 
-#: views/exams.py:150
+#: students/views/exams.py:150
 msgid "Editing Exam"
 msgstr "Редактирование Экзамена"
 
-#: views/exams.py:155
+#: students/views/exams.py:155
 msgid "Editing exam canceled"
 msgstr "Редактирование экзамена отменено"
 
-#: views/exams.py:167
+#: students/views/exams.py:167
 #, python-format
 msgid "Exam %s deleted successfully"
 msgstr "Экзамен %s успешно удален"
 
-#: views/exams.py:172
+#: students/views/exams.py:172
 msgid "Deleting exam canceled"
 msgstr "Удаление экзамена отменено"
 
-#: views/groups.py:50 views/groups.py:113
+#: students/views/groups.py:50 students/views/groups.py:113
 msgid "Type group's title"
 msgstr "Введите название группы"
 
-#: views/groups.py:52
+#: students/views/groups.py:52
 msgid "Additional information about group"
 msgstr "Дополнительная информация о группе"
 
-#: views/groups.py:89
+#: students/views/groups.py:89
 #, python-format
 msgid "Group %s added successfully"
 msgstr "Группа %s успешно добавлена"
 
-#: views/groups.py:95
+#: students/views/groups.py:95
 msgid "Adding Group"
 msgstr "Добавление Группы"
 
-#: views/groups.py:101
+#: students/views/groups.py:101
 msgid "Adding group canceled"
 msgstr "Добавление группы отменено"
 
-#: views/groups.py:115
+#: students/views/groups.py:115
 msgid "Addiotional information about group"
 msgstr "Дополнительная информация о группе"
 
-#: views/groups.py:153
+#: students/views/groups.py:153
 #, python-format
 msgid "Group %s saved successfully"
 msgstr "Группа %s успешно сохранена"
 
-#: views/groups.py:158
+#: students/views/groups.py:158
 msgid "Editing Group"
 msgstr "Редактирование Группы"
 
-#: views/groups.py:163
+#: students/views/groups.py:163
 msgid "Editing group canceled"
 msgstr "Редактирование группы отменено"
 
-#: views/groups.py:175
+#: students/views/groups.py:175
 #, python-format
 msgid "Group %s deleted successfully"
 msgstr "Група %s успешно удалена"
 
-#: views/groups.py:180
+#: students/views/groups.py:180
 msgid "Deleting group calceled"
 msgstr "Удаление группы отменено"
 
-#: views/journal.py:119
+#: students/views/journal.py:119
 msgid "Forbidden to change status future visits!"
 msgstr "Запрещено изменять статус будущих посещений"
 
-#: views/logs.py:46
+#: students/views/logs.py:46
 msgid "Please enter subject name"
 msgstr "Введите название предмета"
 
-#: views/logs.py:50
+#: students/views/logs.py:50
 msgid "Please enter event time"
 msgstr "Введите время события"
 
-#: views/logs.py:52
+#: students/views/logs.py:52
 msgid "Detailed information about event"
 msgstr "Подробная информация о собитии"
 
-#: views/logs.py:88
+#: students/views/logs.py:88
 #, python-format
 msgid "Event %s saved successfully"
 msgstr "Событие %s успешно сохранено"
 
-#: views/logs.py:93
+#: students/views/logs.py:93
 msgid "Editing event"
 msgstr "Редактирование события"
 
-#: views/logs.py:98
+#: students/views/logs.py:98
 msgid "Editing event canceled"
 msgstr "Редактирование события отменено"
 
-#: views/logs.py:109
+#: students/views/logs.py:109
 #, python-format
 msgid "Event %s deleted successfully"
 msgstr "Событие %s успешно удалено"
 
-#: views/logs.py:114
+#: students/views/logs.py:114
 msgid "Deleting event canceled"
 msgstr "Удаление собития отменено"
 
-#: views/results.py:58
+#: students/views/results.py:58
 msgid "Entry results of exam canceled"
 msgstr "Добавление результатов экзмена отменено"
 
-#: views/results.py:72 views/results.py:131
+#: students/views/results.py:72 students/views/results.py:131
 msgid "Please enter the number from 0 to 12"
 msgstr "Введите число от 0 до 12"
 
-#: views/results.py:79 views/results.py:139
+#: students/views/results.py:79 students/views/results.py:139
 msgid "Please enter mark from 0 to 12"
 msgstr "Введите оценку от 0 до 12"
 
-#: views/results.py:81 views/results.py:141
+#: students/views/results.py:81 students/views/results.py:141
 msgid "Please enter student's mark"
 msgstr "Введите оценку студента"
 
-#: views/results.py:88
+#: students/views/results.py:88
 #, python-format
 msgid "Information about results of exam %s added successfully"
 msgstr "Информация о результатах экзмена %s успешно добавлено"
 
-#: views/results.py:96
+#: students/views/results.py:96
 msgid "Adding results of exam canceled"
 msgstr "Добавление результатов экзамена отменено"
 
-#: views/results.py:106
+#: students/views/results.py:106
 msgid "Plese select completion exam"
 msgstr "Пожалуйста выберите завершенный экзамен"
 
-#: views/results.py:108
+#: students/views/results.py:108
 msgid "Please select exam"
 msgstr "Пожалуйста выберите экзамен"
 
-#: views/results.py:117
+#: students/views/results.py:117
 msgid "Editing results of exam canceled"
 msgstr "Редактирование результатов экзамена отменено"
 
-#: views/results.py:147
+#: students/views/results.py:147
 #, python-format
 msgid "Information about results of exam %s edited successfully"
 msgstr "Информация о результатах экзамена %s успешно сохранена"
 
-#: views/results.py:164
+#: students/views/results.py:164
 msgid "Deleting results of exam canceled"
 msgstr "Удаление результатов экзамена отменено"
 
-#: views/results.py:172
+#: students/views/results.py:172
 #, python-format
 msgid "Information about results of exam %s deleted successfully"
 msgstr "Информация о результатах экзамена %s успешно удалена"
 
-#: views/results.py:178
+#: students/views/results.py:178
 msgid "There was an error on the server. Please try again later"
 msgstr ""
+"На сервере случилась непредвиденная ошибка. Пожалуйста попробуйте позже"
 
-#: views/students.py:69
+#: students/views/students.py:70
 msgid "Please, select student from list"
 msgstr "Пожалуйста, выберите студента из списка"
 
-#: views/students.py:77
+#: students/views/students.py:78
 msgid "Please, select at least one student"
 msgstr "Пожалуйста, выберите хотя бы одного студента"
 
-#: views/students.py:81
+#: students/views/students.py:82
 msgid "Please, select the desired action"
 msgstr "Пожалуйста, выберите желаемое действие"
 
-#: views/students.py:93
+#: students/views/students.py:94
 msgid "Students successfully removed"
 msgstr "Студента успешно удалено"
 
-#: views/students.py:96
+#: students/views/students.py:97
 msgid "Selected students can't delete, try later"
 msgstr "Выбраных студентов не удается удалить, попробуйте позже"
 
-#: views/students.py:99
+#: students/views/students.py:100
 msgid "Delete of selected student canceled"
 msgstr "Удаление выбраных студентов отменено"
 
-#: views/students.py:112
+#: students/views/students.py:113
 msgid "Please, type student's first name"
 msgstr "Введите имя студента"
 
-#: views/students.py:114
+#: students/views/students.py:115
 msgid "Please, type student's last name"
 msgstr "Введите фамилию студента"
 
-#: views/students.py:116
+#: students/views/students.py:117
 msgid "Please, type student's middle name"
 msgstr "Введите отчество студента"
 
-#: views/students.py:118
+#: students/views/students.py:119
 msgid "e.g. 1984-06-17"
 msgstr "напр. 1984-06-17"
 
-#: views/students.py:119
+#: students/views/students.py:120
 msgid "e.g. 123"
 msgstr "напр. 123"
 
-#: views/students.py:121
+#: students/views/students.py:122
 msgid "Aditional information"
 msgstr "Дополнительная информация"
 
-#: views/students.py:172
+#: students/views/students.py:173
 msgid "Student is leader of other group"
 msgstr "Студент есть старостой другой группы"
 
-#: views/students.py:179
+#: students/views/students.py:180
 msgid "Student's age can't be less then 17 years"
 msgstr "Возраст студента не может быть меньше 17"
 
-#: views/students.py:192
+#: students/views/students.py:193
 #, python-format
 msgid "Student %s created successfully"
 msgstr "Студент %s успешно создан"
 
-#: views/students.py:198
+#: students/views/students.py:199
 msgid "Adding Student"
 msgstr "Добавление Студента"
 
-#: views/students.py:204
+#: students/views/students.py:205
 msgid "Adding student canceled"
 msgstr "Добавление студента отменено"
 
-#: views/students.py:218
+#: students/views/students.py:219
 #, python-format
 msgid "Student %s saved successfully!"
 msgstr "Студент %s успешно сохранен"
 
-#: views/students.py:224
+#: students/views/students.py:225
 msgid "Editing student"
 msgstr "Редактирование студента"
 
-#: views/students.py:230
+#: students/views/students.py:231
 msgid "Editing student canceled!"
 msgstr "Редактирование студента отменено"
 
-#: views/students.py:243
+#: students/views/students.py:244
 #, python-format
 msgid "Student %s deleted successfully"
 msgstr "Студент %s успешно удалено"
 
-#: views/students.py:249
+#: students/views/students.py:250
 msgid "Deleting student canceled"
 msgstr "Удаление студента отменено"
 
-#~ msgid ""
-#~ "Do you realy want to delete results of exam: %(exam.name)s (%(exam."
-#~ "exam_group.title)s, %(exam.date)s)?"
-#~ msgstr ""
-#~ "Вы действительно хотите удалить результаты экзамена: %(exam.name)s "
-#~ "(%(exam.exam_group.title)s, %(exam.date)s)?"
+#: students/views/user.py:28
+msgid "Select your time zone"
+msgstr "Выберите вашу временную зону"
 
-#~ msgid "Your Email Address"
-#~ msgstr "Ваш Электронний Адрес"
+#: students/views/user.py:35
+msgid "Please, enter your username"
+msgstr "Введите имя пользователя"
 
-#~ msgid "Message header"
-#~ msgstr "Оглавление сообщения"
+#: students/views/user.py:37
+msgid "Please, enter your last name"
+msgstr "Введите вашу фамилию"
 
-#~ msgid "Message text"
-#~ msgstr "Текст сообщения"
+#: students/views/user.py:39
+msgid "Please, enter your first name"
+msgstr "Введите ваше имя"
+
+#: students/views/user.py:41
+msgid "Please, enter your email"
+msgstr "Введите ваш эмейл"
+
+#: students/views/user.py:47
+msgid "Please, enter your password"
+msgstr "Введите ваш пароль"
+
+#: students/views/user.py:70
+msgid "Register"
+msgstr "Зарегистрировать"
+
+#: students/views/user.py:82
+#, python-format
+msgid "User %s registered successfully"
+msgstr "Пользователь %s успешно создан"
+
+#: students/views/user.py:84
+msgid ""
+"When registration new user unexpected error ocured. Please try this service "
+"later"
+msgstr ""
+"Во время регистрации нового пользователя случилась непредвиденная ошибка. "
+"Пожалуйста попробуйте позже"
+
+#: students/views/user.py:89
+msgid "User Regiser"
+msgstr "Регистрация Пользователя"
+
+#: students/views/user.py:94
+msgid "Register user canceled"
+msgstr "Регистрация пользователя отменена"
+
+#: students/views/user.py:147
+msgid "Login"
+msgstr "Имя пользователя"
+
+#: students/views/user.py:158
+msgid "You authorization successfully"
+msgstr "Вы успешно авторизированы"
+
+#: students/views/user.py:160
+msgid ""
+"When you try to log unexpected error ocured. Please try this service later"
+msgstr ""
+"Во время попытки входа случилась непредвиденная ошибка. Пожалуйста "
+"попробуйте позже"
+
+#: students/views/user.py:165
+msgid "Authorization"
+msgstr "Авторизация Пользователя"
+
+#: students/views/user.py:170
+msgid "Authorization canceled"
+msgstr "Авторизация пользователя отменена"
+
+#: students/views/user.py:183
+#, python-format
+msgid "You're logged in as %s"
+msgstr "Вы вошли как %s"
+
+#: students/views/user.py:186
+msgid "User with such username or password doesn't exist"
+msgstr "Пользователь с таким логином или паролем не существует"
+
+#: students/views/user.py:197
+msgid "Changing user settings canceled"
+msgstr "Редактирование настроек пользователя отменено"
+
+#: students/views/user.py:239 students/views/user.py:245
+msgid "User settings changed successfully"
+msgstr "Настройки пользователя успешно изменены"
+
+#: students/views/user.py:242
+msgid "Both passwords must be the same"
+msgstr "Оба пароля должны быть идентичными"

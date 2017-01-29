@@ -40,14 +40,14 @@ class ContactForm(forms.Form):
         self.helper.add_input(Submit('send_button', _(u'Submit')))
 
     from_email = forms.EmailField(
-        label=_lazy(u"Your Email Address"))
+        label=_(u"Your Email Address"))
 
     subject = forms.CharField(
-        label=_lazy(u"Message header"),
+        label=_(u"Message header"),
         max_length=128)
 
     message = forms.CharField(
-        label=_lazy(u"Message text"),
+        label=_(u"Message text"),
         max_length=2560,
         widget=forms.Textarea)
 

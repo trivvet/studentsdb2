@@ -17,6 +17,7 @@ from crispy_forms.layout import Layout, Submit, Button
 
 from ..models.students import Student
 from ..models.groups import Group
+from ..models.logs import LogEntry
 from ..util import paginate, get_current_group
 
 # Student List
@@ -222,7 +223,6 @@ class StudentUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(StudentUpdateView, self).get_context_data(**kwargs)
         context['title'] = _(u'Editing student')
-        import pdb; pdb.set_trace()
         return context
 
     # if cancel_button is pressed return home page

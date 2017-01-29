@@ -52,6 +52,10 @@ class Student(models.Model):
     notes = models.TextField(
         blank=True,
         verbose_name=_(u"Additional notes"))
+
+    time_change = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_(u"Time of last modification"))
         
     def __unicode__(self):
         return u"%s %s" % (self.first_name, self.last_name)

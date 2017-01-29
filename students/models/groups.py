@@ -27,6 +27,10 @@ class Group(models.Model):
         blank=True,
         verbose_name=_(u"Additional notes"))
 
+    time_change = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_(u"Time of last modification"))
+
     def __unicode__(self):
         if self.leader:
             return u"%s (%s %s)" % (self.title, self.leader.first_name,

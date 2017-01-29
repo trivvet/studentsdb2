@@ -28,6 +28,10 @@ class Result(models.Model):
         verbose_name = _(u"Mark"),
         blank = False)
 
+    time_change = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_(u"Time of last modification"))
+
     def __unicode__(self):
         return u"%s %s (%s %s)" % (self.result_student.last_name, 
             self.result_student.first_name, self.result_exam.name,
