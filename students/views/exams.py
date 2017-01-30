@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DeleteView, CreateView, UpdateView
 from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _l
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -63,13 +64,13 @@ class ExamAddForm(forms.ModelForm):
         fields = ['name', 'date', 'teacher_name', 'exam_group', 'notes']
         widgets = {
             'name': forms.TextInput(
-                attrs={'placeholder': _(u"Please, type subject name")}),
+                attrs={'placeholder': _l(u"Please, type subject name")}),
             'date': forms.DateTimeInput(
-                attrs={'placeholder': _(u"e.g. 2016-12-12 10:00")}),
+                attrs={'placeholder': _l(u"e.g. 2016-12-12 10:00")}),
             'teacher_name': forms.TextInput(
-                attrs={'placeholder': _(u"Please, type teacher's surname and initials")}),
+                attrs={'placeholder': _l(u"Please, type teacher's surname and initials")}),
             'notes': forms.Textarea(
-                attrs={'placeholder': _(u"Additional informantion about exam"),
+                attrs={'placeholder': _l(u"Additional informantion about exam"),
                        'rows': '3'}),
         }
 

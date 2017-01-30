@@ -4,6 +4,8 @@ from django.contrib import admin
 from django.forms import ModelForm, ValidationError
 from django.shortcuts import reverse
 
+from modeltranslation.admin import TranslationAdmin
+
 from .models import Student, Group, Exam, Result, MonthJournal, LogEntry
 
 class StudentFormAdmin(ModelForm):
@@ -19,7 +21,7 @@ class StudentFormAdmin(ModelForm):
         else:
             return self.cleaned_data['student_group']
 
-class StudentAdmin(admin.ModelAdmin):
+class StudentAdmin(TranslationAdmin):
     list_display = ['last_name', 'first_name', 'ticket', 'student_group']
     list_display_links = ['last_name', 'first_name']
     list_editable = ['student_group']
@@ -29,6 +31,16 @@ class StudentAdmin(admin.ModelAdmin):
     search_fields = ['last_name', 'first_name', 'middle_name', 'ticket', 'notes']
     form = StudentFormAdmin
     actions = ['made_copies']
+
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
 
     def view_on_site(self, obj):
         return reverse('students_edit', kwargs={'pk': obj.id})
@@ -77,3 +89,6 @@ admin.site.register(Group, GroupAdmin)
 admin.site.register(Exam)
 admin.site.register(Result)
 admin.site.register(LogEntry)
+
+
+

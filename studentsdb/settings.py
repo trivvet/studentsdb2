@@ -36,6 +36,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'students',
-    'modeltranslation',
 ]
 
 MIDDLEWARE = [
@@ -186,6 +186,7 @@ USE_I18N = True
 LANGUAGE_CODE = 'uk'
 
 gettext = lambda s: s
+
 LANGUAGES = (
     ('en', gettext('English')),
     ('uk', gettext('Ukrainian')),

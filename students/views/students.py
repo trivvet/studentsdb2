@@ -11,6 +11,7 @@ from django.utils import translation, timezone
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.forms import ModelForm, ValidationError
 from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _l
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -109,25 +110,25 @@ def students_list(request):
 class StudentForm(TranslationModelForm):
     class Meta:
         model = Student
-        fields = ['first_name', 'last_name', 'middle_name', 'birthday',
+        fields = ['first_name', 'first_name', 'last_name', 'middle_name', 'birthday',
               'photo', 'student_group', 'ticket', 'notes']
-        
         widgets = {
             'first_name': forms.TextInput(
-                attrs={'placeholder': _(u"Please, type student's first name")}),
+                attrs={'placeholder': _l(u"Please, type student's first name")}),
             'last_name': forms.TextInput(
-                attrs={'placeholder': _(u"Please, type student's last name")}),
+                attrs={'placeholder': _l(u"Please, type student's last name")}),
             'middle_name': forms.TextInput(
-                attrs={'placeholder': _(u"Please, type student's middle name")}),
+                attrs={'placeholder': _l(u"Please, type student's middle name")}),
             'birthday': forms.DateInput(
-                attrs={'placeholder': _(u"e.g. 1984-06-17")}),
-            'ticket': forms.TextInput(attrs={'placeholder': _(u"e.g. 123")}),
+                attrs={'placeholder': _l(u"e.g. 1984-06-17")}),
+            'ticket': forms.TextInput(attrs={'placeholder': _l(u"e.g. 123")}),
             'notes': forms.Textarea(
-                attrs={'placeholder': _(u"Aditional information"),
+                attrs={'placeholder': _l(u"Aditional information"),
                        'rows': '3'}),
         }
 
     def __init__(self, *args, **kwargs):
+        translation.activate('en')
         super(StudentForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
 

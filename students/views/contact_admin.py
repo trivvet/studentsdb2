@@ -8,7 +8,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.views.generic import FormView
 from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy as _lazy
+from django.utils.translation import ugettext_lazy as _l
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -40,14 +40,14 @@ class ContactForm(forms.Form):
         self.helper.add_input(Submit('send_button', _(u'Submit')))
 
     from_email = forms.EmailField(
-        label=_(u"Your Email Address"))
+        label=_l(u"Your Email Address"))
 
     subject = forms.CharField(
-        label=_(u"Message header"),
+        label=_l(u"Message header"),
         max_length=128)
 
     message = forms.CharField(
-        label=_(u"Message text"),
+        label=_l(u"Message text"),
         max_length=2560,
         widget=forms.Textarea)
 

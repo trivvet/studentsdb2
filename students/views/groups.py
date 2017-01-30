@@ -5,6 +5,7 @@ from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DeleteView, CreateView, UpdateView
 from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _l
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -47,9 +48,9 @@ class GroupAddForm(forms.ModelForm):
         fields = ['title', 'notes']
         widgets = {
             'title': forms.TextInput(
-                attrs={'placeholder': _(u"Type group's title")}),
+                attrs={'placeholder': _l(u"Type group's title")}),
             'notes': forms.Textarea(
-                attrs={'placeholder': _(u"Additional information about group"),
+                attrs={'placeholder': _l(u"Additional information about group"),
                        'rows': '3'}),
         }
 

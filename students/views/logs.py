@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views.generic import TemplateView, DeleteView, UpdateView
 from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _l
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -43,13 +44,13 @@ class LogUpdateForm(forms.ModelForm):
         fields = ['signal', 'status', 'log_datetime', 'info']
         widgets = {
             'signal': forms.TextInput(
-                attrs={'placeholder': _(u"Please enter subject name")}),
+                attrs={'placeholder': _l(u"Please enter subject name")}),
             'status': forms.Select(
                 choices=(("INFO", "INFO"), ("DEBUG", "DEBUG"), ("WARNING", "WARNING"), ("ERROR", "ERROR"), ("CRITICAL", "CRITICAL"))),
             'teacher_name': forms.DateTimeInput(
-                attrs={'placeholder': _(u"Please enter event time")}),
+                attrs={'placeholder': _l(u"Please enter event time")}),
             'info': forms.Textarea(
-                attrs={'placeholder': _(u"Detailed information about event"),
+                attrs={'placeholder': _l(u"Detailed information about event"),
                        'rows': '10'}),
         }
 

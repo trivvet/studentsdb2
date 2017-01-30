@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.utils import translation, timezone
 from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy as _lazy
+from django.utils.translation import ugettext_lazy as _l
 from django.utils.deprecation import MiddlewareMixin
 from django.forms import ValidationError
 
@@ -32,19 +32,19 @@ class UserRegisterForm(forms.ModelForm):
         fields = ['username', 'last_name', 'first_name', 'email', 'language', 'time_zone', 'password']
         widgets = {
             'username': forms.TextInput(
-                attrs={'placeholder': _(u"Please, enter your username")}),
+                attrs={'placeholder': _l(u"Please, enter your username")}),
             'last_name': forms.TextInput(
-                attrs={'placeholder': _(u"Please, enter your last name")}),
+                attrs={'placeholder': _l(u"Please, enter your last name")}),
             'first_name': forms.TextInput(
-                attrs={'placeholder': _(u"Please, enter your first name")}),
+                attrs={'placeholder': _l(u"Please, enter your first name")}),
             'email': forms.EmailInput(
-                attrs={'placeholder': _(u"Please, enter your email")}),
+                attrs={'placeholder': _l(u"Please, enter your email")}),
             'language': forms.Select(
-                choices=(("en", "English"), ("uk", "Ukranian"), ("ru", "Russian"))),
+                choices=(("en", _l(u"English")), ("uk", _l(u"Ukranian")), ("ru", _l("Russian")))),
             'time_zone': forms.Select(
                 choices=choices_list),
             'password': forms.PasswordInput(
-                attrs={'placeholder': _(u"Please, enter your password")},
+                attrs={'placeholder': _l(u"Please, enter your password")},
                 render_value=False),
         }
 

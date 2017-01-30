@@ -67,6 +67,7 @@
         <th>{% trans "Actions" %}</th>
       </tr>
     </thead>
+    {% get_current_language as LANGUAGE_CODE %}
     <tbody>
       {% for student in context.students %}
         
@@ -85,11 +86,11 @@
           </td>
           <td>
             <a class="form-link"
-               href="{{ PORTAL_URL }}{% url "students_edit" student.id %}">
+               href="{{ PORTAL_URL }}{% url "students_edit" student.id LANGUAGE_CODE %}">
                {{ student.last_name }}</a>
           </td>
           <td>
-            <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}"
+            <a href="{{ PORTAL_URL }}{% url "students_edit" student.id LANGUAGE_CODE %}"
                class="form-link">
                {{ student.first_name }}</a></td>
           <td>{{ student.ticket }}</td>
@@ -106,7 +107,7 @@
                      class="journalNavigate">{% trans "Journal" %}</a>
                 </li>
                 <li>
-                  <a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}" class="form-link">
+                  <a href="{{ PORTAL_URL }}{% url "students_edit" student.id LANGUAGE_CODE %}" class="form-link">
                      {% trans "Edit" %}</a>
                 </li>
                 <li>
