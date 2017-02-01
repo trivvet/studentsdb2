@@ -201,6 +201,8 @@ TIME_ZONE = 'UTC'
 
 USE_L10N = True
 
+DATE_FORMAT = 'Y E d'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/

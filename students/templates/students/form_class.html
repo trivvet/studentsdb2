@@ -19,16 +19,23 @@
       
 <!-- FORM -->
 
-<ul class="nav nav-tabs">
-  <li role="presentation" class="active">
-    <a href="#">{% trans "Ukrainian" %}</a></li>
-  <li role="presentation"><a href="#">{% trans "English" %}</a></li>
-  <li role="presentation"><a href="#">{% trans "Russian" %}</a></li>
-</ul>
-</br>
+{% if lang %}
+<div id='select-language'>
+  <div class="col-sm-2"></div>
+  <ul class="nav nav-tabs col-sm-10">
+    <li role="presentation" {% if lang == 'uk' %}class="active"{% endif %}>
+      <a href="{% url "students_edit" student_id 'uk' %}">{% trans "Ukrainian" %}</a></li>
+    <li role="presentation" {% if lang == 'en' %}class="active"{% endif %}>
+      <a href="{% url "students_edit" student_id 'en' %}">{% trans "English" %}</a></li>
+    <li role="presentation" {% if lang == 'ru' %}class="active"{% endif %}>
+      <a href="{% url "students_edit" student_id 'ru' %}">{% trans "Russian" %}</a></li>
+  </ul>
+</div>
 
-{% language 'en' %}
-  
+{% endif %}
+
+{% language lang %}
+
 {% crispy form %}
 
 {% endlanguage %}

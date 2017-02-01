@@ -240,11 +240,11 @@ function initForm(form, modal, link) {
             initSubHeaderNav();
             initFunctions();
             initResultPage();
+            initFormPage();
           }, 1500);
         }
       }
 //      $('a.form-link').off();
-      initFormPage();
       History.pushState({'page': 'openForm'}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
     }
   });
@@ -276,10 +276,12 @@ function initFormPage() {
             form = html.find('#content-column form');
         modal.find('.modal-title').html(html.find('#content-column h2'));
         modal.find('.modal-body').html(form);
+        modal.find('.modal-body').prepend(html.find('#select-language'));
         modal.find('.modal-footer').html(html.find('#content-column p'));
 
         // init our edit form
         initForm(form, modal, link.attr('href'));
+        initLanguageFormPage();
         
         History.pushState({'page': 'openForm'}, $('#myModal h2').text(), link.attr('href'));
         modal.modal({
@@ -298,6 +300,51 @@ function initFormPage() {
     return false;
   });
 }
+
+function initLanguageFormPage() {
+  $('#select-language a').click(function(){
+    var link = $(this), modal2 = $('#modalAlert');
+    $.ajax({
+      'url': link.attr('href'),
+      'dataType': 'html',
+      'type': 'get',
+      'beforeSend': function() {
+        var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+        $('.dropdown').removeClass('open');
+        modal2.find('.modal-body').html(spinner);
+        modal2.modal({
+          'keyboard': false,
+          'backdrop': false,
+          'show': true
+        });
+      },
+      'success': function(data, status, xhr) {
+        if (status != 'success') {
+          alert(gettext('There was an error on the server. Please try again later'));
+          return False;
+        }
+        var modal = $('#myModal'), html = $(data),
+            form = html.find('#content-column form');
+        modal.find('.modal-body').html(form);
+        modal.find('.modal-body').prepend(html.find('#select-language'));
+
+        // init our edit form
+        initForm(form, modal, link.attr('href'));
+        initLanguageFormPage();
+        
+        History.pushState({'page': 'openForm'}, $('#myModal h2').text(), link.attr('href'));
+        modal2.modal('hide');
+      },
+      'error': function() {
+        alert(gettext('There was an error on the server. Please try again later'));
+        return false;
+      }
+    });
+
+    return false;
+  });
+}
+
 
 function initContactForm() {
   $('#submit-id-send_button').click(function(){
@@ -501,6 +548,7 @@ function PageNavigation(link) {
   
       initOrderBy();
       initDropDownNav();
+      initFormPage();
       
       History.pushState({'page': 'pagenav', 'url': link.attr('href')}, $('#content-column h2').text(), link.attr('href'));
     }

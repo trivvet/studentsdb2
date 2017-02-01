@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^$', students.students_list, name='home'),
 #    url(r'^students/add/$', students.students_add, name='students_add'),
     url(r'^students/add/$', StudentAddView.as_view(), name='students_add'),
-    url(r'^students/(?P<pk>\d+)/edit/?(?P<lang>\s+)?$', StudentUpdateView.as_view(),         
+    url(r'^students/(?P<pk>\d+)/edit/(?P<lang>\S+)?$', StudentUpdateView.as_view(),         
 #    url(r'^students/(?P<sid>\d+)/edit', students.students_edit,
         name='students_edit'),
     url(r'^students/(?P<pk>\d+)/delete', StudentDeleteView.as_view(),

@@ -120,7 +120,7 @@ class StudentForm(TranslationModelForm):
             'middle_name': forms.TextInput(
                 attrs={'placeholder': _l(u"Please, type student's middle name")}),
             'birthday': forms.DateInput(
-                attrs={'placeholder': _l(u"e.g. 1984-06-17")}),
+                attrs={'placeholder': _l(u"e.g. 1984-06-17")}, format=('%Y-%m-%d')),
             'ticket': forms.TextInput(attrs={'placeholder': _l(u"e.g. 123")}),
             'notes': forms.Textarea(
                 attrs={'placeholder': _l(u"Aditional information"),
@@ -128,8 +128,9 @@ class StudentForm(TranslationModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        translation.activate('en')
+        translation.activate(translation.get_language())
         super(StudentForm, self).__init__(*args, **kwargs)
+        print self
         self.helper = FormHelper(self)
 
         # add form or edit form
@@ -226,8 +227,15 @@ class StudentUpdateView(UpdateView):
 
     # render form title
     def get_context_data(self, **kwargs):
+        if self.kwargs['lang']:
+            translation.activate(self.kwargs['lang'])
+            language = self.kwargs['lang']
+        else:
+            language = translation.get_language()
         context = super(StudentUpdateView, self).get_context_data(**kwargs)
         context['title'] = _(u'Editing student')
+        context['lang'] = language
+        context['student_id'] = self.kwargs['pk']
         return context
 
     # if cancel_button is pressed return home page
@@ -236,6 +244,7 @@ class StudentUpdateView(UpdateView):
             messages.warning(request, _(u"Editing student canceled!"))
             return HttpResponseRedirect(reverse('home'))
         else:
+            translation.activate(self.kwargs['lang'])
             return super(StudentUpdateView, self).post(request, *args, **kwargs)
 
 # Delete Form View
