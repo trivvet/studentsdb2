@@ -6,6 +6,6 @@ from models import Student
 
 @register(Student)
 class NewsTranslationOptions(TranslationOptions):
-    fields = ('first_name', 'last_name', 'middle_name')
+    fields = ('first_name', 'last_name')
     required_languages = ('uk', 'en', 'ru')
 

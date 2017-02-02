@@ -504,6 +504,7 @@ function OrderByNavigation(link) {
       History.pushState({'page': 'orderby', 'url': link.attr('href')}, $('#content-column h2').text(), link.attr('href'));
 
       initFunctions();
+      initFormPage();
     }
   });
 }

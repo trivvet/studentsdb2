@@ -25,7 +25,7 @@ class UserRegisterForm(forms.ModelForm):
 
     class Meta:
         choices = pytz.common_timezones
-        choices_list = [('', _(u'Select your time zone'))]
+        choices_list = [('', _l(u'Select your time zone'))]
         for value in choices:
             choices_list.append((value, value))
         model = MainUser
