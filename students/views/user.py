@@ -30,6 +30,7 @@ class UserRegisterForm(forms.ModelForm):
             choices_list.append((value, value))
         model = MainUser
         fields = ['username', 'last_name', 'first_name', 'email', 'language', 'time_zone', 'password']
+        help_texts = {'username': ''}
         widgets = {
             'username': forms.TextInput(
                 attrs={'placeholder': _l(u"Please, enter your username")}),
@@ -40,7 +41,7 @@ class UserRegisterForm(forms.ModelForm):
             'email': forms.EmailInput(
                 attrs={'placeholder': _l(u"Please, enter your email")}),
             'language': forms.Select(
-                choices=(("en", _l(u"English")), ("uk", _l(u"Ukranian")), ("ru", _l("Russian")))),
+                choices=(("en", _l(u"English")), ("uk", _l(u"Ukrainian")), ("ru", _l("Russian")))),
             'time_zone': forms.Select(
                 choices=choices_list),
             'password': forms.PasswordInput(
@@ -72,6 +73,20 @@ class UserRegisterForm(forms.ModelForm):
             )
         ))
 
+    def clean(self):
+        cleaned_data = super(UserRegisterForm, self).clean()
+        try:
+            password = cleaned_data['password']
+        except:
+            password = ''
+        
+        # validate password
+        if password:
+            if len(password) < 4:
+                self.add_error('password', ValidationError(
+                    _(u"Password must contain minimum 4 characters")))
+                
+        return cleaned_data
 
 class UserRegisterView(FormView):
     template_name = 'students/form_class_anonymous.html'
@@ -177,7 +192,8 @@ class UserAuthView(FormView):
             login(request, user)
             current_user = MainUser.objects.get(username=username)
             translation.activate(current_user.language)
-            timezone.activate(current_user.time_zone)
+            if current_user.time_zone:
+                timezone.activate(current_user.time_zone)
             request.session[translation.LANGUAGE_SESSION_KEY] = current_user.language
             request.session['django_timezone'] = current_user.time_zone
             messages.success(request, _(u"You're logged in as %s" % username))

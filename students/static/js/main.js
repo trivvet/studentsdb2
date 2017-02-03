@@ -83,7 +83,7 @@ function initGroupSelector() {
 }
 
 function initLanguageSelector() {
-  $('#lang-selector select').change(function(event){
+  $('#lang-selector button').click(function(event){
     var language = $(this).val()
 
     // set cookie with expiration date 1 year since now;

@@ -52,15 +52,6 @@ a.header {
   margin-top: 30px;
 }
 
-#user-button {
-  text-align: center;
-}
-
-.navbar-btn {
-  margin-bottom: 0px;
-  margin-top: 0px;
-}
-
 #header select {
   margin: 0;
   height: 30px;
@@ -71,12 +62,15 @@ a.header {
   width: 85%;
 }
 
-#header #lang-selector select {
-  width: 40%;
-  text-align: right;
+/* Main Content Styles */
+
+#lang-selector div {
+  float: right;
 }
 
-/* Main Content Styles */
+.navbar-btn {
+  margin-top: 0px;
+}
 
 #content-column h2 {
   display: inline-block;

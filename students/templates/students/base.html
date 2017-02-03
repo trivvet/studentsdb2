@@ -42,6 +42,7 @@
         {% endblock logo %}
 
         {% if user.is_authenticated %}
+        
         {% block menu_groups %}
         <!-- Group Selector -->
         <div class="col-xs-4" id="group-selector">
@@ -59,22 +60,6 @@
         </div>
         {% endblock menu_groups %}
 
-        {% else %}
-        <!-- Language Selector-->
-        <div class="col-xs-1"></div>
-        <div class="col-xs-2" id="lang-selector">
-          <select>
-            {% with lang=request.COOKIES.django_language %}
-            <option value='uk' {% if lang == 'uk' %}selected{% endif %}>UKR</option>
-            <option value='en' {% if lang == 'en' %}selected{% endif %}>ENG</option>
-            <option value='ru' {% if lang == 'ru' %}selected{% endif %}>RUS</option>
-            {% endwith %}
-          </select>
-        </div>
-        {% endif %}
-
-        <!-- User Panel-->
-        {% if user.is_authenticated %}
         <div class="col-xs-2" id="user-button">
           <div class="btn-group">
             <button type="button" class="btn btn-success navbar-btn">{{ user }}</button>
@@ -89,11 +74,19 @@
             </ul>
           </div>
         </div>
+
         {% else %}
-        <div class="col-xs-3" id="user-button">
-          <a href="{% url 'user-auth' %}" class="btn btn-default navbar-btn form-link">{% trans "Sign in" %}</a>
-          <a href="{% url 'user-register' %}" class="btn btn-info navbar-btn form-link">{% trans "Sign up" %}</a>
+        <!-- Language Selector-->
+        <div class="col-xs-6" id="lang-selector">
+          <div class="btn-group" role="group" aria-label="...">
+            {% with lang=request.COOKIES.django_language %}
+            <button type="button" class="btn {% if lang == 'uk' %}btn-primary{% else %}btn-default{% endif %}" value='uk'>{% trans "Ukrainian" %}</button>
+            <button type="button" class="btn {% if lang == 'en' %}btn-primary{% else %}btn-default{% endif %}" value='en'>{% trans "English" %}</button>
+            <button type="button" class="btn {% if lang == 'ru' %}btn-primary{% else %}btn-default{% endif %}" value='ru'>{% trans "Russian" %}</button>
+            {% endwith %}
+          </div>
         </div>
+            
         {% endif %}
         
       </div>
@@ -170,7 +163,13 @@
           {% else %}
             {% block title_anonymous %}{% endblock title_anonymous %}
             {% block anonymous %}
-              <h3>{% trans "Access for anonymous users is closed" %}</h2>
+              <div class="jumbotron">
+                <p>{% trans "Access for anonymous users is closed. Please login" %}</p>
+                <p id="user-button">
+                  <a href="{% url 'user-auth' %}" class="btn btn-default btn-lg form-link">{% trans "Sign in" %}</a>
+                  <a href="{% url 'user-register' %}" class="btn btn-info btn-lg form-link">{% trans "Sign up" %}</a>
+                </p>
+              </div>
             {% endblock anonymous %}
           {% endif %}
         
