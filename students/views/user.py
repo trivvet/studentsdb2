@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views.generic import FormView, UpdateView
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, password_validation
 from django.utils import translation, timezone
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
@@ -82,7 +82,7 @@ class UserRegisterForm(forms.ModelForm):
         
         # validate password
         if password:
-            if len(password) < 4:
+            if password_validation.validate_password(password) is None:
                 self.add_error('password', ValidationError(
                     _(u"Password must contain minimum 4 characters")))
                 
