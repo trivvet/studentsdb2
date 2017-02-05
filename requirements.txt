@@ -9,3 +9,4 @@ python-dateutil
 colorlog
 pytz
 django-modeltranslation
+django-registration-redux

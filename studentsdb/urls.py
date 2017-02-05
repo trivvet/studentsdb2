@@ -99,6 +99,7 @@ urlpatterns = [
 
     # User Forms
     url(r'^user-register/$', UserRegisterView.as_view(), name='user-register'),
+#    url(r'', include('registration.auth_urls')),
     url(r'^user-preference/$', user.user_preference, name='user-preference'),
     url(r'^user-auth/$', UserAuthView.as_view(), name='user-auth'),
     url(r'^user-logout/$', user.user_logout, name='user-logout'),

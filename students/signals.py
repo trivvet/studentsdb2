@@ -61,6 +61,7 @@ def log_models_changed_signal(sender, **kwargs):
         logger_info = False
 
     if logger_info:
+        import pdb; pdb.set_trace()
         current_time = timezone.now()
         log = LogEntry(log_datetime=current_time, status='INFO', signal=signal_name, info=logger_info)
         log.save()
