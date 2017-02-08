@@ -48,8 +48,13 @@ a.header {
 }
 
 /* Group Selector */
-#group-selector, #lang-selector, #user-button {
+#group-selector, #lang-selector, #user-buttons, #user-menu {
   margin-top: 30px;
+}
+
+#user-buttons a {
+  margin-right: 5px;
+  float: right;
 }
 
 #header select {

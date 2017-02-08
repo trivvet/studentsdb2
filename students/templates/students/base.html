@@ -60,9 +60,9 @@
         </div>
         {% endblock menu_groups %}
 
-        <div class="col-xs-2" id="user-button">
+        <div class="col-xs-2" id="user-menu">
           <div class="btn-group">
-            <button type="button" class="btn btn-success navbar-btn">{{ user }}</button>
+            <a type="button" href="{% url 'profile' %}" class="btn btn-success navbar-btn form-link">{{ user }}</a>
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>
               <span class="sr-only">Toggle Dropdown</span>
@@ -70,21 +70,27 @@
             <ul class="dropdown-menu">
               <li><a href="{% url 'user-preference' %}" class='form-link'>{% trans "Preference" %}</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="{% url 'user-logout' %}">{% trans "Log out" %}</a></li>
+              <li><a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a></li>
             </ul>
           </div>
         </div>
 
         {% else %}
         <!-- Language Selector-->
-        <div class="col-xs-6" id="lang-selector">
-          <div class="btn-group" role="group" aria-label="...">
+        <div class="col-xs-3" id="lang-selector">
+          <div class="btn-group btn-group-xs" role="group" aria-label="...">
             {% with lang=request.COOKIES.django_language %}
             <button type="button" class="btn {% if lang == 'uk' %}btn-primary{% else %}btn-default{% endif %}" value='uk'>{% trans "Ukrainian" %}</button>
             <button type="button" class="btn {% if lang == 'en' %}btn-primary{% else %}btn-default{% endif %}" value='en'>{% trans "English" %}</button>
             <button type="button" class="btn {% if lang == 'ru' %}btn-primary{% else %}btn-default{% endif %}" value='ru'>{% trans "Russian" %}</button>
             {% endwith %}
           </div>
+        </div>
+
+        <!-- User Authentication-->
+        <div class="col-xs-3" id="user-buttons">
+          <a href="{% url 'registration_register' %}" type="button" class="btn btn-info form-link">{% trans "Sign up" %}</a>
+          <a href="{% url 'auth_login' %}" type="button" class="btn btn-default form-link">{% trans "Sign in" %}</a>
         </div>
             
         {% endif %}
@@ -108,7 +114,10 @@
           <ul class="nav nav-tabs">
             <li role="presentation" {% if request.path == url_home %}
                 class="active"{% endif %}>
-              <a href="{{ url_home }}">{% trans "Students" %}</a></li>
+              <a href="{{ url_home }}">{% trans "Students" %}</a>
+            </li>
+              
+            {% if user.is_authenticated %}
             <li role="presentation" {% if url_journal in request.path %}
                 class="active"{% endif %}>
               <a href="{{ url_journal }}">{% trans "Journal" %}</a></li>
@@ -121,12 +130,16 @@
             <li role="presentation" {% if url_results in request.path %}
                 class="active"{% endif %}>
               <a href="{{ url_results }}">{% trans "Results" %}</a></li>
+            {% if perms.auth.add_user %}
             <li role="presentation" {% if url_contact in request.path %}
                 class="active"{% endif %}>
               <a href="{{ url_contact }}" id="contact-link">{% trans "Contact" %}</a></li>
+            {% endif %}
             <li role="presentation" {% if url_logs in request.path %}
                 class="active"{% endif %}>
               <a href="{{ url_logs }}" id="contact-link">{% trans "Events"%}</a></li>
+            {% endif %}
+            
         </ul>
         </div>
       </div>
@@ -155,23 +168,13 @@
           {% endblock status_message %}
 
           <!-- Undisclosed Information -->
-          {% if user.is_authenticated %}
+                    
           <h2>{% block title %}{% endblock title %}</h2>
-          {% block add_button %}{% endblock add_button %}
-          {% block content %}{% endblock content %}
-
-          {% else %}
-            {% block title_anonymous %}{% endblock title_anonymous %}
-            {% block anonymous %}
-              <div class="jumbotron">
-                <p>{% trans "Access for anonymous users is closed. Please login" %}</p>
-                <p id="user-button">
-                  <a href="{% url 'user-auth' %}" class="btn btn-default btn-lg form-link">{% trans "Sign in" %}</a>
-                  <a href="{% url 'user-register' %}" class="btn btn-info btn-lg form-link">{% trans "Sign up" %}</a>
-                </p>
-              </div>
-            {% endblock anonymous %}
+          {% if user.is_authenticated %}
+            {% block add_button %}{% endblock add_button %}
           {% endif %}
+          
+          {% block content %}{% endblock content %}
         
         </div>
         

@@ -12,6 +12,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from django.forms import ModelForm, ValidationError
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -187,10 +188,11 @@ class StudentForm(TranslationModelForm):
         return cleaned_data
 
 # Add Form View
-class StudentAddView(CreateView):
+class StudentAddView(PermissionRequiredMixin, CreateView):
     model = Student
     template_name = 'students/form_class.html'
     form_class = StudentForm
+    permission_required = 'auth.add_user'
     
     # if post form is valid retern success message
     def get_success_url(self):
@@ -213,10 +215,11 @@ class StudentAddView(CreateView):
             return super(StudentAddView, self).post(request, *args, **kwargs)
         
 # Edit Form View
-class StudentUpdateView(UpdateView):
+class StudentUpdateView(PermissionRequiredMixin, UpdateView):
     model = Student
     template_name = 'students/form_class.html'
     form_class = StudentForm
+    permission_required = 'auth.add_user'
     
     # if post form is valid retern success message
     def get_success_url(self):
@@ -247,9 +250,10 @@ class StudentUpdateView(UpdateView):
             return super(StudentUpdateView, self).post(request, *args, **kwargs)
 
 # Delete Form View
-class StudentDeleteView(DeleteView):
+class StudentDeleteView(PermissionRequiredMixin, DeleteView):
     model = Student
     template_name = 'students/student_confirm_delete_class.html'
+    permission_required = 'auth.add_user'
 
     # when post form is valid return success message
     def get_success_url(self):

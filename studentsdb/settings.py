@@ -65,7 +65,9 @@ ROOT_URLCONF = 'studentsdb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'studentsdb', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,6 +81,10 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGIN_REDIRECT_URL = 'home'
+
+LOGIN_URL = '/users/login/'
 
 LOG_FILE = os.path.join(BASE_DIR, 'studentsdb.log')
 

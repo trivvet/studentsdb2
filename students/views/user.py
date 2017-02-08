@@ -261,7 +261,10 @@ def user_preference(request):
                 messages.success(request, _(u"User settings changed successfully"))
                 return HttpResponseRedirect(reverse('home'))
     else:
-        current_user = MainUser.objects.get(username=request.user.username)
+        try:
+            current_user = MainUser.objects.get(username=request.user.username)
+        except:
+            current_user = User.objects.get(username=request.user.username)
         return render(request, 'students/user_preference.html', {'current_user': current_user, 'timezones': pytz.common_timezones})
 
 

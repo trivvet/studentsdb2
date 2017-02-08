@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import FormView
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -53,9 +54,10 @@ class ContactForm(forms.Form):
 
 
 
-class ContactView(FormView):
+class ContactView(PermissionRequiredMixin, FormView):
     template_name = 'contact_admin/form.html'
     form_class = ContactForm
+    permission_required = 'auth.add_user'
 
     def get_success_url(self):
         if self.message:

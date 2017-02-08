@@ -17,6 +17,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views import static
 from django.views.i18n import javascript_catalog
+from django.contrib.auth.decorators import login_required, permission_required
+from django.views.generic import TemplateView
 
 from students.views import students, groups, exams, results, contact_admin, logs, user
 from students.views.students import StudentAddView, StudentUpdateView, StudentDeleteView
@@ -48,7 +50,7 @@ urlpatterns = [
         name='students_delete'),
   
     #Groups urls
-    url(r'^groups/$', groups.groups_list, name='groups'),
+    url(r'^groups/$', login_required(groups.groups_list), name='groups'),
 #    url(r'^groups/add/$', groups.groups_add, name='groups_add'),
     url(r'^groups/add/$', GroupAddView.as_view(), name='groups_add'),
 #    url(r'^groups/(?P<gid>\d+)/edit', groups.groups_edit,
@@ -63,7 +65,7 @@ urlpatterns = [
     url(r'^journal/(?P<pk>\d+)?/?$', JournalView.as_view(), name='journal'),
 
     # Exams urls
-    url(r'^exams/$', exams.exams_list, name='exams'),
+    url(r'^exams/$', login_required(exams.exams_list), name='exams'),
 #    url(r'^exams/add/$', exams.exams_add, name='exams_add'),
     url(r'^exams/add/$', ExamAddView.as_view(), name='exams_add'),
 #    url(r'^exams/(?P<eid>\d+)/edit', exams.exams_edit,
@@ -74,7 +76,7 @@ urlpatterns = [
         name='exams_delete'),
         
     # Results urls
-    url(r'^results/$', results.results_list, name='results'),
+    url(r'^results/$', login_required(results.results_list), name='results'),
     url(r'^results/add/$', results.results_add, name='results_add'),
 #    url(r'^results/add/$', ResultAddView.as_view(), name='results_add'),
     url(r'^results/(?P<rid>\d+)?/edit', results.results_edit, 
@@ -98,8 +100,9 @@ urlpatterns = [
     url(r'^contact-admin/$', ContactView.as_view(), name="contact_admin"),
 
     # User Forms
-    url(r'^user-register/$', UserRegisterView.as_view(), name='user-register'),
-#    url(r'', include('registration.auth_urls')),
+#    url(r'^user-register/$', UserRegisterView.as_view(), name='user-register'),
+    url(r'^users/', include('registration.backends.simple.urls')),
+    url(r'^user/profile/$', login_required(TemplateView.as_view(template_name='registration/profile.html')), name='profile'),
     url(r'^user-preference/$', user.user_preference, name='user-preference'),
     url(r'^user-auth/$', UserAuthView.as_view(), name='user-auth'),
     url(r'^user-logout/$', user.user_logout, name='user-logout'),
