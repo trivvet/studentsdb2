@@ -103,9 +103,9 @@ urlpatterns = [
 #    url(r'^user-register/$', UserRegisterView.as_view(), name='user-register'),
     url(r'^users/', include('registration.backends.simple.urls')),
     url(r'^user/profile/$', login_required(TemplateView.as_view(template_name='registration/profile.html')), name='profile'),
-    url(r'^user-preference/$', user.user_preference, name='user-preference'),
-    url(r'^user-auth/$', UserAuthView.as_view(), name='user-auth'),
-    url(r'^user-logout/$', user.user_logout, name='user-logout'),
+#    url(r'^user-preference/$', user.user_preference, name='user-preference'),
+#    url(r'^user-auth/$', UserAuthView.as_view(), name='user-auth'),
+#    url(r'^user-logout/$', user.user_logout, name='user-logout'),
     
     # Javascript Catalog File
     url(r'^jsi18n/$', javascript_catalog, js_packages, name="javascript-catalog"),

@@ -89,6 +89,3 @@ admin.site.register(Group, GroupAdmin)
 admin.site.register(Exam)
 admin.site.register(Result)
 admin.site.register(LogEntry)
-
-
-
