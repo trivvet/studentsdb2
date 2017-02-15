@@ -7,6 +7,7 @@ from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DeleteView, CreateView, UpdateView
 from django.utils.translation import ugettext as _
+from django.contrib.auth.decorators import login_required, permission_required
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -19,6 +20,7 @@ from ..models.results import Result
 
 from ..util import paginate, get_current_group
 
+@login_required 
 def results_list(request):
     current_group = get_current_group(request)
     if current_group:
@@ -50,7 +52,8 @@ def results_list(request):
     context = paginate(exams_result, 3, request, {}, var_name='results')
 
     return render(request, 'students/results.html', {'context': context})
-        
+
+@permission_required('auth.add_user')  
 def results_add(request):
     if request.method == 'POST':
         data = request.POST
@@ -109,7 +112,8 @@ def results_add(request):
         
         exams = Exam.objects.all().filter(is_completed=False)
         return render(request, 'students/results_add.html', { 'exams': exams, 'errors': errors })
-  
+
+@permission_required('auth.add_user')   
 def results_edit(request, rid=None):
     if request.method == "POST":
         data = request.POST
@@ -157,7 +161,7 @@ def results_edit(request, rid=None):
     return render(request, 'students/results_edit_marks.html', {'students': students, 'exam': result_exam, 'scores': all_score})
 
 # Delete Page
-  
+@permission_required('auth.add_user') 
 def results_delete(request, rid):
     if request.method == "POST":
         if request.POST.get('cancel_button'):
@@ -180,6 +184,7 @@ def results_delete(request, rid):
         else:
             return render(request, 'students/results_confirm_delete.html', {'exam': exam})
 
+@login_required 
 def exam_results(request, rid):
     context = {}
     results = Result.objects.filter(result_exam=int(rid))

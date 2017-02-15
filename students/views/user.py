@@ -19,121 +19,119 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.layout import Layout, Submit, Button
 
-from ..models.users import MainUser
+#class UserRegisterForm(forms.ModelForm):
 
-class UserRegisterForm(forms.ModelForm):
+    #class Meta:
+        #choices = pytz.common_timezones
+        #choices_list = [('', _l(u'Select your time zone'))]
+        #for value in choices:
+            #choices_list.append((value, value))
+        #model = MainUser
+        #fields = ['username', 'last_name', 'first_name', 'email', 'language', 'time_zone', 'password']
+        #help_texts = {'username': ''}
+        #widgets = {
+            #'username': forms.TextInput(
+                #attrs={'placeholder': _l(u"Please, enter your username")}),
+            #'last_name': forms.TextInput(
+                #attrs={'placeholder': _l(u"Please, enter your last name")}),
+            #'first_name': forms.TextInput(
+                #attrs={'placeholder': _l(u"Please, enter your first name")}),
+            #'email': forms.EmailInput(
+                #attrs={'placeholder': _l(u"Please, enter your email")}),
+            #'language': forms.Select(
+                #choices=(("en", _l(u"English")), ("uk", _l(u"Ukrainian")), ("ru", _l("Russian")))),
+            #'time_zone': forms.Select(
+                #choices=choices_list),
+            #'password': forms.PasswordInput(
+                #attrs={'placeholder': _l(u"Please, enter your password")},
+                #render_value=False),
+        #}
 
-    class Meta:
-        choices = pytz.common_timezones
-        choices_list = [('', _l(u'Select your time zone'))]
-        for value in choices:
-            choices_list.append((value, value))
-        model = MainUser
-        fields = ['username', 'last_name', 'first_name', 'email', 'language', 'time_zone', 'password']
-        help_texts = {'username': ''}
-        widgets = {
-            'username': forms.TextInput(
-                attrs={'placeholder': _l(u"Please, enter your username")}),
-            'last_name': forms.TextInput(
-                attrs={'placeholder': _l(u"Please, enter your last name")}),
-            'first_name': forms.TextInput(
-                attrs={'placeholder': _l(u"Please, enter your first name")}),
-            'email': forms.EmailInput(
-                attrs={'placeholder': _l(u"Please, enter your email")}),
-            'language': forms.Select(
-                choices=(("en", _l(u"English")), ("uk", _l(u"Ukrainian")), ("ru", _l("Russian")))),
-            'time_zone': forms.Select(
-                choices=choices_list),
-            'password': forms.PasswordInput(
-                attrs={'placeholder': _l(u"Please, enter your password")},
-                render_value=False),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(UserRegisterForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
+    #def __init__(self, *args, **kwargs):
+        #super(UserRegisterForm, self).__init__(*args, **kwargs)
+        #self.helper = FormHelper(self)
         
-        # set form tag attributes
-        self.helper.action = reverse('user-register')
-        self.helper.form_method = 'POST'
-        self.helper.form_class = 'form-horizontal'
+        ## set form tag attributes
+        #self.helper.action = reverse('user-register')
+        #self.helper.form_method = 'POST'
+        #self.helper.form_class = 'form-horizontal'
 
-        # set form field properties
-        self.helper.help_text_inline = True
-        self.helper.html5_required = False
-        self.helper.attrs = {'novalidate': ''}
-        self.helper.label_class = 'col-sm-4 control-label'
-        self.helper.field_class = 'col-sm-8'
+        ## set form field properties
+        #self.helper.help_text_inline = True
+        #self.helper.html5_required = False
+        #self.helper.attrs = {'novalidate': ''}
+        #self.helper.label_class = 'col-sm-4 control-label'
+        #self.helper.field_class = 'col-sm-8'
 
-        # add buttons
-        self.helper.layout.append(Layout(
-            FormActions(
-                Submit('add_button', _(u'Register')),
-                Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
-            )
-        ))
+        ## add buttons
+        #self.helper.layout.append(Layout(
+            #FormActions(
+                #Submit('add_button', _(u'Register')),
+                #Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
+            #)
+        #))
 
-    def clean(self):
-        cleaned_data = super(UserRegisterForm, self).clean()
-        try:
-            password = cleaned_data['password']
-        except:
-            password = ''
+    #def clean(self):
+        #cleaned_data = super(UserRegisterForm, self).clean()
+        #try:
+            #password = cleaned_data['password']
+        #except:
+            #password = ''
         
-        # validate password
-        if password:
-            if password_validation.validate_password(password) is None:
-                self.add_error('password', ValidationError(
-                    _(u"Password must contain minimum 4 characters")))
+        ## validate password
+        #if password:
+            #if password_validation.validate_password(password) is None:
+                #self.add_error('password', ValidationError(
+                    #_(u"Password must contain minimum 4 characters")))
                 
-        return cleaned_data
+        #return cleaned_data
 
-class UserRegisterView(FormView):
-    template_name = 'students/form_class_anonymous.html'
-    form_class = UserRegisterForm
+#class UserRegisterView(FormView):
+    #template_name = 'students/form_class_anonymous.html'
+    #form_class = UserRegisterForm
 
-    def get_success_url(self):
-        if self.message:
-            messages.success(self.request, _(u"User %s registered successfully") % self.request.POST.get('username'))
-        else:
-            messages.error(self.request, _(u"When registration new user unexpected error ocured. Please try this service later"))
-        return reverse('home')
+    #def get_success_url(self):
+        #if self.message:
+            #messages.success(self.request, _(u"User %s registered successfully") % self.request.POST.get('username'))
+        #else:
+            #messages.error(self.request, _(u"When registration new user unexpected error ocured. Please try this service later"))
+        #return reverse('home')
 
-    def get_context_data(self, **kwargs):
-        context = super(UserRegisterView, self).get_context_data(**kwargs)
-        context['title'] = _(u'User Regiser')
-        return context
+    #def get_context_data(self, **kwargs):
+        #context = super(UserRegisterView, self).get_context_data(**kwargs)
+        #context['title'] = _(u'User Regiser')
+        #return context
 
-    def post(self, request, *args, **kwargs):
-        if request.POST.get('cancel_button'):
-            messages.warning(request, _(u"Register user canceled"))
-            return HttpResponseRedirect(reverse('home'))
-        else:
-            return super(UserRegisterView, self).post(request, *args, **kwargs)
+    #def post(self, request, *args, **kwargs):
+        #if request.POST.get('cancel_button'):
+            #messages.warning(request, _(u"Register user canceled"))
+            #return HttpResponseRedirect(reverse('home'))
+        #else:
+            #return super(UserRegisterView, self).post(request, *args, **kwargs)
 
-    def form_valid(self, form):
+    #def form_valid(self, form):
 
-        last_name = form.cleaned_data['last_name']
-        first_name = form.cleaned_data['first_name']
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
-        email = form.cleaned_data['email']
-        language = form.cleaned_data['language']
-        time_zone = form.cleaned_data['time_zone']
+        #last_name = form.cleaned_data['last_name']
+        #first_name = form.cleaned_data['first_name']
+        #username = form.cleaned_data['username']
+        #password = form.cleaned_data['password']
+        #email = form.cleaned_data['email']
+        #language = form.cleaned_data['language']
+        #time_zone = form.cleaned_data['time_zone']
 
-        try:
-            MainUser.objects.create_user(username=username, email=email, password=password, last_name=last_name, first_name=first_name, language=language, time_zone=time_zone)
-        except Exception:
-            self.message = False
-        else:
-            self.message = True
+        #try:
+            #MainUser.objects.create_user(username=username, email=email, password=password, last_name=last_name, first_name=first_name, language=language, time_zone=time_zone)
+        #except Exception:
+            #self.message = False
+        #else:
+            #self.message = True
 
-        return super(UserRegisterView, self).form_valid(form)
+        #return super(UserRegisterView, self).form_valid(form)
 
 class UserAuthForm(forms.ModelForm):
 
     class Meta:
-        model = MainUser
+        model = User
         fields = ['username', 'password']
         widgets = {
             'username': forms.TextInput(),
@@ -190,7 +188,7 @@ class UserAuthView(FormView):
             user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            current_user = MainUser.objects.get(username=username)
+            current_user = User.objects.get(username=username)
             translation.activate(current_user.language)
             if current_user.time_zone:
                 timezone.activate(current_user.time_zone)

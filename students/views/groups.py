@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DeleteView, CreateView, UpdateView
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -17,6 +19,7 @@ from ..models.groups import Group
 from ..util import paginate, get_current_group
 
 # Groups List
+@login_required
 def groups_list(request):
     current_group = get_current_group(request)
     if current_group:
@@ -79,10 +82,11 @@ class GroupAddForm(forms.ModelForm):
         ))
 
 # Add Form View
-class GroupAddView(CreateView):
+class GroupAddView(PermissionRequiredMixin, CreateView):
     model = Group
     template_name = 'students/form_class.html'
     form_class = GroupAddForm
+    permission_required = 'auth.add_user'
     
     # if post form is valid return success message
     def get_success_url(self):
@@ -144,10 +148,11 @@ class GroupUpdateForm(forms.ModelForm):
         ))
 
 # Edit Form View
-class GroupUpdateView(UpdateView):
+class GroupUpdateView(PermissionRequiredMixin, UpdateView):
     model = Group
     template_name = 'students/form_class.html'
     form_class = GroupUpdateForm
+    permission_required = 'auth.add_user'
     
     def get_success_url(self):
         messages.success(self.request,
@@ -167,9 +172,10 @@ class GroupUpdateView(UpdateView):
             return super(GroupUpdateView, self).post(request, *args, **kwargs)
 
 # Delete Form View
-class GroupDeleteView(DeleteView):
+class GroupDeleteView(PermissionRequiredMixin, DeleteView):
     model = Group
     template_name = 'students/groups_confirm_delete.html'
+    permission_required = 'auth.add_user'
 
     def get_success_url(self):
         messages.success(self.request,

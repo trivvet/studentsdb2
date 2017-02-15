@@ -53,7 +53,6 @@ class ContactForm(forms.Form):
         widget=forms.Textarea)
 
 
-
 class ContactView(PermissionRequiredMixin, FormView):
     template_name = 'contact_admin/form.html'
     form_class = ContactForm

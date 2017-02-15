@@ -6,6 +6,8 @@ from django.shortcuts import render, reverse
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import TemplateView
 from django.utils.translation import ugettext as _
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from ..models.students import Student
 from ..models.groups import Group
@@ -14,7 +16,7 @@ from ..util import paginate, paginate_hand, get_current_group
 
 # View for Journal
 
-class JournalView(TemplateView):
+class JournalView(LoginRequiredMixin, TemplateView):
     template_name = 'students/journal.html'
 
     def get_context_data(self, **kwargs):

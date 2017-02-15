@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'students.views.user.TimezoneMiddleware',
@@ -85,7 +86,10 @@ TEMPLATES = [
 
 LOGIN_REDIRECT_URL = 'home'
 
-LOGIN_URL = '/users/login/'
+LOGIN_URL = 'users:auth_login'
+LOGOUT_URL = 'users:auth_logout'
+
+REGISTRATION_OPEN = True
 
 LOG_FILE = os.path.join(BASE_DIR, 'studentsdb.log')
 

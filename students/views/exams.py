@@ -9,6 +9,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DeleteView, CreateView, UpdateView
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -20,6 +22,7 @@ from ..models.exams import Exam
 
 from ..util import paginate, get_current_group
 
+@login_required
 def exams_list(request):
 
     # take all exams than didn't graded  
@@ -113,10 +116,11 @@ class ExamAddForm(forms.ModelForm):
         ))
 
 # Add Form View
-class ExamAddView(CreateView):
+class ExamAddView(PermissionRequiredMixin, CreateView):
     model = Exam
     template_name = 'students/form_class.html'
     form_class = ExamAddForm
+    permission_required = 'auth.add_user'
     
     def get_success_url(self):
         messages.success(self.request,
@@ -136,10 +140,11 @@ class ExamAddView(CreateView):
             return super(ExamAddView, self).post(request, *args, **kwargs)
 
 # Update Form View
-class ExamUpdateView(UpdateView):
+class ExamUpdateView(PermissionRequiredMixin, UpdateView):
     model = Exam
     template_name = 'students/form_class.html'
     form_class = ExamAddForm
+    permission_required = 'auth.add_user'
     
     def get_success_url(self):
         messages.success(self.request,
@@ -159,9 +164,10 @@ class ExamUpdateView(UpdateView):
             return super(ExamUpdateView, self).post(request, *args, **kwargs)
 
 # Delete Exam Form
-class ExamDeleteView(DeleteView):
+class ExamDeleteView(PermissionRequiredMixin, DeleteView):
     model = Exam
     template_name = 'students/exams_confirm_delete.html'
+    permission_required = 'auth.add_user'
 
     def get_success_url(self):
         messages.success(self.request,

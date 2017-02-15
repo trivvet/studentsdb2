@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.views.generic import TemplateView, DeleteView, UpdateView
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -18,8 +20,9 @@ from ..util import paginate, paginate_hand, get_current_group
 
 # View for Journal
 
-class LogsView(TemplateView):
+class LogsView(PermissionRequiredMixin, TemplateView):
     template_name = 'students/logs_list.html'
+    permission_required = 'auth.add_user'
 
     def get_context_data(self, **kwargs):
         # get context data from TemplateView class
@@ -79,10 +82,11 @@ class LogUpdateForm(forms.ModelForm):
             )
         ))
 
-class LogUpdateView(UpdateView):
+class LogUpdateView(PermissionRequiredMixin, UpdateView):
     model = LogEntry
     template_name = 'students/form_class.html'
     form_class = LogUpdateForm
+    permission_required = 'auth.add_user'
     
     def get_success_url(self):
         messages.success(self.request,
@@ -101,9 +105,10 @@ class LogUpdateView(UpdateView):
         else:
             return super(LogUpdateView, self).post(request, *args, **kwargs)
 
-class LogDeleteView(DeleteView):
+class LogDeleteView(PermissionRequiredMixin, DeleteView):
     model = LogEntry
     template_name = 'students/logs_confirm_delete.html'
+    permission_required = 'auth.add_user'
 
     def get_success_url(self):
         messages.success(self.request,
@@ -117,6 +122,7 @@ class LogDeleteView(DeleteView):
         else:
             return super(LogDeleteView, self).post(request, *args, **kwargs)
 
+@login_required 
 def log_info(request, lid):
     context = {}
     context['log'] = LogEntry.objects.get(pk=int(lid))
