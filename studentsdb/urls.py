@@ -103,15 +103,16 @@ urlpatterns = [
 
     # User Forms
 #    url(r'^user-register/$', UserRegisterView.as_view(), name='user-register'),
-    url(r'^users/', include('registration.backends.simple.urls', namespace='users')),
-    url(r'^user/profile/$', login_required(TemplateView.as_view(template_name='registration/profile.html')), name='profile'),
     url(r'^user-preference/$', login_required(user.user_preference), name='user-preference'),
 #    url(r'^user-auth/$', UserAuthView.as_view(), name='user-auth'),
 #    url(r'^user-logout/$', user.user_logout, name='user-logout'),
 
     # User Forms from Book
+    url(r'^user/profile/$', login_required(TemplateView.as_view(template_name='registration/profile.html')), name='profile'),
     url(r'^users/logout/$', auth_views.logout, kwargs={'next_page': 'home'}, name='auth_logout'),
     url(r'^register/complete/$', RedirectView.as_view(pattern_name='home'), name='registration_complete'),
+    url(r'^users/', include('registration.backends.simple.urls', namespace='users')),
+    url(r'^social/', include('social_django.urls', namespace='social')),
     
     # Javascript Catalog File
     url(r'^jsi18n/$', javascript_catalog, js_packages, name="javascript-catalog"),

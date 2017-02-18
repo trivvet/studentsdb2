@@ -62,8 +62,8 @@
 
         <div class="col-xs-2" id="user-menu">
           <div class="btn-group">
-            <a type="button" href="{% url 'profile' %}" class="btn btn-success navbar-btn form-link">
-              {% if user.firstname and user.lastname %}{{ user.firstname }} {{ user.lastname }}{% else %}{{ user }}{% endif %}
+            <a type="button" href="{% url 'profile' %}" class="btn btn-success navbar-btn results-link">
+              {{ user.get_full_name|default:user.username }}
             </a>
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>

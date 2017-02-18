@@ -23,6 +23,11 @@
   </div>
 
   <button type="submit" class="btn btn-primary">{% trans "Login" %}</button>
+
+  <p id="text-or">{% trans "or" %}</p>
+
+  <a href="{% url 'social:begin' 'facebook' %}" type="button" class="btn btn-primary">{% trans "via Facebook" %}</a>
+  <a href="{% url 'social:begin' 'google-oauth2' %}" type="button" class="btn btn-danger">{% trans "Google+" %}</a>
   
 </form>
 

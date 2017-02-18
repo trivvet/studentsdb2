@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-29 13:43+0000\n"
+"POT-Creation-Date: 2017-02-18 12:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,983 +17,818 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: students/apps.py:10 students/templates/students/base.html:10
-#: students/templates/students/base.html:13
-#: students/templates/students/base.html:40
-#: students/templates/students/base.html:186
+#: apps.py:10 templates/students/base.html:10 templates/students/base.html:13
+#: templates/students/base.html:40 templates/students/base.html:190
 msgid "Students Accounting Service"
 msgstr ""
 
-#: students/models/exams.py:12 students/templates/students/results_add.html:26
+#: models/exams.py:12 templates/students/results_add.html:26
 msgid "Exam"
 msgstr ""
 
-#: students/models/exams.py:13 students/templates/students/base.html:127
-#: students/templates/students/exams.html:6
-#: students/templates/students/exams.html:8
+#: models/exams.py:13 templates/students/base.html:131
+#: templates/students/exams.html:6 templates/students/exams.html:8
 msgid "Exams"
 msgstr ""
 
-#: students/models/exams.py:18 students/models/results.py:22
-#: students/templates/students/exams.html:27
-#: students/templates/students/results.html:28
+#: models/exams.py:18 models/results.py:22 templates/students/exams.html:27
+#: templates/students/results.html:28
 msgid "Subject"
 msgstr ""
 
-#: students/models/exams.py:22
+#: models/exams.py:22
 msgid "Data and time of event"
 msgstr ""
 
-#: students/models/exams.py:28 students/templates/students/exams.html:37
-#: students/templates/students/results.html:38
+#: models/exams.py:28 templates/students/exams.html:37
+#: templates/students/results.html:38
 msgid "Lecturer"
 msgstr ""
 
-#: students/models/exams.py:31 students/models/groups.py:12
-#: students/models/students.py:47 students/templates/students/base.html:48
-#: students/templates/students/exams.html:42
-#: students/templates/students/results.html:43
+#: models/exams.py:31 models/groups.py:12 models/students.py:47
+#: templates/students/base.html:49 templates/students/exams.html:42
+#: templates/students/results.html:43
 msgid "Group"
 msgstr ""
 
-#: students/models/exams.py:38 students/models/groups.py:28
-#: students/models/students.py:54
+#: models/exams.py:38 models/groups.py:28 models/students.py:54
 msgid "Additional notes"
 msgstr ""
 
-#: students/models/exams.py:46 students/models/groups.py:32
-#: students/models/results.py:33 students/models/students.py:58
+#: models/exams.py:46 models/groups.py:32 models/results.py:33
+#: models/students.py:58
 msgid "Time of last modification"
 msgstr ""
 
-#: students/models/exams.py:50 students/templates/students/exams.html:56
+#: models/exams.py:50 templates/students/exams.html:56
 msgid "completed"
 msgstr ""
 
-#: students/models/groups.py:13 students/templates/students/base.html:124
-#: students/templates/students/groups.html:6
-#: students/templates/students/groups.html:8
+#: models/groups.py:13 templates/students/base.html:128
+#: templates/students/groups.html:6 templates/students/groups.html:8
 msgid "Groups"
 msgstr ""
 
-#: students/models/groups.py:18
+#: models/groups.py:18
 msgid "Title"
 msgstr ""
 
-#: students/models/groups.py:21 students/templates/students/groups.html:37
+#: models/groups.py:21 templates/students/groups.html:37
 msgid "Leader"
 msgstr ""
 
-#: students/models/journal.py:13
+#: models/journal.py:13
 msgid "Month Journal"
 msgstr ""
 
-#: students/models/journal.py:14
+#: models/journal.py:14
 msgid "Month Journals"
 msgstr ""
 
-#: students/models/journal.py:17 students/models/results.py:16
-#: students/models/students.py:12 students/templates/students/journal.html:35
-#: students/templates/students/results_list.html:21
+#: models/journal.py:17 models/results.py:16 models/students.py:12
+#: templates/students/journal.html:35 templates/students/results_list.html:21
 msgid "Student"
 msgstr ""
 
-#: students/models/journal.py:22
+#: models/journal.py:22
 msgid "Date"
 msgstr ""
 
-#: students/models/logs.py:14
+#: models/logs.py:14
 msgid "Event"
 msgstr ""
 
-#: students/models/logs.py:15 students/templates/students/base.html:136
-#: students/templates/students/logs_list.html:6
+#: models/logs.py:15 templates/students/base.html:142
+#: templates/students/logs_list.html:6
 msgid "Events"
 msgstr ""
 
-#: students/models/logs.py:18
+#: models/logs.py:18
 msgid "Date and time"
 msgstr ""
 
-#: students/models/logs.py:24
+#: models/logs.py:24
 msgid "Status"
 msgstr ""
 
-#: students/models/logs.py:29 students/templates/students/logs_list.html:22
+#: models/logs.py:29 templates/students/logs_list.html:22
 msgid "Signal name"
 msgstr ""
 
-#: students/models/logs.py:34
+#: models/logs.py:34
 msgid "Signal text"
 msgstr ""
 
-#: students/models/results.py:12
+#: models/results.py:12
 msgid "Exam results"
 msgstr ""
 
-#: students/models/results.py:13
+#: models/results.py:13
 msgid "Exams results"
 msgstr ""
 
-#: students/models/results.py:28
-#: students/templates/students/results_list.html:22
+#: models/results.py:28 templates/students/results_list.html:22
 msgid "Mark"
 msgstr ""
 
-#: students/models/students.py:13 students/templates/students/base.html:118
-#: students/templates/students/students_list.html:7
+#: models/students.py:13 templates/students/base.html:119
+#: templates/students/students_list.html:7
 msgid "Students"
 msgstr ""
 
-#: students/models/students.py:18
-#: students/templates/students/students_list.html:52
-#: students/templates/students/user_preference.html:22
+#: models/students.py:18 templates/students/students_list.html:52
+#: templates/students/user_preference.html:22
 msgid "First Name"
 msgstr ""
 
-#: students/models/students.py:23
-#: students/templates/students/students_list.html:43
-#: students/templates/students/user_preference.html:29
+#: models/students.py:23 templates/students/students_list.html:43
+#: templates/students/user_preference.html:29
 msgid "Last Name"
 msgstr ""
 
-#: students/models/students.py:28
+#: models/students.py:28
 msgid "Middle Name"
 msgstr ""
 
-#: students/models/students.py:33
+#: models/students.py:33
 msgid "Birthday"
 msgstr ""
 
-#: students/models/students.py:38
-#: students/templates/students/students_list.html:39
+#: models/students.py:38 templates/students/students_list.html:39
 msgid "Photo"
 msgstr ""
 
-#: students/models/students.py:43
+#: models/students.py:43
 msgid "Ticket"
 msgstr ""
 
-#: students/models/users.py:13
-msgid "User"
-msgstr ""
-
-#: students/models/users.py:14
-msgid "Users"
-msgstr ""
-
-#: students/models/users.py:17
-msgid "Language"
-msgstr ""
-
-#: students/models/users.py:23
-#: students/templates/students/user_preference.html:61
-msgid "Time Zone"
-msgstr ""
-
-#: students/templates/contact_admin/form.html:7
-#: students/templates/contact_admin/form.html:9
+#: templates/contact_admin/form.html:7 templates/contact_admin/form.html:9
 msgid "Connect with administrator"
 msgstr ""
 
-#: students/templates/contact_admin/form.html:14
-#: students/templates/students/form_class.html:12
-#: students/templates/students/form_class_anonymous.html:12
-#: students/templates/students/results_add.html:11
-#: students/templates/students/results_add_marks.html:11
-#: students/templates/students/results_edit_marks.html:11
+#: templates/contact_admin/form.html:14 templates/students/form_class.html:12
+#: templates/students/form_class_anonymous.html:12
+#: templates/students/results_add.html:11
+#: templates/students/results_add_marks.html:11
+#: templates/students/results_edit_marks.html:11
 msgid "Please, correct the following errors"
 msgstr ""
 
-#: students/templates/students/base.html:50
+#: templates/students/base.html:51
 msgid "All Students"
 msgstr ""
 
-#: students/templates/students/base.html:86
+#: templates/students/base.html:73
 msgid "Preference"
 msgstr ""
 
-#: students/templates/students/base.html:88
+#: templates/students/base.html:75
 msgid "Log out"
 msgstr ""
 
-#: students/templates/students/base.html:94
-msgid "Sign in"
+#: templates/students/base.html:85 templates/students/form_class.html:27
+#: templates/students/user_preference.html:51
+msgid "Ukrainian"
 msgstr ""
 
-#: students/templates/students/base.html:95
+#: templates/students/base.html:86 templates/students/form_class.html:29
+#: templates/students/user_preference.html:48
+msgid "English"
+msgstr ""
+
+#: templates/students/base.html:87 templates/students/form_class.html:31
+#: templates/students/user_preference.html:54
+msgid "Russian"
+msgstr ""
+
+#: templates/students/base.html:94
 msgid "Sign up"
 msgstr ""
 
-#: students/templates/students/base.html:121
-#: students/templates/students/students_list.html:106
+#: templates/students/base.html:95
+msgid "Sign in"
+msgstr ""
+
+#: templates/students/base.html:125 templates/students/students_list.html:109
 msgid "Journal"
 msgstr ""
 
-#: students/templates/students/base.html:130
-#: students/templates/students/results.html:6
-#: students/templates/students/results.html:8
+#: templates/students/base.html:134 templates/students/results.html:6
+#: templates/students/results.html:8
 msgid "Results"
 msgstr ""
 
-#: students/templates/students/base.html:133
+#: templates/students/base.html:138
 msgid "Contact"
 msgstr ""
 
-#: students/templates/students/base.html:173
-msgid "Access for anonymous users is closed"
-msgstr ""
-
-#: students/templates/students/base.html:189
+#: templates/students/base.html:194
 msgid "Current Time:"
 msgstr ""
 
-#: students/templates/students/exams.html:12
+#: templates/students/exams.html:12
 msgid "Add Exam"
 msgstr ""
 
-#: students/templates/students/exams.html:32
-#: students/templates/students/results.html:33
+#: templates/students/exams.html:32 templates/students/results.html:33
 msgid "Date of exam"
 msgstr ""
 
-#: students/templates/students/exams.html:45
-#: students/templates/students/groups.html:40
-#: students/templates/students/logs_list.html:35
-#: students/templates/students/results.html:46
-#: students/templates/students/students_list.html:67
+#: templates/students/exams.html:45 templates/students/groups.html:40
+#: templates/students/logs_list.html:35 templates/students/results.html:46
+#: templates/students/students_list.html:67
 msgid "Actions"
 msgstr ""
 
-#: students/templates/students/exams.html:65
-#: students/templates/students/groups.html:60
-#: students/templates/students/logs_list.html:50
-#: students/templates/students/results.html:66
-#: students/templates/students/students_list.html:99
+#: templates/students/exams.html:65 templates/students/groups.html:60
+#: templates/students/logs_list.html:50 templates/students/results.html:66
+#: templates/students/students_list.html:102
 msgid "Action"
 msgstr ""
 
-#: students/templates/students/exams.html:71
-#: students/templates/students/groups.html:65
-#: students/templates/students/logs_list.html:59
-#: students/templates/students/students_list.html:110
+#: templates/students/exams.html:71 templates/students/groups.html:65
+#: templates/students/logs_list.html:59
+#: templates/students/students_list.html:113
 msgid "Edit"
 msgstr ""
 
-#: students/templates/students/exams.html:73
-#: students/templates/students/groups.html:67
-#: students/templates/students/logs_list.html:63
-#: students/templates/students/results.html:76
-#: students/templates/students/students_list.html:114
+#: templates/students/exams.html:73 templates/students/groups.html:67
+#: templates/students/logs_list.html:63 templates/students/results.html:76
+#: templates/students/students_list.html:117
 msgid "Delete"
 msgstr ""
 
-#: students/templates/students/exams.html:88
-#: students/templates/students/groups.html:82
-#: students/templates/students/journal.html:77
-#: students/templates/students/logs_list.html:77
-#: students/templates/students/results.html:91
-#: students/templates/students/students_list.html:128
+#: templates/students/exams.html:88 templates/students/groups.html:82
+#: templates/students/journal.html:77 templates/students/logs_list.html:77
+#: templates/students/results.html:91 templates/students/students_list.html:132
 msgid "Load More"
 msgstr ""
 
-#: students/templates/students/exams.html:94
+#: templates/students/exams.html:94
 msgid "Currently there aren't exams in the database"
 msgstr ""
 
-#: students/templates/students/exams_confirm_delete.html:6
-#: students/templates/students/exams_confirm_delete.html:8
+#: templates/students/exams_confirm_delete.html:6
+#: templates/students/exams_confirm_delete.html:8
 msgid "Deleting Exam"
 msgstr ""
 
-#: students/templates/students/exams_confirm_delete.html:18
+#: templates/students/exams_confirm_delete.html:18
 #, python-format
 msgid "Do you realy want to delete exam: %(object)s?"
 msgstr ""
 
-#: students/templates/students/exams_confirm_delete.html:25
-#: students/templates/students/groups_confirm_delete.html:26
-#: students/templates/students/logs_confirm_delete.html:26
-#: students/templates/students/results_confirm_delete.html:26
-#: students/templates/students/student_confirm_delete_class.html:26
-#: students/templates/students/students_group_confirm_delete.html:32
+#: templates/students/exams_confirm_delete.html:25
+#: templates/students/groups_confirm_delete.html:26
+#: templates/students/logs_confirm_delete.html:26
+#: templates/students/results_confirm_delete.html:26
+#: templates/students/student_confirm_delete_class.html:26
+#: templates/students/students_group_confirm_delete.html:32
 msgid "Yes"
 msgstr ""
 
-#: students/templates/students/exams_confirm_delete.html:27
-#: students/templates/students/groups_confirm_delete.html:28
-#: students/templates/students/logs_confirm_delete.html:28
-#: students/templates/students/results_add.html:46
-#: students/templates/students/results_add_marks.html:45
-#: students/templates/students/results_confirm_delete.html:28
-#: students/templates/students/results_edit_marks.html:45
-#: students/templates/students/student_confirm_delete_class.html:28
-#: students/templates/students/students_group_confirm_delete.html:34
-#: students/templates/students/user_preference.html:92
-#: students/views/exams.py:110 students/views/groups.py:76
-#: students/views/groups.py:141 students/views/logs.py:77
-#: students/views/students.py:163 students/views/user.py:71
-#: students/views/user.py:148
+#: templates/students/exams_confirm_delete.html:27
+#: templates/students/groups_confirm_delete.html:28
+#: templates/students/logs_confirm_delete.html:28
+#: templates/students/results_add.html:46
+#: templates/students/results_add_marks.html:45
+#: templates/students/results_confirm_delete.html:28
+#: templates/students/results_edit_marks.html:45
+#: templates/students/student_confirm_delete_class.html:28
+#: templates/students/students_group_confirm_delete.html:34
+#: templates/students/user_preference.html:92 views/exams.py:114
+#: views/groups.py:80 views/groups.py:146 views/logs.py:81
+#: views/students.py:167 views/user.py:161
 msgid "Cancel"
 msgstr ""
 
-#: students/templates/students/groups.html:13
+#: templates/students/groups.html:13
 msgid "Add Group"
 msgstr ""
 
-#: students/templates/students/groups.html:32
+#: templates/students/groups.html:32
 msgid "Name"
 msgstr ""
 
-#: students/templates/students/groups.html:88
+#: templates/students/groups.html:88
 msgid "Currently there aren't groups in the database"
 msgstr ""
 
-#: students/templates/students/groups_confirm_delete.html:6
-#: students/templates/students/groups_confirm_delete.html:8
+#: templates/students/groups_confirm_delete.html:6
+#: templates/students/groups_confirm_delete.html:8
 msgid "Deleting Group"
 msgstr ""
 
-#: students/templates/students/groups_confirm_delete.html:19
+#: templates/students/groups_confirm_delete.html:19
 #, python-format
 msgid "Do you realy want to detele group: %(object)s?"
 msgstr ""
 
-#: students/templates/students/journal.html:6
-#: students/templates/students/journal.html:8
+#: templates/students/journal.html:6 templates/students/journal.html:8
 msgid "Accounting Visits"
 msgstr ""
 
-#: students/templates/students/journal.html:17
+#: templates/students/journal.html:17
 msgid ""
 "Changes in journal page save automatically at every click on the table cell."
 msgstr ""
 
-#: students/templates/students/journal.html:18
+#: templates/students/journal.html:18
 msgid "Is saving"
 msgstr ""
 
-#: students/templates/students/journal.html:83
+#: templates/students/journal.html:83
 msgid "Currently there aren't students in the database. Please,"
 msgstr ""
 
-#: students/templates/students/journal.html:84
+#: templates/students/journal.html:84
 msgid "add"
 msgstr ""
 
-#: students/templates/students/journal.html:84
+#: templates/students/journal.html:84
 msgid "first"
 msgstr ""
 
-#: students/templates/students/log_info.html:6
+#: templates/students/log_info.html:6
 msgid "Event Info"
 msgstr ""
 
-#: students/templates/students/log_info.html:8
+#: templates/students/log_info.html:8
 msgid "About Event"
 msgstr ""
 
-#: students/templates/students/log_info.html:17
+#: templates/students/log_info.html:17
 msgid "Detail"
 msgstr ""
 
-#: students/templates/students/logs_confirm_delete.html:6
-#: students/templates/students/logs_confirm_delete.html:8
+#: templates/students/logs_confirm_delete.html:6
+#: templates/students/logs_confirm_delete.html:8
 msgid "Deleting Event"
 msgstr ""
 
-#: students/templates/students/logs_confirm_delete.html:19
+#: templates/students/logs_confirm_delete.html:19
 #, python-format
 msgid "Do you realy want to delete event: \"%(object)s\"?"
 msgstr ""
 
-#: students/templates/students/logs_list.html:8
+#: templates/students/logs_list.html:8
 msgid "Event Recors"
 msgstr ""
 
-#: students/templates/students/logs_list.html:27
+#: templates/students/logs_list.html:27
 msgid "Level"
 msgstr ""
 
-#: students/templates/students/logs_list.html:32
+#: templates/students/logs_list.html:32
 msgid "Timing"
 msgstr ""
 
-#: students/templates/students/logs_list.html:56
+#: templates/students/logs_list.html:56
 msgid "Show details"
 msgstr ""
 
-#: students/templates/students/logs_list.html:85
+#: templates/students/logs_list.html:85
 msgid "Currently there aren't logs in the database"
 msgstr ""
 
-#: students/templates/students/results.html:13
+#: templates/students/results.html:13
 msgid "Add Result"
 msgstr ""
 
-#: students/templates/students/results.html:72
+#: templates/students/results.html:72
 msgid "Show results"
 msgstr ""
 
-#: students/templates/students/results.html:74
+#: templates/students/results.html:74
 msgid "Edit results"
 msgstr ""
 
-#: students/templates/students/results.html:97
+#: templates/students/results.html:97
 msgid "Currently there aren't results in the database"
 msgstr ""
 
-#: students/templates/students/results_add.html:6
-#: students/templates/students/results_add.html:15
-#: students/templates/students/results_add_marks.html:6
-#: students/templates/students/results_add_marks.html:15
+#: templates/students/results_add.html:6 templates/students/results_add.html:15
+#: templates/students/results_add_marks.html:6
+#: templates/students/results_add_marks.html:15
 msgid "Adding Exam Results"
 msgstr ""
 
-#: students/templates/students/results_add.html:30
+#: templates/students/results_add.html:30
 msgid "Select completed exam"
 msgstr ""
 
-#: students/templates/students/results_add.html:43
+#: templates/students/results_add.html:43
 msgid "Next"
 msgstr ""
 
-#: students/templates/students/results_add_marks.html:32
-#: students/templates/students/results_edit_marks.html:32
+#: templates/students/results_add_marks.html:32
+#: templates/students/results_edit_marks.html:32
 msgid "Enter mark from 0 to 12"
 msgstr ""
 
-#: students/templates/students/results_add_marks.html:42
-#: students/templates/students/results_edit_marks.html:42
-#: students/templates/students/user_preference.html:90
-#: students/views/exams.py:105 students/views/groups.py:140
-#: students/views/logs.py:76 students/views/students.py:158
+#: templates/students/results_add_marks.html:42
+#: templates/students/results_edit_marks.html:42
+#: templates/students/user_preference.html:90 views/exams.py:109
+#: views/groups.py:145 views/logs.py:80 views/students.py:162
 msgid "Save"
 msgstr ""
 
-#: students/templates/students/results_confirm_delete.html:6
-#: students/templates/students/results_confirm_delete.html:8
+#: templates/students/results_confirm_delete.html:6
+#: templates/students/results_confirm_delete.html:8
 msgid "Deleting Exam Results"
 msgstr ""
 
-#: students/templates/students/results_confirm_delete.html:19
+#: templates/students/results_confirm_delete.html:19
 msgid "Do you realy want to delete results of exam: "
 msgstr ""
 
-#: students/templates/students/results_edit_marks.html:6
-#: students/templates/students/results_edit_marks.html:15
+#: templates/students/results_edit_marks.html:6
+#: templates/students/results_edit_marks.html:15
 msgid "Editing Exam Results"
 msgstr ""
 
-#: students/templates/students/results_list.html:6
-#: students/templates/students/results_list.html:8
+#: templates/students/results_list.html:6
+#: templates/students/results_list.html:8
 msgid "Exam Results"
 msgstr ""
 
-#: students/templates/students/student_confirm_delete_class.html:6
-#: students/templates/students/student_confirm_delete_class.html:8
+#: templates/students/student_confirm_delete_class.html:6
+#: templates/students/student_confirm_delete_class.html:8
 msgid "Deleting Student"
 msgstr ""
 
-#: students/templates/students/student_confirm_delete_class.html:19
+#: templates/students/student_confirm_delete_class.html:19
 #, python-format
 msgid "Do you realy want to delete student: \"%(object)s\"?"
 msgstr ""
 
-#: students/templates/students/students_group_confirm_delete.html:6
-#: students/templates/students/students_group_confirm_delete.html:8
+#: templates/students/students_group_confirm_delete.html:6
+#: templates/students/students_group_confirm_delete.html:8
 msgid "Deleting Selected Students"
 msgstr ""
 
-#: students/templates/students/students_group_confirm_delete.html:19
+#: templates/students/students_group_confirm_delete.html:19
 msgid "Do you realy want to delete this students"
 msgstr ""
 
-#: students/templates/students/students_list.html:9
+#: templates/students/students_list.html:9
 msgid "Students List"
 msgstr ""
 
-#: students/templates/students/students_list.html:14
+#: templates/students/students_list.html:14
 msgid "Add Student"
 msgstr ""
 
-#: students/templates/students/students_list.html:61
+#: templates/students/students_list.html:61
 msgid "Ticket #"
 msgstr ""
 
-#: students/templates/students/students_list.html:137
+#: templates/students/students_list.html:142
 msgid "Delete selected students"
 msgstr ""
 
-#: students/templates/students/students_list.html:139
+#: templates/students/students_list.html:144
 msgid "Execute"
 msgstr ""
 
-#: students/templates/students/students_list.html:146
+#: templates/students/students_list.html:152
 msgid "Currently there aren't students in the database"
 msgstr ""
 
-#: students/templates/students/user_preference.html:7
-#: students/templates/students/user_preference.html:9
+#: templates/students/user_preference.html:7
+#: templates/students/user_preference.html:9
 msgid "User Settings"
 msgstr ""
 
-#: students/templates/students/user_preference.html:18
+#: templates/students/user_preference.html:18
 msgid "User Name"
 msgstr ""
 
-#: students/templates/students/user_preference.html:25
+#: templates/students/user_preference.html:25
 msgid "Enter your first name"
 msgstr ""
 
-#: students/templates/students/user_preference.html:32
+#: templates/students/user_preference.html:32
 msgid "Enter your last name"
 msgstr ""
 
-#: students/templates/students/user_preference.html:36
+#: templates/students/user_preference.html:36
 msgid "Email"
 msgstr ""
 
-#: students/templates/students/user_preference.html:39
+#: templates/students/user_preference.html:39
 msgid "Enter your email"
 msgstr ""
 
-#: students/templates/students/user_preference.html:43
+#: templates/students/user_preference.html:43
 msgid "Select Language"
 msgstr ""
 
-#: students/templates/students/user_preference.html:48
-#: studentsdb/settings.py:190
-msgid "English"
+#: templates/students/user_preference.html:61
+msgid "Time Zone"
 msgstr ""
 
-#: students/templates/students/user_preference.html:51
-#: studentsdb/settings.py:191
-msgid "Ukrainian"
-msgstr ""
-
-#: students/templates/students/user_preference.html:54
-#: studentsdb/settings.py:192
-msgid "Russian"
-msgstr ""
-
-#: students/templates/students/user_preference.html:65
+#: templates/students/user_preference.html:65
 msgid "Choose your time zone"
 msgstr ""
 
-#: students/templates/students/user_preference.html:73
+#: templates/students/user_preference.html:73
 msgid "New Password"
 msgstr ""
 
-#: students/templates/students/user_preference.html:76
+#: templates/students/user_preference.html:76
 msgid "Enter your new password"
 msgstr ""
 
-#: students/templates/students/user_preference.html:80
+#: templates/students/user_preference.html:80
 msgid "Password Confirmation"
 msgstr ""
 
-#: students/templates/students/user_preference.html:83
+#: templates/students/user_preference.html:83
 msgid "Enter confirmation of your new password"
 msgstr ""
 
-#: students/views/contact_admin.py:40
+#: views/contact_admin.py:41
 msgid "Submit"
 msgstr ""
 
-#: students/views/contact_admin.py:43
-msgid "Your Email Address"
-msgstr ""
-
-#: students/views/contact_admin.py:46
-msgid "Message header"
-msgstr ""
-
-#: students/views/contact_admin.py:50
-msgid "Message text"
-msgstr ""
-
-#: students/views/contact_admin.py:62
+#: views/contact_admin.py:63
 msgid "Letter send successfully"
 msgstr ""
 
-#: students/views/contact_admin.py:64
+#: views/contact_admin.py:65
 msgid ""
 "When senging mail unexpected error ocured. Please try this service later"
 msgstr ""
 
-#: students/views/exams.py:66
-msgid "Please, type subject name"
-msgstr ""
-
-#: students/views/exams.py:68
-msgid "e.g. 2016-12-12 10:00"
-msgstr ""
-
-#: students/views/exams.py:70
-msgid "Please, type teacher's surname and initials"
-msgstr ""
-
-#: students/views/exams.py:72
-msgid "Additional informantion about exam"
-msgstr ""
-
-#: students/views/exams.py:103 students/views/groups.py:75
-#: students/views/students.py:156
+#: views/exams.py:107 views/groups.py:79 views/students.py:160
 msgid "Add"
 msgstr ""
 
-#: students/views/exams.py:122
+#: views/exams.py:127
 #, python-format
 msgid "Exav %s added successfully"
 msgstr ""
 
-#: students/views/exams.py:127
+#: views/exams.py:132
 msgid "Adding Exam"
 msgstr ""
 
-#: students/views/exams.py:132
+#: views/exams.py:137
 msgid "Adding exam canceled"
 msgstr ""
 
-#: students/views/exams.py:145
+#: views/exams.py:151
 #, python-format
 msgid "Exam %s saved successfully"
 msgstr ""
 
-#: students/views/exams.py:150
+#: views/exams.py:156
 msgid "Editing Exam"
 msgstr ""
 
-#: students/views/exams.py:155
+#: views/exams.py:161
 msgid "Editing exam canceled"
 msgstr ""
 
-#: students/views/exams.py:167
+#: views/exams.py:174
 #, python-format
 msgid "Exam %s deleted successfully"
 msgstr ""
 
-#: students/views/exams.py:172
+#: views/exams.py:179
 msgid "Deleting exam canceled"
 msgstr ""
 
-#: students/views/groups.py:50 students/views/groups.py:113
-msgid "Type group's title"
-msgstr ""
-
-#: students/views/groups.py:52
-msgid "Additional information about group"
-msgstr ""
-
-#: students/views/groups.py:89
+#: views/groups.py:94
 #, python-format
 msgid "Group %s added successfully"
 msgstr ""
 
-#: students/views/groups.py:95
+#: views/groups.py:100
 msgid "Adding Group"
 msgstr ""
 
-#: students/views/groups.py:101
+#: views/groups.py:106
 msgid "Adding group canceled"
 msgstr ""
 
-#: students/views/groups.py:115
+#: views/groups.py:118
+msgid "Type group's title"
+msgstr ""
+
+#: views/groups.py:120
 msgid "Addiotional information about group"
 msgstr ""
 
-#: students/views/groups.py:153
+#: views/groups.py:159
 #, python-format
 msgid "Group %s saved successfully"
 msgstr ""
 
-#: students/views/groups.py:158
+#: views/groups.py:164
 msgid "Editing Group"
 msgstr ""
 
-#: students/views/groups.py:163
+#: views/groups.py:169
 msgid "Editing group canceled"
 msgstr ""
 
-#: students/views/groups.py:175
+#: views/groups.py:182
 #, python-format
 msgid "Group %s deleted successfully"
 msgstr ""
 
-#: students/views/groups.py:180
+#: views/groups.py:187
 msgid "Deleting group calceled"
 msgstr ""
 
-#: students/views/journal.py:119
+#: views/journal.py:121
 msgid "Forbidden to change status future visits!"
 msgstr ""
 
-#: students/views/logs.py:46
-msgid "Please enter subject name"
-msgstr ""
-
-#: students/views/logs.py:50
-msgid "Please enter event time"
-msgstr ""
-
-#: students/views/logs.py:52
-msgid "Detailed information about event"
-msgstr ""
-
-#: students/views/logs.py:88
+#: views/logs.py:93
 #, python-format
 msgid "Event %s saved successfully"
 msgstr ""
 
-#: students/views/logs.py:93
+#: views/logs.py:98
 msgid "Editing event"
 msgstr ""
 
-#: students/views/logs.py:98
+#: views/logs.py:103
 msgid "Editing event canceled"
 msgstr ""
 
-#: students/views/logs.py:109
+#: views/logs.py:115
 #, python-format
 msgid "Event %s deleted successfully"
 msgstr ""
 
-#: students/views/logs.py:114
+#: views/logs.py:120
 msgid "Deleting event canceled"
 msgstr ""
 
-#: students/views/results.py:58
+#: views/results.py:61
 msgid "Entry results of exam canceled"
 msgstr ""
 
-#: students/views/results.py:72 students/views/results.py:131
+#: views/results.py:75 views/results.py:135
 msgid "Please enter the number from 0 to 12"
 msgstr ""
 
-#: students/views/results.py:79 students/views/results.py:139
+#: views/results.py:82 views/results.py:143
 msgid "Please enter mark from 0 to 12"
 msgstr ""
 
-#: students/views/results.py:81 students/views/results.py:141
+#: views/results.py:84 views/results.py:145
 msgid "Please enter student's mark"
 msgstr ""
 
-#: students/views/results.py:88
+#: views/results.py:91
 #, python-format
 msgid "Information about results of exam %s added successfully"
 msgstr ""
 
-#: students/views/results.py:96
+#: views/results.py:99
 msgid "Adding results of exam canceled"
 msgstr ""
 
-#: students/views/results.py:106
+#: views/results.py:109
 msgid "Plese select completion exam"
 msgstr ""
 
-#: students/views/results.py:108
+#: views/results.py:111
 msgid "Please select exam"
 msgstr ""
 
-#: students/views/results.py:117
+#: views/results.py:121
 msgid "Editing results of exam canceled"
 msgstr ""
 
-#: students/views/results.py:147
+#: views/results.py:151
 #, python-format
 msgid "Information about results of exam %s edited successfully"
 msgstr ""
 
-#: students/views/results.py:164
+#: views/results.py:168
 msgid "Deleting results of exam canceled"
 msgstr ""
 
-#: students/views/results.py:172
+#: views/results.py:176
 #, python-format
 msgid "Information about results of exam %s deleted successfully"
 msgstr ""
 
-#: students/views/results.py:178
+#: views/results.py:182
 msgid "There was an error on the server. Please try again later"
 msgstr ""
 
-#: students/views/students.py:72
+#: views/students.py:75
 msgid "Please, select student from list"
 msgstr ""
 
-#: students/views/students.py:80
+#: views/students.py:83
 msgid "Please, select at least one student"
 msgstr ""
 
-#: students/views/students.py:84
+#: views/students.py:87
 msgid "Please, select the desired action"
 msgstr ""
 
-#: students/views/students.py:96
+#: views/students.py:99
 msgid "Students successfully removed"
 msgstr ""
 
-#: students/views/students.py:99
+#: views/students.py:102
 msgid "Selected students can't delete, try later"
 msgstr ""
 
-#: students/views/students.py:102
+#: views/students.py:105
 msgid "Delete of selected student canceled"
 msgstr ""
 
-#: students/views/students.py:115
-msgid "Please, type student's first name"
-msgstr ""
-
-#: students/views/students.py:117
-msgid "Please, type student's last name"
-msgstr ""
-
-#: students/views/students.py:119
-msgid "Please, type student's middle name"
-msgstr ""
-
-#: students/views/students.py:121
-msgid "e.g. 1984-06-17"
-msgstr ""
-
-#: students/views/students.py:122
-msgid "e.g. 123"
-msgstr ""
-
-#: students/views/students.py:124
-msgid "Aditional information"
-msgstr ""
-
-#: students/views/students.py:175
+#: views/students.py:179
 msgid "Student is leader of other group"
 msgstr ""
 
-#: students/views/students.py:182
+#: views/students.py:186
 msgid "Student's age can't be less then 17 years"
 msgstr ""
 
-#: students/views/students.py:195
+#: views/students.py:200
 #, python-format
 msgid "Student %s created successfully"
 msgstr ""
 
-#: students/views/students.py:201
+#: views/students.py:206
 msgid "Adding Student"
 msgstr ""
 
-#: students/views/students.py:207
+#: views/students.py:212
 msgid "Adding student canceled"
 msgstr ""
 
-#: students/views/students.py:221
+#: views/students.py:227
 #, python-format
 msgid "Student %s saved successfully!"
 msgstr ""
 
-#: students/views/students.py:227
+#: views/students.py:238
 msgid "Editing student"
 msgstr ""
 
-#: students/views/students.py:233
+#: views/students.py:246
 msgid "Editing student canceled!"
 msgstr ""
 
-#: students/views/students.py:246
+#: views/students.py:261
 #, python-format
 msgid "Student %s deleted successfully"
 msgstr ""
 
-#: students/views/students.py:252
+#: views/students.py:267
 msgid "Deleting student canceled"
 msgstr ""
 
-#: students/views/user.py:28
-msgid "Select your time zone"
-msgstr ""
-
-#: students/views/user.py:35
-msgid "Please, enter your username"
-msgstr ""
-
-#: students/views/user.py:37
-msgid "Please, enter your last name"
-msgstr ""
-
-#: students/views/user.py:39
-msgid "Please, enter your first name"
-msgstr ""
-
-#: students/views/user.py:41
-msgid "Please, enter your email"
-msgstr ""
-
-#: students/views/user.py:47
-msgid "Please, enter your password"
-msgstr ""
-
-#: students/views/user.py:70
-msgid "Register"
-msgstr ""
-
-#: students/views/user.py:82
-#, python-format
-msgid "User %s registered successfully"
-msgstr ""
-
-#: students/views/user.py:84
-msgid ""
-"When registration new user unexpected error ocured. Please try this service "
-"later"
-msgstr ""
-
-#: students/views/user.py:89
-msgid "User Regiser"
-msgstr ""
-
-#: students/views/user.py:94
-msgid "Register user canceled"
-msgstr ""
-
-#: students/views/user.py:147
+#: views/user.py:160
 msgid "Login"
 msgstr ""
 
-#: students/views/user.py:158
+#: views/user.py:171
 msgid "You authorization successfully"
 msgstr ""
 
-#: students/views/user.py:160
+#: views/user.py:173
 msgid ""
 "When you try to log unexpected error ocured. Please try this service later"
 msgstr ""
 
-#: students/views/user.py:165
+#: views/user.py:178
 msgid "Authorization"
 msgstr ""
 
-#: students/views/user.py:170
+#: views/user.py:183
 msgid "Authorization canceled"
 msgstr ""
 
-#: students/views/user.py:183
+#: views/user.py:197
 #, python-format
 msgid "You're logged in as %s"
 msgstr ""
 
-#: students/views/user.py:186
+#: views/user.py:200
 msgid "User with such username or password doesn't exist"
 msgstr ""
 
-#: students/views/user.py:197
+#: views/user.py:211
 msgid "Changing user settings canceled"
 msgstr ""
 
-#: students/views/user.py:239 students/views/user.py:245
+#: views/user.py:253 views/user.py:259
 msgid "User settings changed successfully"
 msgstr ""
 
-#: students/views/user.py:242
+#: views/user.py:256
 msgid "Both passwords must be the same"
 msgstr ""

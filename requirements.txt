@@ -10,3 +10,4 @@ colorlog
 pytz
 django-modeltranslation
 django-registration-redux
+social-auth-app-django

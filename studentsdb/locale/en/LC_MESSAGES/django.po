@@ -1,0 +1,97 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-18 12:05+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:11
+msgid "User Profile"
+msgstr ""
+
+#: models.py:15 templates/registration/profile.html:35
+msgid "Mobile Phone"
+msgstr ""
+
+#: models.py:21
+msgid "Address"
+msgstr ""
+
+#: models.py:26
+msgid "Passport Number"
+msgstr ""
+
+#: settings.py:203
+msgid "English"
+msgstr ""
+
+#: settings.py:204
+msgid "Ukrainian"
+msgstr ""
+
+#: settings.py:205
+msgid "Russian"
+msgstr ""
+
+#: templates/registration/login.html:5 templates/registration/login.html:7
+msgid "Login Form"
+msgstr ""
+
+#: templates/registration/login.html:16
+#: templates/registration/registration_form.html:22
+msgid "Your Username"
+msgstr ""
+
+#: templates/registration/login.html:21
+#: templates/registration/registration_form.html:34
+msgid "Your Password"
+msgstr ""
+
+#: templates/registration/login.html:25
+msgid "Login"
+msgstr ""
+
+#: templates/registration/profile.html:14
+msgid "Email"
+msgstr ""
+
+#: templates/registration/profile.html:21
+msgid "Username"
+msgstr ""
+
+#: templates/registration/profile.html:28
+msgid "Joined:"
+msgstr ""
+
+#: templates/registration/registration_form.html:5
+#: templates/registration/registration_form.html:45
+msgid "Register"
+msgstr ""
+
+#: templates/registration/registration_form.html:7
+msgid "Register Form"
+msgstr ""
+
+#: templates/registration/registration_form.html:11
+msgid "Please, correct the following errors."
+msgstr ""
+
+#: templates/registration/registration_form.html:28
+msgid "Your Email"
+msgstr ""
+
+#: templates/registration/registration_form.html:40
+msgid "Confirm Password"
+msgstr ""
