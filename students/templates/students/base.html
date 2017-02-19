@@ -112,6 +112,7 @@
         {% url 'results' as url_results %}
         {% url 'contact_admin' as url_contact %}
         {% url 'logs' as url_logs %}
+        {% url 'users' as url_users %}
         <div class="col-xs-12">
           <ul class="nav nav-tabs">
             <li role="presentation" {% if request.path == url_home %}
@@ -136,10 +137,13 @@
             <li role="presentation" {% if url_contact in request.path %}
                 class="active"{% endif %}>
               <a href="{{ url_contact }}" id="contact-link">{% trans "Contact" %}</a></li>
-            {% endif %}
             <li role="presentation" {% if url_logs in request.path %}
                 class="active"{% endif %}>
-              <a href="{{ url_logs }}" id="contact-link">{% trans "Events"%}</a></li>
+              <a href="{{ url_logs }}">{% trans "Events"%}</a></li>
+            {% endif %}
+            <li role="presentation" {% if url_users in request.path %}
+                class="active"{% endif %}>
+              <a href="{{ url_users }}">{% trans "Users"%}</a></li>
             {% endif %}
             
         </ul>

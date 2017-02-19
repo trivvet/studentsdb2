@@ -7,27 +7,44 @@
 {% block title %}{% trans "Login Form" %}{% endblock title %}
 
 {% block content %}
-<form action="{% url "users:auth_login" %}" method="post">
+<form action="{% url "users:auth_login" %}" method="post" class="form-horizontal">
 
   {% csrf_token %}
   <input type="hidden" name="next" value="{% url "home" %}" />
 
   <div class="form-group">
-    <label for="login">{% trans "Your Username" %}</label>
-    <input type="text" class="form-control" id="login" value="" name="username" />
+    <label for="login" class="col-sm-3 control-label">{% trans "Your Username" %}</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="login" value="" name="username" />
+    </div>
   </div>
 
   <div class="form-group">
-    <label for="password">{% trans "Your Password" %}</label>
-    <input type="password" class="form-control" id="password" value="" name="password" />
+    <label for="password" class="col-sm-3 control-label">{% trans "Your Password" %}</label>
+    <div class="col-sm-9">
+      <input type="password" class="form-control" id="password" value="" name="password" />
+    </div>
   </div>
 
-  <button type="submit" class="btn btn-primary">{% trans "Login" %}</button>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <button type="submit" class="btn btn-default">{% trans "Login" %}</button>
+      <a href="{% url "reset_password" %}" id="forgot-password">{% trans "Forgot your password?" %}</a>
+    </div>
+  </div>
 
-  <p id="text-or">{% trans "or" %}</p>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <p id="text-or">{% trans "or" %}</p>
+    </div>
+  </div>
 
-  <a href="{% url 'social:begin' 'facebook' %}" type="button" class="btn btn-primary">{% trans "via Facebook" %}</a>
-  <a href="{% url 'social:begin' 'google-oauth2' %}" type="button" class="btn btn-danger">{% trans "Google+" %}</a>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <a href="{% url 'social:begin' 'facebook' %}" type="button" class="btn btn-primary">{% trans "via Facebook" %}</a>
+      <a href="{% url 'social:begin' 'google-oauth2' %}" type="button" class="btn btn-danger">{% trans "Google+" %}</a>
+    </div>
+  </div>
   
 </form>
 

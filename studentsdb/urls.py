@@ -101,9 +101,8 @@ urlpatterns = [
 #    url(r'^contact-admin/$', contact_admin.contact_admin, name="contact_admin"),
     url(r'^contact-admin/$', login_required(ContactView.as_view()), name="contact_admin"),
 
-    # User Forms
+    # My Own User Forms
 #    url(r'^user-register/$', UserRegisterView.as_view(), name='user-register'),
-    url(r'^user-preference/$', login_required(user.user_preference), name='user-preference'),
 #    url(r'^user-auth/$', UserAuthView.as_view(), name='user-auth'),
 #    url(r'^user-logout/$', user.user_logout, name='user-logout'),
 
@@ -113,6 +112,11 @@ urlpatterns = [
     url(r'^register/complete/$', RedirectView.as_view(pattern_name='home'), name='registration_complete'),
     url(r'^users/', include('registration.backends.simple.urls', namespace='users')),
     url(r'^social/', include('social_django.urls', namespace='social')),
+    url(r'^user-preference/$', login_required(user.user_preference), name='user-preference'),
+    url(r'^users-list/$', login_required(user.users_list), name='users'),
+    url(r'^users/(?P<uid>\d+)/profile/$', login_required(user.users_profile), name='user_profile'),
+    url(r'^users/(?P<uid>\d+)/delete/$', login_required(user.user_delete), name='user_delete'),
+    url(r'^users/reset_password/$', user.password_reset, name='reset_password'),
     
     # Javascript Catalog File
     url(r'^jsi18n/$', javascript_catalog, js_packages, name="javascript-catalog"),

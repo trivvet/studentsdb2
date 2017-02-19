@@ -152,6 +152,7 @@ function initForm(form, modal, link) {
   // attach datepicker
   initDateFields();
   initPhotoView();
+  initPasswordForgotView();
 
   // close modal window on Cancel button click
   form.find('input[name="cancel_button"]').click(function(event) {
@@ -599,6 +600,51 @@ function loadMore() {
 function initResultPage() {
   $('a.results-link').click(function(){
     var link = $(this), modal2 = $('#modalAlert');
+    $.ajax({
+      'url': link.attr('href'),
+      'dataType': 'html',
+      'type': 'get',
+      'beforeSend': function() {
+        var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+        $('.dropdown').removeClass('open');
+        modal2.find('.modal-body').html(spinner);
+        modal2.modal({
+          'keyboard': false,
+          'backdrop': false,
+          'show': true
+        });
+      },
+      'success': function(data, status, xhr) {
+        if (status != 'success') {
+          alert(gettext('There was an error on the server. Please try again later'));
+          return false;
+        }
+        var modal = $('#myModal'), html = $(data),
+            newpage = html.find('#content-column');
+        modal.find('.modal-title').html(html.find('#content-column h2'));
+        modal.find('.modal-body').html(newpage);
+        
+        modal.modal({
+          'keyboard': false,
+          'backdrop': false,
+          'show': true
+        });
+        modal2.modal('hide');
+      },
+      'error': function() {
+        alert(gettext('There was an error on the server. Please try again later'));
+        return false;
+      }
+    });
+
+    return false;
+  });
+}
+
+function initPasswordForgotView() {
+  $('#forgot-password').click(function(){
+    var link = $(this), modal2 = $('#modalAlert');
+    initForm();
     $.ajax({
       'url': link.attr('href'),
       'dataType': 'html',

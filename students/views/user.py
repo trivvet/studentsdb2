@@ -4,20 +4,29 @@ import pytz
 from django import forms, dispatch
 from django.shortcuts import render, reverse
 from django.contrib import messages
+from django.core.validators import validate_email
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views.generic import FormView, UpdateView
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, password_validation
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.tokens import default_token_generator
 from django.utils import translation, timezone
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 from django.utils.deprecation import MiddlewareMixin
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.forms import ValidationError
+from django.template import loader
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.layout import Layout, Submit, Button
+
+from studentsdb.settings import EMAIL_HOST_USER
+from ..util import paginate
 
 #class UserRegisterForm(forms.ModelForm):
 
@@ -274,4 +283,99 @@ class TimezoneMiddleware(MiddlewareMixin):
         else:
             timezone.deactivate()
 
-           
+def users_list(request):
+    users = User.objects.all()
+
+    order_by = request.GET.get('order_by', '')
+    if order_by in ('id', 'username', 'date_joined'):
+        users = users.order_by(order_by)
+        if request.GET.get('reverse') == '1':
+            users = users.reverse()
+    else:
+        users = users.order_by('username')
+
+    context = paginate(users, 3, request, {}, var_name='users')
+    
+    return render(request, 'students/users_list.html', {'context': context})
+
+def users_profile(request, uid):
+    try:
+        user = User.objects.get(pk=uid)
+    except:
+        messages.error(_(u'There was an error on the server. Please try again later'))
+    context = {}
+    context['user_one'] = user
+
+    return render(request, 'students/user_profile.html', {'context': context})
+
+# User Delete Function
+@permission_required('auth.delete_user')
+def user_delete(request, uid):
+    try:
+        user = User.objects.get(pk=uid)
+    except:
+        messages.error(request, _(u'There was an error on the server. Please try again later'))
+        return HttpResponseRedirect(reverse('users'))
+    if request.method == 'GET':
+        return render(request, 'students/users_confirm_delete.html', {'user_one':user})
+    elif request.method == 'POST':
+        if request.POST.get('cancel_button'):
+            messages.warning(request, _(u"Deleting user canceled"))
+        elif request.POST.get('delete_button'):
+            user.delete()
+            messages.success(request, _(u"User %s deleted successfully" % user.username))
+        return HttpResponseRedirect(reverse('users'))
+
+
+# Function for Password Reset from Login Form
+def password_reset(request):
+    if request.method == "POST":
+        userdata = request.POST.get('username', '')
+        error = ''
+        
+        if userdata:
+            try:
+                validate_email(userdata)
+                email = True
+            except ValidationError:
+                email = False
+
+            if email is True:
+                associated_users = User.objects.filter(email=userdata)
+            else:
+                associated_users = User.objects.filter(username=userdata)
+
+            if associated_users.exists():
+                for user in associated_users:
+                    c = {
+                        'email': user.email,
+                        'domain': request.META['HTTP_HOST'],
+                        'site_name': 'Students Database',
+                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                        'user': user,
+                        'token': default_token_generator.make_token(user),
+                        'protocol': 'http',
+                    }
+                    subject_template_name='registration/password_reset_subject.txt' 
+                    email_template_name='registration/password_reset_email.html'    
+                    subject = loader.render_to_string(subject_template_name, c)
+                    # Email subject *must not* contain newlines
+                    subject = ''.join(subject.splitlines())
+                    email = loader.render_to_string(email_template_name, c)
+                    send_mail(subject, email, EMAIL_HOST_USER, [user.email], fail_silently=False)
+                    messages.success(request, "An email has been sent %s. Please check its inbox to continue reseting password." % userdata)
+            else:
+                error = 'User with this username/email does not exist'
+            
+        else:
+            error = 'Please, enter your username or email'
+
+        if error:
+            return render(request, 'students/users_password_forgot.html', {'error':error})
+        else:
+            return HttpResponseRedirect(reverse('home'))
+    else:
+        return render(request, 'students/users_password_forgot.html', {})
+            
+TO be continue...
+http://ruddra.com/2015/09/18/implementation-of-forgot-reset-password-feature-in-django/

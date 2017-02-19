@@ -1,0 +1,81 @@
+{% extends "students/base.html" %}
+
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block meta_title %}{% trans "Users List" %}{% endblock meta_title %}
+
+{% block title %}{% trans "Users List" %}{% endblock title %}
+          
+{% block content %}
+
+<!-- Start Group Listing -->
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
+      <th><a href=
+             "{% url "users" %}?order_by=id{% if order_by == 'id' and reverse != '1' %}&amp;reverse=1{% endif %}">
+             №{% if order_by == 'id' and reverse != '1' %}
+             &uarr;{% elif order_by == 'id' and reverse == '1' %}
+             &darr;{% endif %}</a></th>
+      <th><a href=
+             "{% url "users" %}?order_by=username{% if order_by == 'username' and reverse != '1' or order_by == '' %}&amp;reverse=1{% endif %}">
+             {% trans "Username" %} {% if order_by == 'username' and reverse != '1' or order_by == '' %}
+             &uarr;{% elif order_by == 'username' and reverse == '1' %}
+             &darr;{% endif %}</a></th>
+      <th><a href=
+             "{% url "users" %}?order_by=date_joined{% if order_by == 'date_joined' and reverse != '1' %}&amp;reverse=1{% endif %}">
+             {% trans "Date Joined" %} {% if order_by == 'date_joined' and reverse != '1' %}
+             &uarr;{% elif order_by == 'date_joined' and reverse == '1' %}
+             &darr;{% endif %}</a></th>
+      <th>{% trans "Actions" %}</th>
+    {% endwith %}
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for user_one in context.users %}
+    <!-- Test Group-->
+    <tr>
+      <td>{{ context.page_obj.start_index|add:forloop.counter|add:"-1" }}</td>
+      <td><a href="{% url "user_profile" user_one.id %}" class="results-link">{{ user_one.username }}</a></td>
+      <td>{{ user_one.date_joined }}</td>
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" 
+                  type="button" data-toggle="dropdown" >{% trans "Action" %}
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" 
+              aria-labelledby="dropdownMenu1">
+            <li><a href="{% url "user_profile" user_one.id %}"
+                   class="results-link">{% trans "Show profile" %}</a></li>
+            {% if perms.auth.delete_user %}
+            <li><a href="{% url "user_delete" user_one.id %}"
+                   class="form-link">{% trans "Delete" %}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </td>
+    </tr>
+    
+    {% endfor %}
+    
+  </tbody>
+</table>
+<!-- End Groups Listing -->
+
+{% if context.is_paginated and context.page_obj.number < context.paginator.num_pages %}
+  {% with order_by=request.GET.order_by reverse=request.GET.reverse url_page=request.path_info %}
+    <p class="buttonLoad">
+    <a type="button" class="btn btn-default" href="{{ url_page }}?page={{ context.page_obj.next_page_number }}{% if order_by %}&amp;order_by={{order_by }}{% endif %}{% if reverse %}&amp;reverse={{ reverse }}{% endif %}{% if cur_month %}&amp;month={{ cur_month }}{% endif %}" id="buttonLoadMore">{% trans "Load More" %}</a>
+    </p>
+  {% endwith %}
+{% endif %}
+
+{% with paginator=context.paginator page_obj=context.page_obj is_paginated=context.is_paginated %}
+{% include 'students/pagination.html' %}
+{% endwith %}
+        
+{% endblock content %}

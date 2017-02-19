@@ -1,0 +1,50 @@
+{% extends "students/base.html" %}
+
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block meta_title %}{% trans "User Profile" %}{% endblock meta_title %}
+
+{% block title %}{% trans "User Profile" %}{% endblock title %}
+          
+{% block content %}
+
+<table class="table table-hover table-striped">
+  <tr>
+    <td>{% trans "Username" %}</td>
+    <td>{{ context.user_one.username }}</td>
+  </tr>
+  {% if context.user_one.last_name %}
+  <tr>
+    <td>{% trans "User Last Name" %}</td>
+    <td>{{ context.user_one.last_name }}</td>
+  </tr>
+  {% endif %}
+  {% if context.user_one.first_name %}
+  <tr>
+    <td>{% trans "User First Name" %}</td>
+    <td>{{ context.user_one.first_name }}</td>
+  </tr>
+  {% endif %}
+  {% if context.user_one.email %}
+  <tr>
+    <td>{% trans "Email" %}</td>
+    <td>{{ context.user_one.email }}</td>
+  </tr>
+  {% endif %}
+  {% if context.user_one.stprofile.mobile_phone %}
+  <tr>
+    <td>{% trans "Mobile Phone" %}</td>
+    <td>{{ context.user_one.stprofile.mobile_phone }}</td>
+  </tr>
+  {% endif %}
+  {% if context.user_one.date_joined %}
+  <tr>
+    <td>{% trans "Joined:" %}</td>
+    <td>{{ context.user_one.date_joined }}</td>
+  </tr>
+  {% endif %}    
+</table>
+<!-- End Groups Listing -->
+        
+{% endblock content %}

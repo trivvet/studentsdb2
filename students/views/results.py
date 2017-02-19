@@ -166,7 +166,6 @@ def results_delete(request, rid):
     if request.method == "POST":
         if request.POST.get('cancel_button'):
             messages.warning(request, _(u"Deleting results of exam canceled"))
-            return HttpResponseRedirect(reverse('results'))
         else:
             exam = Exam.objects.get(pk=int(rid))
             exam.is_completed = False
@@ -174,7 +173,7 @@ def results_delete(request, rid):
             results.delete()
             exam.save()
             messages.success(request, _(u"Information about results of exam %s deleted successfully") % exam.name)
-            return HttpResponseRedirect(reverse('results'))
+        return HttpResponseRedirect(reverse('results'))
     else:
         try:
             exam = Exam.objects.get(pk=int(rid))
