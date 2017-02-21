@@ -644,7 +644,6 @@ function initResultPage() {
 function initPasswordForgotView() {
   $('#forgot-password').click(function(){
     var link = $(this), modal2 = $('#modalAlert');
-    initForm();
     $.ajax({
       'url': link.attr('href'),
       'dataType': 'html',
@@ -666,6 +665,7 @@ function initPasswordForgotView() {
         }
         var modal = $('#myModal'), html = $(data),
             newpage = html.find('#content-column');
+            form = html.find('#content-column form');
         modal.find('.modal-title').html(html.find('#content-column h2'));
         modal.find('.modal-body').html(newpage);
         
@@ -674,6 +674,8 @@ function initPasswordForgotView() {
           'backdrop': false,
           'show': true
         });
+        
+        initForm(form, modal, link.attr('href'));
         modal2.modal('hide');
       },
       'error': function() {

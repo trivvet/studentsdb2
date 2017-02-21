@@ -116,7 +116,8 @@ urlpatterns = [
     url(r'^users-list/$', login_required(user.users_list), name='users'),
     url(r'^users/(?P<uid>\d+)/profile/$', login_required(user.users_profile), name='user_profile'),
     url(r'^users/(?P<uid>\d+)/delete/$', login_required(user.user_delete), name='user_delete'),
-    url(r'^users/reset_password/$', user.password_reset, name='reset_password'),
+    url(r'^', include('registration.auth_urls')),
+#    url(r'^users/reset_password/$', user.password_reset, name='reset_password'),
     
     # Javascript Catalog File
     url(r'^jsi18n/$', javascript_catalog, js_packages, name="javascript-catalog"),

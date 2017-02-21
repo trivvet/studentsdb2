@@ -5,6 +5,7 @@ from django import forms, dispatch
 from django.shortcuts import render, reverse
 from django.contrib import messages
 from django.core.validators import validate_email
+from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views.generic import FormView, UpdateView
@@ -325,57 +326,3 @@ def user_delete(request, uid):
             user.delete()
             messages.success(request, _(u"User %s deleted successfully" % user.username))
         return HttpResponseRedirect(reverse('users'))
-
-
-# Function for Password Reset from Login Form
-def password_reset(request):
-    if request.method == "POST":
-        userdata = request.POST.get('username', '')
-        error = ''
-        
-        if userdata:
-            try:
-                validate_email(userdata)
-                email = True
-            except ValidationError:
-                email = False
-
-            if email is True:
-                associated_users = User.objects.filter(email=userdata)
-            else:
-                associated_users = User.objects.filter(username=userdata)
-
-            if associated_users.exists():
-                for user in associated_users:
-                    c = {
-                        'email': user.email,
-                        'domain': request.META['HTTP_HOST'],
-                        'site_name': 'Students Database',
-                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                        'user': user,
-                        'token': default_token_generator.make_token(user),
-                        'protocol': 'http',
-                    }
-                    subject_template_name='registration/password_reset_subject.txt' 
-                    email_template_name='registration/password_reset_email.html'    
-                    subject = loader.render_to_string(subject_template_name, c)
-                    # Email subject *must not* contain newlines
-                    subject = ''.join(subject.splitlines())
-                    email = loader.render_to_string(email_template_name, c)
-                    send_mail(subject, email, EMAIL_HOST_USER, [user.email], fail_silently=False)
-                    messages.success(request, "An email has been sent %s. Please check its inbox to continue reseting password." % userdata)
-            else:
-                error = 'User with this username/email does not exist'
-            
-        else:
-            error = 'Please, enter your username or email'
-
-        if error:
-            return render(request, 'students/users_password_forgot.html', {'error':error})
-        else:
-            return HttpResponseRedirect(reverse('home'))
-    else:
-        return render(request, 'students/users_password_forgot.html', {})
-            
-TO be continue...
-http://ruddra.com/2015/09/18/implementation-of-forgot-reset-password-feature-in-django/
