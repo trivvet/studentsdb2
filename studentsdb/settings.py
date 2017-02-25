@@ -89,11 +89,15 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
 )
 
 SOCIAL_AUTH_FACEBOOK_KEY = '857787427697137'
 SOCIAL_AUTH_FACEBOOK_SECRET = 'b7b0df2cc142da66fff04b6aa7a3b9e8'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "377024917764-96itkqbubprvd39niboqsv92r1kkv8kf.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'voKpi_SUo5t9GkSaFh23fdBv'
 
 LOGIN_REDIRECT_URL = 'home'
 
