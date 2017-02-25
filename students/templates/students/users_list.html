@@ -39,9 +39,16 @@
     <!-- Test Group-->
     <tr>
       <td>{{ context.page_obj.start_index|add:forloop.counter|add:"-1" }}</td>
-      <td><a href="{% url "user_profile" user_one.id %}" class="results-link">{{ user_one.username }}</a></td>
+      <td>
+        {% if perms.auth.add_user %}
+        <a href="{% url "user_profile" user_one.id %}" class="results-link">{{ user_one.username }}</a>
+        {% else %}
+          {{ user_one.username }}
+        {% endif %}
+      </td>
       <td>{{ user_one.date_joined }}</td>
       <td>
+        {% if perms.auth.add_user %}
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" 
                   type="button" data-toggle="dropdown" >{% trans "Action" %}
@@ -57,6 +64,7 @@
             {% endif %}
           </ul>
         </div>
+        {% else %}-{% endif %}
       </td>
     </tr>
     

@@ -42,45 +42,34 @@ urlpatterns = [
   
     #Students urls
     url(r'^$', students.students_list, name='home'),
-#    url(r'^students/add/$', students.students_add, name='students_add'),
     url(r'^students/add/$', login_required(StudentAddView.as_view()), name='students_add'),
     url(r'^students/(?P<pk>\d+)/edit/(?P<lang>\S+)?$', login_required(StudentUpdateView.as_view()),         
-#    url(r'^students/(?P<sid>\d+)/edit', students.students_edit,
         name='students_edit'),
     url(r'^students/(?P<pk>\d+)/delete', login_required(StudentDeleteView.as_view()),
-#    url(r'^students/(?P<sid>\d+)/delete', students.students_delete,
         name='students_delete'),
   
     #Groups urls
     url(r'^groups/$', login_required(groups.groups_list), name='groups'),
-#    url(r'^groups/add/$', groups.groups_add, name='groups_add'),
     url(r'^groups/add/$', login_required(GroupAddView.as_view()), name='groups_add'),
-#    url(r'^groups/(?P<gid>\d+)/edit', groups.groups_edit,
     url(r'^groups/(?P<pk>\d+)/edit', login_required(GroupUpdateView.as_view()),
         name='groups_edit'),
-#    url(r'^groups/(?P<gid>\d+)/delete', groups.groups_delete,
     url(r'^groups/(?P<pk>\d+)/delete', login_required(GroupDeleteView.as_view()),
         name='groups_delete'),
   
     # Journal url  
-#    url(r'^journal/$', journal.journal_list, name='journal'),
     url(r'^journal/(?P<pk>\d+)?/?$', login_required(JournalView.as_view()), name='journal'),
 
     # Exams urls
     url(r'^exams/$', login_required(exams.exams_list), name='exams'),
-#    url(r'^exams/add/$', exams.exams_add, name='exams_add'),
     url(r'^exams/add/$', login_required(ExamAddView.as_view()), name='exams_add'),
-#    url(r'^exams/(?P<eid>\d+)/edit', exams.exams_edit,
     url(r'^exams/(?P<pk>\d+)/edit', login_required(ExamUpdateView.as_view()), 
         name='exams_edit'),
-#    url(r'^exams/(?P<eid>\d+)/delete', exams.exams_delete,
     url(r'^exams/(?P<pk>\d+)/delete', login_required(ExamDeleteView.as_view()),
         name='exams_delete'),
         
     # Results urls
     url(r'^results/$', login_required(results.results_list), name='results'),
     url(r'^results/add/$', login_required(results.results_add), name='results_add'),
-#    url(r'^results/add/$', ResultAddView.as_view(), name='results_add'),
     url(r'^results/(?P<rid>\d+)?/edit', login_required(results.results_edit), 
         name='results_edit'),
     url(r'^results/(?P<rid>\d+)/delete', login_required(results.results_delete),
@@ -89,17 +78,16 @@ urlpatterns = [
         name='exam_results'),
 
     # Logs urls
-    url(r'^logs/$', login_required(LogsView.as_view()), name='logs'),
-    url(r'^logs/(?P<pk>\d+)/edit', login_required(LogUpdateView.as_view()), 
+    url(r'^logs/$', permission_required('auth.add_user')(LogsView.as_view()), name='logs'),
+    url(r'^logs/(?P<pk>\d+)/edit', permission_required('auth.delete_user')(LogUpdateView.as_view()), 
         name='logs_edit'),
-    url(r'^logs/(?P<pk>\d+)/delete', login_required(LogDeleteView.as_view()),
+    url(r'^logs/(?P<pk>\d+)/delete', permission_required('auth.delete_user')(LogDeleteView.as_view()),
         name='logs_delete'),
-    url(r'^logs/(?P<lid>\d+)/list', login_required(logs.log_info),
+    url(r'^logs/(?P<lid>\d+)/list', permission_required('auth.delete_user')(logs.log_info),
         name='log_info'),
 
     # Contact Admin Form
-#    url(r'^contact-admin/$', contact_admin.contact_admin, name="contact_admin"),
-    url(r'^contact-admin/$', login_required(ContactView.as_view()), name="contact_admin"),
+    url(r'^contact-admin/$', permission_required('auth.add_user')(ContactView.as_view()), name="contact_admin"),
 
     # My Own User Forms
 #    url(r'^user-register/$', UserRegisterView.as_view(), name='user-register'),
@@ -114,8 +102,8 @@ urlpatterns = [
     url(r'^social/', include('social_django.urls', namespace='social')),
     url(r'^user-preference/$', login_required(user.user_preference), name='user-preference'),
     url(r'^users-list/$', login_required(user.users_list), name='users'),
-    url(r'^users/(?P<uid>\d+)/profile/$', login_required(user.users_profile), name='user_profile'),
-    url(r'^users/(?P<uid>\d+)/delete/$', login_required(user.user_delete), name='user_delete'),
+    url(r'^users/(?P<uid>\d+)/profile/$', permission_required('auth.add_user')(user.users_profile), name='user_profile'),
+    url(r'^users/(?P<uid>\d+)/delete/$', permission_required('auth.delete_user')(user.user_delete), name='user_delete'),
     url(r'^', include('registration.auth_urls')),
 #    url(r'^users/reset_password/$', user.password_reset, name='reset_password'),
     

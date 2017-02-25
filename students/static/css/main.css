@@ -153,6 +153,7 @@ input {
 
 #text-or {
   margin-top: 5px;
+  padding-left: 95px;
 }
 
 #forgot-password {
@@ -162,3 +163,10 @@ input {
 p.bg-info {
   padding: 10px;
 }
+
+/* Login Form Styles */
+a.social-button {
+  margin-left: 15px;
+}
+
+

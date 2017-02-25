@@ -53,7 +53,7 @@ def results_list(request):
 
     return render(request, 'students/results.html', {'context': context})
 
-@permission_required('auth.add_user')  
+@login_required
 def results_add(request):
     if request.method == 'POST':
         data = request.POST
@@ -113,7 +113,7 @@ def results_add(request):
         exams = Exam.objects.all().filter(is_completed=False)
         return render(request, 'students/results_add.html', { 'exams': exams, 'errors': errors })
 
-@permission_required('auth.add_user')   
+@login_required  
 def results_edit(request, rid=None):
     if request.method == "POST":
         data = request.POST
@@ -161,7 +161,7 @@ def results_edit(request, rid=None):
     return render(request, 'students/results_edit_marks.html', {'students': students, 'exam': result_exam, 'scores': all_score})
 
 # Delete Page
-@permission_required('auth.add_user') 
+@login_required
 def results_delete(request, rid):
     if request.method == "POST":
         if request.POST.get('cancel_button'):

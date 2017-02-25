@@ -10,7 +10,7 @@ from django.views.generic import DeleteView, CreateView, UpdateView
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -116,11 +116,10 @@ class ExamAddForm(forms.ModelForm):
         ))
 
 # Add Form View
-class ExamAddView(PermissionRequiredMixin, CreateView):
+class ExamAddView(LoginRequiredMixin, CreateView):
     model = Exam
     template_name = 'students/form_class.html'
     form_class = ExamAddForm
-    permission_required = 'auth.add_user'
     
     def get_success_url(self):
         messages.success(self.request,
@@ -140,11 +139,10 @@ class ExamAddView(PermissionRequiredMixin, CreateView):
             return super(ExamAddView, self).post(request, *args, **kwargs)
 
 # Update Form View
-class ExamUpdateView(PermissionRequiredMixin, UpdateView):
+class ExamUpdateView(LoginRequiredMixin, UpdateView):
     model = Exam
     template_name = 'students/form_class.html'
     form_class = ExamAddForm
-    permission_required = 'auth.add_user'
     
     def get_success_url(self):
         messages.success(self.request,
@@ -164,10 +162,9 @@ class ExamUpdateView(PermissionRequiredMixin, UpdateView):
             return super(ExamUpdateView, self).post(request, *args, **kwargs)
 
 # Delete Exam Form
-class ExamDeleteView(PermissionRequiredMixin, DeleteView):
+class ExamDeleteView(LoginRequiredMixin, DeleteView):
     model = Exam
     template_name = 'students/exams_confirm_delete.html'
-    permission_required = 'auth.add_user'
 
     def get_success_url(self):
         messages.success(self.request,

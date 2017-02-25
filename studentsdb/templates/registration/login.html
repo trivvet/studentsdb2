@@ -1,6 +1,7 @@
 {% extends "students/base.html" %}
 
 {% load i18n %}
+{% load static %}
 
 {% block meta_title %}{% trans "Login Form" %}{% endblock meta_title %}
 
@@ -41,14 +42,15 @@
 
   <div class="form-group">
     <div class="col-sm-offset-3 col-sm-9">
-      <a href="{% url 'social:begin' 'facebook' %}" type="button" class="btn btn-primary">{% trans "via Facebook" %}</a>
-      <a href="{% url 'social:begin' 'google-oauth2' %}" type="button" class="btn btn-danger">{% trans "Google+" %}</a>
-      <a href="{% url 'social:begin' 'twitter' %}" type="button" class="btn btn-info">{% trans "Twitter" %}</a>
+      <a href="{% url 'social:begin' 'facebook' %}" type="button" class="social-button"><img src="{{ PORTAL_URL }}{% static "img/facebook.jpg" %}" width="50" height="50"></a>
+      <a href="{% url 'social:begin' 'google-oauth2' %}" type="button" class="social-button"><img src="{{ PORTAL_URL }}{% static "img/google.jpeg" %}" width="50" height="50"></a>
+      <a href="{% url 'social:begin' 'twitter' %}" type="button" class="social-button"><img src="{{ PORTAL_URL }}{% static "img/twitter.jpeg" %}" width="50" height="50"></a>
     </div>
   </div>
   
 </form>
 
 {% endblock content %}
+
 
  

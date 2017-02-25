@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.views.generic import TemplateView, DeleteView, UpdateView
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from crispy_forms.helper import FormHelper
@@ -86,7 +86,7 @@ class LogUpdateView(PermissionRequiredMixin, UpdateView):
     model = LogEntry
     template_name = 'students/form_class.html'
     form_class = LogUpdateForm
-    permission_required = 'auth.add_user'
+    permission_required = 'auth.delete_user'
     
     def get_success_url(self):
         messages.success(self.request,
@@ -108,7 +108,7 @@ class LogUpdateView(PermissionRequiredMixin, UpdateView):
 class LogDeleteView(PermissionRequiredMixin, DeleteView):
     model = LogEntry
     template_name = 'students/logs_confirm_delete.html'
-    permission_required = 'auth.add_user'
+    permission_required = 'auth.delete_user'
 
     def get_success_url(self):
         messages.success(self.request,
@@ -122,7 +122,7 @@ class LogDeleteView(PermissionRequiredMixin, DeleteView):
         else:
             return super(LogDeleteView, self).post(request, *args, **kwargs)
 
-@login_required 
+@permission_required('auth.add_user')
 def log_info(request, lid):
     context = {}
     context['log'] = LogEntry.objects.get(pk=int(lid))
