@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block content %}
+
 <form action="{% url "users:registration_register" %}" method="post">
 
   {% csrf_token %}

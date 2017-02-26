@@ -32,6 +32,8 @@ from students.views.logs import LogsView, LogDeleteView, LogUpdateView
 from students.views.contact_admin import ContactView
 from students.views.user import UserAuthView
 
+from studentsdb.views import RegistrationView
+
 from .settings import MEDIA_ROOT, DEBUG
 
 js_packages = {
@@ -97,15 +99,17 @@ urlpatterns = [
     # User Forms from Book
     url(r'^user/profile/$', login_required(TemplateView.as_view(template_name='registration/profile.html')), name='profile'),
     url(r'^users/logout/$', auth_views.logout, kwargs={'next_page': 'home'}, name='auth_logout'),
+    url(r'^register/registration/$', RegistrationView.as_view(), name='registration_register'),
     url(r'^register/complete/$', RedirectView.as_view(pattern_name='home'), name='registration_complete'),
     url(r'^users/', include('registration.backends.simple.urls', namespace='users')),
     url(r'^social/', include('social_django.urls', namespace='social')),
     url(r'^user-preference/$', login_required(user.user_preference), name='user-preference'),
+
+    # Users List
     url(r'^users-list/$', login_required(user.users_list), name='users'),
     url(r'^users/(?P<uid>\d+)/profile/$', permission_required('auth.add_user')(user.users_profile), name='user_profile'),
     url(r'^users/(?P<uid>\d+)/delete/$', permission_required('auth.delete_user')(user.user_delete), name='user_delete'),
     url(r'^', include('registration.auth_urls')),
-#    url(r'^users/reset_password/$', user.password_reset, name='reset_password'),
     
     # Javascript Catalog File
     url(r'^jsi18n/$', javascript_catalog, js_packages, name="javascript-catalog"),

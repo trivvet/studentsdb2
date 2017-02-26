@@ -230,7 +230,7 @@ function initForm(form, modal, link) {
         // to get updated students list;
         // reload after 2 second, so that user can read
         // success message
-        if (link == '/user-auth/' || link == '/user-preference/' || link == '/users/login/'){
+        if (link == '/user-auth/' || link == '/user-preference/' || link == '/users/login/' || link == '/register/registration/'){
           location.replace('/');
         } else {
           setTimeout(function() {

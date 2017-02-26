@@ -7,23 +7,31 @@
 
 {% block title %}{% trans "Login Form" %}{% endblock title %}
 
+{% block status_message %}
+{% if form.errors %}
+<div class="alert alert-danger" role="alert">{% trans "Please, correct the following errors." %} {{ form.non_field_errors }}</div>
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <form action="{% url "users:auth_login" %}" method="post" class="form-horizontal">
 
   {% csrf_token %}
   <input type="hidden" name="next" value="{% url "home" %}" />
 
-  <div class="form-group">
+  <div class="form-group {% if form.errors.username %}has-error{% endif %}">
     <label for="login" class="col-sm-3 control-label">{% trans "Your Username" %}</label>
     <div class="col-sm-9">
-      <input type="text" class="form-control" id="login" value="" name="username" />
+      <input type="text" class="form-control" id="login" value="{{ form.username.value|default:'' }}" name="username" />
+      <span class="help-block">{{ form.errors.username }}</span>
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group {% if form.errors.password %}has-error{% endif %}">
     <label for="password" class="col-sm-3 control-label">{% trans "Your Password" %}</label>
     <div class="col-sm-9">
       <input type="password" class="form-control" id="password" value="" name="password" />
+      <span class="help-block">{{ form.errors.password }}</span>
     </div>
   </div>
 
