@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _l
 
 from registration.forms import RegistrationForm as BaseRegistrationForm
 from registration.forms import UserModel, UsernameField
-from registration.backends.simple.views import RegistrationView as BaseRegistrationView
+from registration.backends.default.views import RegistrationView as BaseRegistrationView
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -77,12 +77,13 @@ class RegistrationView(BaseRegistrationView):
     model = User
     template_name = 'students/form_class.html'
     form_class = RegistrationForm
+    success_url = 'users:registration_complete'
     
     # if post form is valid retern success message
-    def get_success_url(self, user=None):
-        messages.success(self.request,
-            _(u"User %s registrated successfully") % user.username)
-        return reverse('home')
+#    def get_success_url(self, user=None):
+#        messages.success(self.request,
+#            _(u"User %s registrated successfully") % user.username)
+#        return reverse('users:registration_complete')
 
     # render form title    
     def get_context_data(self, **kwargs):
@@ -97,3 +98,4 @@ class RegistrationView(BaseRegistrationView):
             return HttpResponseRedirect(reverse('home'))
         else:
             return super(RegistrationView, self).post(request, *args, **kwargs)
+

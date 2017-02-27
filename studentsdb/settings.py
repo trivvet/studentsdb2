@@ -108,6 +108,8 @@ LOGOUT_URL = 'users:auth_logout'
 
 REGISTRATION_OPEN = True
 
+ACCOUNT_ACTIVATION_DAYS = 2./24
+
 LOG_FILE = os.path.join(BASE_DIR, 'studentsdb.log')
 
 LOGGING = {
