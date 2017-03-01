@@ -32,7 +32,7 @@ from students.views.logs import LogsView, LogDeleteView, LogUpdateView
 from students.views.contact_admin import ContactView
 from students.views.user import UserAuthView
 
-from studentsdb.views import RegistrationView
+from stud_auth.views import RegistrationView
 
 from .settings import MEDIA_ROOT, DEBUG
 

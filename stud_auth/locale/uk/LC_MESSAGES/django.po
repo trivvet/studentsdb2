@@ -1,0 +1,323 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-28 16:55+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: models.py:11
+msgid "User Profile"
+msgstr "Профіль Користувача"
+
+#: models.py:15 templates/registration/profile.html:35
+msgid "Mobile Phone"
+msgstr "Номер Мобільного"
+
+#: models.py:21
+msgid "Address"
+msgstr "Адреса"
+
+#: models.py:26
+msgid "Passport Number"
+msgstr "Номер Паспорту"
+
+#: templates/registration/activation_complete.html:4
+msgid "Account Activated"
+msgstr "Обліковий Запис Активований"
+
+#: templates/registration/activation_complete.html:8
+msgid "Your account is now activated."
+msgstr "Ваш обліковий запис тільки-що активовано"
+
+#: templates/registration/activation_complete.html:10
+msgid "You can log in."
+msgstr "Ви можете увійти"
+
+#: templates/registration/activation_email.html:6
+msgid "Registration"
+msgstr "Реєстрація"
+
+#: templates/registration/activation_email.html:11
+#, python-format
+msgid ""
+"\n"
+"    You (or someone pretending to be you) have asked to register an account "
+"at\n"
+"    %(site_name)s.  If this wasn't you, please ignore this email\n"
+"    and your address will be removed from our records.\n"
+"    "
+msgstr ""
+"\n"
+"    Ви (або хтось вдаючи вас) залишили запит на реєстрацію облікового запису "
+"на\n"
+"    %(site_name)s.  Якщо це були не ви, будь-ласка проігноруйте дане повідомлення\n"
+"    і ваша електронна адреса буде видалена з наших записів.\n"
+"    "
+#: templates/registration/activation_email.html:18
+#, python-format
+msgid ""
+"\n"
+"    To activate this account, please click the following link within the "
+"next\n"
+"    %(expiration_days)s days:\n"
+"    "
+msgstr ""
+"\n"
+"    Для активації цього облікового запису, будь-ласка клікніть наступне посилання на протязі "
+"    %(expiration_days)s днів:\n"
+"    "
+
+#: templates/registration/activation_email.html:30
+#, python-format
+msgid ""
+"\n"
+"    Sincerely,\n"
+"    %(site_name)s Management\n"
+"    "
+msgstr ""
+"\n"
+"    З повагою,\n"
+"    Команда %(site_name)s\n"
+"    "
+
+#: templates/registration/activation_email.txt:2
+#, python-format
+msgid ""
+"\n"
+"You (or someone pretending to be you) have asked to register an account at\n"
+"%(site_name)s.  If this wasn't you, please ignore this email\n"
+"and your address will be removed from our records.\n"
+msgstr ""
+"\n"
+"Ви (або хтось вдаючи вас) залишили запит на реєстрацію облікового запису на\n"
+"%(site_name)s.  Якщо це були не ви, будь-ласка проігноруйте дане повідомлення\n"
+" ваша електронна адреса буде видалена з наших записів.\n"
+
+#: templates/registration/activation_email.txt:7
+#, python-format
+msgid ""
+"\n"
+"To activate this account, please click the following link within the next\n"
+"%(expiration_days)s days:\n"
+msgstr ""
+"\n"
+"Для активації цього облікового запису, будь-ласка клікніть наступне посилання на протязі\n"
+"%(expiration_days)s днів:\n"
+
+#: templates/registration/activation_email.txt:14
+#, python-format
+msgid ""
+"\n"
+"Sincerely,\n"
+"%(site_name)s Management\n"
+msgstr ""
+"\n"
+"З повагою,\n"
+"Команда %(site_name)s\n"
+
+#: templates/registration/login.html:6 templates/registration/login.html:8
+msgid "Login Form"
+msgstr "Форма Входу"
+
+#: templates/registration/login.html:12
+#: templates/registration/registration_form.html:11
+msgid "Please, correct the following errors."
+msgstr "Будь-ласка, виправте наступні помилки"
+
+#: templates/registration/login.html:23
+#: templates/registration/registration_form.html:23
+msgid "Your Username"
+msgstr "Ваше Ім'я Користувача"
+
+#: templates/registration/login.html:31
+#: templates/registration/registration_form.html:35
+msgid "Your Password"
+msgstr "Ваш Пароль"
+
+#: templates/registration/login.html:40
+msgid "Login"
+msgstr "Увійти"
+
+#: templates/registration/login.html:41
+msgid "Forgot your password?"
+msgstr "Забули ваш пароль?"
+
+#: templates/registration/login.html:47
+msgid "or"
+msgstr "або"
+
+#: templates/registration/password_reset_complete.html:6
+#: templates/registration/password_reset_confirm.html:6
+#: templates/registration/password_reset_done.html:6
+#: templates/registration/password_reset_form.html:6
+msgid "Home"
+msgstr "Додому"
+
+#: templates/registration/password_reset_complete.html:7
+#: templates/registration/password_reset_done.html:7
+#: templates/registration/password_reset_form.html:7
+msgid "Password reset"
+msgstr "Відновлення пароля"
+
+#: templates/registration/password_reset_complete.html:16
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "Ваш пароль був налаштований. Ви можете тепер продовжити і увійти."
+
+#: templates/registration/password_reset_complete.html:18
+msgid "Log in"
+msgstr "Увійти"
+
+#: templates/registration/password_reset_confirm.html:7
+msgid "Password reset confirmation"
+msgstr "Пароль успішно скинуто"
+
+#: templates/registration/password_reset_confirm.html:17
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr "Будь-ласка уведіть новий пароль двічі для того щоб ми перевірили його на "
+"правильність."
+
+#: templates/registration/password_reset_confirm.html:22
+msgid "New password:"
+msgstr "Новий пароль:"
+
+#: templates/registration/password_reset_confirm.html:32
+msgid "Confirm password:"
+msgstr "Підтвердіть пароль:"
+
+#: templates/registration/password_reset_confirm.html:43
+msgid "Change my password"
+msgstr "Змінити мій пароль"
+
+#: templates/registration/password_reset_confirm.html:50
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr "Посилання на зміну пароля втратило чинність, можливо тому що вже було використане."
+" Будь-ласка запросіть відновлення пароль ще раз."
+
+#: templates/registration/password_reset_done.html:15
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr "Ви надіслали вам інструкції для налаштування вашого паролю, якщо обліковий запис "
+"існує з електронною адресою, яку ви ввели. Ви маєте незабаром його отримати."
+
+#: templates/registration/password_reset_done.html:17
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr "Якщо ви не отримали листа на поштову скриньку, будь-ласка перевірте чи ви ввели "
+"адресу з якою ви реєструвались, і прогляньте вашу папку зі спамом."
+
+#: templates/registration/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr "Ви отримали цього листа тому-що запросили відновлення паролю для вашого "
+"облікового запису на %(site_name)s."
+#: templates/registration/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Будь-ласка перейдіть по наступному посиланню і встановіть новий пароль:"
+
+#: templates/registration/password_reset_email.html:8
+msgid "Your username, in case you've forgotten:"
+msgstr "Ваше ім'я користувача, у випадку якщо ви забули:"
+
+#: templates/registration/password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr "Дякуємо за використання нашого сайту!"
+
+#: templates/registration/password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "Команда %(site_name)s"
+
+#: templates/registration/password_reset_form.html:15
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll email "
+"instructions for setting a new one."
+msgstr ""
+"Забули ваш пароль? Введіть вашу електронна адресу нижче, і ми вишлемо "
+"інструкції для відновлення паролю."
+
+#: templates/registration/password_reset_form.html:19
+msgid "Email address:"
+msgstr "Електронна адреса:"
+
+#: templates/registration/password_reset_form.html:19
+msgid "Reset my password"
+msgstr "Скинути мій пароль"
+
+#: templates/registration/profile.html:14
+msgid "Email"
+msgstr "Електронна Адреса"
+
+#: templates/registration/profile.html:21
+msgid "Username"
+msgstr "Ім'я користувача"
+
+#: templates/registration/profile.html:28
+msgid "Joined:"
+msgstr "Приєднався:"
+
+#: templates/registration/registration_complete.html:4
+msgid "Activation email sent"
+msgstr "Лист для активації надіславний"
+
+#: templates/registration/registration_complete.html:7
+msgid "Please check your email to complete the registration process."
+msgstr "Будь-ласка перевірте вашу поштову скриньку для завершення процесу реєстрації."
+
+#: templates/registration/registration_form.html:5
+#: templates/registration/registration_form.html:7 views.py:91
+msgid "Register Form"
+msgstr "Форма Реєстрації"
+
+#: templates/registration/registration_form.html:29
+msgid "Your Email"
+msgstr "Ваш Емейл"
+
+#: templates/registration/registration_form.html:41
+msgid "Confirm Password"
+msgstr "Підтвердження паролю"
+
+#: templates/registration/registration_form.html:46 views.py:70
+msgid "Register"
+msgstr "Зареєструвати"
+
+#: views.py:21
+msgid "E-mail"
+msgstr "Емейл"
+
+#: views.py:27
+msgid "Password"
+msgstr "Пароль"
+
+#: views.py:33
+msgid "Confirm password"
+msgstr "Підтвердження паролю"
+
+#: views.py:71
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: views.py:97
+msgid "Registration new user canceled"
+msgstr "Реєстрація нового користувача скасована"

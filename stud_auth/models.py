@@ -27,6 +27,10 @@ class StProfile(models.Model):
         max_length=20,
         blank=True)
 
+    photo = models.ImageField(
+        blank=True,
+        verbose_name=_(u"Photo"),
+        null=True)
 
     def __unicode__(self):
         return self.user.username

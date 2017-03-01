@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'registration',
     'social_django',
     'students',
-    'studentsdb',
+    'stud_auth',
 ]
 
 MIDDLEWARE = [
@@ -69,7 +69,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'studentsdb', 'templates'),
+            os.path.join(BASE_DIR, 'stud_auth', 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
