@@ -17,7 +17,7 @@
 <form action="{% url "users:auth_login" %}" method="post" class="form-horizontal">
 
   {% csrf_token %}
-  <input type="hidden" name="next" value="{% url "home" %}" />
+  <input type="hidden" name="next" value="{% url "user-time" %}" />
 
   <div class="form-group {% if form.errors.username %}has-error{% endif %}">
     <label for="login" class="col-sm-4 control-label">{% trans "Your Username" %}</label>

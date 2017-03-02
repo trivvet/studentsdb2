@@ -71,6 +71,7 @@
             </button>
             <ul class="dropdown-menu">
               <li><a href="{% url 'user-preference' %}" class='form-link'>{% trans "Preference" %}</a></li>
+              <li><a href="{% url 'users:auth_password_change' %}" class='form-link'>{% trans "Change Password" %}</a></li>
               <li role="separator" class="divider"></li>
               <li><a href="{% url 'users:auth_logout' %}">{% trans "Log out" %}</a></li>
             </ul>

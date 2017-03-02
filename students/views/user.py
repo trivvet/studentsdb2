@@ -27,116 +27,8 @@ from crispy_forms.bootstrap import FormActions
 from crispy_forms.layout import Layout, Submit, Button
 
 from studentsdb.settings import EMAIL_HOST_USER
+from stud_auth.models import StProfile
 from ..util import paginate
-
-#class UserRegisterForm(forms.ModelForm):
-
-    #class Meta:
-        #choices = pytz.common_timezones
-        #choices_list = [('', _l(u'Select your time zone'))]
-        #for value in choices:
-            #choices_list.append((value, value))
-        #model = MainUser
-        #fields = ['username', 'last_name', 'first_name', 'email', 'language', 'time_zone', 'password']
-        #help_texts = {'username': ''}
-        #widgets = {
-            #'username': forms.TextInput(
-                #attrs={'placeholder': _l(u"Please, enter your username")}),
-            #'last_name': forms.TextInput(
-                #attrs={'placeholder': _l(u"Please, enter your last name")}),
-            #'first_name': forms.TextInput(
-                #attrs={'placeholder': _l(u"Please, enter your first name")}),
-            #'email': forms.EmailInput(
-                #attrs={'placeholder': _l(u"Please, enter your email")}),
-            #'language': forms.Select(
-                #choices=(("en", _l(u"English")), ("uk", _l(u"Ukrainian")), ("ru", _l("Russian")))),
-            #'time_zone': forms.Select(
-                #choices=choices_list),
-            #'password': forms.PasswordInput(
-                #attrs={'placeholder': _l(u"Please, enter your password")},
-                #render_value=False),
-        #}
-
-    #def __init__(self, *args, **kwargs):
-        #super(UserRegisterForm, self).__init__(*args, **kwargs)
-        #self.helper = FormHelper(self)
-        
-        ## set form tag attributes
-        #self.helper.action = reverse('user-register')
-        #self.helper.form_method = 'POST'
-        #self.helper.form_class = 'form-horizontal'
-
-        ## set form field properties
-        #self.helper.help_text_inline = True
-        #self.helper.html5_required = False
-        #self.helper.attrs = {'novalidate': ''}
-        #self.helper.label_class = 'col-sm-4 control-label'
-        #self.helper.field_class = 'col-sm-8'
-
-        ## add buttons
-        #self.helper.layout.append(Layout(
-            #FormActions(
-                #Submit('add_button', _(u'Register')),
-                #Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
-            #)
-        #))
-
-    #def clean(self):
-        #cleaned_data = super(UserRegisterForm, self).clean()
-        #try:
-            #password = cleaned_data['password']
-        #except:
-            #password = ''
-        
-        ## validate password
-        #if password:
-            #if password_validation.validate_password(password) is None:
-                #self.add_error('password', ValidationError(
-                    #_(u"Password must contain minimum 4 characters")))
-                
-        #return cleaned_data
-
-#class UserRegisterView(FormView):
-    #template_name = 'students/form_class_anonymous.html'
-    #form_class = UserRegisterForm
-
-    #def get_success_url(self):
-        #if self.message:
-            #messages.success(self.request, _(u"User %s registered successfully") % self.request.POST.get('username'))
-        #else:
-            #messages.error(self.request, _(u"When registration new user unexpected error ocured. Please try this service later"))
-        #return reverse('home')
-
-    #def get_context_data(self, **kwargs):
-        #context = super(UserRegisterView, self).get_context_data(**kwargs)
-        #context['title'] = _(u'User Regiser')
-        #return context
-
-    #def post(self, request, *args, **kwargs):
-        #if request.POST.get('cancel_button'):
-            #messages.warning(request, _(u"Register user canceled"))
-            #return HttpResponseRedirect(reverse('home'))
-        #else:
-            #return super(UserRegisterView, self).post(request, *args, **kwargs)
-
-    #def form_valid(self, form):
-
-        #last_name = form.cleaned_data['last_name']
-        #first_name = form.cleaned_data['first_name']
-        #username = form.cleaned_data['username']
-        #password = form.cleaned_data['password']
-        #email = form.cleaned_data['email']
-        #language = form.cleaned_data['language']
-        #time_zone = form.cleaned_data['time_zone']
-
-        #try:
-            #MainUser.objects.create_user(username=username, email=email, password=password, last_name=last_name, first_name=first_name, language=language, time_zone=time_zone)
-        #except Exception:
-            #self.message = False
-        #else:
-            #self.message = True
-
-        #return super(UserRegisterView, self).form_valid(form)
 
 class UserAuthForm(forms.ModelForm):
 
@@ -210,18 +102,13 @@ class UserAuthView(FormView):
             messages.error(request, _(u"User with such username or password doesn't exist"))
             return HttpResponseRedirect(reverse('home'))
 
-def user_logout(request):
-    logout(request)
-    request.session.flush()
-    return HttpResponseRedirect(reverse('home'))
-
 def user_preference(request):
     if request.method == 'POST':
         if request.POST.get('cancel_button'):
             messages.warning(request, _(u"Changing user settings canceled"))
             return HttpResponseRedirect(reverse('home'))
         else:
-            current_user = MainUser.objects.get(username=request.user.username)
+            current_user = User.objects.get(username=request.user.username)
             data = 0
             first_name=request.POST.get('first_name', '').strip()
             if first_name:
@@ -238,20 +125,31 @@ def user_preference(request):
                 current_user.email = email
                 data += 1
 
+            try:
+                stprofile = StProfile.objects.get(user=current_user)
+            except:
+                stprofile = StProfile.objects.create(user=current_user)
+            data2 = 0
+            
             language=request.POST.get('lang')
-            if current_user.language != language:
-                current_user.language = language
+            if stprofile.language != language:
+                stprofile.language = language
                 translation.activate(language)
                 request.session[translation.LANGUAGE_SESSION_KEY] = language
-                data += 1
+                data2 += 1
 
             time_zone=request.POST.get('time_zone')
-            current_user.time_zone = time_zone
-            timezone.activate(time_zone)
-            request.session['django_timezone'] = time_zone
+            if stprofile.time_zone != time_zone:
+                stprofile.time_zone = time_zone
+                timezone.activate(time_zone)
+                request.session['django_timezone'] = time_zone
+                data2 += 1
 
             if data > 0:
                 current_user.save()
+
+            if data2 > 0:
+                stprofile.save()
                 
             if request.POST.get('newpassword'):
                 password = request.POST.get('newpassword')
@@ -269,10 +167,7 @@ def user_preference(request):
                 messages.success(request, _(u"User settings changed successfully"))
                 return HttpResponseRedirect(reverse('home'))
     else:
-        try:
-            current_user = MainUser.objects.get(username=request.user.username)
-        except:
-            current_user = User.objects.get(username=request.user.username)
+        current_user = User.objects.get(username=request.user.username)
         return render(request, 'students/user_preference.html', {'current_user': current_user, 'timezones': pytz.common_timezones})
 
 
@@ -283,6 +178,15 @@ class TimezoneMiddleware(MiddlewareMixin):
             timezone.activate(pytz.timezone(tzname))
         else:
             timezone.deactivate()
+
+def user_time(request):
+    try:
+        stprofile = StProfile.objects.get(user=request.user)
+        timezone.activate(stprofile.time_zone)
+        request.session['django_timezone'] = stprofile.time_zone
+    except:
+        pass
+    return HttpResponseRedirect(reverse('home'))
 
 def users_list(request):
     users = User.objects.all()

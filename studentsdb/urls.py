@@ -104,6 +104,7 @@ urlpatterns = [
     url(r'^users/', include('registration.backends.default.urls', namespace='users')),
     url(r'^social/', include('social_django.urls', namespace='social')),
     url(r'^user-preference/$', login_required(user.user_preference), name='user-preference'),
+    url(r'^user/time/$', login_required(user.user_time), name='user-time'),
 
     # Users List
     url(r'^users-list/$', login_required(user.users_list), name='users'),

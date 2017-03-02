@@ -17,6 +17,20 @@ class StProfile(models.Model):
         blank=True,
         default='')
 
+    language = models.CharField(
+        verbose_name=_(u"Language"),
+        max_length=10,
+        blank=True,
+        default=''
+    )
+
+    time_zone = models.CharField(
+        verbose_name=_(u"Time Zone"),
+        max_length=128,
+        blank=True,
+        default=''
+    )
+
     address = models.CharField(
         verbose_name=_(u"Address"),
         max_length=256,
