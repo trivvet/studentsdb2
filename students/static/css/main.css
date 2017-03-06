@@ -1,5 +1,10 @@
 /* Global Styles */
 
+p.bg-info {
+  margin: 10px 0 -10px;
+  padding: 5px;
+}
+
 .alert {
   margin-bottom: 5px;
 }
@@ -158,10 +163,6 @@ input {
 
 #forgot-password {
   margin-left: 30px;
-}
-
-p.bg-info {
-  padding: 10px;
 }
 
 /* Login Form Styles */

@@ -29,7 +29,7 @@ SECRET_KEY = 'tk%=r)+2r2h0$axy_^za50bvou^iiej^itm(iici)6)pjxkk%p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'page_stats',
     'crispy_forms',
     'registration',
     'social_django',
@@ -51,6 +52,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'page_stats.middleware.RequestDatabaseTimeMiddleware',
+    'page_stats.middleware.RequestTimeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
