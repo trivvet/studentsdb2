@@ -86,6 +86,9 @@ TEMPLATES = [
                 'studentsdb.context_processors.students_proc',
                 'students.context_processors.groups_processor'
             ],
+            'libraries': {
+                'pagenav': 'students.templatetags.pagenav',
+            },
         },
     },
 ]

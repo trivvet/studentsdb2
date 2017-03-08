@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load static from staticfiles %}
+{% load pagenav %}
 
 {% block meta_title %}{% trans "Events" %}{% endblock meta_title %}
 
@@ -89,7 +90,7 @@
 
 <!-- Pagination -->
 
-{% include 'students/pagination.html' %}
+{% pagenav page_obj is_paginated paginator %}
   
 {% endblock content %}
 

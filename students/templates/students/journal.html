@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load static from staticfiles %}
+{% load pagenav %}
 
 {% block meta_title %}{% trans "Accounting Visits" %}{% endblock meta_title %}
 
@@ -86,6 +87,6 @@
 
 <!-- End Students Listing -->
 
-{% include 'students/pagination.html' %}
+{% pagenav page_obj is_paginated paginator %}
 
 {% endblock content %}

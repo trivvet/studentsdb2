@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load static from staticfiles %}
 {% load tz %}
+{% load pagenav %}
 
 {% block meta_title %}{% trans "Students" %}{% endblock meta_title %}
 
@@ -160,9 +161,7 @@
 
 <!-- Pagination -->
 
-{% with paginator=context.paginator page_obj=context.page_obj is_paginated=context.is_paginated %}
-{% include 'students/pagination.html' %}
-{% endwith %}
+{% pagenav context.page_obj context.is_paginated context.paginator %}
   
 {% endblock content %}
 
