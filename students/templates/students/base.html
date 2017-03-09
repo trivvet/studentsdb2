@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load static from staticfiles %}
 {% load tz %}
+{% load nice_username %}
 
 <!DOCTYPE html>
 <html lang="uk">
@@ -68,7 +69,7 @@
         <div class="col-xs-2" id="user-menu">
           <div class="btn-group">
             <a type="button" href="{% url 'profile' %}" class="btn btn-success navbar-btn results-link">
-              {{ user.get_full_name|default:user.username }}
+              {{ user|nice_username }}
             </a>
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>

@@ -98,6 +98,6 @@
 <p class='none'>{% trans "Currently there aren't results in the database" %}</p>
 {% endif %}
 
-{% pagenav context.page_obj context.is_paginated context.paginator %}
+{% pagenav page_obj=context.page_obj is_paginated=context.is_paginated paginator=context.paginator %}
         
 {% endblock content %}

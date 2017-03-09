@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load static from staticfiles %}
+{% load str2int %}
 
 {% block meta_title %}{% trans "Adding Exam Results" %}{% endblock meta_title %}
 
@@ -30,7 +31,7 @@
         <option value="">{% trans "Select completed exam" %}</option>
         {% for exam in exams %}
         <option value="{{ exam.id }}"
-                {% if exam.id == request.GET.name|add:0 %}selected{% endif %}>{{ exam.name }} ({{ exam.exam_group.title }}, {{ exam.date }})</option>
+                {% if exam.id == request.GET.name|str2int %}selected{% endif %}>{{ exam.name }} ({{ exam.exam_group.title }}, {{ exam.date }})</option>
         {% endfor %}
       </select>
       <span class="help-block" id="helpLeader">{{ errors.name }}</span>
