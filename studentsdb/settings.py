@@ -88,6 +88,7 @@ TEMPLATES = [
             ],
             'libraries': {
                 'pagenav': 'students.templatetags.pagenav',
+                'select_menu': 'students.templatetags.select_menu',
             },
         },
     },

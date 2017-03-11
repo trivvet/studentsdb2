@@ -2,6 +2,7 @@
 {% load static from staticfiles %}
 {% load tz %}
 {% load nice_username %}
+{% load select_menu %}
 
 <!DOCTYPE html>
 <html lang="uk">
@@ -122,34 +123,26 @@
         {% url 'users' as url_users %}
         <div class="col-xs-12">
           <ul class="nav nav-tabs">
-            <li role="presentation" {% if request.path == url_home %}
-                class="active"{% endif %}>
+            <li role="presentation" {% select_menu request.path url_home %}>
               <a href="{{ url_home }}">{% trans "Students" %}</a>
             </li>
               
             {% if user.is_authenticated %}
-            <li role="presentation" {% if url_journal in request.path %}
-                class="active"{% endif %}>
+            <li role="presentation" {% select_menu request.path url_journal %}>
               <a href="{{ url_journal }}">{% trans "Journal" %}</a></li>
-            <li role="presentation" {% if url_groups in request.path %}
-                class="active"{% endif %}>
+            <li role="presentation" {% select_menu request.path url_groups %}>
               <a href="{{ url_groups }}">{% trans "Groups" %}</a></li>
-            <li role="presentation" {% if url_exams in request.path %}
-                class="active"{% endif %}>
+            <li role="presentation" {% select_menu request.path url_exams %}>
               <a href="{{ url_exams }}">{% trans "Exams" %}</a></li>
-            <li role="presentation" {% if url_results in request.path %}
-                class="active"{% endif %}>
+            <li role="presentation" {% select_menu request.path url_results %}>
               <a href="{{ url_results }}">{% trans "Results" %}</a></li>
             {% if perms.auth.add_user %}
-            <li role="presentation" {% if url_contact in request.path %}
-                class="active"{% endif %}>
+            <li role="presentation" {% select_menu request.path url_contact %}>
               <a href="{{ url_contact }}" id="contact-link">{% trans "Contact" %}</a></li>
-            <li role="presentation" {% if url_logs in request.path %}
-                class="active"{% endif %}>
+            <li role="presentation" {% select_menu request.path url_logs %}>
               <a href="{{ url_logs }}">{% trans "Events"%}</a></li>
             {% endif %}
-            <li role="presentation" {% if url_users in request.path %}
-                class="active"{% endif %}>
+            <li role="presentation" {% select_menu request.path url_users %}>
               <a href="{{ url_users }}">{% trans "Users"%}</a></li>
             {% endif %}
             
