@@ -154,6 +154,7 @@ function initForm(form, modal, link) {
   initPhotoView();
   initPasswordForgotView();
 
+  console.log(form);
   // close modal window on Cancel button click
   form.find('input[name="cancel_button"]').click(function(event) {
     form.ajaxForm({
@@ -186,7 +187,7 @@ function initForm(form, modal, link) {
   });
 
   var modal2 = $('#modalAlert');
-
+  
   // make form work in AJAX mode
   form.ajaxForm({
     url: link,
