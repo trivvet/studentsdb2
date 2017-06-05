@@ -230,7 +230,3 @@ def user_delete(request, uid):
             user.delete()
             messages.success(request, _(u"User %s deleted successfully" % user.username))
         return HttpResponseRedirect(reverse('users'))
-
-def facebook_sdk(request):
-
-    return HttpResponseRedirect(reverse('home'))

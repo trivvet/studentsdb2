@@ -154,7 +154,6 @@ function initForm(form, modal, link) {
   initPhotoView();
   initPasswordForgotView();
 
-  console.log(form);
   // close modal window on Cancel button click
   form.find('input[name="cancel_button"]').click(function(event) {
     form.ajaxForm({

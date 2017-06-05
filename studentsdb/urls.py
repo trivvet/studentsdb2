@@ -105,7 +105,6 @@ urlpatterns = [
     url(r'^social/', include('social_django.urls', namespace='social')),
     url(r'^user-preference/$', login_required(user.user_preference), name='user-preference'),
     url(r'^user/time/$', login_required(user.user_time), name='user-time'),
-    url(r'^users/login/facebook_SDK/$', user.facebook_sdk, name='facebook-SDK'),
 
     # Users List
     url(r'^users-list/$', login_required(user.users_list), name='users'),
