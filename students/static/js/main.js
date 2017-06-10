@@ -212,6 +212,7 @@ function initForm(form, modal, link) {
       });
     },
     success: function(data, status, xhr) {
+      console.log('This');
       var html = $(data), newform = html.find('#content-column form.form-horizontal');
 
       // copy alert to modal window

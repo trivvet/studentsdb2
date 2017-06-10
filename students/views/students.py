@@ -179,6 +179,10 @@ class StudentForm(TranslationModelForm):
                     _(u"Student is leader of other group")))
 
         # validate birthday
+        try:
+            cleaned_data['birthday']
+        except KeyError:
+            cleaned_data['birthday'] = False
         if cleaned_data['birthday']:
             birthday = cleaned_data['birthday']
             min_date = datetime.today().date() - relativedelta(years=17)

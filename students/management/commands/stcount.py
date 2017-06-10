@@ -1,6 +1,10 @@
+from __future__ import unicode_literals
+
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
+from django.utils import translation
+from django.conf import settings
 
 from students.models import Student, Group
 
@@ -14,7 +18,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 #        import pdb;pdb.set_trace()
-        
+        translation.activate(settings.LANGUAGE_CODE)
+
         for model_name, model in self.models:
             if model_name in options['model_name']:
-                self.stdout.write(_(u'Number of %ss in database: %s') % (model_name, model.objects.count()))
+                self.stdout.write(_(u"Number of {model} in database: {amount}").format(
+                    model=model_name,
+                    amount=model.objects.count()
+                ))

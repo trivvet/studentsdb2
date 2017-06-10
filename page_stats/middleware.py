@@ -24,7 +24,6 @@ class RequestDatabaseTimeMiddleware(object):
 
         if settings.DEBUG == False and not n:
             return response
-        import pdb;pdb.set_trace()
         # compute the db time for the queries just run
         db_queries = len(connection.queries) - n
         if db_queries:
@@ -63,5 +62,5 @@ class RequestTimeMiddleware(object):
         
         return response
 
-    def process_exception(self, request, exception):
-        return HttpResponse('Exception found %s:' % exception)
+#    def process_exception(self, request, exception):
+#        return HttpResponse('Exception found %s:' % exception)
