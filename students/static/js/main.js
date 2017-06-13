@@ -689,6 +689,52 @@ function initPasswordForgotView() {
   });
 }
 
+function initRegistrationView() {
+  $('#register_button').click(function(){
+    var link = $(this), modal2 = $('#modalAlert');
+    $.ajax({
+      'url': link.attr('href'),
+      'dataType': 'html',
+      'type': 'get',
+      'beforeSend': function() {
+        var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+        $('.dropdown').removeClass('open');
+        modal2.find('.modal-body').html(spinner);
+        modal2.modal({
+          'keyboard': false,
+          'backdrop': false,
+          'show': true
+        });
+      },
+      'success': function(data, status, xhr) {
+        if (status != 'success') {
+          alert(gettext('There was an error on the server. Please try again later'));
+          return false;
+        }
+        var modal = $('#myModal'), html = $(data),
+            newpage = html.find('#content-column p');
+        modal.find('.modal-title').html(html.find('#content-column h2'));
+        modal.find('.modal-body').html(newpage);
+        
+        modal.modal({
+          'keyboard': false,
+          'backdrop': false,
+          'show': true
+        });
+        
+        initForm(form, modal, link.attr('href'));
+        modal2.modal('hide');
+      },
+      'error': function() {
+        alert(gettext('There was an error on the server. Please try again later'));
+        return false;
+      }
+    });
+
+    return false;
+  });
+}
+
 function initBackButton() {
   $(window).on('popstate', function(event) {
     if (event.bubbles) {
@@ -807,6 +853,7 @@ function initFunctions() {
   loadMore();
   initJournal();
   initResultPage();
+  initRegistrationView()
 }
 
 $(document).ready(function(){

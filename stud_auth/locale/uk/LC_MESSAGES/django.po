@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 16:55+0000\n"
+"POT-Creation-Date: 2017-06-13 18:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,10 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
+#: admin.py:12
+msgid "Additional user data"
+msgstr "Додаткова інформація про користувача"
+
 #: models.py:11
 msgid "User Profile"
 msgstr "Профіль Користувача"
@@ -28,12 +32,24 @@ msgid "Mobile Phone"
 msgstr "Номер Мобільного"
 
 #: models.py:21
+msgid "Language"
+msgstr "Мова"
+
+#: models.py:28
+msgid "Time Zone"
+msgstr "Часова Зона"
+
+#: models.py:35
 msgid "Address"
 msgstr "Адреса"
 
-#: models.py:26
+#: models.py:40
 msgid "Passport Number"
 msgstr "Номер Паспорту"
+
+#: models.py:46
+msgid "Photo"
+msgstr "Фото"
 
 #: templates/registration/activation_complete.html:4
 msgid "Account Activated"
@@ -64,9 +80,11 @@ msgstr ""
 "\n"
 "    Ви (або хтось вдаючи вас) залишили запит на реєстрацію облікового запису "
 "на\n"
-"    %(site_name)s.  Якщо це були не ви, будь-ласка проігноруйте дане повідомлення\n"
+"    %(site_name)s.  Якщо це були не ви, будь-ласка проігноруйте дане "
+"повідомлення\n"
 "    і ваша електронна адреса буде видалена з наших записів.\n"
 "    "
+
 #: templates/registration/activation_email.html:18
 #, python-format
 msgid ""
@@ -77,8 +95,8 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Для активації цього облікового запису, будь-ласка клікніть наступне посилання на протязі "
-"    %(expiration_days)s днів:\n"
+"    Для активації цього облікового запису, будь-ласка клікніть наступне "
+"посилання на протязі     %(expiration_days)s днів:\n"
 "    "
 
 #: templates/registration/activation_email.html:30
@@ -104,7 +122,8 @@ msgid ""
 msgstr ""
 "\n"
 "Ви (або хтось вдаючи вас) залишили запит на реєстрацію облікового запису на\n"
-"%(site_name)s.  Якщо це були не ви, будь-ласка проігноруйте дане повідомлення\n"
+"%(site_name)s.  Якщо це були не ви, будь-ласка проігноруйте дане "
+"повідомлення\n"
 " ваша електронна адреса буде видалена з наших записів.\n"
 
 #: templates/registration/activation_email.txt:7
@@ -115,7 +134,8 @@ msgid ""
 "%(expiration_days)s days:\n"
 msgstr ""
 "\n"
-"Для активації цього облікового запису, будь-ласка клікніть наступне посилання на протязі\n"
+"Для активації цього облікового запису, будь-ласка клікніть наступне "
+"посилання на протязі\n"
 "%(expiration_days)s днів:\n"
 
 #: templates/registration/activation_email.txt:14
@@ -138,27 +158,54 @@ msgstr "Форма Входу"
 msgid "Please, correct the following errors."
 msgstr "Будь-ласка, виправте наступні помилки"
 
-#: templates/registration/login.html:23
+#: templates/registration/login.html:24
 #: templates/registration/registration_form.html:23
 msgid "Your Username"
 msgstr "Ваше Ім'я Користувача"
 
-#: templates/registration/login.html:31
+#: templates/registration/login.html:32
 #: templates/registration/registration_form.html:35
 msgid "Your Password"
 msgstr "Ваш Пароль"
 
-#: templates/registration/login.html:40
+#: templates/registration/login.html:41
 msgid "Login"
 msgstr "Увійти"
 
-#: templates/registration/login.html:41
+#: templates/registration/login.html:42
 msgid "Forgot your password?"
 msgstr "Забули ваш пароль?"
 
-#: templates/registration/login.html:47
+#: templates/registration/login.html:48
 msgid "or"
 msgstr "або"
+
+#: templates/registration/password_change_done.html:4
+#, fuzzy
+#| msgid "Password reset"
+msgid "Password changed"
+msgstr "Відновлення пароля"
+
+#: templates/registration/password_change_done.html:7
+msgid "Password successfully changed!"
+msgstr "Пароль успішно змінено"
+
+#: templates/registration/password_change_form.html:5
+#: templates/registration/password_change_form.html:35
+msgid "Change password"
+msgstr "Зміна Паролю"
+
+#: templates/registration/password_change_form.html:11
+msgid "Current Password"
+msgstr "Поточний Пароль"
+
+#: templates/registration/password_change_form.html:19
+msgid "New Password"
+msgstr "Новий пароль:"
+
+#: templates/registration/password_change_form.html:27
+msgid "Confirm New Password"
+msgstr "Підтвердження нового паролю"
 
 #: templates/registration/password_reset_complete.html:6
 #: templates/registration/password_reset_confirm.html:6
@@ -189,7 +236,8 @@ msgstr "Пароль успішно скинуто"
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
-msgstr "Будь-ласка уведіть новий пароль двічі для того щоб ми перевірили його на "
+msgstr ""
+"Будь-ласка уведіть новий пароль двічі для того щоб ми перевірили його на "
 "правильність."
 
 #: templates/registration/password_reset_confirm.html:22
@@ -208,33 +256,40 @@ msgstr "Змінити мій пароль"
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
-msgstr "Посилання на зміну пароля втратило чинність, можливо тому що вже було використане."
-" Будь-ласка запросіть відновлення пароль ще раз."
+msgstr ""
+"Посилання на зміну пароля втратило чинність, можливо тому що вже було "
+"використане. Будь-ласка запросіть відновлення пароль ще раз."
 
 #: templates/registration/password_reset_done.html:15
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
-msgstr "Ви надіслали вам інструкції для налаштування вашого паролю, якщо обліковий запис "
-"існує з електронною адресою, яку ви ввели. Ви маєте незабаром його отримати."
+msgstr ""
+"Ви надіслали вам інструкції для налаштування вашого паролю, якщо обліковий "
+"запис існує з електронною адресою, яку ви ввели. Ви маєте незабаром його "
+"отримати."
 
 #: templates/registration/password_reset_done.html:17
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
-msgstr "Якщо ви не отримали листа на поштову скриньку, будь-ласка перевірте чи ви ввели "
-"адресу з якою ви реєструвались, і прогляньте вашу папку зі спамом."
+msgstr ""
+"Якщо ви не отримали листа на поштову скриньку, будь-ласка перевірте чи ви "
+"ввели адресу з якою ви реєструвались, і прогляньте вашу папку зі спамом."
 
 #: templates/registration/password_reset_email.html:2
 #, python-format
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
-msgstr "Ви отримали цього листа тому-що запросили відновлення паролю для вашого "
+msgstr ""
+"Ви отримали цього листа тому-що запросили відновлення паролю для вашого "
 "облікового запису на %(site_name)s."
+
 #: templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
-msgstr "Будь-ласка перейдіть по наступному посиланню і встановіть новий пароль:"
+msgstr ""
+"Будь-ласка перейдіть по наступному посиланню і встановіть новий пароль:"
 
 #: templates/registration/password_reset_email.html:8
 msgid "Your username, in case you've forgotten:"
@@ -283,7 +338,8 @@ msgstr "Лист для активації надіславний"
 
 #: templates/registration/registration_complete.html:7
 msgid "Please check your email to complete the registration process."
-msgstr "Будь-ласка перевірте вашу поштову скриньку для завершення процесу реєстрації."
+msgstr ""
+"Будь-ласка перевірте вашу поштову скриньку для завершення процесу реєстрації."
 
 #: templates/registration/registration_form.html:5
 #: templates/registration/registration_form.html:7 views.py:91
@@ -306,13 +362,29 @@ msgstr "Зареєструвати"
 msgid "E-mail"
 msgstr "Емейл"
 
+#: views.py:23
+msgid "Please, type your email address"
+msgstr "Будь ласка, введіть Вашу електронну адресу"
+
 #: views.py:27
 msgid "Password"
 msgstr "Пароль"
 
+#: views.py:29 views.py:46 views.py:48
+msgid "Please, type your password"
+msgstr "Будь ласка, введіть Ваш пароль"
+
 #: views.py:33
 msgid "Confirm password"
 msgstr "Підтвердження паролю"
+
+#: views.py:35
+msgid "Please, type password again"
+msgstr "Будь ласка, введіть пароль знову"
+
+#: views.py:44
+msgid "Please, type username"
+msgstr "Будь ласка, введіть ім'я користувача"
 
 #: views.py:71
 msgid "Cancel"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 16:55+0000\n"
+"POT-Creation-Date: 2017-06-13 18:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,10 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
+#: admin.py:12
+msgid "Additional user data"
+msgstr "Дополнительная информация о пользователе"
+
 #: models.py:11
 msgid "User Profile"
 msgstr "Профиль Пользователя"
@@ -29,12 +33,24 @@ msgid "Mobile Phone"
 msgstr "Мобильный телефон"
 
 #: models.py:21
+msgid "Language"
+msgstr "Язык"
+
+#: models.py:28
+msgid "Time Zone"
+msgstr "Временная Зона"
+
+#: models.py:35
 msgid "Address"
 msgstr "Адрес"
 
-#: models.py:26
+#: models.py:40
 msgid "Passport Number"
 msgstr "Номер паспорта"
+
+#: models.py:46
+msgid "Photo"
+msgstr "Фото"
 
 #: templates/registration/activation_complete.html:4
 msgid "Account Activated"
@@ -63,9 +79,10 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Вы (или кто-нибуть прикидывающийся вами) сделали запрос на регистрацию аккаунта "
-"на\n"
-"    %(site_name)s.  Если это не были вы, пожалуйста проигнорируйте даное сообщение\n"
+"    Вы (или кто-нибуть прикидывающийся вами) сделали запрос на регистрацию "
+"аккаунта на\n"
+"    %(site_name)s.  Если это не были вы, пожалуйста проигнорируйте даное "
+"сообщение\n"
 "    и ваш адрес будет удален с наших записей.\n"
 "    "
 
@@ -79,8 +96,8 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Для активации даного аккаунта, пожалуйста кликните следующую ссылку на протяжении "
-"следующих\n"
+"    Для активации даного аккаунта, пожалуйста кликните следующую ссылку на "
+"протяжении следующих\n"
 "    %(expiration_days)s дней:\n"
 "    "
 
@@ -106,8 +123,10 @@ msgid ""
 "and your address will be removed from our records.\n"
 msgstr ""
 "\n"
-"ы (или кто-нибуть прикидывающийся вами) сделали запрос на регистрацию аккаунта на\n"
-"%(site_name)s.  Если это не были вы, пожалуйста проигнорируйте даное сообщение\n"
+"ы (или кто-нибуть прикидывающийся вами) сделали запрос на регистрацию "
+"аккаунта на\n"
+"%(site_name)s.  Если это не были вы, пожалуйста проигнорируйте даное "
+"сообщение\n"
 "и ваш адрес будет удален с наших записей.\n"
 
 #: templates/registration/activation_email.txt:7
@@ -118,7 +137,8 @@ msgid ""
 "%(expiration_days)s days:\n"
 msgstr ""
 "\n"
-"Для активации этой учетной записи, пожалуйста кликните следующую ссылку на протяжении\n"
+"Для активации этой учетной записи, пожалуйста кликните следующую ссылку на "
+"протяжении\n"
 "%(expiration_days)s дней:\n"
 
 #: templates/registration/activation_email.txt:14
@@ -141,27 +161,52 @@ msgstr "Форма Входа"
 msgid "Please, correct the following errors."
 msgstr "Пожалуйста, исправте следующие ошибки."
 
-#: templates/registration/login.html:23
+#: templates/registration/login.html:24
 #: templates/registration/registration_form.html:23
 msgid "Your Username"
 msgstr "Ваше Имя Пользователя"
 
-#: templates/registration/login.html:31
+#: templates/registration/login.html:32
 #: templates/registration/registration_form.html:35
 msgid "Your Password"
 msgstr "Ваш Пароль"
 
-#: templates/registration/login.html:40
+#: templates/registration/login.html:41
 msgid "Login"
 msgstr "Ввойти"
 
-#: templates/registration/login.html:41
+#: templates/registration/login.html:42
 msgid "Forgot your password?"
 msgstr "Забыли ваш пароль?"
 
-#: templates/registration/login.html:47
+#: templates/registration/login.html:48
 msgid "or"
 msgstr "или"
+
+#: templates/registration/password_change_done.html:4
+msgid "Password changed"
+msgstr "Изменение Пароля"
+
+#: templates/registration/password_change_done.html:7
+msgid "Password successfully changed!"
+msgstr "Пароль успешно изменен!"
+
+#: templates/registration/password_change_form.html:5
+#: templates/registration/password_change_form.html:35
+msgid "Change password"
+msgstr "Смена пароля"
+
+#: templates/registration/password_change_form.html:11
+msgid "Current Password"
+msgstr "Текущий Пароль"
+
+#: templates/registration/password_change_form.html:19
+msgid "New Password"
+msgstr "Новый пароль"
+
+#: templates/registration/password_change_form.html:27
+msgid "Confirm New Password"
+msgstr "Подтвердждение Нового Пароля"
 
 #: templates/registration/password_reset_complete.html:6
 #: templates/registration/password_reset_confirm.html:6
@@ -192,8 +237,9 @@ msgstr "Подтверждение сброса пароля"
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
-msgstr "Пожалуйста введите ваш новый пароль дважди чтобы мы проверили или вы ввели его "
-"правильно."
+msgstr ""
+"Пожалуйста введите ваш новый пароль дважди чтобы мы проверили или вы ввели "
+"его правильно."
 
 #: templates/registration/password_reset_confirm.html:22
 msgid "New password:"
@@ -211,29 +257,34 @@ msgstr "Сменить мой пароль"
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
-msgstr "Ссилка для сброса пароля недействительна, возможно потому что уже была использована "
-"Пожалуйста запросити новый сброс пароля."
+msgstr ""
+"Ссилка для сброса пароля недействительна, возможно потому что уже была "
+"использована Пожалуйста запросити новый сброс пароля."
 
 #: templates/registration/password_reset_done.html:15
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
-msgstr "Мы вислали вам по электронной почте инструкции для настройки пароля, если учетная запись"
-"с указанным вами адресом существует. Ви должны получить их в скором времени."
+msgstr ""
+"Мы вислали вам по электронной почте инструкции для настройки пароля, если "
+"учетная записьс указанным вами адресом существует. Ви должны получить их в "
+"скором времени."
 
 #: templates/registration/password_reset_done.html:17
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
-msgstr "Если вы не получили письмо, пожалуйста удостовертесь, что введенный вами адрес "
-"был использован вами при регистрации, и проверьте вашу папку со спамом."
+msgstr ""
+"Если вы не получили письмо, пожалуйста удостовертесь, что введенный вами "
+"адрес был использован вами при регистрации, и проверьте вашу папку со спамом."
 
 #: templates/registration/password_reset_email.html:2
 #, python-format
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
-msgstr "Вы получили это письмо потому-что вы запросили сброс пароля для вашего "
+msgstr ""
+"Вы получили это письмо потому-что вы запросили сброс пароля для вашего "
 "учетной записи на %(site_name)s."
 
 #: templates/registration/password_reset_email.html:4
@@ -257,8 +308,9 @@ msgstr "Команда %(site_name)s"
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll email "
 "instructions for setting a new one."
-msgstr "Забыли Ваш пароль? Введите свой электронный адрес ниже, и мы вишлем вам письмо"
-"с инструкциями для установки нового."
+msgstr ""
+"Забыли Ваш пароль? Введите свой электронный адрес ниже, и мы вишлем вам "
+"письмос инструкциями для установки нового."
 
 #: templates/registration/password_reset_form.html:19
 msgid "Email address:"
@@ -309,13 +361,29 @@ msgstr "Регистрация"
 msgid "E-mail"
 msgstr "Эмейл"
 
+#: views.py:23
+msgid "Please, type your email address"
+msgstr "Пожалуйста, введите Ваш эмейл"
+
 #: views.py:27
 msgid "Password"
 msgstr "Пароль"
 
+#: views.py:29 views.py:46 views.py:48
+msgid "Please, type your password"
+msgstr "Пожалуйста, введите Ваш пароль"
+
 #: views.py:33
 msgid "Confirm password"
 msgstr "Подтверждение пароля"
+
+#: views.py:35
+msgid "Please, type password again"
+msgstr "Пожалуйста, введите пароль ёще раз"
+
+#: views.py:44
+msgid "Please, type username"
+msgstr "Пожалуйста, введите имя пользователя"
 
 #: views.py:71
 msgid "Cancel"

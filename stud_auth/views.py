@@ -20,19 +20,19 @@ class RegistrationForm(BaseRegistrationForm):
     email = forms.EmailField(
         label=_(u"E-mail"),
         widget = forms.EmailInput(
-            attrs={'placeholder': _l(u"Please, type your email address")}
+            attrs={'placeholder': _(u"Please, type your email address")}
         )
     )
     password1 = forms.CharField(
         label = _(u'Password'),
         widget = forms.PasswordInput(
-            attrs={'placeholder': _l(u"Please, type your password")},
+            attrs={'placeholder': _(u"Please, type your password")},
         )
     )
     password2 = forms.CharField(
         label = _(u'Confirm password'),
         widget = forms.PasswordInput(
-            attrs={'placeholder': _l(u"Please, type password again")},
+            attrs={'placeholder': _(u"Please, type password again")},
         )
     )
     
@@ -41,11 +41,11 @@ class RegistrationForm(BaseRegistrationForm):
         fields = (UsernameField(), "email")
         widgets = {
             'username': forms.TextInput(
-                attrs={'placeholder': _l(u"Please, type username")}),
+                attrs={'placeholder': _(u"Please, type username")}),
             'password1': forms.PasswordInput(
-                attrs={'placeholder': _l(u"Please, type your password")}),
+                attrs={'placeholder': _(u"Please, type your password")}),
             'password2': forms.PasswordInput(
-                attrs={'placeholder': _l(u"Please, type your password")}),
+                attrs={'placeholder': _(u"Please, type your password")}),
         }
 
     def __init__(self, *args, **kwargs):
