@@ -13,8 +13,7 @@ class Result(models.Model):
     result_student = models.ForeignKey('Student',
         verbose_name=_(u"Student"),
         blank=False,
-        null=True,
-        on_delete=models.CASCADE)
+        null=True)
 
     result_exam = models.ForeignKey('Exam',
         verbose_name=_(u"Subject"),

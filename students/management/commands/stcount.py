@@ -11,7 +11,7 @@ from students.models import Student, Group
 class Command(BaseCommand):
     help = _(u'Displays number of model objects in database')
 
-    models = (('student', Student), ('group', Group), ('user', User))
+    models = (('students', Student), ('groups', Group), ('users', User))
 
     def add_arguments(self, parser):
         parser.add_argument('model_name', nargs='+', type=str)

@@ -1,0 +1,109 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$30000$DAZXGbmI3JIT$AieXa0Hkx/FuwwHVbiw12sSJopW4rKizaN2Ems9r4G0=",
+        "last_login": "2016-11-19T11:43:03.994Z",
+        "is_superuser": true,
+        "username": "trivvet2",
+        "first_name": "",
+        "last_name": "",
+        "email": "trivvet@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2016-11-19T11:42:48.446Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "students.student",
+    "pk": 1,
+    "fields": {
+        "first_name": "Student1",
+        "last_name": "LastName1",
+        "birthday": "1986-11-19",
+        "photo": "1.jpeg",
+        "ticket": "12",
+        "student_group": 1,
+        "time_change": "2017-07-19 10:00:00"
+    }
+},
+{
+    "model": "students.student",
+    "pk": 2,
+    "fields": {
+        "first_name": "Student2",
+        "last_name": "LastName2",
+        "birthday": "1987-10-10",
+        "photo": "2.jpeg",
+        "ticket": "26",
+        "student_group": 2,
+        "time_change": "2017-07-19 10:00:00"
+    }
+},
+{
+    "model": "students.student",
+    "pk": 3,
+    "fields": {
+        "first_name": "Student3",
+        "last_name": "LastName3",
+        "birthday": "1987-10-19",
+        "photo": "3.jpeg",
+        "ticket": "6",
+        "student_group": 3,
+        "time_change": "2017-07-19 10:00:00"
+    }
+},
+{
+    "model": "students.student",
+    "pk": 4,
+    "fields": {
+        "first_name": "Student4",
+        "last_name": "LastName4",
+        "birthday": "1988-01-06",
+        "photo": "6.jpeg",
+        "ticket": "8",
+        "student_group": 3,
+        "time_change": "2017-07-19 10:00:00"
+    }
+},
+{
+    "model": "students.student",
+    "pk": 5,
+    "fields": {
+        "first_name": "Student5",
+        "last_name": "LastName5",
+        "birthday": "1986-12-12",
+        "photo": "4.jpeg",
+        "ticket": "35",
+        "student_group": 1,
+        "time_change": "2017-07-19 10:00:00"
+    }
+},
+{
+    "model": "students.group",
+    "pk": 1,
+    "fields": {
+        "title": "Group1",
+        "time_change": "2017-07-19 10:00:00"
+    }
+},
+{
+    "model": "students.group",
+    "pk": 2,
+    "fields": {
+        "title": "Group2",
+        "time_change": "2017-07-19 10:00:00"
+    }
+},
+{
+    "model": "students.group",
+    "pk": 3,
+    "fields": {
+        "title": "Group3",
+        "time_change": "2017-07-19 10:00:00"
+    }
+}
+]
