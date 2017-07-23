@@ -11,7 +11,7 @@ from students.models import Student, Group
 class Command(BaseCommand):
     help = _(u'Displays number of model objects in database')
 
-    models = (('students', Student), ('groups', Group), ('users', User))
+    models = (('student', Student), ('group', Group), ('user', User))
 
     def add_arguments(self, parser):
         parser.add_argument('model_name', nargs='+', type=str)
@@ -22,7 +22,7 @@ class Command(BaseCommand):
 
         for model_name, model in self.models:
             if model_name in options['model_name']:
-                self.stdout.write(_(u"Number of {model} in database: {amount}").format(
+                self.stdout.write(_(u"Number of {model}s in database: {amount}").format(
                     model=model_name,
                     amount=model.objects.count()
                 ))

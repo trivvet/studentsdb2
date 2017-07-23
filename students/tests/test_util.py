@@ -4,10 +4,10 @@ from django.http import HttpRequest
 from students.util import get_current_group
 from students.models import Group
 
-class UtilTests(TestCase):
+class UtilsTestCase(TestCase):
 	
     def setUp(self):
-        group, created = Group.objects.get_or_create(title='BM')
+        group, created = Group.objects.get_or_create(title='Group1')
         self.group = group	
 	
     def test_get_current_group(self):

@@ -10,30 +10,35 @@ class StudentsUpdateFormTest(TestCase):
     fixtures = ['demo_data3.json']
     
     def setUp(self):
+
+        # remember url to edit form
         self.url = reverse('students_edit', kwargs={'pk': '1'})
+
+        # remember test browser
         self.client = Client()
 
     def test_form_get(self):
-        #import pdb;pdb.set_trace()
+
+        # login admin user, make request to the server and check answer
         self.client.login(username='trivvet2', password='Futycndj18')
         response = self.client.get(self.url)
-
         self.assertEqual(response.status_code, 200)
 
+        # check obvious content
         self.assertIn(u'Editing student', response.content)
-        self.assertIn(u'Student1', response.content)
-        self.assertIn(u'LastName1', response.content)
-        self.assertIn(u'Save', response.content)
-        self.assertIn(self.url, response.content)
+        self.assertIn(u'Ticket', response.content)
+        self.assertIn(u'Last Name', response.content)
+        self.assertIn(u'name="save_button"', response.content)
+        self.assertIn(u'name="cancel_button"', response.content)
         self.assertIn(u'First Name', response.content)
 
     def test_success(self):
-        self.client.login(username='trivvet2', password='Futycndj18')
 
+        # login admin user, make post request to the server and check answer
+        self.client.login(username='trivvet2', password='Futycndj18')
         response = self.client.post(self.url, {'first_name': 'Student1 Updated',
             'ticket': 11, 'last_name': 'LastName1 Updated',
             'birthday': '1987-01-01', 'student_group': 2}, follow=True)
-
         self.assertEqual(response.status_code, 200)
 
         # test updated student data
@@ -52,4 +57,6 @@ class StudentsUpdateFormTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertIn('Login Form', response.content)
+
+        self.assertEqual(response.redirect_chain[0], ('/users/login/?next=/students/1/edit/', 302))
         
