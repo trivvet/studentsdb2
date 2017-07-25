@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'registration',
     'social_django',
+    'django_coverage',
     'students',
     'stud_auth',
 ]
@@ -262,6 +263,8 @@ EMAIL_USE_SSL = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, '..', 'email')
+
+COVERAGE_REPORT_HTML_OUTPUT_DIR = os.path.join(BASE_DIR, '..', 'coverage')
 
 #DATABASES = {
 ##    'default': {
