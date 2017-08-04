@@ -13,14 +13,19 @@ class ContactAdminFormTests(TestCase):
         client.login(username='trivvet2', password='Futycndj18')
 
         # make form submit
-        client.post(reverse('contact_admin'),
+        response = client.post(reverse('contact_admin'),
             {'from_email': 'test@gmail.com',
             'subject': 'Test Email',
-            'message': 'Test Email Body'})
+            'message': 'Test Email Body'}, follow=True)
 
         # check if test email backend catched our email to admin
         message = mail.outbox[0]
         self.assertEqual(message.body, 'Test Email Body')
         self.assertEqual(message.from_email, 'test@gmail.com')
         self.assertEqual(message.subject, 'Test Email')
+
+        # ckeck if we have right redirect
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('Letter send successfully', response.content)
+        
     

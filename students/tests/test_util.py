@@ -26,7 +26,7 @@ class UtilsTestCase(TestCase):
         request.COOKIES['current_group'] = str(self.group.id)
         self.assertEqual(get_current_group(request), self.group)
         
-    def test_get_groups(self):
+    def test_get_groups(self):с
 
         # prepare our clean request
         request = HttpRequest()
