@@ -9,7 +9,7 @@ class UtilsTestCase(TestCase):
     fixtures = ['demo_data3.json']
 
     def setUp(self):
-		self.group = Group.objects.all()[1]
+        self.group = Group.objects.all()[1]
 
     def test_get_current_group(self):
 
