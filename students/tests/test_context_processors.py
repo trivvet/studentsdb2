@@ -11,8 +11,6 @@ class ContextProcessorsTest(TestCase):
     def test_context_processors(self):
         request = HttpRequest()
         groups = groups_processor(request)['groups_all']
-
-        #import pdb;pdb.set_trace()
         
         self.assertEqual(len(groups), 3)
         self.assertEqual(groups[0]['title'], 'Group1')
