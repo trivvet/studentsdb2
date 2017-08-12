@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.http import HttpRequest
+from django.template import Template, Context
 
 from students.context_processors import groups_processor
 

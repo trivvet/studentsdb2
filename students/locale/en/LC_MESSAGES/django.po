@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-07 07:51+0000\n"
+"POT-Creation-Date: 2017-08-10 08:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,13 +22,17 @@ msgstr ""
 msgid "Students Accounting Service"
 msgstr ""
 
+#: management/commands/localize_static.py:9
+msgid "Downloads external css and javascript files to folder static"
+msgstr ""
+
 #: management/commands/stcount.py:12
 msgid "Displays number of model objects in database"
 msgstr ""
 
 #: management/commands/stcount.py:25
 #, python-brace-format
-msgid "Number of {model} in database: {amount}"
+msgid "Number of {model}s in database: {amount}"
 msgstr ""
 
 #: models/exams.py:10 templates/students/results_add.html:27
@@ -40,7 +44,7 @@ msgstr ""
 msgid "Exams"
 msgstr ""
 
-#: models/exams.py:16 models/results.py:20 templates/students/exams.html:28
+#: models/exams.py:16 models/results.py:19 templates/students/exams.html:28
 #: templates/students/results.html:29
 msgid "Subject"
 msgstr ""
@@ -64,7 +68,7 @@ msgstr ""
 msgid "Additional notes"
 msgstr ""
 
-#: models/exams.py:44 models/groups.py:30 models/results.py:31
+#: models/exams.py:44 models/groups.py:30 models/results.py:30
 #: models/students.py:58
 msgid "Time of last modification"
 msgstr ""
@@ -136,7 +140,7 @@ msgstr ""
 msgid "Exams results"
 msgstr ""
 
-#: models/results.py:26 templates/students/results_list.html:22
+#: models/results.py:25 templates/students/results_list.html:22
 msgid "Mark"
 msgstr ""
 
@@ -169,6 +173,54 @@ msgstr ""
 
 #: models/students.py:43
 msgid "Ticket"
+msgstr ""
+
+#: signals.py:54
+msgid "Січень"
+msgstr ""
+
+#: signals.py:54
+msgid "Лютий"
+msgstr ""
+
+#: signals.py:54
+msgid "Березень"
+msgstr ""
+
+#: signals.py:55
+msgid "Квітень"
+msgstr ""
+
+#: signals.py:55
+msgid "Травень"
+msgstr ""
+
+#: signals.py:55
+msgid "Червень"
+msgstr ""
+
+#: signals.py:55
+msgid "Липень"
+msgstr ""
+
+#: signals.py:56
+msgid "Серпень"
+msgstr ""
+
+#: signals.py:56
+msgid "Вересень"
+msgstr ""
+
+#: signals.py:56
+msgid "Жовтень"
+msgstr ""
+
+#: signals.py:56
+msgid "Листопад"
+msgstr ""
+
+#: signals.py:56
+msgid "Грудень"
 msgstr ""
 
 #: templates/contact_admin/form.html:7 templates/contact_admin/form.html:9
@@ -849,42 +901,42 @@ msgstr ""
 msgid "Student is leader of other group"
 msgstr ""
 
-#: views/students.py:186
+#: views/students.py:190
 msgid "Student's age can't be less then 17 years"
 msgstr ""
 
-#: views/students.py:199
+#: views/students.py:203
 #, python-format
 msgid "Student %s created successfully"
 msgstr ""
 
-#: views/students.py:205
+#: views/students.py:209
 msgid "Adding Student"
 msgstr ""
 
-#: views/students.py:211
+#: views/students.py:215
 msgid "Adding student canceled"
 msgstr ""
 
-#: views/students.py:225
+#: views/students.py:229
 #, python-format
 msgid "Student %s saved successfully!"
 msgstr ""
 
-#: views/students.py:236
+#: views/students.py:240
 msgid "Editing student"
 msgstr ""
 
-#: views/students.py:244
+#: views/students.py:248
 msgid "Editing student canceled!"
 msgstr ""
 
-#: views/students.py:258
+#: views/students.py:262
 #, python-format
 msgid "Student %s deleted successfully"
 msgstr ""
 
-#: views/students.py:264
+#: views/students.py:268
 msgid "Deleting student canceled"
 msgstr ""
 

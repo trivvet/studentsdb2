@@ -7,6 +7,7 @@ from django.core.signals import request_finished, request_started
 from django.dispatch import receiver, Signal
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext as _
 
 from models import Student, Group, Exam, MonthJournal, Result, LogEntry
 
@@ -50,7 +51,9 @@ def log_models_changed_signal(sender, **kwargs):
         signal_name = 'Result Model is ' + log
     elif sender == MonthJournal:
         journal = kwargs['instance']
-        month_name = [u'Січень', u'Лютий', u'Березень', u'Квітень', u'Травень', u'Червень', u'Липень', u'Серпень', u'Вересень', u'Жовтень', u'Листопад', u'Грудень']
+        month_name = [_(u'Січень'), _(u'Лютий'), _(u'Березень'),
+            _(u'Квітень'), _(u'Травень'), _(u'Червень'), _(u'Липень'),
+            _(u'Серпень'), _(u'Вересень'), _(u'Жовтень'), _(u'Листопад'), _(u'Грудень')]
         logger.info(u'Journal %s: Student %s %s for %s (ID: %d)', log, journal.student_name.first_name, journal.student_name.last_name, month_name[journal.date.month-1], journal.id)
         logger_info = u'Journal %s: Student %s %s for %s (ID: %d)' % (log, journal.student_name.first_name, journal.student_name.last_name, month_name[journal.date.month-1], journal.id)
     elif sender == User:
