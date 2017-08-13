@@ -14,22 +14,19 @@ import os
 import colorlog
 from django.conf import global_settings
 
-from sensitive_data import PASSWORD, EMAIL_FROM, EMAIL_TO, FACEBOOK_KEY, FACEBOOK_SECRET, GOOGLE_OAUTH2_KEY, GOOGLE_OAUTH2_SECRET, TWITTER_KEY, TWITTER_SECRET
+from sensitive_data import GOOGLE_OAUTH2_KEY, GOOGLE_OAUTH2_SECRET, TWITTER_KEY, TWITTER_SECRET
+from env_settings import SECRET_KEY, DEBUG, TEMPLATE_DEBUG, ALLOWED_HOSTS,
+    DATABASES, ADMIN_EMAIL, EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD,
+    EMAIL_USE_TLS, EMAIL_USE_SSL, FACEBOOK_KEY, FACEBOOK_SECRET
+
+from env_settings import STATIC_URL, STATIC_ROOT, MEDIA_URL, MEDIA_ROOT
+from env_settings import ADMINS, MANAGERS
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'tk%=r)+2r2h0$axy_^za50bvou^iiej^itm(iici)6)pjxkk%p'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['localhost']
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
@@ -196,7 +193,7 @@ WSGI_APPLICATION = 'studentsdb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-from sensitive_data import DATABASES
+# from sensitive_data import DATABASES
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -242,27 +239,8 @@ USE_L10N = True
 
 DATE_FORMAT = 'Y E d'
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-STATIC_URL = '/students/static/'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
-
-# email settings
-ADMINS = [('Trivvet', 'vlasyuk@expert.km.ua')]
-ADMIN_EMAIL = EMAIL_TO
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '465'
-EMAIL_HOST_USER = EMAIL_FROM
-EMAIL_HOST_PASSWORD = PASSWORD
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
-
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, '..', 'email')
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = os.path.join(BASE_DIR, '..', 'email')
 
 COVERAGE_REPORT_HTML_OUTPUT_DIR = os.path.join(BASE_DIR, '..', 'coverage')
 
