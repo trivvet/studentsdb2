@@ -14,14 +14,20 @@ import os
 import colorlog
 from django.conf import global_settings
 
-from sensitive_data import GOOGLE_OAUTH2_KEY, GOOGLE_OAUTH2_SECRET, TWITTER_KEY, TWITTER_SECRET
-from env_settings import SECRET_KEY, DEBUG, TEMPLATE_DEBUG, ALLOWED_HOSTS,
-    DATABASES, ADMIN_EMAIL, EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD,
-    EMAIL_USE_TLS, EMAIL_USE_SSL, FACEBOOK_KEY, FACEBOOK_SECRET
+from env_settings import GOOGLE_OAUTH2_KEY, GOOGLE_OAUTH2_SECRET, TWITTER_KEY, TWITTER_SECRET
+from env_settings import SECRET_KEY, DEBUG, TEMPLATE_DEBUG, ALLOWED_HOSTS
+from env_settings import DATABASES, ADMIN_EMAIL, EMAIL_HOST, EMAIL_PORT
+from env_settings import EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
+from env_settings import EMAIL_USE_TLS, EMAIL_USE_SSL, FACEBOOK_KEY, FACEBOOK_SECRET
 
-from env_settings import STATIC_URL, STATIC_ROOT, MEDIA_URL, MEDIA_ROOT
+from env_settings import STATIC_URL, MEDIA_URL, MEDIA_ROOT
 from env_settings import ADMINS, MANAGERS
 
+try:
+    from env_settings import STATIC_ROOT
+except ImportError:
+    pass
+    
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

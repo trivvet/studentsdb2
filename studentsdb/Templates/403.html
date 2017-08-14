@@ -1,0 +1,16 @@
+{% extends "students/base.html" %}
+
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block meta_title %}{% trans "Permission denied" %}{% endblock meta_title %}
+
+{% block title %}{% trans "Don't try again" %}{% endblock title %}
+
+{% block content %}
+
+<img src="https://lh6.ggpht.com/QJmD8kfdOz3CPMpRlNVVOiGhkLCgOUV-9wV3RcjGka5LWZS6JPvPEpKqMtP9j_3hQPs=w300-rw">
+
+<p>{% trans "Our service is protected from unauthorized access" %}"</a></p>
+
+{% endblock content %}
