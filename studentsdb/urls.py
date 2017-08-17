@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.views import static
 from django.views.i18n import javascript_catalog
 from django.views.generic import RedirectView
-from django.contrib.auth import views as auth_views
+# from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import TemplateView
 
@@ -99,7 +99,7 @@ urlpatterns = [
     # User Forms from Book
     url(r'^user/profile/$', login_required(TemplateView.as_view(template_name='registration/profile.html')), name='profile'),
     url(r'^', include('registration.auth_urls')),
-    url(r'^users/logout/$', auth_views.logout, kwargs={'next_page': 'home'}, name='auth_logout'),
+#    url(r'^users/logout/$', auth_views.logout, name='auth_logout'),
     url(r'^register/registration/$', RegistrationView.as_view(), name='registration_register'),
     url(r'^register/complete/$', TemplateView.as_view(template_name='registration/activation_complete.html'), name='registration_activation_complete'),
     url(r'^users/', include('registration.backends.default.urls', namespace='users')),

@@ -87,22 +87,37 @@
 
         {% else %}
         <!-- Language Selector-->
-
         <div class="col-xs-3" id="lang-selector">
           <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
             <input name="next" type="hidden" value="{% url 'home' %}" />
             <div class="btn-group btn-group-xs" role="group" aria-label="...">
-              {% with lang=request.COOKIES.django_language %}
-              <button type="submit"
-                class="btn {% if lang == 'uk' or not lang %}btn-primary{% else %}btn-default{% endif %}"
-                name="language" value='uk'>{% trans "Ukrainian" %}</button>
-              <button type="submit"
-                class="btn {% if lang == 'en' %}btn-primary{% else %}btn-default{% endif %}"
-                name="language" value='en'>{% trans "English" %}</button>
-              <button type="submit"
-                class="btn {% if lang == 'ru' %}btn-primary{% else %}btn-default{% endif %}"
-                name="language" value='ru'>{% trans "Russian" %}</button>
-              {% endwith %}
+              {% get_current_language as LANGUAGE_CODE %}
+              {% if LANGUAGE_CODE %}
+                {% with lang=LANGUAGE_CODE %}
+                <button type="submit"
+                  class="btn {% if lang == 'uk' %}btn-primary{% else %}btn-default{% endif %}"
+                  name="language" value='uk'>{% trans "Ukrainian" %}</button>
+                <button type="submit"
+                  class="btn {% if lang == 'en' %}btn-primary{% else %}btn-default{% endif %}"
+                  name="language" value='en'>{% trans "English" %}</button>
+                <button type="submit"
+                  class="btn {% if lang == 'ru' %}btn-primary{% else %}btn-default{% endif %}"
+                  name="language" value='ru'>{% trans "Russian" %}</button>
+                {% endwith %}
+              {% else %}
+                {% with lang=request.COOKIES.django_language %}
+                <button type="submit"
+                  class="btn {% if lang == 'uk' %}btn-primary{% else %}btn-default{% endif %}"
+                  name="language" value='uk'>{% trans "Ukrainian" %}</button>
+                <button type="submit"
+                  class="btn {% if lang == 'en' %}btn-primary{% else %}btn-default{% endif %}"
+                  name="language" value='en'>{% trans "English" %}</button>
+                <button type="submit"
+                  class="btn {% if lang == 'ru' %}btn-primary{% else %}btn-default{% endif %}"
+                  name="language" value='ru'>{% trans "Russian" %}</button>
+                {% endwith %}
+              {% endif %}
+              
             </div>
           </form>   
         </div>
@@ -117,7 +132,6 @@
         
       </div>
       <!-- End Header -->
-
 
       <!-- Start Subheader -->
       <div class="row" id="sub-header">
