@@ -87,14 +87,24 @@
 
         {% else %}
         <!-- Language Selector-->
+
         <div class="col-xs-3" id="lang-selector">
-          <div class="btn-group btn-group-xs" role="group" aria-label="...">
-            {% with lang=request.COOKIES.django_language %}
-            <button type="button" class="btn {% if lang == 'uk' %}btn-primary{% else %}btn-default{% endif %}" value='uk'>{% trans "Ukrainian" %}</button>
-            <button type="button" class="btn {% if lang == 'en' %}btn-primary{% else %}btn-default{% endif %}" value='en'>{% trans "English" %}</button>
-            <button type="button" class="btn {% if lang == 'ru' %}btn-primary{% else %}btn-default{% endif %}" value='ru'>{% trans "Russian" %}</button>
-            {% endwith %}
-          </div>
+          <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+            <input name="next" type="hidden" value="{% url 'home' %}" />
+            <div class="btn-group btn-group-xs" role="group" aria-label="...">
+              {% with lang=request.COOKIES.django_language %}
+              <button type="submit"
+                class="btn {% if lang == 'uk' or not lang %}btn-primary{% else %}btn-default{% endif %}"
+                name="language" value='uk'>{% trans "Ukrainian" %}</button>
+              <button type="submit"
+                class="btn {% if lang == 'en' %}btn-primary{% else %}btn-default{% endif %}"
+                name="language" value='en'>{% trans "English" %}</button>
+              <button type="submit"
+                class="btn {% if lang == 'ru' %}btn-primary{% else %}btn-default{% endif %}"
+                name="language" value='ru'>{% trans "Russian" %}</button>
+              {% endwith %}
+            </div>
+          </form>   
         </div>
 
         <!-- User Authentication-->

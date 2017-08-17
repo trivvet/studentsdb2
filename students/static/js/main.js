@@ -212,14 +212,12 @@ function initForm(form, modal, link) {
       });
     },
     success: function(data, status, xhr) {
-      console.log('This');
       var html = $(data), newform = html.find('#content-column form.form-horizontal');
 
       // copy alert to modal window
       modal.find('.modal-body').html(html.find('.alert'));
       modal2.modal('hide');
       
-
       // copy form to modal if we found it in server repsonse
       if (newform.length > 0) {
         modal.find('.modal-body').append(newform);
@@ -228,11 +226,13 @@ function initForm(form, modal, link) {
         initForm(newform, modal, link)
       } else {
         // if no form, it means success and we need to reload page
-        // to get updated students list;
+        // to get updated page;
         // reload after 2 second, so that user can read
         // success message
         if (link == '/user-auth/' || link == '/user-preference/' || link == '/users/login/' || link == '/register/registration/'){
-          location.replace('/');
+          setTimeout(function() {
+            location.replace('/');
+          }, 1500);
         } else {
           setTimeout(function() {
             $('#sub-header').html(html.find('#sub-header div'));

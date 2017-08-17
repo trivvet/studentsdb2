@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-13 18:06+0000\n"
+"POT-Creation-Date: 2017-08-16 18:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -293,7 +293,7 @@ msgstr "Пожалуйста перейдите на следующую стра
 
 #: templates/registration/password_reset_email.html:8
 msgid "Your username, in case you've forgotten:"
-msgstr "Вашэ имя пользователя, если вы забыли:"
+msgstr "Ваше имя пользователя, если вы забыли:"
 
 #: templates/registration/password_reset_email.html:10
 msgid "Thanks for using our site!"

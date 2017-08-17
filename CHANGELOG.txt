@@ -1,0 +1,12 @@
+## [1.0.1] (2017-08-15)
+
+> **Fixed bugs**
+>
+> - troubles with settings on production machine
+
+
+## [1.0.2] (2017-08-)
+
+> **Add information**
+>
+> - files CHANGELOG.txt, README.txt and vertion.txt

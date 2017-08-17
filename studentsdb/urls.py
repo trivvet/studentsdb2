@@ -98,6 +98,7 @@ urlpatterns = [
 
     # User Forms from Book
     url(r'^user/profile/$', login_required(TemplateView.as_view(template_name='registration/profile.html')), name='profile'),
+    url(r'^', include('registration.auth_urls')),
     url(r'^users/logout/$', auth_views.logout, kwargs={'next_page': 'home'}, name='auth_logout'),
     url(r'^register/registration/$', RegistrationView.as_view(), name='registration_register'),
     url(r'^register/complete/$', TemplateView.as_view(template_name='registration/activation_complete.html'), name='registration_activation_complete'),
@@ -110,7 +111,9 @@ urlpatterns = [
     url(r'^users-list/$', login_required(user.users_list), name='users'),
     url(r'^users/(?P<uid>\d+)/profile/$', permission_required('auth.add_user')(user.users_profile), name='user_profile'),
     url(r'^users/(?P<uid>\d+)/delete/$', permission_required('auth.delete_user')(user.user_delete), name='user_delete'),
-    url(r'^', include('registration.auth_urls')),
+
+    # Change language url
+    url(r'^i18n/', include('django.conf.urls.i18n')),
     
     # Javascript Catalog File
     url(r'^jsi18n/$', javascript_catalog, js_packages, name="javascript-catalog"),
