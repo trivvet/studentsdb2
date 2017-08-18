@@ -110,6 +110,7 @@ def results_add(request):
                 else:
                     errors['name'] = _(u"Please select exam")
         
+        import pdb;pdb.set_trace()
         exams = Exam.objects.all().filter(is_completed=False)
         return render(request, 'students/results_add.html', { 'exams': exams, 'errors': errors })
 

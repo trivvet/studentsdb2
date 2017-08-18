@@ -129,7 +129,7 @@ class StudentForm(TranslationModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        translation.activate(translation.get_language())
+#        translation.activate(translation.get_language())
         super(StudentForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
 

@@ -1,8 +1,10 @@
 from django import forms
 from django.contrib import messages
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
+from django.utils import translation
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
@@ -18,35 +20,27 @@ User = UserModel()
 
 class RegistrationForm(BaseRegistrationForm):
     email = forms.EmailField(
-        label=_(u"E-mail"),
+        label=_l(u"E-mail"),
         widget = forms.EmailInput(
-            attrs={'placeholder': _(u"Please, type your email address")}
+            attrs={'placeholder': _l(u"Please, type your email address")}
         )
     )
     password1 = forms.CharField(
-        label = _(u'Password'),
+        label = _l(u'Password'),
         widget = forms.PasswordInput(
-            attrs={'placeholder': _(u"Please, type your password")},
+            attrs={'placeholder': _l(u"Please, type your password")},
         )
     )
     password2 = forms.CharField(
-        label = _(u'Confirm password'),
+        label = _l(u'Confirm password'),
         widget = forms.PasswordInput(
-            attrs={'placeholder': _(u"Please, type password again")},
+            attrs={'placeholder': _l(u"Please, type password again")},
         )
     )
     
     class Meta:
         model = User
         fields = (UsernameField(), "email")
-        widgets = {
-            'username': forms.TextInput(
-                attrs={'placeholder': _(u"Please, type username")}),
-            'password1': forms.PasswordInput(
-                attrs={'placeholder': _(u"Please, type your password")}),
-            'password2': forms.PasswordInput(
-                attrs={'placeholder': _(u"Please, type your password")}),
-        }
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)

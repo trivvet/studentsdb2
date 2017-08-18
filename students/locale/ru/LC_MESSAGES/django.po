@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 08:49+0000\n"
+"POT-Creation-Date: 2017-08-18 18:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,21 +21,20 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: apps.py:10 templates/students/base.html:12 templates/students/base.html:15
-#: templates/students/base.html:47 templates/students/base.html:194
+#: templates/students/base.html:47 templates/students/base.html:218
 msgid "Students Accounting Service"
 msgstr "База Учёта Студентов"
 
 #: management/commands/localize_static.py:9
 msgid "Downloads external css and javascript files to folder static"
-msgstr ""
+msgstr "Скачивание внешних сss и javascript файлов в папку static"
 
 #: management/commands/stcount.py:12
 msgid "Displays number of model objects in database"
 msgstr "Отображает количество объектов модели в базе"
 
 #: management/commands/stcount.py:25
-#, fuzzy, python-brace-format
-#| msgid "Number of {model} in database: {amount}"
+#, python-brace-format
 msgid "Number of {model}s in database: {amount}"
 msgstr "Количество объектов модели {model} в базе: {amount}"
 
@@ -43,7 +42,7 @@ msgstr "Количество объектов модели {model} в базе: 
 msgid "Exam"
 msgstr "Экзамен"
 
-#: models/exams.py:11 templates/students/base.html:136
+#: models/exams.py:11 templates/students/base.html:160
 #: templates/students/exams.html:7 templates/students/exams.html:9
 msgid "Exams"
 msgstr "Экзамены"
@@ -81,7 +80,7 @@ msgstr "Время последней модификации"
 msgid "completed"
 msgstr "завершенный"
 
-#: models/groups.py:11 templates/students/base.html:134
+#: models/groups.py:11 templates/students/base.html:158
 #: templates/students/groups.html:7 templates/students/groups.html:9
 msgid "Groups"
 msgstr "Группы"
@@ -115,7 +114,7 @@ msgstr "Дата"
 msgid "Event"
 msgstr "Событие"
 
-#: models/logs.py:13 templates/students/base.html:143
+#: models/logs.py:13 templates/students/base.html:167
 #: templates/students/logs_list.html:7
 msgid "Events"
 msgstr "События"
@@ -148,7 +147,7 @@ msgstr "Результаты экзаменов"
 msgid "Mark"
 msgstr "Оценка"
 
-#: models/students.py:13 templates/students/base.html:127
+#: models/students.py:13 templates/students/base.html:151
 #: templates/students/students_list.html:8
 msgid "Students"
 msgstr "Студенты"
@@ -257,47 +256,50 @@ msgstr "Изменить Пароль"
 msgid "Log out"
 msgstr "Выход"
 
-#: templates/students/base.html:93 templates/students/form_class.html:27
+#: templates/students/base.html:99 templates/students/base.html:111
+#: templates/students/form_class.html:27
 #: templates/students/user_preference.html:51
 msgid "Ukrainian"
 msgstr "Украинский"
 
-#: templates/students/base.html:94 templates/students/form_class.html:29
+#: templates/students/base.html:102 templates/students/base.html:114
+#: templates/students/form_class.html:29
 #: templates/students/user_preference.html:48
 msgid "English"
 msgstr "Английский"
 
-#: templates/students/base.html:95 templates/students/form_class.html:31
+#: templates/students/base.html:105 templates/students/base.html:117
+#: templates/students/form_class.html:31
 #: templates/students/user_preference.html:54
 msgid "Russian"
 msgstr "Русский"
 
-#: templates/students/base.html:102
+#: templates/students/base.html:127
 msgid "Sign up"
 msgstr "Регистрация"
 
-#: templates/students/base.html:103
+#: templates/students/base.html:128
 msgid "Sign in"
 msgstr "Вход"
 
-#: templates/students/base.html:132 templates/students/students_list.html:114
+#: templates/students/base.html:156 templates/students/students_list.html:114
 msgid "Journal"
 msgstr "Журнал"
 
-#: templates/students/base.html:138 templates/students/results.html:7
+#: templates/students/base.html:162 templates/students/results.html:7
 #: templates/students/results.html:9
 msgid "Results"
 msgstr "Результаты"
 
-#: templates/students/base.html:141
+#: templates/students/base.html:165
 msgid "Contact"
 msgstr "Контакт"
 
-#: templates/students/base.html:146
+#: templates/students/base.html:170
 msgid "Users"
 msgstr "Пользователи"
 
-#: templates/students/base.html:198
+#: templates/students/base.html:222
 msgid "Current Time:"
 msgstr "Текущее время:"
 
@@ -568,6 +570,10 @@ msgstr "Добавить Студента"
 msgid "Ticket #"
 msgstr "№ Билета"
 
+#: templates/students/students_list.html:144
+msgid "Action:"
+msgstr "Действие:"
+
 #: templates/students/students_list.html:147
 msgid "Delete selected students"
 msgstr "Удаление вибранных студентов"
@@ -715,6 +721,22 @@ msgstr "Письмо успешно отправленно"
 msgid ""
 "When senging mail unexpected error ocured. Please try this service later"
 msgstr "Во время отправки письма случилась ошибка. Пожалуйста попробуйте позже"
+
+#: views/exams.py:70
+msgid "Please, type subject name"
+msgstr "Введите название предмета"
+
+#: views/exams.py:72
+msgid "e.g. 2016-12-12 10:00"
+msgstr "напр. 2016-12-12 10:00"
+
+#: views/exams.py:74
+msgid "Please, type teacher's surname and initials"
+msgstr "Пожалуйста, ввдедите фамилию и инициалы учителя"
+
+#: views/exams.py:76
+msgid "Additional informantion about exam"
+msgstr "Дополнительная информация о экзамене"
 
 #: views/exams.py:107 views/groups.py:79 views/students.py:160
 msgid "Add"
@@ -875,7 +897,7 @@ msgstr "Удаление результатов экзамена отменен�
 msgid "Information about results of exam %s deleted successfully"
 msgstr "Информация о результатах экзамена %s успешно удалена"
 
-#: views/results.py:181 views/user.py:210 views/user.py:222
+#: views/results.py:181 views/user.py:216 views/user.py:228
 msgid "There was an error on the server. Please try again later"
 msgstr ""
 "На сервере случилась непредвиденная ошибка. Пожалуйста попробуйте позже"
@@ -991,11 +1013,15 @@ msgstr "Настройки пользователя успешно измене�
 msgid "Both passwords must be the same"
 msgstr "Оба пароля должны быть идентичными"
 
-#: views/user.py:228
+#: views/user.py:194
+msgid "You have successfully logged in"
+msgstr "Вы успешно вошли на сайт"
+
+#: views/user.py:234
 msgid "Deleting user canceled"
 msgstr "Удаление пользователя отменено"
 
-#: views/user.py:231
+#: views/user.py:237
 #, python-format
 msgid "User %s deleted successfully"
 msgstr "Пользователь %s успешно удален"
@@ -1019,18 +1045,6 @@ msgstr "Пользователь %s успешно удален"
 
 #~ msgid "Message text"
 #~ msgstr "Текст сообщения"
-
-#~ msgid "Please, type subject name"
-#~ msgstr "Введите название предмета"
-
-#~ msgid "e.g. 2016-12-12 10:00"
-#~ msgstr "напр. 2016-12-12 10:00"
-
-#~ msgid "Please, type teacher's surname and initials"
-#~ msgstr "Пожалуйста, ввдедите фамилию и инициалы учителя"
-
-#~ msgid "Additional informantion about exam"
-#~ msgstr "Дополнительная информация о экзамене"
 
 #~ msgid "Additional information about group"
 #~ msgstr "Дополнительная информация о группе"

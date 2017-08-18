@@ -232,7 +232,7 @@ function initForm(form, modal, link) {
         if (link == '/user-auth/' || link == '/user-preference/' || link == '/users/login/' || link == '/register/registration/'){
           setTimeout(function() {
             location.replace('/');
-          }, 1500);
+          }, 5000);
         } else {
           setTimeout(function() {
             $('#sub-header').html(html.find('#sub-header div'));
@@ -243,7 +243,7 @@ function initForm(form, modal, link) {
             initFunctions();
             initResultPage();
             initFormPage();
-          }, 1500);
+          }, 5000);
         }
       }
 //      $('a.form-link').off();
