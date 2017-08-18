@@ -7,6 +7,13 @@
 
 ## [1.0.2] (2017-08-)
 
-> **Add information**
+> **Added**
 >
 > - files CHANGELOG.txt, README.txt and vertion.txt
+> - message after success enter to the site
+> - message after user's exit
+>
+> **Fixed bugs**
+>
+> - the lack of some translations
+> - troubles with select language
