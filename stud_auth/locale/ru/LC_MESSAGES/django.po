@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-16 18:43+0000\n"
+"POT-Creation-Date: 2017-08-19 11:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,6 +152,14 @@ msgstr ""
 "С уважением,\n"
 "Команда %(site_name)s\n"
 
+#: templates/registration/logged_out.html:4
+msgid "Logged out"
+msgstr "Виход"
+
+#: templates/registration/logged_out.html:7
+msgid "Successfully logged out"
+msgstr "Вы успешно вышли"
+
 #: templates/registration/login.html:6 templates/registration/login.html:8
 msgid "Login Form"
 msgstr "Форма Входа"
@@ -172,7 +180,8 @@ msgid "Your Password"
 msgstr "Ваш Пароль"
 
 #: templates/registration/login.html:41
-msgid "Login"
+#: templates/registration/password_reset_complete.html:18
+msgid "Log in"
 msgstr "Ввойти"
 
 #: templates/registration/login.html:42
@@ -224,10 +233,6 @@ msgstr "Сброс пароля"
 #: templates/registration/password_reset_complete.html:16
 msgid "Your password has been set.  You may go ahead and log in now."
 msgstr "Ваш пароль установлен. Вы можете сейчас продолжить и ввойти"
-
-#: templates/registration/password_reset_complete.html:18
-msgid "Log in"
-msgstr "Ввойти"
 
 #: templates/registration/password_reset_confirm.html:7
 msgid "Password reset confirmation"
@@ -341,7 +346,7 @@ msgid "Please check your email to complete the registration process."
 msgstr "Пожалуйста проверьте ваш эмейл, чтобы завершить процесс регистрации"
 
 #: templates/registration/registration_form.html:5
-#: templates/registration/registration_form.html:7 views.py:91
+#: templates/registration/registration_form.html:7 views.py:85
 msgid "Register Form"
 msgstr "Форма Регистрации"
 
@@ -353,42 +358,44 @@ msgstr "Ваш эмейл"
 msgid "Confirm Password"
 msgstr "Подтвердждение пароля"
 
-#: templates/registration/registration_form.html:46 views.py:70
+#: templates/registration/registration_form.html:46 views.py:64
 msgid "Register"
 msgstr "Регистрация"
 
-#: views.py:21
+#: views.py:23
 msgid "E-mail"
 msgstr "Эмейл"
 
-#: views.py:23
+#: views.py:25
 msgid "Please, type your email address"
 msgstr "Пожалуйста, введите Ваш эмейл"
 
-#: views.py:27
+#: views.py:29
 msgid "Password"
 msgstr "Пароль"
 
-#: views.py:29 views.py:46 views.py:48
+#: views.py:31
 msgid "Please, type your password"
 msgstr "Пожалуйста, введите Ваш пароль"
 
-#: views.py:33
+#: views.py:35
 msgid "Confirm password"
 msgstr "Подтверждение пароля"
 
-#: views.py:35
+#: views.py:37
 msgid "Please, type password again"
 msgstr "Пожалуйста, введите пароль ёще раз"
 
-#: views.py:44
-msgid "Please, type username"
-msgstr "Пожалуйста, введите имя пользователя"
-
-#: views.py:71
+#: views.py:65
 msgid "Cancel"
 msgstr "Отменить"
 
-#: views.py:97
+#: views.py:91
 msgid "Registration new user canceled"
 msgstr "Регистрация нового юзера отменена"
+
+#~ msgid "Login"
+#~ msgstr "Ввойти"
+
+#~ msgid "Please, type username"
+#~ msgstr "Пожалуйста, введите имя пользователя"

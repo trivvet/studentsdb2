@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-19 07:01+0000\n"
+"POT-Creation-Date: 2017-08-19 12:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -736,6 +736,23 @@ msgstr ""
 "Під час відправки листа виникла неочікувана помилка. Спробуйте будь-ласка "
 "даний сервіс пізніше"
 
+#: views/exams.py:70
+msgid "Please, type subject name"
+msgstr "Введіть назву предмету"
+
+#: views/exams.py:72
+#, fuzzy
+msgid "e.g. 2016-12-12 10:00"
+msgstr "напр. 2016-12-12 10:00"
+
+#: views/exams.py:74
+msgid "Please, type teacher's surname and initials"
+msgstr "Введіть прізвище та ініціали вчителя"
+
+#: views/exams.py:76
+msgid "Additional informantion about exam"
+msgstr "Додаткова інформація про іспит"
+
 #: views/exams.py:107 views/groups.py:79 views/students.py:160
 msgid "Add"
 msgstr "Додати"
@@ -775,6 +792,14 @@ msgstr "Дані про іспиту %s успішно видалено"
 msgid "Deleting exam canceled"
 msgstr "Видалення іспиту скасовано"
 
+#: views/groups.py:54 views/groups.py:117
+msgid "Type group's title"
+msgstr "Введіть назву групи"
+
+#: views/groups.py:56
+msgid "Additional information about group"
+msgstr "Додаткова інформація про групу"
+
 #: views/groups.py:93
 #, python-format
 msgid "Group %s added successfully"
@@ -787,10 +812,6 @@ msgstr "Додавання Групи"
 #: views/groups.py:105
 msgid "Adding group canceled"
 msgstr "Додавання групи скасовано"
-
-#: views/groups.py:117
-msgid "Type group's title"
-msgstr "Введіть назву групи"
 
 #: views/groups.py:119
 msgid "Addiotional information about group"
@@ -928,6 +949,30 @@ msgstr "Видалення обраних студентів не виконан
 msgid "Delete of selected student canceled"
 msgstr "Видалення обраних студентів скасовано"
 
+#: views/students.py:118
+msgid "Please, type student's first name"
+msgstr "Введіть ім'я студента"
+
+#: views/students.py:120
+msgid "Please, type student's last name"
+msgstr "Введіть прізвище студента"
+
+#: views/students.py:122
+msgid "Please, type student's middle name"
+msgstr "Введіть ім'я по-батькові студента"
+
+#: views/students.py:124
+msgid "e.g. 1984-06-17"
+msgstr "напр. 1984-06-17"
+
+#: views/students.py:125
+msgid "e.g. 123"
+msgstr "напр. 123"
+
+#: views/students.py:127
+msgid "Aditional information"
+msgstr "Додаткова інформація"
+
 #: views/students.py:179
 msgid "Student is leader of other group"
 msgstr "Студенти є старостою іншої групи"
@@ -1030,19 +1075,6 @@ msgstr "Видалення користувача скасовано"
 msgid "User %s deleted successfully"
 msgstr "Користувач %s успішно видалений"
 
-#~ msgid "Please, type subject name"
-#~ msgstr "Введіть назву предмету"
-
-#, fuzzy
-#~ msgid "e.g. 2016-12-12 10:00"
-#~ msgstr "напр. 2016-12-12 10:00"
-
-#~ msgid "Please, type teacher's surname and initials"
-#~ msgstr "Введіть прізвище та ініціали вчителя"
-
-#~ msgid "Additional informantion about exam"
-#~ msgstr "Додаткова інформація про іспит"
-
 #, fuzzy
 #~| msgid "User Name"
 #~ msgid "User"
@@ -1054,9 +1086,6 @@ msgstr "Користувач %s успішно видалений"
 #~ msgid "Access for anonymous users is closed"
 #~ msgstr "Для анонімних користувачів доступ закритий"
 
-#~ msgid "Additional information about group"
-#~ msgstr "Додаткова інформація про групу"
-
 #~ msgid "Please enter subject name"
 #~ msgstr "Введіть назву предмету"
 
@@ -1065,24 +1094,6 @@ msgstr "Користувач %s успішно видалений"
 
 #~ msgid "Detailed information about event"
 #~ msgstr "Детальна інформація про подію"
-
-#~ msgid "Please, type student's first name"
-#~ msgstr "Введіть ім'я студента"
-
-#~ msgid "Please, type student's last name"
-#~ msgstr "Введіть прізвище студента"
-
-#~ msgid "Please, type student's middle name"
-#~ msgstr "Введіть ім'я по-батькові студента"
-
-#~ msgid "e.g. 1984-06-17"
-#~ msgstr "напр. 1984-06-17"
-
-#~ msgid "e.g. 123"
-#~ msgstr "напр. 123"
-
-#~ msgid "Aditional information"
-#~ msgstr "Додаткова інформація"
 
 #~ msgid "Select your time zone"
 #~ msgstr "Виберіть вашу часову зону"

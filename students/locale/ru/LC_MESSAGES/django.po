@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-19 07:01+0000\n"
+"POT-Creation-Date: 2017-08-19 12:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -734,6 +734,22 @@ msgid ""
 "When senging mail unexpected error ocured. Please try this service later"
 msgstr "Во время отправки письма случилась ошибка. Пожалуйста попробуйте позже"
 
+#: views/exams.py:70
+msgid "Please, type subject name"
+msgstr "Введите название предмета"
+
+#: views/exams.py:72
+msgid "e.g. 2016-12-12 10:00"
+msgstr "напр. 2016-12-12 10:00"
+
+#: views/exams.py:74
+msgid "Please, type teacher's surname and initials"
+msgstr "Пожалуйста, ввдедите фамилию и инициалы учителя"
+
+#: views/exams.py:76
+msgid "Additional informantion about exam"
+msgstr "Дополнительная информация о экзамене"
+
 #: views/exams.py:107 views/groups.py:79 views/students.py:160
 msgid "Add"
 msgstr "Добавить"
@@ -773,6 +789,14 @@ msgstr "Экзамен %s успешно удален"
 msgid "Deleting exam canceled"
 msgstr "Удаление экзамена отменено"
 
+#: views/groups.py:54 views/groups.py:117
+msgid "Type group's title"
+msgstr "Введите название группы"
+
+#: views/groups.py:56
+msgid "Additional information about group"
+msgstr "Дополнительная информация о группе"
+
 #: views/groups.py:93
 #, python-format
 msgid "Group %s added successfully"
@@ -785,10 +809,6 @@ msgstr "Добавление Группы"
 #: views/groups.py:105
 msgid "Adding group canceled"
 msgstr "Добавление группы отменено"
-
-#: views/groups.py:117
-msgid "Type group's title"
-msgstr "Введите название группы"
 
 #: views/groups.py:119
 msgid "Addiotional information about group"
@@ -926,6 +946,30 @@ msgstr "Выбраных студентов не удается удалить, 
 msgid "Delete of selected student canceled"
 msgstr "Удаление выбраных студентов отменено"
 
+#: views/students.py:118
+msgid "Please, type student's first name"
+msgstr "Введите имя студента"
+
+#: views/students.py:120
+msgid "Please, type student's last name"
+msgstr "Введите фамилию студента"
+
+#: views/students.py:122
+msgid "Please, type student's middle name"
+msgstr "Введите отчество студента"
+
+#: views/students.py:124
+msgid "e.g. 1984-06-17"
+msgstr "напр. 1984-06-17"
+
+#: views/students.py:125
+msgid "e.g. 123"
+msgstr "напр. 123"
+
+#: views/students.py:127
+msgid "Aditional information"
+msgstr "Дополнительная информация"
+
 #: views/students.py:179
 msgid "Student is leader of other group"
 msgstr "Студент есть старостой другой группы"
@@ -1026,18 +1070,6 @@ msgstr "Удаление пользователя отменено"
 msgid "User %s deleted successfully"
 msgstr "Пользователь %s успешно удален"
 
-#~ msgid "Please, type subject name"
-#~ msgstr "Введите название предмета"
-
-#~ msgid "e.g. 2016-12-12 10:00"
-#~ msgstr "напр. 2016-12-12 10:00"
-
-#~ msgid "Please, type teacher's surname and initials"
-#~ msgstr "Пожалуйста, ввдедите фамилию и инициалы учителя"
-
-#~ msgid "Additional informantion about exam"
-#~ msgstr "Дополнительная информация о экзамене"
-
 #, fuzzy
 #~| msgid "User Name"
 #~ msgid "User"
@@ -1049,9 +1081,6 @@ msgstr "Пользователь %s успешно удален"
 #~ msgid "Access for anonymous users is closed"
 #~ msgstr "Для анонимных пользователей доступ закрыт"
 
-#~ msgid "Additional information about group"
-#~ msgstr "Дополнительная информация о группе"
-
 #~ msgid "Please enter subject name"
 #~ msgstr "Введите название предмета"
 
@@ -1060,24 +1089,6 @@ msgstr "Пользователь %s успешно удален"
 
 #~ msgid "Detailed information about event"
 #~ msgstr "Подробная информация о собитии"
-
-#~ msgid "Please, type student's first name"
-#~ msgstr "Введите имя студента"
-
-#~ msgid "Please, type student's last name"
-#~ msgstr "Введите фамилию студента"
-
-#~ msgid "Please, type student's middle name"
-#~ msgstr "Введите отчество студента"
-
-#~ msgid "e.g. 1984-06-17"
-#~ msgstr "напр. 1984-06-17"
-
-#~ msgid "e.g. 123"
-#~ msgstr "напр. 123"
-
-#~ msgid "Aditional information"
-#~ msgstr "Дополнительная информация"
 
 #~ msgid "Select your time zone"
 #~ msgstr "Выберите вашу временную зону"

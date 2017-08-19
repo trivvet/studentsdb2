@@ -114,9 +114,9 @@ class GroupUpdateForm(forms.ModelForm):
         fields = ['title', 'leader', 'notes']
         widgets = {
             'title': forms.TextInput(
-                attrs={'placeholder': _(u"Type group's title")}),
+                attrs={'placeholder': _l(u"Type group's title")}),
             'notes': forms.Textarea(
-                attrs={'placeholder': _(u"Addiotional information about group"),
+                attrs={'placeholder': _l(u"Addiotional information about group"),
                        'rows': '3'}),
         }
 
