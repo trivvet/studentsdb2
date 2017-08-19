@@ -232,7 +232,7 @@ function initForm(form, modal, link) {
         if (link == '/user-auth/' || link == '/user-preference/' || link == '/users/login/' || link == '/register/registration/'){
           setTimeout(function() {
             location.replace('/');
-          }, 5000);
+          }, 4000);
         } else {
           setTimeout(function() {
             $('#sub-header').html(html.find('#sub-header div'));
@@ -243,7 +243,7 @@ function initForm(form, modal, link) {
             initFunctions();
             initResultPage();
             initFormPage();
-          }, 5000);
+          }, 4000);
         }
       }
 //      $('a.form-link').off();
@@ -272,10 +272,15 @@ function initFormPage() {
       'success': function(data, status, xhr) {
         if (status != 'success') {
           alert(gettext('There was an error on the server. Please try again later'));
-          return False;
+          return false;
         }
         var modal = $('#myModal'), html = $(data),
             form = html.find('#content-column form');
+        if (html.find('div.alert-warning').length != 0) {
+            $('#sub-header').after(html.find('div.alert-warning'));
+            modal2.modal('hide');
+            return false;
+        }
         modal.find('.modal-title').html(html.find('#content-column h2'));
         modal.find('.modal-body').html(form);
         modal.find('.modal-body').prepend(html.find('#select-language'));
@@ -407,6 +412,7 @@ function SubHeaderNavigation(link, pagination) {
 
         $('#content-column').html(newpage);
         modal2.modal('hide');
+        $('div.alert').remove();
   
         initFunctions();
         initResultPage();

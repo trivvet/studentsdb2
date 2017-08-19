@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-18 18:09+0000\n"
+"POT-Creation-Date: 2017-08-19 07:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -713,6 +713,18 @@ msgstr "Ваше Имя Пользователя или Эмейл"
 msgid "Submit"
 msgstr "Отправить"
 
+#: views/contact_admin.py:44
+msgid "Your Email Address"
+msgstr "Ваш Электронний Адрес"
+
+#: views/contact_admin.py:47
+msgid "Message header"
+msgstr "Оглавление сообщения"
+
+#: views/contact_admin.py:51
+msgid "Message text"
+msgstr "Текст сообщения"
+
 #: views/contact_admin.py:63
 msgid "Letter send successfully"
 msgstr "Письмо успешно отправленно"
@@ -721,22 +733,6 @@ msgstr "Письмо успешно отправленно"
 msgid ""
 "When senging mail unexpected error ocured. Please try this service later"
 msgstr "Во время отправки письма случилась ошибка. Пожалуйста попробуйте позже"
-
-#: views/exams.py:70
-msgid "Please, type subject name"
-msgstr "Введите название предмета"
-
-#: views/exams.py:72
-msgid "e.g. 2016-12-12 10:00"
-msgstr "напр. 2016-12-12 10:00"
-
-#: views/exams.py:74
-msgid "Please, type teacher's surname and initials"
-msgstr "Пожалуйста, ввдедите фамилию и инициалы учителя"
-
-#: views/exams.py:76
-msgid "Additional informantion about exam"
-msgstr "Дополнительная информация о экзамене"
 
 #: views/exams.py:107 views/groups.py:79 views/students.py:160
 msgid "Add"
@@ -850,15 +846,15 @@ msgstr "Удаление собития отменено"
 msgid "Entry results of exam canceled"
 msgstr "Добавление результатов экзмена отменено"
 
-#: views/results.py:75 views/results.py:135
+#: views/results.py:75 views/results.py:144
 msgid "Please enter the number from 0 to 12"
 msgstr "Введите число от 0 до 12"
 
-#: views/results.py:82 views/results.py:143
+#: views/results.py:82 views/results.py:152
 msgid "Please enter mark from 0 to 12"
 msgstr "Введите оценку от 0 до 12"
 
-#: views/results.py:84 views/results.py:145
+#: views/results.py:84 views/results.py:154
 msgid "Please enter student's mark"
 msgstr "Введите оценку студента"
 
@@ -879,25 +875,29 @@ msgstr "Пожалуйста выберите завершенный экзам�
 msgid "Please select exam"
 msgstr "Пожалуйста выберите экзамен"
 
-#: views/results.py:121
+#: views/results.py:122
+msgid "Sorry, but there are no complited examinations"
+msgstr "Извините, но на данный момент нет завершенных экзаменов"
+
+#: views/results.py:130
 msgid "Editing results of exam canceled"
 msgstr "Редактирование результатов экзамена отменено"
 
-#: views/results.py:151
+#: views/results.py:160
 #, python-format
 msgid "Information about results of exam %s edited successfully"
 msgstr "Информация о результатах экзамена %s успешно сохранена"
 
-#: views/results.py:168
+#: views/results.py:177
 msgid "Deleting results of exam canceled"
 msgstr "Удаление результатов экзамена отменено"
 
-#: views/results.py:175
+#: views/results.py:184
 #, python-format
 msgid "Information about results of exam %s deleted successfully"
 msgstr "Информация о результатах экзамена %s успешно удалена"
 
-#: views/results.py:181 views/user.py:216 views/user.py:228
+#: views/results.py:190 views/user.py:216 views/user.py:228
 msgid "There was an error on the server. Please try again later"
 msgstr ""
 "На сервере случилась непредвиденная ошибка. Пожалуйста попробуйте позже"
@@ -1026,6 +1026,18 @@ msgstr "Удаление пользователя отменено"
 msgid "User %s deleted successfully"
 msgstr "Пользователь %s успешно удален"
 
+#~ msgid "Please, type subject name"
+#~ msgstr "Введите название предмета"
+
+#~ msgid "e.g. 2016-12-12 10:00"
+#~ msgstr "напр. 2016-12-12 10:00"
+
+#~ msgid "Please, type teacher's surname and initials"
+#~ msgstr "Пожалуйста, ввдедите фамилию и инициалы учителя"
+
+#~ msgid "Additional informantion about exam"
+#~ msgstr "Дополнительная информация о экзамене"
+
 #, fuzzy
 #~| msgid "User Name"
 #~ msgid "User"
@@ -1036,15 +1048,6 @@ msgstr "Пользователь %s успешно удален"
 
 #~ msgid "Access for anonymous users is closed"
 #~ msgstr "Для анонимных пользователей доступ закрыт"
-
-#~ msgid "Your Email Address"
-#~ msgstr "Ваш Электронний Адрес"
-
-#~ msgid "Message header"
-#~ msgstr "Оглавление сообщения"
-
-#~ msgid "Message text"
-#~ msgstr "Текст сообщения"
 
 #~ msgid "Additional information about group"
 #~ msgstr "Дополнительная информация о группе"

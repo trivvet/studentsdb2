@@ -110,9 +110,17 @@ def results_add(request):
                 else:
                     errors['name'] = _(u"Please select exam")
         
-        import pdb;pdb.set_trace()
         exams = Exam.objects.all().filter(is_completed=False)
-        return render(request, 'students/results_add.html', { 'exams': exams, 'errors': errors })
+      #  import pdb;pdb.set_trace()
+        exams_new = []
+        if exams.count() > 0:
+            for exam_new in exams:
+                if exam_new.date < datetime.now(timezone.utc):
+                    exams_new.append(exam_new)
+            if len(exams_new) > 0:
+                return render(request, 'students/results_add.html', { 'exams': exams_new, 'errors': errors })
+        messages.warning(request, _(u"Sorry, but there are no complited examinations"))
+        return HttpResponseRedirect(reverse('results'))
 
 @login_required  
 def results_edit(request, rid=None):

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-18 18:09+0000\n"
+"POT-Creation-Date: 2017-08-19 07:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -713,6 +713,18 @@ msgstr "Ваше Ім'я Користувача або Електронна ад
 msgid "Submit"
 msgstr "Надіслати"
 
+#: views/contact_admin.py:44
+msgid "Your Email Address"
+msgstr "Ваша Електронна Адреса"
+
+#: views/contact_admin.py:47
+msgid "Message header"
+msgstr "Заголовок повідомлення"
+
+#: views/contact_admin.py:51
+msgid "Message text"
+msgstr "Текст повідомлення"
+
 #: views/contact_admin.py:63
 msgid "Letter send successfully"
 msgstr "Лист успішно відправлений"
@@ -723,23 +735,6 @@ msgid ""
 msgstr ""
 "Під час відправки листа виникла неочікувана помилка. Спробуйте будь-ласка "
 "даний сервіс пізніше"
-
-#: views/exams.py:70
-msgid "Please, type subject name"
-msgstr "Введіть назву предмету"
-
-#: views/exams.py:72
-#, fuzzy
-msgid "e.g. 2016-12-12 10:00"
-msgstr "напр. 2016-12-12 10:00"
-
-#: views/exams.py:74
-msgid "Please, type teacher's surname and initials"
-msgstr "Введіть прізвище та ініціали вчителя"
-
-#: views/exams.py:76
-msgid "Additional informantion about exam"
-msgstr "Додаткова інформація про іспит"
 
 #: views/exams.py:107 views/groups.py:79 views/students.py:160
 msgid "Add"
@@ -853,15 +848,15 @@ msgstr "Видалення події скасовано"
 msgid "Entry results of exam canceled"
 msgstr "Введедення результатів іспиту скасовано"
 
-#: views/results.py:75 views/results.py:135
+#: views/results.py:75 views/results.py:144
 msgid "Please enter the number from 0 to 12"
 msgstr "Будь-ласка введіть число від 0 до 12"
 
-#: views/results.py:82 views/results.py:143
+#: views/results.py:82 views/results.py:152
 msgid "Please enter mark from 0 to 12"
 msgstr "Будь-ласка введіть оцінку від 0 до 12"
 
-#: views/results.py:84 views/results.py:145
+#: views/results.py:84 views/results.py:154
 msgid "Please enter student's mark"
 msgstr "Будь-ласка введіть оцінку студента"
 
@@ -882,25 +877,29 @@ msgstr "Будь ласка, виберіть завершений іспит"
 msgid "Please select exam"
 msgstr "Будь-ласка, оберіть іспит зі списку"
 
-#: views/results.py:121
+#: views/results.py:122
+msgid "Sorry, but there are no complited examinations"
+msgstr "На даний момент немає завершених екзаменів"
+
+#: views/results.py:130
 msgid "Editing results of exam canceled"
 msgstr "Редагування результатів іспиту скасовано"
 
-#: views/results.py:151
+#: views/results.py:160
 #, python-format
 msgid "Information about results of exam %s edited successfully"
 msgstr "Дані про результати іспиту %s успішно змінено"
 
-#: views/results.py:168
+#: views/results.py:177
 msgid "Deleting results of exam canceled"
 msgstr "Видалення результатів іспиту скасовано"
 
-#: views/results.py:175
+#: views/results.py:184
 #, python-format
 msgid "Information about results of exam %s deleted successfully"
 msgstr "Дані про результати іспиту %s успішно видалено"
 
-#: views/results.py:181 views/user.py:216 views/user.py:228
+#: views/results.py:190 views/user.py:216 views/user.py:228
 msgid "There was an error on the server. Please try again later"
 msgstr ""
 "На сервері сталася непередбачувана помилка. Спробуйте будь-ласка пізніше"
@@ -1031,6 +1030,19 @@ msgstr "Видалення користувача скасовано"
 msgid "User %s deleted successfully"
 msgstr "Користувач %s успішно видалений"
 
+#~ msgid "Please, type subject name"
+#~ msgstr "Введіть назву предмету"
+
+#, fuzzy
+#~ msgid "e.g. 2016-12-12 10:00"
+#~ msgstr "напр. 2016-12-12 10:00"
+
+#~ msgid "Please, type teacher's surname and initials"
+#~ msgstr "Введіть прізвище та ініціали вчителя"
+
+#~ msgid "Additional informantion about exam"
+#~ msgstr "Додаткова інформація про іспит"
+
 #, fuzzy
 #~| msgid "User Name"
 #~ msgid "User"
@@ -1041,15 +1053,6 @@ msgstr "Користувач %s успішно видалений"
 
 #~ msgid "Access for anonymous users is closed"
 #~ msgstr "Для анонімних користувачів доступ закритий"
-
-#~ msgid "Your Email Address"
-#~ msgstr "Ваша Електронна Адреса"
-
-#~ msgid "Message header"
-#~ msgstr "Заголовок повідомлення"
-
-#~ msgid "Message text"
-#~ msgstr "Текст повідомлення"
 
 #~ msgid "Additional information about group"
 #~ msgstr "Додаткова інформація про групу"
