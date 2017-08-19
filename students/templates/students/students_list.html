@@ -11,7 +11,7 @@
 
 {% block add_button %}
 <!-- Add Student Button -->
-<a id='add_button' class="btn btn-primary form-link" href="{% url "students_add" %}">
+<a id='add_button' class="btn btn-primary form-link" href="{% url "students_add" LANGUAGE_CODE %}">
    {% trans "Add Student" %}</a>
 {% endblock add_button %}
    
@@ -91,11 +91,11 @@
           </td>
           <td>
             {% if user.is_authenticated %}<a class="form-link"
-               href="{{ PORTAL_URL }}{% url "students_edit" student.id %}">
+               href="{{ PORTAL_URL }}{% url "students_edit" student.id LANGUAGE_CODE %}">
                {{ student.last_name }}</a>{% else %}{{ student.last_name }}{% endif %}
           </td>
           <td>
-            {% if user.is_authenticated %}<a href="{{ PORTAL_URL }}{% url "students_edit" student.id %}"
+            {% if user.is_authenticated %}<a href="{{ PORTAL_URL }}{% url "students_edit" student.id LANGUAGE_CODE %}"
                class="form-link">{{ student.first_name }}</a>{% else %}{{ student.first_name }}{% endif %}
           </td>
           <td>{{ student.ticket }}</td>

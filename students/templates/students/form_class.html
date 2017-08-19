@@ -32,6 +32,20 @@
   </ul>
 </div>
 
+{% elif lang_add %}
+
+<div id='select-language'>
+  <div class="col-sm-2"></div>
+  <ul class="nav nav-tabs col-sm-10">
+    <li role="presentation" {% if lang_add == 'uk' %}class="active"{% endif %}>
+      <a href="{% url 'students_add' 'uk' %}">{% trans "Ukrainian" %}</a></li>
+    <li role="presentation" {% if lang_add == 'en' %}class="active"{% endif %}>
+      <a href="{% url 'students_add' 'en' %}">{% trans "English" %}</a></li>
+    <li role="presentation" {% if lang_add == 'ru' %}class="active"{% endif %}>
+      <a href="{% url 'students_add' 'ru' %}">{% trans "Russian" %}</a></li>
+  </ul>
+</div>
+
 {% endif %}
 
 {% language lang %}

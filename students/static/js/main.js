@@ -197,7 +197,7 @@ function initForm(form, modal, link) {
       modal.find('.modal-body').html('<div class="alert alert-danger">"' + gettext('There was an error on the server. Please try again later') + '"</div>');
       setTimeout(function() {
           modal.modal('hide');
-        }, 1500);
+        }, 3000);
       History.pushState({'page': 'openForm'}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
       return false;
     },
@@ -232,7 +232,7 @@ function initForm(form, modal, link) {
         if (link == '/user-auth/' || link == '/user-preference/' || link == '/users/login/' || link == '/register/registration/'){
           setTimeout(function() {
             location.replace('/');
-          }, 4000);
+          }, 2000);
         } else {
           setTimeout(function() {
             $('#sub-header').html(html.find('#sub-header div'));
@@ -243,7 +243,7 @@ function initForm(form, modal, link) {
             initFunctions();
             initResultPage();
             initFormPage();
-          }, 4000);
+          }, 2000);
         }
       }
 //      $('a.form-link').off();

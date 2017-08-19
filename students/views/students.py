@@ -48,8 +48,13 @@ def students_list(request):
         # default is sorting by last_name of students
         students = students.order_by('last_name')
 
+    students_list = []
+    for student in students:
+        if student.first_name:
+            students_list.append(student)
+
     # paginator (lay in util.py)
-    context = paginate(students, 3, request, {}, var_name='students')
+    context = paginate(students_list, 3, request, {}, var_name='students')
         
     # realisation checkboxes for group action
     message_error = 0
@@ -205,8 +210,15 @@ class StudentAddView(LoginRequiredMixin, CreateView):
 
     # render form title    
     def get_context_data(self, **kwargs):
+        if self.kwargs['lang']:
+            translation.activate(self.kwargs['lang'])
+            language = self.kwargs['lang']
+        else:
+            language = translation.get_language()
+
         context = super(StudentAddView, self).get_context_data(**kwargs)
         context['title'] = _(u'Adding Student')
+        context['lang_add'] = language
         return context
 
     # if cancel_button is pressed return home page

@@ -155,7 +155,7 @@ msgstr ""
 
 #: templates/registration/logged_out.html:7
 msgid "Successfully logged out"
-msgstr ""
+msgstr "Ви успішно вийшли"
 
 #: templates/registration/login.html:6 templates/registration/login.html:8
 msgid "Login Form"
