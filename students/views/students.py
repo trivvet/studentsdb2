@@ -134,7 +134,6 @@ class StudentForm(TranslationModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-#        translation.activate(translation.get_language())
         super(StudentForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
 
@@ -218,7 +217,9 @@ class StudentAddView(LoginRequiredMixin, CreateView):
 
         context = super(StudentAddView, self).get_context_data(**kwargs)
         context['title'] = _(u'Adding Student')
-        context['lang_add'] = language
+        context['lang'] = language
+        context['action'] = 'students_add'
+        context['item_id'] = ''
         return context
 
     # if cancel_button is pressed return home page
@@ -251,7 +252,8 @@ class StudentUpdateView(LoginRequiredMixin, UpdateView):
         context = super(StudentUpdateView, self).get_context_data(**kwargs)
         context['title'] = _(u'Editing student')
         context['lang'] = language
-        context['student_id'] = self.kwargs['pk']
+        context['action'] = 'students_edit'
+        context['item_id'] = self.kwargs['pk']
         return context
 
     # if cancel_button is pressed return home page

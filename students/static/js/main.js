@@ -214,9 +214,15 @@ function initForm(form, modal, link) {
     success: function(data, status, xhr) {
       var html = $(data), newform = html.find('#content-column form.form-horizontal');
 
+      console.log(link);
       // copy alert to modal window
-      modal.find('.modal-body').html(html.find('.alert'));
-      modal2.modal('hide');
+      if (link == '/register/registration/') {
+        modal.find('.modal-title').html(html.find('#content-column h2'));
+        modal.find('.modal-body').html(html.find('#content-column p'));
+      } else {
+        modal.find('.modal-body').html(html.find('.alert'));
+        modal2.modal('hide');
+      }
       
       // copy form to modal if we found it in server repsonse
       if (newform.length > 0) {
@@ -229,10 +235,14 @@ function initForm(form, modal, link) {
         // to get updated page;
         // reload after 2 second, so that user can read
         // success message
-        if (link == '/user-auth/' || link == '/user-preference/' || link == '/users/login/' || link == '/register/registration/'){
+        if (link == '/user-auth/' || link == '/user-preference/' || link == '/users/login/') {
           setTimeout(function() {
             location.replace('/');
-          }, 2000);
+          }, 2500);
+        } else if (link =='/register/registration/') {
+          setTimeout(function() {
+            location.replace('/');
+          }, 4000);
         } else {
           setTimeout(function() {
             $('#sub-header').html(html.find('#sub-header div'));

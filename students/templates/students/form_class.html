@@ -20,31 +20,36 @@
 <!-- FORM -->
 
 {% if lang %}
+
+{% if action == "students_edit" or action == "groups_edit" %}
+
 <div id='select-language'>
   <div class="col-sm-2"></div>
   <ul class="nav nav-tabs col-sm-10">
     <li role="presentation" {% if lang == 'uk' %}class="active"{% endif %}>
-      <a href="{% url 'students_edit' student_id 'uk' %}">{% trans "Ukrainian" %}</a></li>
+      <a href="{% url action item_id 'uk' %}">{% trans "Ukrainian" %}</a></li>
     <li role="presentation" {% if lang == 'en' %}class="active"{% endif %}>
-      <a href="{% url 'students_edit' student_id 'en' %}">{% trans "English" %}</a></li>
+      <a href="{% url action item_id 'en' %}">{% trans "English" %}</a></li>
     <li role="presentation" {% if lang == 'ru' %}class="active"{% endif %}>
-      <a href="{% url 'students_edit' student_id 'ru' %}">{% trans "Russian" %}</a></li>
+      <a href="{% url action item_id 'ru' %}">{% trans "Russian" %}</a></li>
   </ul>
 </div>
 
-{% elif lang_add %}
+{% else %}
 
 <div id='select-language'>
   <div class="col-sm-2"></div>
   <ul class="nav nav-tabs col-sm-10">
-    <li role="presentation" {% if lang_add == 'uk' %}class="active"{% endif %}>
-      <a href="{% url 'students_add' 'uk' %}">{% trans "Ukrainian" %}</a></li>
-    <li role="presentation" {% if lang_add == 'en' %}class="active"{% endif %}>
-      <a href="{% url 'students_add' 'en' %}">{% trans "English" %}</a></li>
-    <li role="presentation" {% if lang_add == 'ru' %}class="active"{% endif %}>
-      <a href="{% url 'students_add' 'ru' %}">{% trans "Russian" %}</a></li>
+    <li role="presentation" {% if lang == 'uk' %}class="active"{% endif %}>
+      <a href="{% url action 'uk' %}">{% trans "Ukrainian" %}</a></li>
+    <li role="presentation" {% if lang == 'en' %}class="active"{% endif %}>
+      <a href="{% url action 'en' %}">{% trans "English" %}</a></li>
+    <li role="presentation" {% if lang == 'ru' %}class="active"{% endif %}>
+      <a href="{% url action 'ru' %}">{% trans "Russian" %}</a></li>
   </ul>
 </div>
+
+{% endif %}
 
 {% endif %}
 
