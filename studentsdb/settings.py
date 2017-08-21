@@ -27,6 +27,11 @@ try:
     from env_settings import STATIC_ROOT
 except ImportError:
     pass
+
+try:
+    from env_settings import EMAIL_BACKEND, EMAIL_FILE_PATH
+except ImportError:
+    pass
     
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -237,6 +242,10 @@ LANGUAGES = (
 
 MODELTRANSLATION_LANGUAGES = ('uk', 'en', 'ru')
 
+# MODELTRANSLATION_DEFAULT_LANGUAGE = 'uk'
+
+# MODELTRANSLATION_AUTO_POPULATE = True
+
 USE_TZ = True
 
 TIME_ZONE = 'UTC'
@@ -244,9 +253,6 @@ TIME_ZONE = 'UTC'
 USE_L10N = True
 
 DATE_FORMAT = 'Y E d'
-
-# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-# EMAIL_FILE_PATH = os.path.join(BASE_DIR, '..', 'email')
 
 COVERAGE_REPORT_HTML_OUTPUT_DIR = os.path.join(BASE_DIR, '..', 'coverage')
 

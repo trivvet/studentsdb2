@@ -1061,10 +1061,9 @@ msgid "Both passwords must be the same"
 msgstr "Обидва паролі повинні бути ідентичні"
 
 #: views/user.py:194
-#, fuzzy
 #| msgid "Group %s saved successfully"
 msgid "You have successfully logged in"
-msgstr "Дані про групу %s успішно збережено"
+msgstr "Ви успішно увійшли"
 
 #: views/user.py:234
 msgid "Deleting user canceled"

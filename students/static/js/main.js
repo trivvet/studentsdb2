@@ -197,7 +197,7 @@ function initForm(form, modal, link) {
       modal.find('.modal-body').html('<div class="alert alert-danger">"' + gettext('There was an error on the server. Please try again later') + '"</div>');
       setTimeout(function() {
           modal.modal('hide');
-        }, 1500);
+        }, 3000);
       History.pushState({'page': 'openForm'}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
       return false;
     },
@@ -214,9 +214,15 @@ function initForm(form, modal, link) {
     success: function(data, status, xhr) {
       var html = $(data), newform = html.find('#content-column form.form-horizontal');
 
+      console.log(link);
       // copy alert to modal window
-      modal.find('.modal-body').html(html.find('.alert'));
-      modal2.modal('hide');
+      if (link == '/register/registration/') {
+        modal.find('.modal-title').html(html.find('#content-column h2'));
+        modal.find('.modal-body').html(html.find('#content-column p'));
+      } else {
+        modal.find('.modal-body').html(html.find('.alert'));
+        modal2.modal('hide');
+      }
       
       // copy form to modal if we found it in server repsonse
       if (newform.length > 0) {
@@ -229,7 +235,11 @@ function initForm(form, modal, link) {
         // to get updated page;
         // reload after 2 second, so that user can read
         // success message
-        if (link == '/user-auth/' || link == '/user-preference/' || link == '/users/login/' || link == '/register/registration/'){
+        if (link == '/user-auth/' || link == '/user-preference/' || link == '/users/login/') {
+          setTimeout(function() {
+            location.replace('/');
+          }, 2500);
+        } else if (link =='/register/registration/') {
           setTimeout(function() {
             location.replace('/');
           }, 4000);
@@ -243,7 +253,7 @@ function initForm(form, modal, link) {
             initFunctions();
             initResultPage();
             initFormPage();
-          }, 4000);
+          }, 2000);
         }
       }
 //      $('a.form-link').off();

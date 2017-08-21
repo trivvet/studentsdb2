@@ -186,12 +186,12 @@ def user_time(request):
         request.session['django_timezone'] = stprofile.time_zone
     except:
         pass
+    messages.success(request, _(u"You have successfully logged in"))
     try:
         translation.activate(stprofile.language)
         request.session[translation.LANGUAGE_SESSION_KEY] = stprofile.language
     except:
         pass
-    messages.success(request, _(u"You have successfully logged in"))
     return HttpResponseRedirect(reverse('home'))
 
 def users_list(request):

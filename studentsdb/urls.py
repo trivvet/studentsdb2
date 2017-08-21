@@ -44,7 +44,7 @@ urlpatterns = [
   
     #Students urls
     url(r'^$', students.students_list, name='home'),
-    url(r'^students/add/$', login_required(StudentAddView.as_view()), name='students_add'),
+    url(r'^students/add/(?P<lang>\S+)?$', login_required(StudentAddView.as_view()), name='students_add'),
     url(r'^students/(?P<pk>\d+)/edit/(?P<lang>\S+)?$', login_required(StudentUpdateView.as_view()),         
         name='students_edit'),
     url(r'^students/(?P<pk>\d+)/delete', login_required(StudentDeleteView.as_view()),
@@ -52,8 +52,8 @@ urlpatterns = [
   
     #Groups urls
     url(r'^groups/$', login_required(groups.groups_list), name='groups'),
-    url(r'^groups/add/$', login_required(GroupAddView.as_view()), name='groups_add'),
-    url(r'^groups/(?P<pk>\d+)/edit', login_required(GroupUpdateView.as_view()),
+    url(r'^groups/add/(?P<lang>\S+)?$', login_required(GroupAddView.as_view()), name='groups_add'),
+    url(r'^groups/(?P<pk>\d+)/edit/(?P<lang>\S+)?$', login_required(GroupUpdateView.as_view()),
         name='groups_edit'),
     url(r'^groups/(?P<pk>\d+)/delete', login_required(GroupDeleteView.as_view()),
         name='groups_delete'),

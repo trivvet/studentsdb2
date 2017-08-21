@@ -1,5 +1,6 @@
 from django import forms
 from django.urls import reverse_lazy
+from django.utils import translation
 from django.contrib import messages
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
@@ -81,6 +82,15 @@ class GroupAddForm(forms.ModelForm):
             )
         ))
 
+    def save(self, *args, **kwargs):
+        extra_fields = kwargs.pop('extra_fields', {})
+        fields = extra_fields
+        fields.update({k: self.cleaned_data[k] for k in self._meta.fields})
+        self.instance = self._meta.model.objects.populate(True).create(
+            **fields
+        )
+        return super(GroupAddForm, self).save(*args, **kwargs)
+
 # Add Form View
 class GroupAddView(LoginRequiredMixin, CreateView):
     model = Group
@@ -95,8 +105,15 @@ class GroupAddView(LoginRequiredMixin, CreateView):
 
     # render form title    
     def get_context_data(self, **kwargs):
+        if self.kwargs['lang']:
+            translation.activate(self.kwargs['lang'])
+            language = self.kwargs['lang']
+        else:
+            language = translation.get_language()
         context = super(GroupAddView, self).get_context_data(**kwargs)
         context['title'] = _(u'Adding Group')
+        context['lang'] = language
+        context['action'] = 'groups_add'
         return context
 
     # if cancel button is pressed render groups page
@@ -158,8 +175,16 @@ class GroupUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('groups')
 
     def get_context_data(self, **kwargs):
+        if self.kwargs['lang']:
+            translation.activate(self.kwargs['lang'])
+            language = self.kwargs['lang']
+        else:
+            language = translation.get_language()
         context = super(GroupUpdateView, self).get_context_data(**kwargs)
         context['title'] = _(u'Editing Group')
+        context['lang'] = language
+        context['action'] = 'groups_edit'
+        context['item_id'] = self.kwargs['pk']
         return context
         
     def post(self, request, *args, **kwargs):

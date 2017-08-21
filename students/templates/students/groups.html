@@ -24,7 +24,7 @@
     <tr>
       {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
       <th><a href=
-             "{% url "groups" %}?order_by=id{% if order_by == 'id' and reverse != '1' %}&amp;reverse=1{% endif %}">
+             "{% url 'groups' %}?order_by=id{% if order_by == 'id' and reverse != '1' %}&amp;reverse=1{% endif %}">
              №{% if order_by == 'id' and reverse != '1' %}
              &uarr;{% elif order_by == 'id' and reverse == '1' %}
              &darr;{% endif %}</a></th>
@@ -49,9 +49,9 @@
     <tr>
       <td>{{ context.page_obj.start_index|add:forloop.counter|add:"-1" }}</td>
       <td><a class="form-link"
-             href="{% url "groups_edit" group.id %}">{{ group.title }}</a></td>
+             href="{% url "groups_edit" group.id LANGUAGE_CODE %}">{{ group.title }}</a></td>
       <td>{% if group.leader %}
-          <a href="{% url "students_edit" group.leader.id %}"
+          <a href="{% url "students_edit" group.leader.id LANGUAGE_CODE %}"
              class="form-link">
           {{ group.leader.last_name }} {{ group.leader.first_name}}</a></td>
           {% endif %}
@@ -63,7 +63,7 @@
           </button>
           <ul class="dropdown-menu" 
               aria-labelledby="dropdownMenu1">
-            <li><a class="form-link" href="{% url "groups_edit" group.id %}">{% trans "Edit" %}</a></li>
+            <li><a class="form-link" href="{% url "groups_edit" group.id LANGUAGE_CODE %}">{% trans "Edit" %}</a></li>
             <li><a href="{% url "groups_delete" group.id %}"
                    class="form-link">{% trans "Delete" %}</a></li>
           </ul>
