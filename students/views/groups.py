@@ -82,6 +82,15 @@ class GroupAddForm(forms.ModelForm):
             )
         ))
 
+    def save(self, *args, **kwargs):
+        extra_fields = kwargs.pop('extra_fields', {})
+        fields = extra_fields
+        fields.update({k: self.cleaned_data[k] for k in self._meta.fields})
+        self.instance = self._meta.model.objects.populate(True).create(
+            **fields
+        )
+        return super(GroupAddForm, self).save(*args, **kwargs)
+
 # Add Form View
 class GroupAddView(LoginRequiredMixin, CreateView):
     model = Group

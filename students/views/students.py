@@ -37,7 +37,8 @@ def students_list(request):
     else:
         # otherwise show all students
         students = Student.objects.all()
-    
+
+#    import pdb;pdb.set_trace()
     # try to order student list
     order_by = request.GET.get('order_by', '')
     if order_by in ('last_name', 'first_name', 'ticket', 'id'):
@@ -48,13 +49,8 @@ def students_list(request):
         # default is sorting by last_name of students
         students = students.order_by('last_name')
 
-    students_list = []
-    for student in students:
-        if student.first_name:
-            students_list.append(student)
-
     # paginator (lay in util.py)
-    context = paginate(students_list, 3, request, {}, var_name='students')
+    context = paginate(students, 3, request, {}, var_name='students')
         
     # realisation checkboxes for group action
     message_error = 0
@@ -195,6 +191,17 @@ class StudentForm(TranslationModelForm):
                 
         return cleaned_data
 
+    def save(self, *args, **kwargs):
+        if not self.instance.pk:
+            extra_fields = kwargs.pop('extra_fields', {})
+            fields = extra_fields
+            fields.update({k: self.cleaned_data[k] for k in self._meta.fields})
+            self.instance = self._meta.model.objects.populate(True).create(
+                **fields
+            )
+        return super(StudentForm, self).save(*args, **kwargs)
+
+
 # Add Form View
 class StudentAddView(LoginRequiredMixin, CreateView):
     model = Student
@@ -229,6 +236,7 @@ class StudentAddView(LoginRequiredMixin, CreateView):
             return HttpResponseRedirect(reverse('home'))
         else:
             return super(StudentAddView, self).post(request, *args, **kwargs)
+
         
 # Edit Form View
 class StudentUpdateView(LoginRequiredMixin, UpdateView):
