@@ -239,10 +239,12 @@ function initForm(form, modal, link) {
           setTimeout(function() {
             location.replace('/');
           }, 2500);
-        } else if (link =='/register/registration/') {
+        } else if (link == '/register/registration/') {
           setTimeout(function() {
             location.replace('/');
           }, 4000);
+        } else if (link == '/') {
+          location.replace('/');
         } else {
           setTimeout(function() {
             $('#sub-header').html(html.find('#sub-header div'));

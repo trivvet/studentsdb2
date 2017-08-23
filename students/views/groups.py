@@ -14,6 +14,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.layout import Layout, Submit, Button
 
+from modeltranslation.forms import TranslationModelForm
+
 from ..models.students import Student
 from ..models.groups import Group
 
@@ -46,7 +48,7 @@ def groups_list(request):
     return render(request, 'students/groups.html', {'context': context})
 
 # Add Form Class
-class GroupAddForm(forms.ModelForm):
+class GroupAddForm(TranslationModelForm):
     class Meta:
         model = Group
         fields = ['title', 'notes']
@@ -125,7 +127,7 @@ class GroupAddView(LoginRequiredMixin, CreateView):
             return super(GroupAddView, self).post(request, *args, **kwargs)
 
 # Edit Form Class
-class GroupUpdateForm(forms.ModelForm):
+class GroupUpdateForm(TranslationModelForm):
     class Meta:
         model = Group
         fields = ['title', 'leader', 'notes']
@@ -192,6 +194,7 @@ class GroupUpdateView(LoginRequiredMixin, UpdateView):
             messages.warning(request, _(u"Editing group canceled"))
             return HttpResponseRedirect(reverse('groups'))
         else:
+            translation.activate(self.kwargs['lang'])
             return super(GroupUpdateView, self).post(request, *args, **kwargs)
 
 # Delete Form View

@@ -234,5 +234,5 @@ def user_delete(request, uid):
             messages.warning(request, _(u"Deleting user canceled"))
         elif request.POST.get('delete_button'):
             user.delete()
-            messages.success(request, _(u"User %s deleted successfully" % user.username))
+            messages.success(request, _(u"User %s deleted successfully") % user.username)
         return HttpResponseRedirect(reverse('users'))
