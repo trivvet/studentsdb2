@@ -4,6 +4,7 @@ import logging
 
 from django.db.models.signals import post_save, post_delete
 from django.core.signals import request_finished, request_started
+from django.core.exceptions import ObjectDoesNotExist
 from django.dispatch import receiver, Signal
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -42,8 +43,12 @@ def log_models_changed_signal(sender, **kwargs):
         logger_info = u'Group %s: %s (ID: %d)' % (log, group.title, group.id)
     elif sender == Exam:
         exam = kwargs['instance']
-        logger.info(u'Exam %s: %s for %s (ID: %d)', log, exam.name, exam.exam_group.title, exam.id)
-        logger_info = u'Exam %s: %s for %s (ID: %d)' % (log, exam.name, exam.exam_group.title, exam.id)
+        try:
+            exam_group = exam.exam_group.title
+        except ObjectDoesNotExist:
+            exam_group = 'Deleted Group'
+        logger.info(u'Exam %s: %s for %s (ID: %d)', log, exam.name, exam_group, exam.id)
+        logger_info = u'Exam %s: %s for %s (ID: %d)' % (log, exam.name, exam_group, exam.id)
     elif sender == Result:
         result = kwargs['instance']
         logger.info(u'Result %s: Student %s %s got mark %s for %s (ID: %d)', log, result.result_student.first_name, result.result_student.last_name, result.score, result.result_exam.name, result.id)

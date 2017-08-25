@@ -212,4 +212,9 @@ class GroupDeleteView(LoginRequiredMixin, DeleteView):
             messages.warning(request, _(u"Deleting group calceled"))
             return HttpResponseRedirect(reverse('groups'))
         else:
-            return super(GroupDeleteView, self).post(request, *args, **kwargs)
+            group = Group.objects.get(pk=kwargs['pk'])
+            if Student.objects.all().filter(student_group=group):
+                messages.error(request, _(u"Deletion is impossible. There are students in the group"))
+                return HttpResponseRedirect(reverse('groups'))
+            else:
+                return super(GroupDeleteView, self).post(request, *args, **kwargs)

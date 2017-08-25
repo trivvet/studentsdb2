@@ -75,6 +75,8 @@ function initGroupSelector() {
         $('#content-column').html(newpage);
 
         initFunctions();
+        initFormPage();
+        initFormPageDelete();
       }
     });
 
