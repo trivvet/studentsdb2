@@ -18,7 +18,7 @@
 {% block content %}
 <!-- Start Students Listing -->
 
-<form id="change-student-list" method="post" action=".">
+<form id="change-student-list" method="post" action="." enctype="multipart/form-data">
   {% csrf_token %}
 
   {% if context.students %}
@@ -146,7 +146,7 @@
       <option selected>--------------------------</option>
       <option value="delete">{% trans "Delete selected students" %}</option>
     </select>
-    <input type="submit" value="{% trans "Execute" %}" name="action_button">
+    <input type="submit" class="form-link" value="{% trans 'Execute' %}" name="action_button">
   </div>
   {% endif %}
 </form>

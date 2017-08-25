@@ -1,6 +1,8 @@
+
+
 from django import forms
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
@@ -11,6 +13,8 @@ from django.utils.translation import ugettext_lazy as _l
 from registration.forms import RegistrationForm as BaseRegistrationForm
 from registration.forms import UserModel, UsernameField
 from registration.backends.default.views import RegistrationView as BaseRegistrationView
+
+from social_core.pipeline.partial import partial
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -93,3 +97,20 @@ class RegistrationView(BaseRegistrationView):
         else:
             return super(RegistrationView, self).post(request, *args, **kwargs)
 
+@partial
+def get_user_name(backend, details, response, is_new=False, *args, **kwargs):
+    request = backend.strategy.request
+    if is_new==False:
+        return {}
+    if request.method == 'GET':
+        return render(request, 'stud_auth/select_user_name.html', {})
+    else:
+        if request.POST.get('cancel_button'):
+            messages.warging(request, u"Entrance is canceled")
+            return HttpResponseRedirect(reverse('home'))
+        elif request.POST.get('success_button'):
+            if request.POST.get('username'):
+                final_username = request.POST.get('username')
+                return {'username': final_username}
+            else:
+                return render(request, 'stud_auth/select_user_name.html', {'errors': ''})

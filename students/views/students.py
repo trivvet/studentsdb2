@@ -101,6 +101,7 @@ def students_list(request):
             else:
                 messages.error(request,
                     _(u"Selected students can't delete, try later"))
+            return HttpResponseRedirect(reverse('home'))
                     
         elif request.POST.get('cancel_button'):
             messages.warning(request, _(u"Delete of selected student canceled"))

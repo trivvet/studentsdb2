@@ -97,7 +97,7 @@ urlpatterns = [
 #    url(r'^user-logout/$', user.user_logout, name='user-logout'),
 
     # User Forms from Book
-    url(r'^user/profile/$', login_required(TemplateView.as_view(template_name='registration/profile.html')), name='profile'),
+    url(r'^user/profile/?$', login_required(TemplateView.as_view(template_name='registration/profile.html')), name='profile'),
     url(r'^', include('registration.auth_urls')),
 #    url(r'^users/logout/$', auth_views.logout, name='auth_logout'),
     url(r'^register/registration/$', RegistrationView.as_view(), name='registration_register'),

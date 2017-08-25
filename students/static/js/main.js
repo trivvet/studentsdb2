@@ -214,15 +214,9 @@ function initForm(form, modal, link) {
     success: function(data, status, xhr) {
       var html = $(data), newform = html.find('#content-column form.form-horizontal');
 
-      console.log(link);
       // copy alert to modal window
-      if (link == '/register/registration/') {
-        modal.find('.modal-title').html(html.find('#content-column h2'));
-        modal.find('.modal-body').html(html.find('#content-column p'));
-      } else {
-        modal.find('.modal-body').html(html.find('.alert'));
-        modal2.modal('hide');
-      }
+      modal.find('.modal-body').html(html.find('.alert'));
+      modal2.modal('hide');
       
       // copy form to modal if we found it in server repsonse
       if (newform.length > 0) {
@@ -240,6 +234,8 @@ function initForm(form, modal, link) {
             location.replace('/');
           }, 2500);
         } else if (link == '/register/registration/') {
+          modal.find('.modal-title').html(html.find('#content-column h2'));
+          modal.find('.modal-body').html(html.find('#content-column p'));
           setTimeout(function() {
             location.replace('/');
           }, 4000);
@@ -255,6 +251,7 @@ function initForm(form, modal, link) {
             initFunctions();
             initResultPage();
             initFormPage();
+            initFormPageDelete();
           }, 2000);
         }
       }
@@ -610,6 +607,7 @@ function loadMore() {
         initJournal();
         initDropDownNav();
         initResultPage();
+        initFormPageDelete()
       }
     });
     return false;
@@ -685,52 +683,6 @@ function initPasswordForgotView() {
         var modal = $('#myModal'), html = $(data),
             newpage = html.find('#content-column');
             form = html.find('#content-column form');
-        modal.find('.modal-title').html(html.find('#content-column h2'));
-        modal.find('.modal-body').html(newpage);
-        
-        modal.modal({
-          'keyboard': false,
-          'backdrop': false,
-          'show': true
-        });
-        
-        initForm(form, modal, link.attr('href'));
-        modal2.modal('hide');
-      },
-      'error': function() {
-        alert(gettext('There was an error on the server. Please try again later'));
-        return false;
-      }
-    });
-
-    return false;
-  });
-}
-
-function initRegistrationView() {
-  $('#register_button').click(function(){
-    var link = $(this), modal2 = $('#modalAlert');
-    $.ajax({
-      'url': link.attr('href'),
-      'dataType': 'html',
-      'type': 'get',
-      'beforeSend': function() {
-        var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
-        $('.dropdown').removeClass('open');
-        modal2.find('.modal-body').html(spinner);
-        modal2.modal({
-          'keyboard': false,
-          'backdrop': false,
-          'show': true
-        });
-      },
-      'success': function(data, status, xhr) {
-        if (status != 'success') {
-          alert(gettext('There was an error on the server. Please try again later'));
-          return false;
-        }
-        var modal = $('#myModal'), html = $(data),
-            newpage = html.find('#content-column p');
         modal.find('.modal-title').html(html.find('#content-column h2'));
         modal.find('.modal-body').html(newpage);
         
@@ -864,6 +816,67 @@ function initBackButton() {
   });
 }
 
+function initFormPageDelete() {
+  var modal2 = $('#modalAlert'), form = $('#change-student-list'),
+    modal = $('#myModal');
+  form.ajaxForm({
+    url: form.attr('action'),
+    dataType: 'html',
+    error: function() {
+      $('input, select, textarea').prop('disabled', false);
+      modal2.modal('hide');
+      modal.find('.modal-body').html('<div class="alert alert-danger">"' + gettext('There was an error on the server. Please try again later') + '"</div>');
+      setTimeout(function() {
+          modal.modal('hide');
+        }, 3000);
+      History.pushState({'page': 'openForm'}, $('#content-column h2').text(), $('#sub-header li.active a').attr('href'));
+      return false;
+    },
+    beforeSend: function() {
+      var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+      $('.dropdown').removeClass('open');
+      modal2.find('.modal-body').html(spinner);
+      modal2.modal({
+        'keyboard': false,
+        'backdrop': false,
+        'show': true
+      });
+    },
+    success: function(data, status, xhr) {
+      if (status != 'success') {
+        alert(gettext('There was an error on the server. Please try again later'));
+        return false;
+      }
+      var modal = $('#myModal'), html = $(data),
+        form = html.find('#content-column form'),
+        alertWarning = html.find('div.alert-warning'),
+        alertDanger = html.find('.container div.alert-danger');
+      if (alertWarning.length != 0) {
+        $('#sub-header').after(alertWarning);
+        modal2.modal('hide');
+        return false;
+      } else if (alertDanger.length != 0) {
+        $('#sub-header').after(alertDanger);
+        modal2.modal('hide');
+        return false;  
+      }
+      modal.find('.modal-title').html(html.find('#content-column h2'));
+      modal.find('.modal-body').html(form);
+
+      // init our edit form
+      initForm(form, modal, form.attr('action'));
+        
+      History.pushState({'page': 'openForm'}, $('#myModal h2').text(), form.attr('action'));
+      modal.modal({
+        'keyboard': false,
+        'backdrop': false,
+        'show': true
+      });
+      modal2.modal('hide');
+    }
+  });
+}
+
 function initFunctions() {
   initOrderBy();
   initPaginate();
@@ -871,11 +884,11 @@ function initFunctions() {
   loadMore();
   initJournal();
   initResultPage();
-  initRegistrationView()
 }
 
 $(document).ready(function(){
   initFormPage();
+  initFormPageDelete();
   initGroupSelector();
   initDateFields();
   initSubHeaderNav();
