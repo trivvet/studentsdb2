@@ -13,4 +13,4 @@ This created service can save and edit information about students and groups in 
 Demonstraion
 =============
 
-You can see this project on real site `Go to site <http://139.59.144.77/>`
+You can see this project on real site `Go to site <http://trivvet.pp.ua/>`
