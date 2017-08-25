@@ -1,4 +1,4 @@
-.. Quick links::
+.. contents::
 
 .. section-numbering::
 
