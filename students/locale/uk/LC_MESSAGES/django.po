@@ -939,7 +939,7 @@ msgstr "Будь ласка, оберіть необхідну дію"
 
 #: views/students.py:99
 msgid "Students successfully removed"
-msgstr "Студента успішно видалено"
+msgstr "Студентів успішно видалено"
 
 #: views/students.py:102
 msgid "Selected students can't delete, try later"

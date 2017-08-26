@@ -1,7 +1,7 @@
 // run when click on chechbox
 function initJournal() {
   var indicator = $('#ajax-progress-indicator'), modal2 = $('#modalAlert');
-  
+
   $('.day-box input[type="checkbox"]').click(function(event){
     var box = $(this)
     $.ajax(box.data('url'), {
@@ -188,7 +188,7 @@ function initForm(form, modal, link) {
   });
 
   var modal2 = $('#modalAlert');
-  
+
   // make form work in AJAX mode
   form.ajaxForm({
     url: link,
@@ -219,7 +219,7 @@ function initForm(form, modal, link) {
       // copy alert to modal window
       modal.find('.modal-body').html(html.find('.alert'));
       modal2.modal('hide');
-      
+
       // copy form to modal if we found it in server repsonse
       if (newform.length > 0) {
         modal.find('.modal-body').append(newform);
@@ -247,6 +247,7 @@ function initForm(form, modal, link) {
           setTimeout(function() {
             $('#sub-header').html(html.find('#sub-header div'));
             $('#content-column').html(html.find('#content-column'));
+            $('#group-selector').html(html.find('#group-selector select'));
             $('input, select, textarea').prop('disabled', false);
             modal.modal('hide');
             initSubHeaderNav();
@@ -300,7 +301,7 @@ function initFormPage() {
         // init our edit form
         initForm(form, modal, link.attr('href'));
         initLanguageFormPage();
-        
+
         History.pushState({'page': 'openForm'}, $('#myModal h2').text(), link.attr('href'));
         modal.modal({
           'keyboard': false,
@@ -349,7 +350,7 @@ function initLanguageFormPage() {
         // init our edit form
         initForm(form, modal, link.attr('href'));
         initLanguageFormPage();
-        
+
         History.pushState({'page': 'openForm'}, $('#myModal h2').text(), link.attr('href'));
         modal2.modal('hide');
       },
@@ -424,7 +425,7 @@ function SubHeaderNavigation(link, pagination) {
         $('#content-column').html(newpage);
         modal2.modal('hide');
         $('div.alert').remove();
-  
+
         initFunctions();
         initResultPage();
         initFormPage();
@@ -449,7 +450,7 @@ function SubHeaderNavigation(link, pagination) {
                 $('table').html(newpage);
                 $('nav').html(newpaginate);
                 $('.buttonLoad').html(newbutton);
-          
+
                 initFunctions();
               }
             });
@@ -494,7 +495,7 @@ function initDropDownNav() {
         link.blur();
         $('#content-column').html(newpage);
         modal2.modal('hide');
-  
+
         initFunctions();
         History.pushState({}, gettext('Student Visiting'), link.attr('href'));
       },
@@ -537,7 +538,7 @@ function initOrderBy() {
 }
 
 function PageNavigation(link) {
-  if (link.length > 1) { 
+  if (link.length > 1) {
     link = link.first();
   }
   $.ajax({
@@ -562,14 +563,14 @@ function PageNavigation(link) {
       } else {
         $('#buttonLoadMore').remove();
       }
-  
+
       link.blur();
       $('tbody').html(newpage);
-  
+
       initOrderBy();
       initDropDownNav();
       initFormPage();
-      
+
       History.pushState({'page': 'pagenav', 'url': link.attr('href')}, $('#content-column h2').text(), link.attr('href'));
     }
   });
@@ -600,7 +601,7 @@ function loadMore() {
           $('#buttonLoadMore').remove();
         }
         $('.pagination li.active').next().addClass('active');
-        
+
         $('a.form-link').off();
         $(':checkbox').off();
         $('.journalNavigate').off();
@@ -642,7 +643,7 @@ function initResultPage() {
             newpage = html.find('#content-column');
         modal.find('.modal-title').html(html.find('#content-column h2'));
         modal.find('.modal-body').html(newpage);
-        
+
         modal.modal({
           'keyboard': false,
           'backdrop': false,
@@ -687,13 +688,13 @@ function initPasswordForgotView() {
             form = html.find('#content-column form');
         modal.find('.modal-title').html(html.find('#content-column h2'));
         modal.find('.modal-body').html(newpage);
-        
+
         modal.modal({
           'keyboard': false,
           'backdrop': false,
           'show': true
         });
-        
+
         initForm(form, modal, link.attr('href'));
         modal2.modal('hide');
       },
@@ -797,10 +798,10 @@ function initBackButton() {
                 form = html.find('#content-column form');
             modal.find('.modal-title').html(html.find('#content-column h2'));
             modal.find('.modal-body').html(form);
-    
+
             // init our edit form
             initForm(form, modal, link);
-            
+
             modal.modal({
               'keyboard': false,
               'backdrop': false,
@@ -852,7 +853,7 @@ function initFormPageDelete() {
       var modal = $('#myModal'), html = $(data),
         form = html.find('#content-column form'),
         alertWarning = html.find('div.alert-warning'),
-        alertDanger = html.find('.container div.alert-danger');
+        alertDanger = html.find('#content-columns div.alert-danger');
       if (alertWarning.length != 0) {
         $('#sub-header').after(alertWarning);
         modal2.modal('hide');
@@ -860,14 +861,14 @@ function initFormPageDelete() {
       } else if (alertDanger.length != 0) {
         $('#sub-header').after(alertDanger);
         modal2.modal('hide');
-        return false;  
+        return false;
       }
       modal.find('.modal-title').html(html.find('#content-column h2'));
       modal.find('.modal-body').html(form);
 
       // init our edit form
       initForm(form, modal, form.attr('action'));
-        
+
       History.pushState({'page': 'openForm'}, $('#myModal h2').text(), form.attr('action'));
       modal.modal({
         'keyboard': false,
@@ -886,12 +887,12 @@ function initFunctions() {
   loadMore();
   initJournal();
   initResultPage();
+  initGroupSelector();
 }
 
 $(document).ready(function(){
   initFormPage();
   initFormPageDelete();
-  initGroupSelector();
   initDateFields();
   initSubHeaderNav();
   initFunctions();

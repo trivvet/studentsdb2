@@ -4,6 +4,7 @@ from django.utils import translation
 from django.contrib import messages
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
+from django.forms import ValidationError
 from django.views.generic import DeleteView, CreateView, UpdateView
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
@@ -83,6 +84,17 @@ class GroupAddForm(TranslationModelForm):
                 Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
             )
         ))
+
+    def clean(self):
+        cleaned_data = super(GroupAddForm, self).clean()
+
+        # validate name of group
+        groups = Group.objects.filter(title=cleaned_data.get('title'))
+        if len(groups) > 0:
+            self.add_error('title', ValidationError(
+                _(u"Group with the same title already exists")))
+        else:
+            return cleaned_data
 
     def save(self, *args, **kwargs):
         extra_fields = kwargs.pop('extra_fields', {})

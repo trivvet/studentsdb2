@@ -6,29 +6,29 @@
 
 <!DOCTYPE html>
 <html lang="uk">
-  
+
   <head>
     <meta charset="UTF-8"/>
     <title>{% trans "Students Accounting Service" %} - {% block meta_title %}{% endblock meta_title %}
     </title>
     <meta name="description"
           value="{% trans 'Students Accounting Service' %}" />
-    
+
     <!-- Include Styles -->
-    <link rel="stylesheet" 
+    <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css" />
-    <link rel="stylesheet" 
+    <link rel="stylesheet"
           href="{{ PORTAL_URL }}{% static 'css/main.css' %}" />
-          
+
     {% block extra_css %}{% endblock extra_css %}
   </head>
-  
+
   <body>
-    
+
     <!-- Start Container -->
     <div class="container">
 
@@ -39,7 +39,7 @@
       </div>
       <!-- Start Header -->
       <div class="row" id="header">
-    
+
         {% block logo %}
         <!-- Logo -->
         <div class="col-xs-6">
@@ -49,7 +49,7 @@
         {% endblock logo %}
 
         {% if user.is_authenticated %}
-        
+
         {% block menu_groups %}
         <!-- Group Selector -->
         <div class="col-xs-4" id="group-selector">
@@ -57,11 +57,11 @@
           <select>
             <option value="">{% trans "All Students" %}</option>
             {% for group in groups_all %}
-            
+
             <option value="{{ group.id }}"
                     {% if group.selected %}selected="1"{% endif %}>
                     {{ group.title }}, {{ group.leader }}</option>
-            
+
             {% endfor %}
           </select>
         </div>
@@ -117,9 +117,9 @@
                   name="language" value='ru'>{% trans "Russian" %}</button>
                 {% endwith %}
               {% endif %}
-              
+
             </div>
-          </form>   
+          </form>
         </div>
 
         <!-- User Authentication-->
@@ -127,9 +127,9 @@
           <a href="{% url 'registration_register' %}" type="button" class="btn btn-info form-link">{% trans "Sign up" %}</a>
           <a href="{% url 'users:auth_login' %}" type="button" class="btn btn-default form-link">{% trans "Sign in" %}</a>
         </div>
-            
+
         {% endif %}
-        
+
       </div>
       <!-- End Header -->
 
@@ -150,7 +150,7 @@
             <li role="presentation" {% select_menu request.path url_home %}>
               <a href="{{ url_home }}">{% trans "Students" %}</a>
             </li>
-              
+
             {% if user.is_authenticated %}
             <li role="presentation" {% select_menu request.path url_journal %}>
               <a href="{{ url_journal }}">{% trans "Journal" %}</a></li>
@@ -169,18 +169,18 @@
             <li role="presentation" {% select_menu request.path url_users %}>
               <a href="{{ url_users }}">{% trans "Users"%}</a></li>
             {% endif %}
-            
+
         </ul>
         </div>
       </div>
       <!-- End Subheader -->
 
-      
+
       <!-- Start Main Page Content -->
       <div class="row" id="content-columns">
-      
+
         <div class="col-xs-12" id="content-column">
-          
+
           <!-- Status Message -->
           {% block status_message %}
           {% if request.GET.status_message %}
@@ -198,24 +198,24 @@
           {% endblock status_message %}
 
           <!-- Undisclosed Information -->
-                    
+
           <h2>{% block title %}{% endblock title %}</h2>
           {% if user.is_authenticated %}
             {% block add_button %}{% endblock add_button %}
           {% endif %}
-          
+
           {% block content %}{% endblock content %}
-        
+
         </div>
-        
+
       </div>
       <!-- End Main Page Content -->
-      
+
       {% block footer %}
       <!-- Start Footer -->
       <div class="row" id="footer">
         <div class="col-xs-8">
-          &copy; 2017 {% trans "Students Accounting Service" %} V.1.0.6Alpha1
+          &copy; 2017 {% trans "Students Accounting Service" %} V.1.0.6
           {{ get_current_language }}
         </div>
         <div class="col-xs-4">
@@ -224,7 +224,7 @@
       </div>
       <!-- End Footer -->
       {% endblock footer %}
-      
+
     </div>
     <!-- End Container -->
 
@@ -260,9 +260,9 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Javascripts Section -->
-    <script 
+    <script
           src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
     <script
@@ -271,10 +271,10 @@
     <script src="https://browserstate.github.io/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
     <script src="{{ PORTAL_URL }}{% static "js/jquery.cookie.js" %}">
     </script>
-    <script 
+    <script
           src=
-          "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
-          integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+          "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+          integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
           crossorigin="anonymous"></script>
     <script
           src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
@@ -282,7 +282,7 @@
     <script type="text/javascript" src="{{ PORTAL_URL }}{% url "javascript-catalog" %}"></script>
     <script type="text/javascript"
             src="{{ PORTAL_URL }}{% static "js/main.js" %}"></script>
-    {% block extra_js %}{% endblock extra_js %}      
+    {% block extra_js %}{% endblock extra_js %}
   </body>
-  
+
 </html>

@@ -41,7 +41,7 @@ class RegistrationForm(BaseRegistrationForm):
             attrs={'placeholder': _l(u"Please, type password again")},
         )
     )
-    
+
     class Meta:
         model = User
         fields = (UsernameField(), "email")
@@ -76,14 +76,14 @@ class RegistrationView(BaseRegistrationView):
     template_name = 'students/form_class.html'
     form_class = RegistrationForm
     success_url = 'users:registration_complete'
-    
+
     # if post form is valid retern success message
 #    def get_success_url(self, user=None):
 #        messages.success(self.request,
 #            _(u"User %s registrated successfully") % user.username)
 #        return reverse('users:registration_complete')
 
-    # render form title    
+    # render form title
     def get_context_data(self, **kwargs):
         context = super(RegistrationView, self).get_context_data(**kwargs)
         context['title'] = _(u'Register Form')
@@ -100,17 +100,23 @@ class RegistrationView(BaseRegistrationView):
 @partial
 def get_user_name(backend, details, response, is_new=False, *args, **kwargs):
     request = backend.strategy.request
+    errors = {}
     if is_new==False:
         return {}
     if request.method == 'GET':
         return render(request, 'stud_auth/select_user_name.html', {})
     else:
         if request.POST.get('cancel_button'):
-            messages.warging(request, u"Entrance is canceled")
+            messages.warning(request, u"Entrance is canceled")
             return HttpResponseRedirect(reverse('home'))
         elif request.POST.get('success_button'):
-            if request.POST.get('username'):
-                final_username = request.POST.get('username')
-                return {'username': final_username}
+            final_username = request.POST.get('username')
+            if final_username != '':
+                if len(User.objects.filter(username=final_username)) != 0:
+                    errors['username'] = _(u"Sorry, but the same username already exists")
             else:
-                return render(request, 'stud_auth/select_user_name.html', {'errors': ''})
+                errors['username'] = _(u"Please, enter your username")
+            if errors:
+                return render(request, 'stud_auth/select_user_name.html', {'errors': errors, 'user_name': final_username})
+            else:
+                return {'username': final_username}
