@@ -20,14 +20,14 @@ from ..models.results import Result
 
 from ..util import paginate, get_current_group
 
-@login_required 
+@login_required
 def results_list(request):
     current_group = get_current_group(request)
     if current_group:
         exams = Exam.objects.filter(exam_group=current_group)
     else:
         exams = Exam.objects.all()
-    
+
     # exams ordering
     order_by = request.GET.get('order_by')
     reverse = request.GET.get('reverse')
@@ -38,15 +38,14 @@ def results_list(request):
     else:
         exams = exams.order_by('date').reverse()
 
-    future_exams = []
-    for exam in exams:
-        if exam.date > datetime.now(timezone.utc):
-            future_exams.append(exam)
-
     exams_result = []
     for exam in exams:
         if exam.is_completed == True:
-            exams_result.append(exam) 
+            if len(Result.objects.filter(result_exam=exam)) == 0:
+                exam.is_completed = False
+                exam.save()
+            else:
+                exams_result.append(exam)
 
     # groups paginator
     context = paginate(exams_result, 3, request, {}, var_name='results')
@@ -61,7 +60,6 @@ def results_add(request):
             messages.warning(request, _(u"Entry results of exam canceled"))
             return HttpResponseRedirect(reverse('results'))
         elif data.get('save_button'):
-            i = 0
             errors = []
             all_score = []
             results = []
@@ -82,8 +80,7 @@ def results_add(request):
                             errors.append({'student_id': student.id, 'text': _(u"Please enter mark from 0 to 12")})
                 else:
                     errors.append({'student_id': student.id, 'text': _(u"Please enter student's mark")})
-                i += 1
-        
+
             if not errors:
                 for result in results:
                     result.save()
@@ -104,14 +101,17 @@ def results_add(request):
                     if Exam.objects.filter(pk=request.GET.get('name')):
                         exam = Exam.objects.get(pk=request.GET.get('name'))
                         students = Student.objects.all().filter(student_group=exam.exam_group)
-                        return render(request, 'students/results_add_marks.html', { 'students': students, 'exam': exam })
+                        if len(students) > 0:
+                            return render(request, 'students/results_add_marks.html', { 'students': students, 'exam': exam })
+                        else:
+                            messages.error(request,_(u'Sorry, but there are not students in the exam group %s') % exam.exam_group.title)
+                            return HttpResponseRedirect(reverse('results'))
                     else:
                       errors['name'] = _(u"Plese select completion exam")
                 else:
                     errors['name'] = _(u"Please select exam")
-        
+
         exams = Exam.objects.all().filter(is_completed=False)
-      #  import pdb;pdb.set_trace()
         exams_new = []
         if exams.count() > 0:
             for exam_new in exams:
@@ -122,7 +122,7 @@ def results_add(request):
         messages.warning(request, _(u"Sorry, but there are no complited examinations"))
         return HttpResponseRedirect(reverse('results'))
 
-@login_required  
+@login_required
 def results_edit(request, rid=None):
     if request.method == "POST":
         data = request.POST
@@ -153,7 +153,7 @@ def results_edit(request, rid=None):
                 else:
                     errors.append({'student_id': student.id, 'text': _(u"Please enter student's mark")})
                 i += 1
-        
+
             if not errors:
                 for result in results:
                     result.save()
@@ -192,7 +192,7 @@ def results_delete(request, rid):
         else:
             return render(request, 'students/results_confirm_delete.html', {'exam': exam})
 
-@login_required 
+@login_required
 def exam_results(request, rid):
     context = {}
     results = Result.objects.filter(result_exam=int(rid))

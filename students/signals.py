@@ -32,7 +32,7 @@ def log_models_changed_signal(sender, **kwargs):
 
     logger_info = ''
     signal_name = sender.__doc__ + ' is ' + log
-    
+
     if sender == Student:
         student = kwargs['instance']
         logger.info(u'Student %s: %s %s (ID: %d)', log, student.first_name, student.last_name, student.id)
@@ -51,8 +51,16 @@ def log_models_changed_signal(sender, **kwargs):
         logger_info = u'Exam %s: %s for %s (ID: %d)' % (log, exam.name, exam_group, exam.id)
     elif sender == Result:
         result = kwargs['instance']
-        logger.info(u'Result %s: Student %s %s got mark %s for %s (ID: %d)', log, result.result_student.first_name, result.result_student.last_name, result.score, result.result_exam.name, result.id)
-        logger_info = u'Result %s: Student %s %s got mark %s for %s (ID: %d)' % (log, result.result_student.first_name, result.result_student.last_name, result.score, result.result_exam.name, result.id)
+        try:
+            first_name = result.result_student.first_name
+            last_name = result.result_student.last_name
+        except ObjectDoesNotExist:
+            first_name = 'Already'
+            last_name = 'Deleted'
+        logger.info(u'Result %s: Student %s %s got mark %s for %s (ID: %d)',
+            log, first_name, last_name, result.score, result.result_exam.name, result.id)
+        logger_info = u'Result %s: Student %s %s got mark %s for %s (ID: %d)' % (
+            log, first_name, last_name, result.score, result.result_exam.name, result.id)
         signal_name = 'Result Model is ' + log
     elif sender == MonthJournal:
         journal = kwargs['instance']
