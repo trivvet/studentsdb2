@@ -10,7 +10,7 @@ from django.utils import translation
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
-from registration.forms import RegistrationForm as BaseRegistrationForm
+from registration.forms import RegistrationFormUniqueEmail as BaseRegistrationForm
 from registration.forms import UserModel, UsernameField
 from registration.backends.default.views import RegistrationView as BaseRegistrationView
 

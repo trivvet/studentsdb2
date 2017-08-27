@@ -25,14 +25,14 @@ from ..util import paginate, get_current_group
 @login_required
 def exams_list(request):
 
-    # take all exams than didn't graded  
+    # take all exams than didn't graded
     exams = Exam.objects.all().filter(is_completed=False)
-    
+
     # check whether group selected
     current_group = get_current_group(request)
     if current_group:
         exams = exams.filter(exam_group=current_group)
-    
+
     # exams ordering
     order_by = request.GET.get('order_by')
     reverse = request.GET.get('reverse')
@@ -57,7 +57,7 @@ def exams_list(request):
 
     # exams paginator
     context = paginate(total_exams, 3, request, {}, var_name='exams')
-  
+
     return render(request, 'students/exams.html', {'context': context})
 
 # Form Class
@@ -80,13 +80,18 @@ class ExamAddForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ExamAddForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
+        groups = Group.objects.all()
+        for group in groups:
+            if len(Student.objects.filter(student_group=group)) == 0:
+                groups = groups.exclude(pk=group.id)
+        self.fields['exam_group'].queryset = groups
 
         # add form or edit form
         if kwargs['instance'] is None:
             add_form = True
         else:
             add_form = False
-        
+
         # set form tag attributes
         if add_form:
             self.helper.action = reverse('exams_add')
@@ -107,7 +112,7 @@ class ExamAddForm(forms.ModelForm):
             submit = Submit('add_button', _(u'Add'))
         else:
             submit = Submit('save_button', _(u'Save'))
-            
+
         self.helper.layout.append(Layout(
             FormActions(
                 submit,
@@ -120,16 +125,23 @@ class ExamAddView(LoginRequiredMixin, CreateView):
     model = Exam
     template_name = 'students/form_class.html'
     form_class = ExamAddForm
-    
+
     def get_success_url(self):
         messages.success(self.request,
             _(u"Exav %s added successfully") % self.object.name)
         return reverse('exams')
-        
+
     def get_context_data(self, **kwargs):
         context = super(ExamAddView, self).get_context_data(**kwargs)
         context['title'] = _(u'Adding Exam')
         return context
+
+    def get(self, request, *args, **kwargs):
+        if len(Group.objects.all()) == 0:
+            messages.warning(request, _(u"Sorry, but there are no created groups in base"))
+            return HttpResponseRedirect(reverse('exams'))
+        else:
+            return super(ExamAddView, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
@@ -143,7 +155,7 @@ class ExamUpdateView(LoginRequiredMixin, UpdateView):
     model = Exam
     template_name = 'students/form_class.html'
     form_class = ExamAddForm
-    
+
     def get_success_url(self):
         messages.success(self.request,
             _(u"Exam %s saved successfully") % self.object.name)
@@ -153,7 +165,7 @@ class ExamUpdateView(LoginRequiredMixin, UpdateView):
         context = super(ExamUpdateView, self).get_context_data(**kwargs)
         context['title'] = _(u'Editing Exam')
         return context
-        
+
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
             messages.warning(request, _(u"Editing exam canceled"))

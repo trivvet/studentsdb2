@@ -41,15 +41,15 @@ js_packages = {
 }
 
 urlpatterns = [
-  
+
     #Students urls
     url(r'^$', students.students_list, name='home'),
     url(r'^students/add/(?P<lang>\S+)?$', login_required(StudentAddView.as_view()), name='students_add'),
-    url(r'^students/(?P<pk>\d+)/edit/(?P<lang>\S+)?$', login_required(StudentUpdateView.as_view()),         
+    url(r'^students/(?P<pk>\d+)/edit/(?P<lang>\S+)?$', login_required(StudentUpdateView.as_view()),
         name='students_edit'),
     url(r'^students/(?P<pk>\d+)/delete', login_required(StudentDeleteView.as_view()),
         name='students_delete'),
-  
+
     #Groups urls
     url(r'^groups/$', login_required(groups.groups_list), name='groups'),
     url(r'^groups/add/(?P<lang>\S+)?$', login_required(GroupAddView.as_view()), name='groups_add'),
@@ -57,22 +57,22 @@ urlpatterns = [
         name='groups_edit'),
     url(r'^groups/(?P<pk>\d+)/delete', login_required(GroupDeleteView.as_view()),
         name='groups_delete'),
-  
-    # Journal url  
+
+    # Journal url
     url(r'^journal/(?P<pk>\d+)?/?$', login_required(JournalView.as_view()), name='journal'),
 
     # Exams urls
     url(r'^exams/$', login_required(exams.exams_list), name='exams'),
     url(r'^exams/add/$', login_required(ExamAddView.as_view()), name='exams_add'),
-    url(r'^exams/(?P<pk>\d+)/edit', login_required(ExamUpdateView.as_view()), 
+    url(r'^exams/(?P<pk>\d+)/edit', login_required(ExamUpdateView.as_view()),
         name='exams_edit'),
     url(r'^exams/(?P<pk>\d+)/delete', login_required(ExamDeleteView.as_view()),
         name='exams_delete'),
-        
+
     # Results urls
     url(r'^results/$', login_required(results.results_list), name='results'),
     url(r'^results/add/$', login_required(results.results_add), name='results_add'),
-    url(r'^results/(?P<rid>\d+)?/edit', login_required(results.results_edit), 
+    url(r'^results/(?P<rid>\d+)?/edit', login_required(results.results_edit),
         name='results_edit'),
     url(r'^results/(?P<rid>\d+)/delete', login_required(results.results_delete),
         name='results_delete'),
@@ -81,7 +81,7 @@ urlpatterns = [
 
     # Logs urls
     url(r'^logs/$', permission_required('auth.add_user')(LogsView.as_view()), name='logs'),
-    url(r'^logs/(?P<pk>\d+)/edit', permission_required('auth.delete_user')(LogUpdateView.as_view()), 
+    url(r'^logs/(?P<pk>\d+)/edit', permission_required('auth.delete_user')(LogUpdateView.as_view()),
         name='logs_edit'),
     url(r'^logs/(?P<pk>\d+)/delete', permission_required('auth.delete_user')(LogDeleteView.as_view()),
         name='logs_delete'),
@@ -99,7 +99,9 @@ urlpatterns = [
     # User Forms from Book
     url(r'^user/profile/?$', login_required(TemplateView.as_view(template_name='registration/profile.html')), name='profile'),
     url(r'^', include('registration.auth_urls')),
-#    url(r'^users/logout/$', auth_views.logout, name='auth_logout'),
+    #url(r'^register/registration/$',
+        #RegistrationView.as_view(form_class=RegistrationFormUniqueEmail,
+            #template_name='registration/registration_form.html'), name='registration_register'),
     url(r'^register/registration/$', RegistrationView.as_view(), name='registration_register'),
     url(r'^register/complete/$', TemplateView.as_view(template_name='registration/activation_complete.html'), name='registration_activation_complete'),
     url(r'^users/', include('registration.backends.default.urls', namespace='users')),
@@ -114,15 +116,15 @@ urlpatterns = [
 
     # Change language url
     url(r'^i18n/', include('django.conf.urls.i18n')),
-    
+
     # Javascript Catalog File
     url(r'^jsi18n/$', javascript_catalog, js_packages, name="javascript-catalog"),
-    
+
     url(r'^admin/', admin.site.urls),
 ]
 
 if DEBUG:
     # serve files from media folder
     # import pdb;pdb.set_trace()
-    urlpatterns.append(url(r'^media/(?P<path>.*)$', static.serve, 
+    urlpatterns.append(url(r'^media/(?P<path>.*)$', static.serve,
         {'document_root': MEDIA_ROOT}))

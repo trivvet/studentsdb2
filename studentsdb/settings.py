@@ -32,7 +32,7 @@ try:
     from env_settings import EMAIL_BACKEND, EMAIL_FILE_PATH
 except ImportError:
     pass
-    
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -138,7 +138,7 @@ LOGOUT_URL = 'users:auth_logout'
 
 REGISTRATION_OPEN = True
 
-ACCOUNT_ACTIVATION_DAYS = 2./24
+ACCOUNT_ACTIVATION_DAYS = 1
 
 LOG_FILE = os.path.join(BASE_DIR, 'studentsdb.log')
 

@@ -43,7 +43,7 @@ class UserAuthForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserAuthForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        
+
         # set form tag attributes
         self.helper.action = reverse('user-auth')
         self.helper.form_method = 'POST'
@@ -130,7 +130,7 @@ def user_preference(request):
             except:
                 stprofile = StProfile.objects.create(user=current_user)
             data2 = 0
-            
+
             language=request.POST.get('lang')
             if stprofile.language != language:
                 stprofile.language = language
@@ -150,7 +150,7 @@ def user_preference(request):
 
             if data2 > 0:
                 stprofile.save()
-                
+
             if request.POST.get('newpassword'):
                 password = request.POST.get('newpassword')
                 if request.POST.get('newpassword2') and password == request.POST.get('newpassword2'):
@@ -186,7 +186,7 @@ def user_time(request):
         request.session['django_timezone'] = stprofile.time_zone
     except:
         pass
-    messages.success(request, _(u"You have successfully logged in"))
+    messages.success(request, _(u"You have successfully logged in as %s") % request.user.username)
     try:
         translation.activate(stprofile.language)
         request.session[translation.LANGUAGE_SESSION_KEY] = stprofile.language
@@ -206,7 +206,7 @@ def users_list(request):
         users = users.order_by('username')
 
     context = paginate(users, 3, request, {}, var_name='users')
-    
+
     return render(request, 'students/users_list.html', {'context': context})
 
 def users_profile(request, uid):
