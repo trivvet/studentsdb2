@@ -72,7 +72,7 @@ def results_add(request):
                     except ValueError:
                         errors.append({'student_id': student.id, 'text': _(u"Please enter the number from 0 to 12")})
                     else:
-                        if score > 0 and score < 12:
+                        if score > 0 and score < 13:
                             all_score.append({'student_id': student.id, 'score': score})
                             results.append(Result(result_student=student, result_exam=result_exam, score=score))
                             result_exam.is_completed = True
@@ -130,7 +130,6 @@ def results_edit(request, rid=None):
             messages.warning(request, _(u"Editing results of exam canceled"))
             return HttpResponseRedirect(reverse('results'))
         elif data.get('save_button'):
-            i = 0
             errors = []
             all_score = []
             results = []
@@ -143,7 +142,7 @@ def results_edit(request, rid=None):
                     except ValueError:
                         errors.append({'student_id': student.id, 'text': _(u"Please enter the number from 0 to 12")})
                     else:
-                        if score > 0 and score < 12:
+                        if score > 0 and score < 13:
                             all_score.append({'student_id': student.id, 'score': score})
                             result = Result.objects.get(result_exam=data['exam_id'], result_student=student)
                             result.score = score
@@ -152,7 +151,6 @@ def results_edit(request, rid=None):
                             errors.append({'student_id': student.id, 'text': _(u"Please enter mark from 0 to 12")})
                 else:
                     errors.append({'student_id': student.id, 'text': _(u"Please enter student's mark")})
-                i += 1
 
             if not errors:
                 for result in results:

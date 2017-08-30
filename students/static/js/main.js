@@ -243,6 +243,14 @@ function initForm(form, modal, link) {
           }, 4000);
         } else if (link == '/') {
           location.replace('/');
+        } else if (link =='/password/reset/') {
+          $('#sub-header').html(html.find('#sub-header div'));
+          $('#content-column').html(html.find('#content-column'));
+          $('#group-selector').html(html.find('#group-selector select'));
+          $('input, select, textarea').prop('disabled', false);
+          modal.modal('hide');
+          initSubHeaderNav();
+          initFunctions();
         } else {
           setTimeout(function() {
             $('#sub-header').html(html.find('#sub-header div'));

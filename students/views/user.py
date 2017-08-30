@@ -102,12 +102,14 @@ class UserAuthView(FormView):
             messages.error(request, _(u"User with such username or password doesn't exist"))
             return HttpResponseRedirect(reverse('home'))
 
+
 def user_preference(request):
     if request.method == 'POST':
         if request.POST.get('cancel_button'):
             messages.warning(request, _(u"Changing user settings canceled"))
             return HttpResponseRedirect(reverse('home'))
         else:
+            errors = {}
             current_user = User.objects.get(username=request.user.username)
             data = 0
             first_name=request.POST.get('first_name', '').strip()
@@ -122,8 +124,17 @@ def user_preference(request):
 
             email=request.POST.get('email', '').strip()
             if email:
-                current_user.email = email
-                data += 1
+                if len(User.objects.filter(email=email)) > 0 and current_user.email != email:
+                    current_user.email = email
+                    errors['email'] = _(u"This email address is already in use. Please enter a different email address.")
+                else:
+                    current_user.email = email
+                    try:
+                        validate_email(email)
+                    except ValidationError:
+                        errors['email'] = _(u"Enter a valid email address")
+                    else:
+                        data += 1
 
             try:
                 stprofile = StProfile.objects.get(user=current_user)
@@ -145,7 +156,10 @@ def user_preference(request):
                 request.session['django_timezone'] = time_zone
                 data2 += 1
 
-            if data > 0:
+            if errors:
+                return render(request, 'students/user_preference.html',
+                    {'current_user': current_user, 'timezones': pytz.common_timezones, 'errors': errors})
+            elif data > 0:
                 current_user.save()
 
             if data2 > 0:

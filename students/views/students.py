@@ -28,7 +28,7 @@ from ..util import paginate, get_current_group
 # Student List
 
 def students_list(request):
-  
+
     # check if we need to show only one group of students
     current_group = get_current_group(request)
     if current_group:
@@ -51,7 +51,7 @@ def students_list(request):
 
     # paginator (lay in util.py)
     context = paginate(students, 3, request, {}, var_name='students')
-        
+
     # realisation checkboxes for group action
     message_error = 0
     if request.method == "POST":
@@ -76,9 +76,9 @@ def students_list(request):
                             _(u"Please, select student from list"))
                 if message_error == 0:
                     # if not error messages render confirm page
-                    return render(request, 'students/students_group_confirm_delete.html', 
+                    return render(request, 'students/students_group_confirm_delete.html',
                         {'students': students_delete, 'students_id': students_id})
-                        
+
             # if selected action but didn't select students
             elif request.POST.get('action-group') == 'delete':
                 messages.error(request, _(u"Please, select at least one student"))
@@ -87,7 +87,7 @@ def students_list(request):
             else:
                 messages.warning(request, _(u"Please, select the desired action"))
 
-        # if we press delete on confirm page        
+        # if we press delete on confirm page
         elif request.POST.get('delete_button'):
             for el in request.POST.getlist('students_id'):
                 try:
@@ -102,11 +102,11 @@ def students_list(request):
                 messages.error(request,
                     _(u"Selected students can't delete, try later"))
             return HttpResponseRedirect(reverse('home'))
-                    
+
         elif request.POST.get('cancel_button'):
             messages.warning(request, _(u"Delete of selected student canceled"))
 
-    return render(request, 'students/students_list.html', 
+    return render(request, 'students/students_list.html',
         {'context': context})
 
 # Form Class
@@ -171,7 +171,7 @@ class StudentForm(TranslationModelForm):
 
     def clean(self):
         cleaned_data = super(StudentForm, self).clean()
-        
+
         # validate select of group
         if self.instance:
             group = Group.objects.filter(leader=self.instance)
@@ -189,7 +189,14 @@ class StudentForm(TranslationModelForm):
             min_date = datetime.today().date() - relativedelta(years=17)
             if birthday > min_date:
                 self.add_error('birthday', ValidationError(_(u"Student's age can't be less then 17 years")))
-                
+
+        # validate ticket number
+        ticket = cleaned_data.get('ticket')
+        if ticket is not None:
+            if ticket < 1 or ticket > 999:
+                self.add_error('ticket', ValidationError(
+                    _(u"Ticket number must be in the range from 1 to 999")))
+
         return cleaned_data
 
     def save(self, *args, **kwargs):
@@ -208,14 +215,14 @@ class StudentAddView(LoginRequiredMixin, CreateView):
     model = Student
     template_name = 'students/form_class.html'
     form_class = StudentForm
-    
+
     # if post form is valid retern success message
     def get_success_url(self):
         messages.success(self.request,
             _(u"Student %s created successfully") % self.object)
         return reverse('home')
 
-    # render form title    
+    # render form title
     def get_context_data(self, **kwargs):
         if self.kwargs['lang']:
             translation.activate(self.kwargs['lang'])
@@ -238,13 +245,13 @@ class StudentAddView(LoginRequiredMixin, CreateView):
         else:
             return super(StudentAddView, self).post(request, *args, **kwargs)
 
-        
+
 # Edit Form View
 class StudentUpdateView(LoginRequiredMixin, UpdateView):
     model = Student
     template_name = 'students/form_class.html'
     form_class = StudentForm
-    
+
     # if post form is valid retern success message
     def get_success_url(self):
         messages.success(self.request,

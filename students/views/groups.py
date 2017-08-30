@@ -19,6 +19,8 @@ from modeltranslation.forms import TranslationModelForm
 
 from ..models.students import Student
 from ..models.groups import Group
+from ..models.exams import Exam
+from ..models.results import Result
 
 from ..util import paginate, get_current_group
 
@@ -32,7 +34,7 @@ def groups_list(request):
     else:
         # otherwise show all students
         groups = Group.objects.all()
-  
+
     # groups ordering
     order_by = request.GET.get('order_by')
     reverse = request.GET.get('reverse')
@@ -110,14 +112,14 @@ class GroupAddView(LoginRequiredMixin, CreateView):
     model = Group
     template_name = 'students/form_class.html'
     form_class = GroupAddForm
-    
+
     # if post form is valid return success message
     def get_success_url(self):
         messages.success(self.request,
             _(u"Group %s added successfully") % self.object.title)
         return reverse('groups')
 
-    # render form title    
+    # render form title
     def get_context_data(self, **kwargs):
         if self.kwargs['lang']:
             translation.activate(self.kwargs['lang'])
@@ -182,7 +184,7 @@ class GroupUpdateView(LoginRequiredMixin, UpdateView):
     model = Group
     template_name = 'students/form_class.html'
     form_class = GroupUpdateForm
-    
+
     def get_success_url(self):
         messages.success(self.request,
             _(u"Group %s saved successfully") % self.object.title)
@@ -200,7 +202,7 @@ class GroupUpdateView(LoginRequiredMixin, UpdateView):
         context['action'] = 'groups_edit'
         context['item_id'] = self.kwargs['pk']
         return context
-        
+
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
             messages.warning(request, _(u"Editing group canceled"))
@@ -225,8 +227,14 @@ class GroupDeleteView(LoginRequiredMixin, DeleteView):
             return HttpResponseRedirect(reverse('groups'))
         else:
             group = Group.objects.get(pk=kwargs['pk'])
-            if Student.objects.all().filter(student_group=group):
+            if Student.objects.filter(student_group=group):
                 messages.error(request, _(u"Deletion is impossible. There are students in the group"))
                 return HttpResponseRedirect(reverse('groups'))
             else:
+                exams = Exam.objects.filter(exam_group=group)
+                if exams:
+                    for exam in exams:
+                        if Result.objects.filter(result_exam=exam):
+                            messages.error(request, _(u"Deletion is impossible. There are available results for this group"))
+                            return HttpResponseRedirect(reverse('groups'))
                 return super(GroupDeleteView, self).post(request, *args, **kwargs)
