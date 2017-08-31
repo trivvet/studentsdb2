@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-19 12:14+0000\n"
+"POT-Creation-Date: 2017-08-31 16:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,53 +178,53 @@ msgstr "Фото"
 msgid "Ticket"
 msgstr "Билет"
 
-#: signals.py:54
+#: signals.py:67
 msgid "Січень"
-msgstr ""
+msgstr "Январь"
 
-#: signals.py:54
+#: signals.py:67
 msgid "Лютий"
-msgstr ""
+msgstr "Февраль"
 
-#: signals.py:54
+#: signals.py:67
 msgid "Березень"
-msgstr ""
+msgstr "Март"
 
-#: signals.py:55
+#: signals.py:68
 msgid "Квітень"
-msgstr ""
+msgstr "Апрель"
 
-#: signals.py:55
+#: signals.py:68
 msgid "Травень"
-msgstr ""
+msgstr "Май"
 
-#: signals.py:55
+#: signals.py:68
 msgid "Червень"
-msgstr ""
+msgstr "Июнь"
 
-#: signals.py:55
+#: signals.py:68
 msgid "Липень"
-msgstr ""
+msgstr "Июль"
 
-#: signals.py:56
+#: signals.py:69
 msgid "Серпень"
-msgstr ""
+msgstr "Август"
 
-#: signals.py:56
+#: signals.py:69
 msgid "Вересень"
-msgstr ""
+msgstr "Сентябрь"
 
-#: signals.py:56
+#: signals.py:69
 msgid "Жовтень"
-msgstr ""
+msgstr "Октябрь"
 
-#: signals.py:56
+#: signals.py:69
 msgid "Листопад"
-msgstr ""
+msgstr "Ноябрь"
 
-#: signals.py:56
+#: signals.py:69
 msgid "Грудень"
-msgstr ""
+msgstr "Декабрь"
 
 #: templates/contact_admin/form.html:7 templates/contact_admin/form.html:9
 msgid "Connect with administrator"
@@ -257,20 +257,20 @@ msgid "Log out"
 msgstr "Выход"
 
 #: templates/students/base.html:99 templates/students/base.html:111
-#: templates/students/form_class.html:27
-#: templates/students/user_preference.html:51
+#: templates/students/form_class.html:30 templates/students/form_class.html:44
+#: templates/students/user_preference.html:52
 msgid "Ukrainian"
 msgstr "Украинский"
 
 #: templates/students/base.html:102 templates/students/base.html:114
-#: templates/students/form_class.html:29
-#: templates/students/user_preference.html:48
+#: templates/students/form_class.html:32 templates/students/form_class.html:46
+#: templates/students/user_preference.html:49
 msgid "English"
 msgstr "Английский"
 
 #: templates/students/base.html:105 templates/students/base.html:117
-#: templates/students/form_class.html:31
-#: templates/students/user_preference.html:54
+#: templates/students/form_class.html:34 templates/students/form_class.html:48
+#: templates/students/user_preference.html:55
 msgid "Russian"
 msgstr "Русский"
 
@@ -379,10 +379,10 @@ msgstr "Да"
 #: templates/students/student_confirm_delete_class.html:28
 #: templates/students/students_group_confirm_delete.html:34
 #: templates/students/user_change_password.html:56
-#: templates/students/user_preference.html:78
-#: templates/students/users_confirm_delete.html:28 views/exams.py:114
-#: views/groups.py:80 views/groups.py:145 views/logs.py:81
-#: views/students.py:167 views/user.py:63
+#: templates/students/user_preference.html:79
+#: templates/students/users_confirm_delete.html:28 views/exams.py:119
+#: views/groups.py:86 views/groups.py:178 views/logs.py:81
+#: views/students.py:168 views/user.py:63
 msgid "Cancel"
 msgstr "Отменить"
 
@@ -515,8 +515,8 @@ msgstr "Введите оценку от 0 до 12"
 #: templates/students/results_add_marks.html:42
 #: templates/students/results_edit_marks.html:42
 #: templates/students/user_change_password.html:54
-#: templates/students/user_preference.html:76 views/exams.py:109
-#: views/groups.py:144 views/logs.py:80 views/students.py:162
+#: templates/students/user_preference.html:77 views/exams.py:114
+#: views/groups.py:177 views/logs.py:80 views/students.py:163
 msgid "Save"
 msgstr "Сохранить"
 
@@ -637,15 +637,15 @@ msgstr "Эмейл"
 msgid "Enter your email"
 msgstr "Введите свое эмейл"
 
-#: templates/students/user_preference.html:43
+#: templates/students/user_preference.html:44
 msgid "Select Language"
 msgstr "Язык интерфейса"
 
-#: templates/students/user_preference.html:61
+#: templates/students/user_preference.html:62
 msgid "Time Zone"
 msgstr "Временная зона"
 
-#: templates/students/user_preference.html:65
+#: templates/students/user_preference.html:66
 msgid "Choose your time zone"
 msgstr "Выберите свою временную зону"
 
@@ -750,91 +750,107 @@ msgstr "Пожалуйста, ввдедите фамилию и инициал�
 msgid "Additional informantion about exam"
 msgstr "Дополнительная информация о экзамене"
 
-#: views/exams.py:107 views/groups.py:79 views/students.py:160
+#: views/exams.py:112 views/groups.py:85 views/students.py:161
 msgid "Add"
 msgstr "Добавить"
 
-#: views/exams.py:126
+#: views/exams.py:131
 #, python-format
 msgid "Exav %s added successfully"
 msgstr "Экзамен %s успешно добавлен"
 
-#: views/exams.py:131
+#: views/exams.py:136
 msgid "Adding Exam"
 msgstr "Добавление Єкзамена"
 
-#: views/exams.py:136
+#: views/exams.py:141
+msgid "Sorry, but there are no created groups in base"
+msgstr "Извините, но в базе еще нет созданных групп"
+
+#: views/exams.py:148
 msgid "Adding exam canceled"
 msgstr "Добавление єкзамена отменено"
 
-#: views/exams.py:149
+#: views/exams.py:161
 #, python-format
 msgid "Exam %s saved successfully"
 msgstr "Экзамен %s успешно сохранен"
 
-#: views/exams.py:154
+#: views/exams.py:166
 msgid "Editing Exam"
 msgstr "Редактирование Экзамена"
 
-#: views/exams.py:159
+#: views/exams.py:171
 msgid "Editing exam canceled"
 msgstr "Редактирование экзамена отменено"
 
-#: views/exams.py:171
+#: views/exams.py:183
 #, python-format
 msgid "Exam %s deleted successfully"
 msgstr "Экзамен %s успешно удален"
 
-#: views/exams.py:176
+#: views/exams.py:188
 msgid "Deleting exam canceled"
 msgstr "Удаление экзамена отменено"
 
-#: views/groups.py:54 views/groups.py:117
+#: views/groups.py:60 views/groups.py:150
 msgid "Type group's title"
 msgstr "Введите название группы"
 
-#: views/groups.py:56
+#: views/groups.py:62
 msgid "Additional information about group"
 msgstr "Дополнительная информация о группе"
 
-#: views/groups.py:93
+#: views/groups.py:97
+msgid "Group with the same title already exists"
+msgstr "Группа з таким названием уже существует"
+
+#: views/groups.py:119
 #, python-format
 msgid "Group %s added successfully"
 msgstr "Группа %s успешно добавлена"
 
-#: views/groups.py:99
+#: views/groups.py:130
 msgid "Adding Group"
 msgstr "Добавление Группы"
 
-#: views/groups.py:105
+#: views/groups.py:138
 msgid "Adding group canceled"
 msgstr "Добавление группы отменено"
 
-#: views/groups.py:119
+#: views/groups.py:152
 msgid "Addiotional information about group"
 msgstr "Дополнительная информация о группе"
 
-#: views/groups.py:157
+#: views/groups.py:190
 #, python-format
 msgid "Group %s saved successfully"
 msgstr "Группа %s успешно сохранена"
 
-#: views/groups.py:162
+#: views/groups.py:200
 msgid "Editing Group"
 msgstr "Редактирование Группы"
 
-#: views/groups.py:167
+#: views/groups.py:208
 msgid "Editing group canceled"
 msgstr "Редактирование группы отменено"
 
-#: views/groups.py:179
+#: views/groups.py:221
 #, python-format
 msgid "Group %s deleted successfully"
 msgstr "Група %s успешно удалена"
 
-#: views/groups.py:184
+#: views/groups.py:226
 msgid "Deleting group calceled"
 msgstr "Удаление группы отменено"
+
+#: views/groups.py:231
+msgid "Deletion is impossible. There are students in the group"
+msgstr "Удаление невозможно. В группе есть студенты"
+
+#: views/groups.py:238
+msgid "Deletion is impossible. There are available results for this group"
+msgstr "Удаление невозможно. Для удаляемой группы в базе еще есть результаты"
 
 #: views/journal.py:121
 msgid "Forbidden to change status future visits!"
@@ -862,36 +878,41 @@ msgstr "Событие %s успешно удалено"
 msgid "Deleting event canceled"
 msgstr "Удаление собития отменено"
 
-#: views/results.py:61
+#: views/results.py:60
 msgid "Entry results of exam canceled"
 msgstr "Добавление результатов экзмена отменено"
 
-#: views/results.py:75 views/results.py:144
+#: views/results.py:73 views/results.py:143
 msgid "Please enter the number from 0 to 12"
 msgstr "Введите число от 0 до 12"
 
-#: views/results.py:82 views/results.py:152
+#: views/results.py:80 views/results.py:151
 msgid "Please enter mark from 0 to 12"
 msgstr "Введите оценку от 0 до 12"
 
-#: views/results.py:84 views/results.py:154
+#: views/results.py:82 views/results.py:153
 msgid "Please enter student's mark"
 msgstr "Введите оценку студента"
 
-#: views/results.py:91
+#: views/results.py:88
 #, python-format
 msgid "Information about results of exam %s added successfully"
 msgstr "Информация о результатах экзмена %s успешно добавлено"
 
-#: views/results.py:99
+#: views/results.py:96
 msgid "Adding results of exam canceled"
 msgstr "Добавление результатов экзамена отменено"
 
-#: views/results.py:109
+#: views/results.py:107
+#, python-format
+msgid "Sorry, but there are not students in the exam group %s"
+msgstr "Извините, но на данный момент в экзаменируемой группе %s нет студентов"
+
+#: views/results.py:110
 msgid "Plese select completion exam"
 msgstr "Пожалуйста выберите завершенный экзамен"
 
-#: views/results.py:111
+#: views/results.py:112
 msgid "Please select exam"
 msgstr "Пожалуйста выберите экзамен"
 
@@ -903,119 +924,123 @@ msgstr "Извините, но на данный момент нет завер�
 msgid "Editing results of exam canceled"
 msgstr "Редактирование результатов экзамена отменено"
 
-#: views/results.py:160
+#: views/results.py:158
 #, python-format
 msgid "Information about results of exam %s edited successfully"
 msgstr "Информация о результатах экзамена %s успешно сохранена"
 
-#: views/results.py:177
+#: views/results.py:175
 msgid "Deleting results of exam canceled"
 msgstr "Удаление результатов экзамена отменено"
 
-#: views/results.py:184
+#: views/results.py:182
 #, python-format
 msgid "Information about results of exam %s deleted successfully"
 msgstr "Информация о результатах экзамена %s успешно удалена"
 
-#: views/results.py:190 views/user.py:216 views/user.py:228
+#: views/results.py:188 views/user.py:230 views/user.py:242
 msgid "There was an error on the server. Please try again later"
 msgstr ""
 "На сервере случилась непредвиденная ошибка. Пожалуйста попробуйте позже"
 
-#: views/students.py:75
+#: views/students.py:76
 msgid "Please, select student from list"
 msgstr "Пожалуйста, выберите студента из списка"
 
-#: views/students.py:83
+#: views/students.py:84
 msgid "Please, select at least one student"
 msgstr "Пожалуйста, выберите хотя бы одного студента"
 
-#: views/students.py:87
+#: views/students.py:88
 msgid "Please, select the desired action"
 msgstr "Пожалуйста, выберите желаемое действие"
 
-#: views/students.py:99
+#: views/students.py:100
 msgid "Students successfully removed"
 msgstr "Студенты успешно удалены"
 
-#: views/students.py:102
+#: views/students.py:103
 msgid "Selected students can't delete, try later"
 msgstr "Выбраных студентов не удается удалить, попробуйте позже"
 
-#: views/students.py:105
+#: views/students.py:107
 msgid "Delete of selected student canceled"
 msgstr "Удаление выбраных студентов отменено"
 
-#: views/students.py:118
+#: views/students.py:120
 msgid "Please, type student's first name"
 msgstr "Введите имя студента"
 
-#: views/students.py:120
+#: views/students.py:122
 msgid "Please, type student's last name"
 msgstr "Введите фамилию студента"
 
-#: views/students.py:122
+#: views/students.py:124
 msgid "Please, type student's middle name"
 msgstr "Введите отчество студента"
 
-#: views/students.py:124
+#: views/students.py:126
 msgid "e.g. 1984-06-17"
 msgstr "напр. 1984-06-17"
 
-#: views/students.py:125
+#: views/students.py:127
 msgid "e.g. 123"
 msgstr "напр. 123"
 
-#: views/students.py:127
+#: views/students.py:129
 msgid "Aditional information"
 msgstr "Дополнительная информация"
 
-#: views/students.py:179
+#: views/students.py:180
 msgid "Student is leader of other group"
-msgstr "Студент есть старостой другой группы"
+msgstr "Студент является старостой другой группы"
 
-#: views/students.py:190
+#: views/students.py:191
 msgid "Student's age can't be less then 17 years"
 msgstr "Возраст студента не может быть меньше 17"
 
-#: views/students.py:203
+#: views/students.py:198
+msgid "Ticket number must be in the range from 1 to 999"
+msgstr "Номер билета должен быть в диапазоне от 1 до 999"
+
+#: views/students.py:222
 #, python-format
 msgid "Student %s created successfully"
 msgstr "Студент %s успешно создан"
 
-#: views/students.py:209
+#: views/students.py:234
 msgid "Adding Student"
 msgstr "Добавление Студента"
 
-#: views/students.py:215
+#: views/students.py:243
 msgid "Adding student canceled"
 msgstr "Добавление студента отменено"
 
-#: views/students.py:229
+#: views/students.py:258
 #, python-format
 msgid "Student %s saved successfully!"
 msgstr "Студент %s успешно сохранен"
 
-#: views/students.py:240
+#: views/students.py:269
 msgid "Editing student"
 msgstr "Редактирование студента"
 
-#: views/students.py:248
+#: views/students.py:278
 msgid "Editing student canceled!"
 msgstr "Редактирование студента отменено"
 
-#: views/students.py:262
+#: views/students.py:292
 #, python-format
 msgid "Student %s deleted successfully"
 msgstr "Студент %s успешно удалено"
 
-#: views/students.py:268
+#: views/students.py:298
 msgid "Deleting student canceled"
 msgstr "Удаление студента отменено"
 
 #: views/user.py:62
 msgid "Login"
-msgstr "Имя пользователя"
+msgstr "Ввойти"
 
 #: views/user.py:73
 msgid "You authorization successfully"
@@ -1045,27 +1070,37 @@ msgstr "Вы вошли как %s"
 msgid "User with such username or password doesn't exist"
 msgstr "Пользователь с таким логином или паролем не существует"
 
-#: views/user.py:108
+#: views/user.py:109
 msgid "Changing user settings canceled"
 msgstr "Редактирование настроек пользователя отменено"
 
-#: views/user.py:161 views/user.py:167
+#: views/user.py:129
+msgid ""
+"This email address is already in use. Please enter a different email address."
+msgstr "Даный эмейл уже используется. Пожалуйста воспользуйтесь другим адресом."
+
+#: views/user.py:135
+msgid "Enter a valid email address"
+msgstr "Введите коректный эмейл"
+
+#: views/user.py:175 views/user.py:181
 msgid "User settings changed successfully"
 msgstr "Настройки пользователя успешно изменены"
 
-#: views/user.py:164
+#: views/user.py:178
 msgid "Both passwords must be the same"
 msgstr "Оба пароля должны быть идентичными"
 
-#: views/user.py:194
-msgid "You have successfully logged in"
-msgstr "Вы успешно вошли на сайт"
+#: views/user.py:203
+#, python-format
+msgid "You have successfully logged in as %s"
+msgstr "Вы успешно вошли на сайт как %s"
 
-#: views/user.py:234
+#: views/user.py:248
 msgid "Deleting user canceled"
 msgstr "Удаление пользователя отменено"
 
-#: views/user.py:237
+#: views/user.py:251
 #, python-format
 msgid "User %s deleted successfully"
 msgstr "Пользователь %s успешно удален"

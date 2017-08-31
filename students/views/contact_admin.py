@@ -41,14 +41,14 @@ class ContactForm(forms.Form):
         self.helper.add_input(Submit('send_button', _(u'Submit')))
 
     from_email = forms.EmailField(
-        label=_(u"Your Email Address"))
+        label=_l(u"Your Email Address"))
 
     subject = forms.CharField(
-        label=_(u"Message header"),
+        label=_l(u"Message header"),
         max_length=128)
 
     message = forms.CharField(
-        label=_(u"Message text"),
+        label=_l(u"Message text"),
         max_length=2560,
         widget=forms.Textarea)
 
@@ -86,6 +86,6 @@ class ContactView(PermissionRequiredMixin, FormView):
 
 
 
-               
 
-           
+
+

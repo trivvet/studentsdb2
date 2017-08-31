@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-19 11:54+0000\n"
+"POT-Creation-Date: 2017-08-31 18:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -154,7 +154,7 @@ msgstr ""
 
 #: templates/registration/logged_out.html:4
 msgid "Logged out"
-msgstr "Виход"
+msgstr "Выход"
 
 #: templates/registration/logged_out.html:7
 msgid "Successfully logged out"
@@ -166,11 +166,13 @@ msgstr "Форма Входа"
 
 #: templates/registration/login.html:12
 #: templates/registration/registration_form.html:11
+#: templates/stud_auth/select_user_name.html:13
 msgid "Please, correct the following errors."
 msgstr "Пожалуйста, исправте следующие ошибки."
 
 #: templates/registration/login.html:24
 #: templates/registration/registration_form.html:23
+#: templates/stud_auth/select_user_name.html:24
 msgid "Your Username"
 msgstr "Ваше Имя Пользователя"
 
@@ -346,7 +348,7 @@ msgid "Please check your email to complete the registration process."
 msgstr "Пожалуйста проверьте ваш эмейл, чтобы завершить процесс регистрации"
 
 #: templates/registration/registration_form.html:5
-#: templates/registration/registration_form.html:7 views.py:85
+#: templates/registration/registration_form.html:7 views.py:89
 msgid "Register Form"
 msgstr "Форма Регистрации"
 
@@ -358,44 +360,57 @@ msgstr "Ваш эмейл"
 msgid "Confirm Password"
 msgstr "Подтвердждение пароля"
 
-#: templates/registration/registration_form.html:46 views.py:64
+#: templates/registration/registration_form.html:46 views.py:68
 msgid "Register"
 msgstr "Регистрация"
 
-#: views.py:23
-msgid "E-mail"
-msgstr "Эмейл"
+#: templates/stud_auth/select_user_name.html:9
+msgid "Enter Your Username"
+msgstr "Введите Ваше Имя Пользователя"
 
-#: views.py:25
-msgid "Please, type your email address"
-msgstr "Пожалуйста, введите Ваш эмейл"
+#: templates/stud_auth/select_user_name.html:33
+msgid "Next"
+msgstr "Далее"
 
-#: views.py:29
-msgid "Password"
-msgstr "Пароль"
-
-#: views.py:31
-msgid "Please, type your password"
-msgstr "Пожалуйста, введите Ваш пароль"
-
-#: views.py:35
-msgid "Confirm password"
-msgstr "Подтверждение пароля"
-
-#: views.py:37
-msgid "Please, type password again"
-msgstr "Пожалуйста, введите пароль ёще раз"
-
-#: views.py:65
+#: templates/stud_auth/select_user_name.html:34 views.py:69
 msgid "Cancel"
 msgstr "Отменить"
 
-#: views.py:91
+#: views.py:27
+msgid "E-mail"
+msgstr "Эмейл"
+
+#: views.py:29
+msgid "Please, type your email address"
+msgstr "Пожалуйста, введите Ваш эмейл"
+
+#: views.py:33
+msgid "Password"
+msgstr "Пароль"
+
+#: views.py:35
+msgid "Please, type your password"
+msgstr "Пожалуйста, введите Ваш пароль"
+
+#: views.py:39
+msgid "Confirm password"
+msgstr "Подтверждение пароля"
+
+#: views.py:41
+msgid "Please, type password again"
+msgstr "Пожалуйста, введите пароль ёще раз"
+
+#: views.py:95
 msgid "Registration new user canceled"
 msgstr "Регистрация нового юзера отменена"
 
+#: views.py:116
+msgid "Sorry, but the same username already exists"
+msgstr "Извините, но такое Имя Пользователя уже используется"
+
+#: views.py:118
+msgid "Please, enter your username"
+msgstr "Пожалуйста, введите Ваше Имя Пользователя"
+
 #~ msgid "Login"
 #~ msgstr "Ввойти"
-
-#~ msgid "Please, type username"
-#~ msgstr "Пожалуйста, введите имя пользователя"
