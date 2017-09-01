@@ -243,7 +243,7 @@ function initForm(form, modal, link) {
           }, 4000);
         } else if (link == '/') {
           location.replace('/');
-        } else if (link =='/password/reset/') {
+        } else if (link =='/password/reset/' || link=='/users/password/change/') {
           $('#sub-header').html(html.find('#sub-header div'));
           $('#content-column').html(html.find('#content-column'));
           $('#group-selector').html(html.find('#group-selector select'));

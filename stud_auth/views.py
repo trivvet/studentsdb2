@@ -10,7 +10,7 @@ from django.utils import translation
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
-from registration.forms import RegistrationFormUniqueEmail as BaseRegistrationForm
+from registration.forms import RegistrationForm as BaseRegistrationForm
 from registration.forms import UserModel, UsernameField
 from registration.backends.default.views import RegistrationView as BaseRegistrationView
 
@@ -69,6 +69,16 @@ class RegistrationForm(BaseRegistrationForm):
                 Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
             )
         ))
+
+    def clean_email(self):
+        """
+        Validate that the supplied email address is unique for the
+        site.
+
+        """
+        if User.objects.filter(email__iexact=self.cleaned_data['email']):
+            raise forms.ValidationError(_("This email address is already in use. Please supply a different email address."))
+        return self.cleaned_data['email']
 
 # Registration Form View
 class RegistrationView(BaseRegistrationView):

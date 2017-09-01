@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-31 18:36+0000\n"
+"POT-Creation-Date: 2017-09-01 16:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -192,10 +192,8 @@ msgid "or"
 msgstr "або"
 
 #: templates/registration/password_change_done.html:4
-#, fuzzy
-#| msgid "Password reset"
 msgid "Password changed"
-msgstr "Зміна паролю"
+msgstr "Пароль змінено"
 
 #: templates/registration/password_change_done.html:7
 msgid "Password successfully changed!"
@@ -242,10 +240,10 @@ msgstr "Пароль успішно скинуто"
 #: templates/registration/password_reset_confirm.html:17
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
-"correctly."
+"correctly"
 msgstr ""
 "Будь-ласка уведіть новий пароль двічі для того щоб ми перевірили його на "
-"правильність."
+"правильність"
 
 #: templates/registration/password_reset_confirm.html:22
 msgid "New password:"
@@ -349,7 +347,7 @@ msgstr ""
 "Будь-ласка перевірте вашу поштову скриньку для завершення процесу реєстрації."
 
 #: templates/registration/registration_form.html:5
-#: templates/registration/registration_form.html:7 views.py:89
+#: templates/registration/registration_form.html:7 views.py:99
 msgid "Register Form"
 msgstr "Форма Реєстрації"
 
@@ -401,15 +399,22 @@ msgstr "Підтвердження паролю"
 msgid "Please, type password again"
 msgstr "Будь ласка, введіть пароль знову"
 
-#: views.py:95
+#: views.py:80
+msgid ""
+"This email address is already in use. Please supply a different email "
+"address."
+msgstr ""
+"Ця електронна адреса вже використовується. Будь ласка введіть іншу адресу"
+
+#: views.py:105
 msgid "Registration new user canceled"
 msgstr "Реєстрація нового користувача скасована"
 
-#: views.py:116
+#: views.py:126
 msgid "Sorry, but the same username already exists"
 msgstr "Вибачте, але користувач з таким ім'ям вже існує"
 
-#: views.py:118
+#: views.py:128
 msgid "Please, enter your username"
 msgstr "Будь-ласка, введіть ваше ім'я користувача"
 

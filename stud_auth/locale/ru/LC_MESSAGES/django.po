@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-31 18:36+0000\n"
+"POT-Creation-Date: 2017-09-01 16:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -196,7 +196,7 @@ msgstr "или"
 
 #: templates/registration/password_change_done.html:4
 msgid "Password changed"
-msgstr "Изменение Пароля"
+msgstr "Пароль изменен"
 
 #: templates/registration/password_change_done.html:7
 msgid "Password successfully changed!"
@@ -243,10 +243,10 @@ msgstr "Подтверждение сброса пароля"
 #: templates/registration/password_reset_confirm.html:17
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
-"correctly."
+"correctly"
 msgstr ""
 "Пожалуйста введите ваш новый пароль дважди чтобы мы проверили или вы ввели "
-"его правильно."
+"его правильно"
 
 #: templates/registration/password_reset_confirm.html:22
 msgid "New password:"
@@ -348,7 +348,7 @@ msgid "Please check your email to complete the registration process."
 msgstr "Пожалуйста проверьте ваш эмейл, чтобы завершить процесс регистрации"
 
 #: templates/registration/registration_form.html:5
-#: templates/registration/registration_form.html:7 views.py:89
+#: templates/registration/registration_form.html:7 views.py:99
 msgid "Register Form"
 msgstr "Форма Регистрации"
 
@@ -400,15 +400,23 @@ msgstr "Подтверждение пароля"
 msgid "Please, type password again"
 msgstr "Пожалуйста, введите пароль ёще раз"
 
-#: views.py:95
+#: views.py:80
+msgid ""
+"This email address is already in use. Please supply a different email "
+"address."
+msgstr ""
+"Этот эмейл адрес уже используется. Пожалуйста, укажите другой адрес "
+"электронной почты"
+
+#: views.py:105
 msgid "Registration new user canceled"
 msgstr "Регистрация нового юзера отменена"
 
-#: views.py:116
+#: views.py:126
 msgid "Sorry, but the same username already exists"
 msgstr "Извините, но такое Имя Пользователя уже используется"
 
-#: views.py:118
+#: views.py:128
 msgid "Please, enter your username"
 msgstr "Пожалуйста, введите Ваше Имя Пользователя"
 

@@ -54,3 +54,37 @@
 > - wrong redirection after facebook login
 > - incorrect display username when user registered through facebook
 > - troubles with deleting group of students
+
+## [1.0.6] (2017-08-26)
+
+> **Fixed bugs**
+>
+> - error when try delete group
+> - not working javascript form after use selector of groups
+> - not upgrading selector of groups after add or delete group
+> - possibility add two groups with the same title
+> - incomplete implementation select name for facebook user registration
+> - incorrect translations
+
+## [1.0.7] (2017-08-27)
+
+> **Fixed bugs**
+>
+> - error when try delete student with available results
+> - possibility add exam for empty group
+> - possibility register two users with the same email
+
+## [1.0.8] (2017-08-30)
+
+> **Fixed bugs**
+>
+> - possibility add student with ticket number 0
+> - some rare errors
+> - impossible add result with mark 12
+> - possibility edit user email for used by other user
+
+## [1.0.9] (2017-09-01)
+
+> **Fixed bugs**
+>
+> - missing and incorect translations in many places
