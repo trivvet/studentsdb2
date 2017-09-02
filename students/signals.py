@@ -73,11 +73,12 @@ def log_models_changed_signal(sender, **kwargs):
         user = kwargs['instance']
         logger.info(u'User %s: %s', log, user.username)
         logger_info = u'User %s: %s' % (log, user.username)
+        signal_name = 'User Model is ' + log
     else:
         logger_info = False
 
     if logger_info:
-       # import pdb; pdb.set_trace()
+        # import pdb;pdb.set_trace()
         current_time = timezone.now()
         log = LogEntry(log_datetime=current_time, status='INFO', signal=signal_name, info=logger_info)
         log.save()

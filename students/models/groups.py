@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User
 
 class Group(models.Model):
     """Group Model"""
@@ -28,6 +29,20 @@ class Group(models.Model):
     time_change = models.DateTimeField(
         auto_now=True,
         verbose_name=_(u"Time of last modification"))
+        
+    created_by = models.ForeignKey(User,
+        verbose_name=_(u"User who created"),
+        related_name='%(class)s_requests_created',
+        blank=False,
+        null=True,
+        on_delete=models.PROTECT)
+        
+    modified_by = models.ForeignKey(User,
+        verbose_name=_(u"User who modified"),
+        related_name='%(class)s_requests_modified',
+        blank=False,
+        null=True,
+        on_delete=models.PROTECT)
 
     def __unicode__(self):
         if self.leader:

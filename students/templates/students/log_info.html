@@ -17,7 +17,12 @@
 <p>{% trans "Detail" %}:</p>
 <div class="alert alert-info" role="info">
     <p>{{ context.log.info }}</p>
+    {% if context.created_by %}
+    <p>Changed to the base made by: {{ context.created_by }}</p>
+    {% endif %}
 </div>
-
+{% if context.modified_by %}
+<p>Log was changed by {{ context.modified_by }}</p>
+{% endif %}
         
 {% endblock content %}

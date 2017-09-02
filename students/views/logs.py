@@ -3,12 +3,14 @@ from datetime import datetime, date
 from django import forms
 from django.shortcuts import render, reverse
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.views.generic import TemplateView, DeleteView, UpdateView
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.models import User
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
@@ -125,5 +127,16 @@ class LogDeleteView(PermissionRequiredMixin, DeleteView):
 @permission_required('auth.add_user')
 def log_info(request, lid):
     context = {}
+    log_object = LogEntry.objects.get(pk=int(lid))
+    if log_object.created_by:
+        try:
+            context['created_by'] = User.objects.get(pk=log_object.created_by.id).username
+        except AttributeError:
+            context['created_by'] = context['created_by'] = 'User with id %s, who was deleted' % log_object.created_by.id
+    if log_object.modified_by:
+        try:
+            context['modified_by'] = User.objects.get(pk=log_object.created_by.id).username
+        except AttributeError:
+            context['modified_by'] = 'User with id %s, who was deleted' % log_object.created_by.id
     context['log'] = LogEntry.objects.get(pk=int(lid))
     return render(request, 'students/log_info.html', {'context': context})

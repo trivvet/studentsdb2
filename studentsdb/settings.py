@@ -73,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'students.views.user.TimezoneMiddleware',
+    'students.middleware.WhodidMiddleware',
 ]
 
 ROOT_URLCONF = 'studentsdb.urls'

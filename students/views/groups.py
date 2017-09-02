@@ -27,6 +27,7 @@ from ..util import paginate, get_current_group
 # Groups List
 @login_required
 def groups_list(request):
+
     current_group = get_current_group(request)
     if current_group:
         # if group is selected return only than group
