@@ -108,7 +108,7 @@ urlpatterns = [
 
     # Users List
     url(r'^users-list/$', login_required(user.users_list), name='users'),
-    url(r'^users/(?P<uid>\d+)/profile/$', permission_required('auth.add_user')(user.users_profile), name='user_profile'),
+    url(r'^users/(?P<uid>\d+)/profile/$', login_required(user.users_profile), name='user_profile'),
     url(r'^users/(?P<uid>\d+)/delete/$', permission_required('auth.delete_user')(user.user_delete), name='user_delete'),
 
     # Change language url

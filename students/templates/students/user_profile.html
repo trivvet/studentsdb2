@@ -6,8 +6,10 @@
 {% block meta_title %}{% trans "User Profile" %}{% endblock meta_title %}
 
 {% block title %}{% trans "User Profile" %}{% endblock title %}
-          
+
 {% block content %}
+
+{{ user.permissions }}
 
 <table class="table table-hover table-striped">
   <tr>
@@ -26,11 +28,13 @@
     <td>{{ context.user_one.first_name }}</td>
   </tr>
   {% endif %}
+  {% if perms.auth.add_user %}
   {% if context.user_one.email %}
   <tr>
     <td>{% trans "Email" %}</td>
     <td>{{ context.user_one.email }}</td>
   </tr>
+  {% endif %}
   {% endif %}
   {% if context.user_one.stprofile.mobile_phone %}
   <tr>
@@ -43,8 +47,8 @@
     <td>{% trans "Joined:" %}</td>
     <td>{{ context.user_one.date_joined }}</td>
   </tr>
-  {% endif %}    
+  {% endif %}
 </table>
 <!-- End Groups Listing -->
-        
+
 {% endblock content %}

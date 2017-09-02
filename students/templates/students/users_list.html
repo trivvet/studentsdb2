@@ -7,7 +7,7 @@
 {% block meta_title %}{% trans "Users List" %}{% endblock meta_title %}
 
 {% block title %}{% trans "Users List" %}{% endblock title %}
-          
+
 {% block content %}
 
 <!-- Start Group Listing -->
@@ -35,27 +35,23 @@
     </tr>
   </thead>
   <tbody>
-    
+
     {% for user_one in context.users %}
     <!-- Test Group-->
     <tr>
       <td>{{ context.page_obj.start_index|add:forloop.counter|add:"-1" }}</td>
       <td>
-        {% if perms.auth.add_user %}
         <a href="{% url "user_profile" user_one.id %}" class="results-link">{{ user_one.username }}</a>
-        {% else %}
-          {{ user_one.username }}
-        {% endif %}
       </td>
       <td>{{ user_one.date_joined }}</td>
       <td>
         {% if perms.auth.add_user %}
         <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" 
+          <button class="btn btn-default dropdown-toggle"
                   type="button" data-toggle="dropdown" >{% trans "Action" %}
             <span class="caret"></span>
           </button>
-          <ul class="dropdown-menu" 
+          <ul class="dropdown-menu"
               aria-labelledby="dropdownMenu1">
             <li><a href="{% url "user_profile" user_one.id %}"
                    class="results-link">{% trans "Show profile" %}</a></li>
@@ -68,9 +64,9 @@
         {% else %}-{% endif %}
       </td>
     </tr>
-    
+
     {% endfor %}
-    
+
   </tbody>
 </table>
 <!-- End Groups Listing -->
@@ -84,5 +80,5 @@
 {% endif %}
 
 {% pagenav page_obj=context.page_obj is_paginated=context.is_paginated paginator=context.paginator %}
-        
+
 {% endblock content %}
