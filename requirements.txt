@@ -13,3 +13,6 @@ django-registration-redux
 social-auth-app-django
 django-coverage==1.2.4
 coverage==3.7.1
+geoip2
+maxminddb
+django-ipware

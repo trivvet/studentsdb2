@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'page_stats',
     'crispy_forms',
     'registration',
+    'ipware',
     'social_django',
     'django_coverage',
     'students',
@@ -94,7 +95,8 @@ TEMPLATES = [
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
                 'studentsdb.context_processors.students_proc',
-                'students.context_processors.groups_processor'
+                'students.context_processors.groups_processor',
+                'students.context_processors.get_user_info'
             ],
             'libraries': {
                 'pagenav': 'students.templatetags.pagenav',
@@ -271,21 +273,12 @@ DATE_FORMAT = 'Y E d'
 
 COVERAGE_REPORT_HTML_OUTPUT_DIR = os.path.join(BASE_DIR, '..', 'coverage')
 
-#DATABASES = {
-##    'default': {
-##        'ENGINE': 'django.db.backends.sqlite3',
-##        'NAME': os.path.join(BASE_DIR, '..', 'db.sqlite3'),
-##    }
-     #'default': {
-         #'ENGINE': 'django.db.backends.mysql',
-##         'ENGINE': 'django.db.backends.postgresql',
-##         'NAME': 'students_db',
-##         'HOST': 'localhost',
-##         'USER': 'students_db_user',
-##         'PASSWORD': 'password',
-         #'OPTIONS': {
-             #'read_default_file': os.path.join(BASE_DIR, '..', 'db.cnf'),
-         #},
-     #}
-#}
+# Geo IP Settings
+GEOIP_PATH = os.path.join(BASE_DIR, 'stud_auth', 'geoip')
+
+GEOIP_COUNTRY = os.path.join(BASE_DIR, 'stud_auth', 'geoip', 'GeoLite2-Country_20170801', 'GeoLite2-Country.mmdb')
+
+GEOIP_CITY = os.path.join(BASE_DIR, 'stud_auth', 'geoip', 'GeoLite2-City_20170801', 'GeoLite2-City.mmdb')
+
+
 

@@ -54,6 +54,7 @@ def students_list(request):
 
     # realisation checkboxes for group action
     message_error = 0
+    
     if request.method == "POST":
 
         # if press act-button
