@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import colorlog
+import geoip2
 from django.conf import global_settings
 
 from env_settings import GOOGLE_OAUTH2_KEY, GOOGLE_OAUTH2_SECRET, TWITTER_KEY, TWITTER_SECRET
@@ -276,9 +277,9 @@ COVERAGE_REPORT_HTML_OUTPUT_DIR = os.path.join(BASE_DIR, '..', 'coverage')
 # Geo IP Settings
 GEOIP_PATH = os.path.join(BASE_DIR, 'stud_auth', 'geoip')
 
-GEOIP_COUNTRY = os.path.join(BASE_DIR, 'stud_auth', 'geoip', 'GeoLite2-Country_20170801', 'GeoLite2-Country.mmdb')
+GEOIP_COUNTRY = os.path.join(BASE_DIR, 'stud_auth', 'geoip', 'GeoLite2-Country.mmdb')
 
-GEOIP_CITY = os.path.join(BASE_DIR, 'stud_auth', 'geoip', 'GeoLite2-City_20170801', 'GeoLite2-City.mmdb')
+GEOIP_CITY = os.path.join(BASE_DIR, 'stud_auth', 'geoip', 'GeoLite2-City.mmdb')
 
 
 
