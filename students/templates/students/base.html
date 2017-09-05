@@ -212,15 +212,21 @@
       {% block footer %}
       <!-- Start Footer -->
       <div class="row" id="footer">
-        <div class="col-xs-4">
+        <div class="col-xs-6">
           &copy; 2017 {% trans "Students Accounting Service" %} V.1.1.1beta
           {{ get_current_language }}
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-3">
           {% trans "Current Time:" %} {{ time|time }} {% get_current_timezone as TIME_ZONE %}{{ TIME_ZONE }}
         </div>
-        <div class="col-xs-4">
-          {% trans "Your Location:" %}{{ user_city }} {{ user_country }} {{ user_ip }}
+        <div class="col-xs-3">
+          <p>{% trans "Your Location:" %}
+            {% if user_city or user_country %}
+              {{ user_city.city }} {{ user_country.country }}
+            {% else %}
+              {{ user_ip }}
+            {% endif %}
+          </p>
         </div>
       </div>
       <!-- End Footer -->

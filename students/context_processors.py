@@ -13,9 +13,9 @@ def get_user_info(request):
     try:
         user_city = g.city(user_ip)
     except AddressNotFoundError:
-        user_city = 'NotFound'
+        user_city = None
     try:
         user_country = g.country(user_ip)
     except AddressNotFoundError:
-        user_country = 'NotFound'
+        user_country = None
     return {'user_city': user_city, 'user_country': user_country, 'user_ip': user_ip}
