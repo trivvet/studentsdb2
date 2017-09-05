@@ -222,7 +222,7 @@
         <div class="col-xs-3">
           <p>{% trans "Your Location:" %}
             {% if user_city or user_country %}
-              {{ user_city.city }} {{ user_country.country }}
+              {{ user_city.city }}, {{ user_country.country }}
             {% else %}
               {{ user_ip }}
             {% endif %}
