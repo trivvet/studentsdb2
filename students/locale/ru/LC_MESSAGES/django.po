@@ -921,7 +921,7 @@ msgstr "Удаление собития отменено"
 #: views/logs.py:135 views/logs.py:140
 #, python-format
 msgid "User with id %s, who was deleted"
-msgstr "Пользователь с id %і, который был удален"
+msgstr "Пользователь с id %s, который был удален"
 
 #: views/results.py:60
 msgid "Entry results of exam canceled"
