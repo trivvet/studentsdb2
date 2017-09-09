@@ -28,5 +28,5 @@ class WhodidMiddleware(object):
     def mark_whodid(self, user, sender, instance, **kwargs):
         if not getattr(instance, 'created_by_id', None):
             instance.created_by = user
-        if hasattr(instance,'modified_by_id'):
+        elif hasattr(instance,'modified_by_id'):
             instance.modified_by = user

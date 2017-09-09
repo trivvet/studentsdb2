@@ -99,8 +99,9 @@ function initLanguageSelector() {
 
 function initDateFields() {
   var defaultDate = $('input.dateinput').val(),
-      calendarButton = "<span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span>";
-      timeButton = "<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span>";
+      calendarButton = "<span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span>",
+      timeButton = "<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span>",
+      currentLanguage = $("#cur-lang").html();
   if (!defaultDate) {
     defaultDate = '1998-01-01'
   }
@@ -110,20 +111,31 @@ function initDateFields() {
     'viewDate': defaultDate,
     'toolbarPlacement': 'bottom',
     'allowInputToggle': true,
-    'locale': 'uk'
+    'locale': currentLanguage
   }).on('dp.hide', function(event) {
     $(this).blur();
   }).wrap('<div></div>').after(calendarButton).parent().addClass('input-group date');
-  $('input.datetimeinput').datetimepicker({
-    'format': 'YYYY-MM-DD HH:mm',
-    'stepping': 15,
-    'daysOfWeekDisabled': [6, 0],
-    'toolbarPlacement': 'bottom',
-    'disabledHours': [0, 1, 2, 3, 4, 5, 6, 7, 8, 21, 22, 23, 24],
-    'locale': 'uk'
-  }).on('dp.hide', function(event) {
-    $(this).blur();
-  }).wrap('<div></div>').after(timeButton).parent().addClass('input-group date');;
+  if ($('#id_log_datetime').length > 0) {
+    $('#id_log_datetime').datetimepicker({
+      'format': 'YYYY-MM-DD HH:mm',
+      'useCurrent': false,
+      'toolbarPlacement': 'bottom',
+      'locale': currentLanguage
+    }).on('dp.hide', function(event) {
+      $(this).blur();
+    });
+  } else {
+    $('input.datetimeinput').datetimepicker({
+      'format': 'YYYY-MM-DD HH:mm',
+      'stepping': 15,
+      'daysOfWeekDisabled': [6, 0],
+      'toolbarPlacement': 'bottom',
+      'disabledHours': [0, 1, 2, 3, 4, 5, 6, 7, 8, 21, 22, 23, 24],
+      'locale': currentLanguage
+    }).on('dp.hide', function(event) {
+      $(this).blur();
+    }).wrap('<div></div>').after(timeButton).parent().addClass('input-group date');
+  }
   $('.input-group-addon').click(function(){
     $(this).siblings('input').focus();
   });
@@ -650,6 +662,7 @@ function initResultPage() {
         var modal = $('#myModal'), html = $(data),
             newpage = html.find('#content-column');
         modal.find('.modal-title').html(html.find('#content-column h2'));
+        modal.find('.modal-footer').html(html.find('#info-change'));
         modal.find('.modal-body').html(newpage);
 
         modal.modal({

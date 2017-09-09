@@ -14,15 +14,22 @@
 
 <h4>{{ context.log.status }} {{ context.log.signal }}</br>{{context.log.log_datetime }}</h4></br>
 
-<p>{% trans "Detail" %}:</p>
 <div class="alert alert-info" role="info">
+    <p>{% trans "Detail" %}:</p>
     <p>{{ context.log.info }}</p>
     {% if context.created_by %}
-    <p>Changed to the base made by: {{ context.created_by }}</p>
+    <p>{% trans "Changed to the base made by:" %} {{ context.created_by }}</p>
     {% endif %}
 </div>
-{% if context.modified_by %}
-<p>Log was changed by {{ context.modified_by }}</p>
+
+{% if context.time_change and context.modified_by %}
+  <p id="info-change">{% trans "Log was modified" %} by
+  {% if context.created_by or context.modified_by %}
+    {% if context.modified_by %}{{ context.modified_by }}
+    {% else %}{{ context.created_by }}
+    {% endif %} {{ context.time_change }}
+  {% endif %}
+  </p>
 {% endif %}
         
 {% endblock content %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-31 16:34+0000\n"
+"POT-Creation-Date: 2017-09-08 15:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: apps.py:10 templates/students/base.html:12 templates/students/base.html:15
-#: templates/students/base.html:47 templates/students/base.html:218
+#: templates/students/base.html:46 templates/students/base.html:216
 msgid "Students Accounting Service"
 msgstr "Сервіс Обліку Студентів"
 
@@ -41,7 +41,7 @@ msgstr "Кількість об'єктів моделі {model} в базі: {am
 msgid "Exam"
 msgstr "Іспит"
 
-#: models/exams.py:11 templates/students/base.html:160
+#: models/exams.py:11 templates/students/base.html:158
 #: templates/students/exams.html:7 templates/students/exams.html:9
 msgid "Exams"
 msgstr "Іспити"
@@ -60,18 +60,18 @@ msgstr "Дача та час проведення"
 msgid "Lecturer"
 msgstr "Викладач"
 
-#: models/exams.py:29 models/groups.py:10 models/students.py:47
-#: templates/students/base.html:56 templates/students/exams.html:43
+#: models/exams.py:29 models/groups.py:11 models/students.py:47
+#: templates/students/base.html:55 templates/students/exams.html:43
 #: templates/students/results.html:44
 msgid "Group"
 msgstr "Група"
 
-#: models/exams.py:36 models/groups.py:26 models/students.py:54
+#: models/exams.py:36 models/groups.py:27 models/students.py:54
 msgid "Additional notes"
 msgstr "Додаткові нотатки"
 
-#: models/exams.py:44 models/groups.py:30 models/results.py:30
-#: models/students.py:58
+#: models/exams.py:44 models/groups.py:31 models/logs.py:51
+#: models/results.py:30 models/students.py:58
 msgid "Time of last modification"
 msgstr "Час останньої модифікації"
 
@@ -79,18 +79,26 @@ msgstr "Час останньої модифікації"
 msgid "completed"
 msgstr "завершений"
 
-#: models/groups.py:11 templates/students/base.html:158
+#: models/groups.py:12 templates/students/base.html:156
 #: templates/students/groups.html:7 templates/students/groups.html:9
 msgid "Groups"
 msgstr "Групи"
 
-#: models/groups.py:16
+#: models/groups.py:17
 msgid "Title"
 msgstr "Назва"
 
-#: models/groups.py:19 templates/students/groups.html:38
+#: models/groups.py:20 templates/students/groups.html:38
 msgid "Leader"
 msgstr "Староста"
+
+#: models/groups.py:34 models/logs.py:36
+msgid "User who created"
+msgstr "Користувач, який створив"
+
+#: models/groups.py:41 models/logs.py:43
+msgid "User who modified"
+msgstr "Користувач, який змінив"
 
 #: models/journal.py:11
 msgid "Month Journal"
@@ -109,28 +117,28 @@ msgstr "Студент"
 msgid "Date"
 msgstr "Дата"
 
-#: models/logs.py:12
+#: models/logs.py:13
 msgid "Event"
 msgstr "Подія"
 
-#: models/logs.py:13 templates/students/base.html:167
+#: models/logs.py:14 templates/students/base.html:165
 #: templates/students/logs_list.html:7
 msgid "Events"
 msgstr "Події"
 
-#: models/logs.py:16
+#: models/logs.py:17
 msgid "Date and time"
 msgstr "Дата та час"
 
-#: models/logs.py:22
+#: models/logs.py:23
 msgid "Status"
 msgstr "Статус"
 
-#: models/logs.py:27 templates/students/logs_list.html:23
+#: models/logs.py:28 templates/students/logs_list.html:23
 msgid "Signal name"
 msgstr "Назва сигналу"
 
-#: models/logs.py:32
+#: models/logs.py:33
 msgid "Signal text"
 msgstr "Текст сигналу"
 
@@ -146,7 +154,7 @@ msgstr "Результати екзаменів"
 msgid "Mark"
 msgstr "Бал"
 
-#: models/students.py:13 templates/students/base.html:151
+#: models/students.py:13 templates/students/base.html:149
 #: templates/students/students_list.html:8
 msgid "Students"
 msgstr "Студенти"
@@ -237,70 +245,74 @@ msgstr "Зв’язок з адміністратором"
 msgid "Please, correct the following errors"
 msgstr "Виправте будь-ласка наступні помилки"
 
-#: templates/students/base.html:58
+#: templates/students/base.html:57
 msgid "All Students"
 msgstr "Усі Студенти"
 
-#: templates/students/base.html:80
+#: templates/students/base.html:79
 msgid "Preference"
 msgstr "Налаштування"
 
-#: templates/students/base.html:81
+#: templates/students/base.html:80
 #: templates/students/user_change_password.html:7
 #: templates/students/user_change_password.html:9
 msgid "Change Password"
 msgstr "Змінити Пароль"
 
-#: templates/students/base.html:83
+#: templates/students/base.html:82
 msgid "Log out"
 msgstr "Вихід"
 
-#: templates/students/base.html:99 templates/students/base.html:111
+#: templates/students/base.html:98 templates/students/base.html:110
 #: templates/students/form_class.html:30 templates/students/form_class.html:44
 #: templates/students/user_preference.html:52
 msgid "Ukrainian"
 msgstr "Українська"
 
-#: templates/students/base.html:102 templates/students/base.html:114
+#: templates/students/base.html:101 templates/students/base.html:113
 #: templates/students/form_class.html:32 templates/students/form_class.html:46
 #: templates/students/user_preference.html:49
 msgid "English"
 msgstr "Англійська"
 
-#: templates/students/base.html:105 templates/students/base.html:117
+#: templates/students/base.html:104 templates/students/base.html:116
 #: templates/students/form_class.html:34 templates/students/form_class.html:48
 #: templates/students/user_preference.html:55
 msgid "Russian"
 msgstr "Російська"
 
-#: templates/students/base.html:127
+#: templates/students/base.html:126
 msgid "Sign up"
 msgstr "Реєстрація"
 
-#: templates/students/base.html:128
+#: templates/students/base.html:127
 msgid "Sign in"
 msgstr "Вхід"
 
-#: templates/students/base.html:156 templates/students/students_list.html:114
+#: templates/students/base.html:154 templates/students/students_list.html:114
 msgid "Journal"
 msgstr "Відвідування"
 
-#: templates/students/base.html:162 templates/students/results.html:7
+#: templates/students/base.html:160 templates/students/results.html:7
 #: templates/students/results.html:9
 msgid "Results"
 msgstr "Результати"
 
-#: templates/students/base.html:165
+#: templates/students/base.html:163
 msgid "Contact"
 msgstr "Контакт"
 
-#: templates/students/base.html:170
+#: templates/students/base.html:168
 msgid "Users"
 msgstr "Користувачі"
 
-#: templates/students/base.html:222
+#: templates/students/base.html:220
 msgid "Current Time:"
 msgstr "Поточний час:"
+
+#: templates/students/base.html:223
+msgid "Your Location:"
+msgstr "Ваше місцерозташування:"
 
 #: templates/students/exams.html:13
 msgid "Add Exam"
@@ -320,7 +332,7 @@ msgstr "Дії"
 #: templates/students/exams.html:66 templates/students/groups.html:61
 #: templates/students/logs_list.html:51 templates/students/results.html:67
 #: templates/students/students_list.html:107
-#: templates/students/users_list.html:55
+#: templates/students/users_list.html:51
 msgid "Action"
 msgstr "Дія"
 
@@ -333,14 +345,14 @@ msgstr "Редагувати"
 #: templates/students/exams.html:74 templates/students/groups.html:68
 #: templates/students/logs_list.html:64 templates/students/results.html:77
 #: templates/students/students_list.html:122
-#: templates/students/users_list.html:64
+#: templates/students/users_list.html:60
 msgid "Delete"
 msgstr "Видалити"
 
 #: templates/students/exams.html:89 templates/students/groups.html:83
 #: templates/students/journal.html:78 templates/students/logs_list.html:78
 #: templates/students/results.html:92 templates/students/students_list.html:137
-#: templates/students/users_list.html:81
+#: templates/students/users_list.html:77
 msgid "Load More"
 msgstr "Завантажити ще"
 
@@ -380,10 +392,14 @@ msgstr "Так"
 #: templates/students/user_change_password.html:56
 #: templates/students/user_preference.html:79
 #: templates/students/users_confirm_delete.html:28 views/exams.py:119
-#: views/groups.py:86 views/groups.py:178 views/logs.py:81
-#: views/students.py:168 views/user.py:63
+#: views/groups.py:87 views/groups.py:179 views/logs.py:83
+#: views/students.py:169 views/user.py:63
 msgid "Cancel"
 msgstr "Скасувати"
+
+#: templates/students/form_class.html:63
+msgid "Last update:"
+msgstr "Остання зміна:"
 
 #: templates/students/groups.html:14
 msgid "Add Group"
@@ -442,9 +458,17 @@ msgstr "Інфо Події"
 msgid "About Event"
 msgstr "Інформація про подію"
 
-#: templates/students/log_info.html:17
+#: templates/students/log_info.html:18
 msgid "Detail"
 msgstr "Деталі"
+
+#: templates/students/log_info.html:21
+msgid "Changed to the base made by:"
+msgstr "Зміни до бази виконині користувачем:"
+
+#: templates/students/log_info.html:26
+msgid "Log was modified"
+msgstr "Подія була змінена"
 
 #: templates/students/logs_confirm_delete.html:6
 #: templates/students/logs_confirm_delete.html:8
@@ -515,7 +539,7 @@ msgstr "Введіть оцінку від 0 до 12"
 #: templates/students/results_edit_marks.html:42
 #: templates/students/user_change_password.html:54
 #: templates/students/user_preference.html:77 views/exams.py:114
-#: views/groups.py:177 views/logs.py:80 views/students.py:163
+#: views/groups.py:178 views/logs.py:82 views/students.py:164
 msgid "Save"
 msgstr "Зберегти"
 
@@ -537,6 +561,10 @@ msgstr "Редагування Результатів Іспиту"
 #: templates/students/results_list.html:8
 msgid "Exam Results"
 msgstr "Результати Екзамену"
+
+#: templates/students/results_list.html:40
+msgid "Log was last modified:"
+msgstr "Подія була востаннє змінена:"
 
 #: templates/students/student_confirm_delete_class.html:6
 #: templates/students/student_confirm_delete_class.html:8
@@ -628,7 +656,7 @@ msgid "Enter your last name"
 msgstr "Введіть ваше прізвище"
 
 #: templates/students/user_preference.html:36
-#: templates/students/user_profile.html:31
+#: templates/students/user_profile.html:34
 msgid "Email"
 msgstr "Емейл"
 
@@ -653,24 +681,24 @@ msgstr "Виберіть вашу часову зону"
 msgid "User Profile"
 msgstr "Профіль Користувача"
 
-#: templates/students/user_profile.html:14
+#: templates/students/user_profile.html:16
 #: templates/students/users_list.html:25
 msgid "Username"
 msgstr "Ім’я Користувача"
 
-#: templates/students/user_profile.html:19
+#: templates/students/user_profile.html:21
 msgid "User Last Name"
 msgstr "Прізвище Користувача"
 
-#: templates/students/user_profile.html:25
+#: templates/students/user_profile.html:27
 msgid "User First Name"
 msgstr "Ім’я Користувача"
 
-#: templates/students/user_profile.html:37
+#: templates/students/user_profile.html:41
 msgid "Mobile Phone"
 msgstr "Мобільний Телефон"
 
-#: templates/students/user_profile.html:43
+#: templates/students/user_profile.html:47
 msgid "Joined:"
 msgstr "Приєднався:"
 
@@ -691,7 +719,7 @@ msgstr "Список Користувачів"
 msgid "Date Joined"
 msgstr "Дата Приєднання"
 
-#: templates/students/users_list.html:61
+#: templates/students/users_list.html:57
 msgid "Show profile"
 msgstr "Показати профіль"
 
@@ -752,7 +780,7 @@ msgstr "Введіть прізвище та ініціали вчителя"
 msgid "Additional informantion about exam"
 msgstr "Додаткова інформація про іспит"
 
-#: views/exams.py:112 views/groups.py:85 views/students.py:161
+#: views/exams.py:112 views/groups.py:86 views/students.py:162
 msgid "Add"
 msgstr "Додати"
 
@@ -795,62 +823,62 @@ msgstr "Дані про іспиту %s успішно видалено"
 msgid "Deleting exam canceled"
 msgstr "Видалення іспиту скасовано"
 
-#: views/groups.py:60 views/groups.py:150
+#: views/groups.py:61 views/groups.py:151
 msgid "Type group's title"
 msgstr "Введіть назву групи"
 
-#: views/groups.py:62
+#: views/groups.py:63
 msgid "Additional information about group"
 msgstr "Додаткова інформація про групу"
 
-#: views/groups.py:97
+#: views/groups.py:98
 msgid "Group with the same title already exists"
 msgstr "Група з таким ім'ям вже існує"
 
-#: views/groups.py:119
+#: views/groups.py:120
 #, python-format
 msgid "Group %s added successfully"
 msgstr "Дані про групу %s успішно додано"
 
-#: views/groups.py:130
+#: views/groups.py:131
 msgid "Adding Group"
 msgstr "Додавання Групи"
 
-#: views/groups.py:138
+#: views/groups.py:139
 msgid "Adding group canceled"
 msgstr "Додавання групи скасовано"
 
-#: views/groups.py:152
+#: views/groups.py:153
 msgid "Addiotional information about group"
 msgstr "Додаткова інформація про групу"
 
-#: views/groups.py:190
+#: views/groups.py:191
 #, python-format
 msgid "Group %s saved successfully"
 msgstr "Дані про групу %s успішно збережено"
 
-#: views/groups.py:200
+#: views/groups.py:201
 msgid "Editing Group"
 msgstr "Редагування Групи"
 
-#: views/groups.py:208
+#: views/groups.py:209
 msgid "Editing group canceled"
 msgstr "Редагування групи скасовано"
 
-#: views/groups.py:221
+#: views/groups.py:222
 #, python-format
 msgid "Group %s deleted successfully"
 msgstr "Дані про групу %s успішно видалено"
 
-#: views/groups.py:226
+#: views/groups.py:227
 msgid "Deleting group calceled"
 msgstr "Видалення групи скасовано"
 
-#: views/groups.py:231
+#: views/groups.py:232
 msgid "Deletion is impossible. There are students in the group"
 msgstr "Видалення неможливе. В групі ще є студенти"
 
-#: views/groups.py:238
+#: views/groups.py:239
 msgid "Deletion is impossible. There are available results for this group"
 msgstr "Видалення неможливе. Для цієї групи є доступні результати"
 
@@ -858,27 +886,44 @@ msgstr "Видалення неможливе. Для цієї групи є д�
 msgid "Forbidden to change status future visits!"
 msgstr "Заборонено змінювати статуси майбутніх відвідувань!"
 
-#: views/logs.py:93
+#: views/logs.py:52
+msgid "Please enter subject name"
+msgstr "Введіть назву предмету"
+
+#: views/logs.py:56
+msgid "Please enter event time"
+msgstr "Введіть час події"
+
+#: views/logs.py:58
+msgid "Detailed information about event"
+msgstr "Детальна інформація про подію"
+
+#: views/logs.py:95
 #, python-format
 msgid "Event %s saved successfully"
 msgstr "Дані про подію %s успішно збережене"
 
-#: views/logs.py:98
+#: views/logs.py:100
 msgid "Editing event"
 msgstr "Редагування Події"
 
-#: views/logs.py:103
+#: views/logs.py:105
 msgid "Editing event canceled"
 msgstr "Редагування події скасовано"
 
-#: views/logs.py:115
+#: views/logs.py:117
 #, python-format
 msgid "Event %s deleted successfully"
 msgstr "Дані про подію %s успішно видалено"
 
-#: views/logs.py:120
+#: views/logs.py:122
 msgid "Deleting event canceled"
 msgstr "Видалення події скасовано"
+
+#: views/logs.py:135 views/logs.py:140
+#, python-format
+msgid "User with id %s, who was deleted"
+msgstr "Користувач з ID %s, який був видалений"
 
 #: views/results.py:60
 msgid "Entry results of exam canceled"
@@ -945,98 +990,98 @@ msgid "There was an error on the server. Please try again later"
 msgstr ""
 "На сервері сталася непередбачувана помилка. Спробуйте будь-ласка пізніше"
 
-#: views/students.py:76
+#: views/students.py:77
 msgid "Please, select student from list"
 msgstr "Будь-ласка, оберіть студента зі списку"
 
-#: views/students.py:84
+#: views/students.py:85
 msgid "Please, select at least one student"
 msgstr "Будь ласка, виберіть хоча б одного студента"
 
-#: views/students.py:88
+#: views/students.py:89
 msgid "Please, select the desired action"
 msgstr "Будь ласка, оберіть необхідну дію"
 
-#: views/students.py:100
+#: views/students.py:101
 msgid "Students successfully removed"
 msgstr "Студентів успішно видалено"
 
-#: views/students.py:103
+#: views/students.py:104
 msgid "Selected students can't delete, try later"
 msgstr "Видалення обраних студентів не виконано, спробуйте пізніше"
 
-#: views/students.py:107
+#: views/students.py:108
 msgid "Delete of selected student canceled"
 msgstr "Видалення обраних студентів скасовано"
 
-#: views/students.py:120
+#: views/students.py:121
 msgid "Please, type student's first name"
 msgstr "Введіть ім'я студента"
 
-#: views/students.py:122
+#: views/students.py:123
 msgid "Please, type student's last name"
 msgstr "Введіть прізвище студента"
 
-#: views/students.py:124
+#: views/students.py:125
 msgid "Please, type student's middle name"
 msgstr "Введіть ім'я по-батькові студента"
 
-#: views/students.py:126
+#: views/students.py:127
 msgid "e.g. 1984-06-17"
 msgstr "напр. 1984-06-17"
 
-#: views/students.py:127
+#: views/students.py:128
 msgid "e.g. 123"
 msgstr "напр. 123"
 
-#: views/students.py:129
+#: views/students.py:130
 msgid "Aditional information"
 msgstr "Додаткова інформація"
 
-#: views/students.py:180
+#: views/students.py:181
 msgid "Student is leader of other group"
 msgstr "Студент є старостою іншої групи"
 
-#: views/students.py:191
+#: views/students.py:192
 msgid "Student's age can't be less then 17 years"
 msgstr "Студенту не може бути менше 17 років"
 
-#: views/students.py:198
+#: views/students.py:199
 msgid "Ticket number must be in the range from 1 to 999"
 msgstr "Номер білету має бути в діапазоні від 1 до 999"
 
-#: views/students.py:222
+#: views/students.py:223
 #, python-format
 msgid "Student %s created successfully"
 msgstr "Дані про студента %s успішно додано"
 
-#: views/students.py:234
+#: views/students.py:235
 msgid "Adding Student"
 msgstr "Додавання Студента"
 
-#: views/students.py:243
+#: views/students.py:244
 msgid "Adding student canceled"
 msgstr "Додавання студента скасовано"
 
-#: views/students.py:258
+#: views/students.py:259
 #, python-format
 msgid "Student %s saved successfully!"
 msgstr "Дані про студента %s успішно змінені"
 
-#: views/students.py:269
+#: views/students.py:270
 msgid "Editing student"
 msgstr "Редагування Студента"
 
-#: views/students.py:278
+#: views/students.py:279
 msgid "Editing student canceled!"
 msgstr "Редагування студента скасовано"
 
-#: views/students.py:292
+#: views/students.py:293
 #, python-format
 msgid "Student %s deleted successfully"
 msgstr "Дані про студента %s успішно видалено"
 
-#: views/students.py:298
+#: views/students.py:299
 msgid "Deleting student canceled"
 msgstr "Видалення студента скасовано"
 
@@ -1079,7 +1124,8 @@ msgstr "Редагування налаштувань користувача с�
 #: views/user.py:129
 msgid ""
 "This email address is already in use. Please enter a different email address."
-msgstr "Дана електронна адреса вже використовується. Будь-ласка введіть іншу адресу."
+msgstr ""
+"Дана електронна адреса вже використовується. Будь-ласка введіть іншу адресу."
 
 #: views/user.py:135
 msgid "Enter a valid email address"
@@ -1117,15 +1163,6 @@ msgstr "Користувач %s успішно видалений"
 
 #~ msgid "Access for anonymous users is closed"
 #~ msgstr "Для анонімних користувачів доступ закритий"
-
-#~ msgid "Please enter subject name"
-#~ msgstr "Введіть назву предмету"
-
-#~ msgid "Please enter event time"
-#~ msgstr "Введіть час події"
-
-#~ msgid "Detailed information about event"
-#~ msgstr "Детальна інформація про подію"
 
 #~ msgid "Select your time zone"
 #~ msgstr "Виберіть вашу часову зону"

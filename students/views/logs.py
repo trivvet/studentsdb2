@@ -52,7 +52,7 @@ class LogUpdateForm(forms.ModelForm):
                 attrs={'placeholder': _l(u"Please enter subject name")}),
             'status': forms.Select(
                 choices=(("INFO", "INFO"), ("DEBUG", "DEBUG"), ("WARNING", "WARNING"), ("ERROR", "ERROR"), ("CRITICAL", "CRITICAL"))),
-            'teacher_name': forms.DateTimeInput(
+            'log_datetime': forms.DateTimeInput(
                 attrs={'placeholder': _l(u"Please enter event time")}),
             'info': forms.Textarea(
                 attrs={'placeholder': _l(u"Detailed information about event"),
@@ -132,11 +132,12 @@ def log_info(request, lid):
         try:
             context['created_by'] = User.objects.get(pk=log_object.created_by.id).username
         except AttributeError:
-            context['created_by'] = context['created_by'] = 'User with id %s, who was deleted' % log_object.created_by.id
+            context['created_by'] = _(u'User with id %s, who was deleted') % log_object.created_by.id
     if log_object.modified_by:
         try:
-            context['modified_by'] = User.objects.get(pk=log_object.created_by.id).username
+            context['modified_by'] = User.objects.get(pk=log_object.modified_by.id).username
         except AttributeError:
-            context['modified_by'] = 'User with id %s, who was deleted' % log_object.created_by.id
+            context['modified_by'] = _(u'User with id %s, who was deleted') % log_object.modified_by.id
+    context['time_change'] = log_object.time_change
     context['log'] = LogEntry.objects.get(pk=int(lid))
     return render(request, 'students/log_info.html', {'context': context})

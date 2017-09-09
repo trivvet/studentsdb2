@@ -35,5 +35,15 @@
   </tbody>
 </table>
 <!-- End Groups Listing -->
+
+{% if context.time_change and context.modified_by %}
+  <p id="info-change">{% trans "Log was last modified:" %} {{ context.time_change }}
+  {% if context.created_by or context.modified_by %}by
+    {% if context.modified_by %}{{ context.modified_by }}
+    {% else %}{{ context.created_by }}
+    {% endif %}
+  {% endif %}
+  </p>
+{% endif %}
         
 {% endblock content %}

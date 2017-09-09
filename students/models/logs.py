@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from datetime import datetime
 
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
 class LogEntry(models.Model):
@@ -45,6 +45,10 @@ class LogEntry(models.Model):
         blank=False,
         null=True,
         on_delete=models.PROTECT)
+
+    time_change = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_(u"Time of last modification"))
 
     def __unicode__(self):
         return u"%s %s (%s)" % (self.status, self.signal, datetime.strftime(self.log_datetime, '%Y-%m-%d %H:%M:%S'))

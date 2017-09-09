@@ -59,6 +59,14 @@
 
 {% endlanguage %}
   
-{% if object.time_change %}<p>Last update: {{ object.time_change }}</p>{% endif %}
+{% if object.time_change %}
+  <p>{% trans "Last update:" %} {{ object.time_change }}
+  {% if object.created_by or object.modified_by %}by
+    {% if object.modified_by %}{{ object.modified_by }}
+    {% else %}{{ object.created_by }}
+    {% endif %}
+  {% endif %}
+  </p>
+{% endif %}
         
 {% endblock content %}
