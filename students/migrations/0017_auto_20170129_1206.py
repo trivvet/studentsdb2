@@ -12,10 +12,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterModelOptions(
-            name='mainuser',
-            options={'verbose_name': 'User', 'verbose_name_plural': 'Users'},
-        ),
         migrations.AddField(
             model_name='student',
             name='first_name_en',

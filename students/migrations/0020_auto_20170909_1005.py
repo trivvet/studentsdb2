@@ -19,10 +19,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='mainuser',
-            name='user_ptr',
-        ),
         migrations.AlterModelOptions(
             name='logentry',
             options={'verbose_name': 'Event', 'verbose_name_plural': 'Events'},
@@ -71,8 +67,5 @@ class Migration(migrations.Migration):
             model_name='logentry',
             name='status',
             field=models.CharField(max_length=256, verbose_name='Status'),
-        ),
-        migrations.DeleteModel(
-            name='MainUser',
         ),
     ]

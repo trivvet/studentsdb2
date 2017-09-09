@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('students', '0015_mainuser_time_zone'),
+        ('students', '0014_auto_20170128_1340'),
     ]
 
     operations = [
