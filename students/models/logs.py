@@ -4,6 +4,7 @@ from datetime import datetime
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 class LogEntry(models.Model):
@@ -47,7 +48,7 @@ class LogEntry(models.Model):
         on_delete=models.PROTECT)
 
     time_change = models.DateTimeField(
-        auto_now=True,
+        default=timezone.now,
         verbose_name=_(u"Time of last modification"))
 
     def __unicode__(self):
