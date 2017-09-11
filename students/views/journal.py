@@ -27,7 +27,6 @@ class JournalView(LoginRequiredMixin, TemplateView):
         if self.request.GET.get('month'):
             month = datetime.strptime(self.request.GET['month'],
                 '%Y-%m-%d').date()
-
             # check which days we need to disable
             if month.year >= datetime.today().year and month.month > datetime.today().month:
                 context['disabled'] = True

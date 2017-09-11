@@ -1,4 +1,5 @@
 from datetime import datetime, date
+from dateutil.relativedelta import relativedelta
 
 from django import forms
 from django.shortcuts import render, reverse
@@ -6,6 +7,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.views.generic import TemplateView, DeleteView, UpdateView
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 from django.contrib.auth.decorators import login_required, permission_required
@@ -30,6 +32,12 @@ class LogsView(PermissionRequiredMixin, TemplateView):
         # get context data from TemplateView class
         context = super(LogsView, self).get_context_data(**kwargs)
 
+        prev_date = timezone.now() - relativedelta(months=1)
+        logs_delete = LogEntry.objects.exclude(log_datetime__gt=prev_date)
+        if logs_delete:
+            for log in logs_delete:
+                log.delete()
+
         order_by = self.request.GET.get('order_by', '')
         if order_by in ('signal', 'status', 'log_datetime'):
             logs = LogEntry.objects.all().order_by(order_by)
@@ -42,6 +50,61 @@ class LogsView(PermissionRequiredMixin, TemplateView):
         # check if we need to display some specific month
         
         return context
+
+    # realisation checkboxes for group action
+    def post(self, request, *args, **kwargs):
+        message_error = 0
+        # if press act-button
+        if request.POST.get('action_button'):
+
+            # check if we selected at least one log and selected need action
+            if request.POST.get('action-group') == 'delete' and request.POST.get('delete-check'):
+                logs_delete = []
+                logs_id = []
+
+                for el in request.POST.getlist('delete-check'):
+                    try:
+                        # try get logs from list
+                        logs_delete.append(LogEntry.objects.get(pk=int(el)))
+                        logs_id.append(el)
+                    except:
+                        # otherwise return error message
+                        message_error += 1
+                        messages.danger(request,
+                            _(u"Please, select log from list"))
+                if message_error == 0:
+                    # if not error messages render confirm page
+                    return render(request, 'students/students_group_confirm_delete.html',
+                        {'logs': logs_delete, 'logs_id': logs_id})
+
+            # if selected action but didn't select students
+            elif request.POST.get('action-group') == 'delete':
+                messages.error(request, _(u"Please, select at least one log"))
+
+            # if didn't select action
+            else:
+                messages.warning(request, _(u"Please, select the desired action"))
+
+        # if we press delete on confirm page
+        elif request.POST.get('delete_button'):
+            for el in request.POST.getlist('logs_id'):
+                try:
+                    log_delete = LogEntry.objects.get(pk=int(el))
+                    log_delete.delete()
+                except:
+                    message_error += 1
+                    break
+            if message_error == 0:
+                messages.success(request, _(u"Logs successfully removed"))
+            else:
+                messages.error(request,
+                    _(u"Selected logs can't delete, try later"))
+            return HttpResponseRedirect(reverse('logs'))
+
+        elif request.POST.get('cancel_button'):
+            messages.warning(request, _(u"Delete of selected student canceled"))
+            
+        return HttpResponseRedirect(reverse('logs'))
 
 class LogUpdateForm(forms.ModelForm):
     class Meta:

@@ -229,7 +229,7 @@ function initForm(form, modal, link) {
       var html = $(data), newform = html.find('#content-column form.form-horizontal');
 
       // copy alert to modal window
-      modal.find('.modal-body').html(html.find('.alert'));
+      modal.find('.modal-body').html(html.find('.alert-danger, .alert-warning, .alert-success'));
       modal2.modal('hide');
 
       // copy form to modal if we found it in server repsonse
@@ -437,14 +437,14 @@ function SubHeaderNavigation(link, pagination) {
         });
       },
       'success': function(data, status, xhr) {
-        var html = $(data), newpage = html.find('#content-column');
+        var html = $(data), newpage = html.find('#content-columns');
         $('#sub-header li.active').removeClass('active');
         link.parent('li').addClass('active');
         link.blur();
 
         $('#content-column').html(newpage);
         modal2.modal('hide');
-        $('div.alert').remove();
+        $('div.alert-warning div.alert-danger').remove();
 
         initFunctions();
         initResultPage();
