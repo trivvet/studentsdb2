@@ -51,11 +51,11 @@
       </td>
       
       <td><a class="form-link" title="Редагувати"
-           href="{% url "students_edit" student.id %}">
+           href="{% url 'students_edit' student.id %}">
            {{ student.fullname }}</a></td>
       {% for day in student.days %}
       <td class="day-box">
-        {% if disabled is None and day.day|add:0 <= current_day|add:0 %}
+        {% if disabled is None and day.disabled is None and day.day|add:0 <= current_day|add:0 %}
         <input type="checkbox" data-student-id="{{ student.id }}"
                data-date="{{ day.date }}" data-url="{{ student.update_url }}"
                value="1" {% if day.present %}checked="checked"{% endif %}>

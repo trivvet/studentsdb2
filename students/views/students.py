@@ -60,33 +60,53 @@ def students_list(request):
         # if press act-button
         if request.POST.get('action_button'):
 
+            students_delete = []
+            students_id = []
+            
             # check if we selected at least one student and selected need action
             if request.POST.get('action-group') == 'delete' and request.POST.get('delete-check'):
-                students_delete = []
-                students_id = []
 
                 for el in request.POST.getlist('delete-check'):
-                    try:
-                        # try get students from list
-                        students_delete.append(Student.objects.get(pk=int(el)))
-                        students_id.append(el)
-                    except:
-                        # otherwise return error message
-                        message_error += 1
-                        messages.danger(request,
-                            _(u"Please, select student from list"))
-                if message_error == 0:
-                    # if not error messages render confirm page
-                    return render(request, 'students/students_group_confirm_delete.html',
-                        {'students': students_delete, 'students_id': students_id})
+                    if el != 'all':
+                        try:
+                            # try get students from list
+                            students_delete.append(Student.objects.get(pk=int(el)))
+                            students_id.append(el)
+                        except:
+                            # otherwise return error message
+                            message_error += 1
+                            messages.error(request,
+                                _(u"Please, select student from list"))
 
             # if selected action but didn't select students
             elif request.POST.get('action-group') == 'delete':
+                message_error += 1
                 messages.error(request, _(u"Please, select at least one student"))
+
+            # if selected action delete all students
+            elif request.POST.get('action-group') == 'all_delete':
+                students = Student.objects.all()
+                if students.count() < 10:
+                    for student in students:
+                        students_delete.append(student)
+                        students_id.append(student.id)
+                else:
+                    students_delete = {
+                      'danger':_("You really want to delete all %d students") % students.count()}
+                    print students_delete
+                    for student in students:
+                        students_id.append(student.id)
 
             # if didn't select action
             else:
+                message_error += 1
                 messages.warning(request, _(u"Please, select the desired action"))
+
+
+            if message_error == 0:
+                # if not error messages render confirm page
+                return render(request, 'students/students_group_confirm_delete.html',
+                    {'students': students_delete, 'students_id': students_id})
 
         # if we press delete on confirm page
         elif request.POST.get('delete_button'):

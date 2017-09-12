@@ -12,29 +12,45 @@
 <!-- FORM -->
 
 <form action="." method="post" class="form-horizontal">
+    
   {% csrf_token %}
+  
   <div class="form-group">
     <div class="col-sm-2"></div>
     <div class="col-sm-10">
       {% if students %}
-          <h4>{% trans "Do you realy want to delete this students" %}?</h4>
-          <ul>
-            {% for student in students %}
-            <li>{{ student.last_name }} {{ student.first_name }}</li>
-            <input type="hidden" name="students_id" value="{{ student.id }}">
-            {% endfor %}
+          {% if students.danger %}
+            <h4>{{ students.danger }}</h4>
+          {% else %}
+            <h4>{% trans "Do you realy want to delete this students" %}?</h4>
+            <ul>
+              {% for student in students %}
+              <li>{{ student.last_name }} {{ student.first_name }}</li>
+              {% endfor %}
           </ul>
+          {% endif %}
+          {% for student in students_id %}
+            <input type="hidden" name="students_id" value="{{ student }}">
+          {% endfor %}
+          
       {% elif logs %}
-          <h4>{% trans "Do you realy want to delete this logs" %}?</h4>
-          <ul>
-            {% for log in logs %}
-            <li>{{ log.signal }} {{ log.log_datetime }}</li>
-            <input type="hidden" name="logs_id" value="{{ log.id }}">
-            {% endfor %}
-          </ul>
+          {% if logs.danger %}
+            <h4>{{ logs.danger }}</h4>
+          {% else %}
+            <h4>{% trans "Do you realy want to delete this logs" %}?</h4>
+            <ul>
+              {% for log in logs %}
+              <li>{{ log.signal }} {{ log.log_datetime }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% for log in logs_id %}
+            <input type="hidden" name="logs_id" value="{{ log }}">
+          {% endfor %}
       {% endif %}
     </div>
   </div>
+  
   <div class="form-group controls">
     <div class="col-sm-2"></div>
     <div class="col-sm-10">

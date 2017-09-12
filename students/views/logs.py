@@ -57,33 +57,50 @@ class LogsView(PermissionRequiredMixin, TemplateView):
         # if press act-button
         if request.POST.get('action_button'):
 
+            logs_delete = []
+            logs_id = []
+                
             # check if we selected at least one log and selected need action
             if request.POST.get('action-group') == 'delete' and request.POST.get('delete-check'):
-                logs_delete = []
-                logs_id = []
 
                 for el in request.POST.getlist('delete-check'):
-                    try:
-                        # try get logs from list
-                        logs_delete.append(LogEntry.objects.get(pk=int(el)))
-                        logs_id.append(el)
-                    except:
-                        # otherwise return error message
-                        message_error += 1
-                        messages.danger(request,
-                            _(u"Please, select log from list"))
-                if message_error == 0:
-                    # if not error messages render confirm page
-                    return render(request, 'students/students_group_confirm_delete.html',
-                        {'logs': logs_delete, 'logs_id': logs_id})
+                    if el != 'all':
+                        try:
+                            # try get logs from list
+                            logs_delete.append(LogEntry.objects.get(pk=int(el)))
+                            logs_id.append(el)
+                        except:
+                            # otherwise return error message
+                            message_error += 1
+                            messages.error(request,
+                                _(u"Please, select log from list"))
 
             # if selected action but didn't select students
             elif request.POST.get('action-group') == 'delete':
+                message_error += 1
                 messages.error(request, _(u"Please, select at least one log"))
+
+            elif request.POST.get('action-group') == 'all_delete':
+                logs = LogEntry.objects.all()
+                if logs.count() < 10:
+                    for log in LogEntry.objects.all():
+                        logs_delete.append(log)
+                        logs_id.append(log.id)
+                else:
+                    logs_delete = {
+                        'danger':_("You really want to delete all %d logs") % logs.count()}
+                    for log in logs:
+                        logs_id.append(log.id)
 
             # if didn't select action
             else:
+                message_error += 1
                 messages.warning(request, _(u"Please, select the desired action"))
+
+            if message_error == 0:
+                # if not error messages render confirm page
+                return render(request, 'students/students_group_confirm_delete.html',
+                    {'logs': logs_delete, 'logs_id': logs_id})
 
         # if we press delete on confirm page
         elif request.POST.get('delete_button'):

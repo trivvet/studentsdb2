@@ -28,7 +28,7 @@
     <thead>
       <tr>
         {% if user.is_authenticated %}
-        <th><input type="checkbox" name="delete-check" value="all" disabled></th>
+        <th><input type="checkbox" name="delete-check" id="delete-all" value="all" disabled></th>
         {% endif %}
         <th>
           <a href="{% url "home" %}?order_by=id{% if order_by == 'id' and reverse != '1' %}&reverse=1
@@ -145,6 +145,7 @@
     <select class='work-options' name="action-group">
       <option selected>--------------------------</option>
       <option value="delete">{% trans "Delete selected students" %}</option>
+      <option value="all_delete">{% trans "Delete all students" %}</option>
     </select>
     <input type="submit" class="form-link" value="{% trans 'Execute' %}" name="action_button">
   </div>

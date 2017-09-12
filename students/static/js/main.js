@@ -901,6 +901,17 @@ function initFormPageDelete() {
   });
 }
 
+function initAllCheck() {
+  $('#delete-all').removeAttr('disabled');
+  $('#delete-all').click(function() {
+    if ($(this).prop('checked')) {
+      $(':input[name=delete-check]').prop('checked', true);
+    } else {
+      $(':input[name=delete-check]').prop('checked', false);
+    }
+  });
+}
+
 function initFunctions() {
   initOrderBy();
   initPaginate();
@@ -909,6 +920,7 @@ function initFunctions() {
   initJournal();
   initResultPage();
   initGroupSelector();
+  initAllCheck();
 }
 
 $(document).ready(function(){

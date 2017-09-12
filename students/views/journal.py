@@ -28,7 +28,7 @@ class JournalView(LoginRequiredMixin, TemplateView):
             month = datetime.strptime(self.request.GET['month'],
                 '%Y-%m-%d').date()
             # check which days we need to disable
-            if month.year >= datetime.today().year and month.month > datetime.today().month:
+            if month.year >= datetime.today().year and month.month > datetime.today().month or month.year > datetime.today().year:
                 context['disabled'] = True
             elif month.year < datetime.today().year or month.month < datetime.today().month:
                 context['current_day'] = 32
@@ -96,6 +96,7 @@ class JournalView(LoginRequiredMixin, TemplateView):
                     'present': journal and getattr(journal,
                         'present_day%d' % day, False) or False,
                     'date': date(myear, mmonth, day).strftime('%Y-%m-%d'),
+                    'disabled': weekday(myear, mmonth, day) in [5,6] or None,
                 })
 
             # add all other data for student
