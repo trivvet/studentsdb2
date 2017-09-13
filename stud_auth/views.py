@@ -3,7 +3,7 @@
 from django import forms
 from django.contrib import messages
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
 from django.utils import translation
@@ -97,6 +97,7 @@ class RegistrationView(BaseRegistrationView):
     def get_context_data(self, **kwargs):
         context = super(RegistrationView, self).get_context_data(**kwargs)
         context['title'] = _(u'Register Form')
+        context['user_check'] = reverse('user_check')
         return context
 
     # if cancel_button is pressed return home page
@@ -130,3 +131,20 @@ def get_user_name(backend, details, response, is_new=False, *args, **kwargs):
                 return render(request, 'stud_auth/select_user_name.html', {'errors': errors, 'user_name': final_username})
             else:
                 return {'username': final_username}
+
+def check_user_name(request):
+    data = request.POST
+    found = 'not_found'
+    error = ''
+    if 'username' in data.values():
+        if User.objects.filter(username=data['field_value']):
+            found = 'success'
+            error = _(u"Sorry, but the same username already exists")
+            
+    if 'email' in data.values():
+        if User.objects.filter(email=data['field_value']) and data['field_value'] != '':
+            found = 'success'
+            print 'email'
+            error = _(u"Sorry, but this email address is already in use")
+
+    return JsonResponse({'status': 'success', 'if_found': found, 'error': error})

@@ -13,7 +13,11 @@
 {% endif %}
 {% endblock %}
 
-{% block title %}{{ title }}{% endblock title %}
+{% block title %}{{ title }}
+{% if user_check %}
+<input type="hidden" name="user_check_url" value="{{ user_check }}">
+{% endif %}
+{% endblock title %}
 
 {% block content %}
       

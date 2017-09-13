@@ -32,7 +32,7 @@ from students.views.logs import LogsView, LogDeleteView, LogUpdateView
 from students.views.contact_admin import ContactView
 from students.views.user import UserAuthView
 
-from stud_auth.views import RegistrationView
+from stud_auth.views import RegistrationView, check_user_name
 
 from .settings import MEDIA_ROOT, DEBUG
 
@@ -103,8 +103,11 @@ urlpatterns = [
     url(r'^register/complete/$', TemplateView.as_view(template_name='registration/activation_complete.html'), name='registration_activation_complete'),
     url(r'^users/', include('registration.backends.default.urls', namespace='users')),
     url(r'^social/', include('social_django.urls', namespace='social')),
+
+    # Manual User Forms
     url(r'^user-preference/$', login_required(user.user_preference), name='user-preference'),
     url(r'^user/time/$', login_required(user.user_time), name='user-time'),
+    url(r'^user/check/$', check_user_name, name='user_check'),
 
     # Users List
     url(r'^users-list/$', login_required(user.users_list), name='users'),

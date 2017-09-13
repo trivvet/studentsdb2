@@ -1,3 +1,43 @@
+// run when we write username during registration
+function initCheckUsername() {
+  $('#id_username,#id_email,#id_password1,#id').change(function() {
+    var fieldValue = $(this);
+    $.ajax($("input[name='user_check_url']").val(), {
+      'type': 'POST',
+      'async': true,
+      'dataType': 'json',
+      'data': {
+        'field_name': fieldValue.attr('name'),
+        'field_value': fieldValue.val(),
+        'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+      },
+      'error': function(xhr, status, error) {
+        $('#content-column .alert').removeClass('alert-info')
+            .addClass('alert-danger').html(gettext('There was an error on the server') + gettext('(code - ') + error + gettext('). Please, try again later'));
+      },
+      'success': function(data, status, xhr) {
+        if (data.status == 'error') {
+          alert(data.message);
+        }
+        if (data.if_found == 'success') {
+          fieldValue.siblings('span.glyphicon-ok').remove();
+          console.log('one');
+          fieldValue.after("<span id='hint2_id_username' class='help-block'>" + data.error + "</span>");
+          fieldValue.after("<span class='glyphicon glyphicon-remove form-control-feedback' aria-hidden='true'></span>");
+          fieldValue.parent().parent().removeClass('has-success');
+          fieldValue.parent().parent().addClass('has-error has-feedback');
+        } else {
+          fieldValue.after("<span class='glyphicon glyphicon-ok form-control-feedback' aria-hidden='true'></span>");
+          fieldValue.parent().parent().addClass('has-success has-feedback');
+          fieldValue.siblings('#hint2_id_username').remove();
+          fieldValue.siblings('span.glyphicon-remove').remove();
+          fieldValue.parent().parent().removeClass('has-error');
+        }
+      }
+    });
+  });
+}
+
 // run when click on chechbox
 function initJournal() {
   var indicator = $('#ajax-progress-indicator'), modal2 = $('#modalAlert');
@@ -167,6 +207,7 @@ function initForm(form, modal, link) {
   initDateFields();
   initPhotoView();
   initPasswordForgotView();
+  initCheckUsername(link);
 
   // close modal window on Cancel button click
   form.find('input[name="cancel_button"]').click(function(event) {
@@ -265,16 +306,26 @@ function initForm(form, modal, link) {
           initFunctions();
         } else {
           setTimeout(function() {
-            $('#sub-header').html(html.find('#sub-header div'));
-            $('#content-column').html(html.find('#content-column'));
             $('#group-selector').html(html.find('#group-selector select'));
+            if (form.find('input[name="delete_button"]').length && $('select.work-options').val() != 'all_delete') {
+              if (link == '.') {
+                $('tbody').find('input:checked').parent().parent().remove();
+                $('select.work-options').val('-');
+              } else {
+                var delete_link = "a.form-link[href='" + link + "']";
+                $(delete_link).parents('tr').remove();
+              }
+            } else {
+              $('#sub-header').html(html.find('#sub-header div'));
+              $('#content-column').html(html.find('#content-column'));
+              initSubHeaderNav();
+              initFunctions();
+              initResultPage();
+              initFormPage();
+              initFormPageDelete();
+            }
             $('input, select, textarea').prop('disabled', false);
             modal.modal('hide');
-            initSubHeaderNav();
-            initFunctions();
-            initResultPage();
-            initFormPage();
-            initFormPageDelete();
           }, 2000);
         }
       }
@@ -447,6 +498,7 @@ function SubHeaderNavigation(link, pagination) {
         $('div.alert-warning div.alert-danger').remove();
 
         initFunctions();
+        initFormPageDelete();
         initResultPage();
         initFormPage();
         $('.contact-form').attr('action', $("#contact-link").attr('href'));
@@ -841,7 +893,7 @@ function initBackButton() {
 }
 
 function initFormPageDelete() {
-  var modal2 = $('#modalAlert'), form = $('#change-student-list'),
+  var modal2 = $('#modalAlert'), form = $('#change-student-list, #change-log-list'),
     modal = $('#myModal');
   form.ajaxForm({
     url: form.attr('action'),
