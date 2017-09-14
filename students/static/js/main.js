@@ -1,41 +1,81 @@
 // run when we write username during registration
-function initCheckUsername() {
-  $('#id_username,#id_email,#id_password1,#id').change(function() {
-    var fieldValue = $(this);
+function initPostFields(fieldValue) {
     $.ajax($("input[name='user_check_url']").val(), {
-      'type': 'POST',
-      'async': true,
-      'dataType': 'json',
-      'data': {
-        'field_name': fieldValue.attr('name'),
-        'field_value': fieldValue.val(),
-        'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
-      },
-      'error': function(xhr, status, error) {
-        $('#content-column .alert').removeClass('alert-info')
-            .addClass('alert-danger').html(gettext('There was an error on the server') + gettext('(code - ') + error + gettext('). Please, try again later'));
-      },
-      'success': function(data, status, xhr) {
-        if (data.status == 'error') {
-          alert(data.message);
+        'type': 'POST',
+        'async': true,
+        'dataType': 'json',
+        'data': {
+            'field_name': fieldValue.attr('name'),
+            'field_value': fieldValue.val(),
+            'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+        },
+        'error': function(xhr, status, error) {
+            $('#content-column .alert').removeClass('alert-info')
+                .addClass('alert-danger').html(
+                    gettext('There was an error on the server') +
+                    gettext('(code - ') + error +
+                    gettext('). Please, try again later'));
+        },
+        'success': function(data, status, xhr) {
+            if (data.status == 'error') {
+                alert(data.message);
+            }
+            if (data.if_found == 'success') {
+                fieldValue.siblings('span.glyphicon-ok').remove();
+                fieldValue.parent().children(
+                    '#hint2_id_username,.glyphicon-remove').remove()
+                fieldValue.after("<span id='hint2_id_username'" +
+                    " class='help-block'>" + data.error + "</span>");
+                fieldValue.after("<span class='glyphicon glyphicon-remove" +
+                    " form-control-feedback' aria-hidden='true'></span>");
+                fieldValue.parent().parent().removeClass('has-success');
+                fieldValue.parent().parent().addClass('has-error has-feedback');
+            } else {
+                fieldValue.parent().children('.glyphicon-ok').remove()
+                fieldValue.after("<span class='glyphicon glyphicon-ok" +
+                    " form-control-feedback' aria-hidden='true'></span>");
+                fieldValue.parent().parent().addClass('has-success has-feedback');
+                fieldValue.siblings('#hint2_id_username').remove();
+                fieldValue.siblings('span.glyphicon-remove').remove();
+                fieldValue.parent().parent().removeClass('has-error');
+            }
+            if (fieldValue.siblings('#hint_id_username').length) {
+                $('#hint_id_username').remove();
+            }
         }
-        if (data.if_found == 'success') {
-          fieldValue.siblings('span.glyphicon-ok').remove();
-          console.log('one');
-          fieldValue.after("<span id='hint2_id_username' class='help-block'>" + data.error + "</span>");
-          fieldValue.after("<span class='glyphicon glyphicon-remove form-control-feedback' aria-hidden='true'></span>");
-          fieldValue.parent().parent().removeClass('has-success');
-          fieldValue.parent().parent().addClass('has-error has-feedback');
-        } else {
-          fieldValue.after("<span class='glyphicon glyphicon-ok form-control-feedback' aria-hidden='true'></span>");
-          fieldValue.parent().parent().addClass('has-success has-feedback');
-          fieldValue.siblings('#hint2_id_username').remove();
-          fieldValue.siblings('span.glyphicon-remove').remove();
-          fieldValue.parent().parent().removeClass('has-error');
-        }
-      }
     });
-  });
+}
+
+function initCheckCorrectFields() {
+    $('#id_username').keyup(function() {
+        initPostFields($(this));
+    });
+    $('#id_email,#id_password1').change(function() {
+        initPostFields($(this));
+    });
+    $('#id_password2').keyup(function() {
+        fieldValue = $(this);
+        if (fieldValue.val() == $('#id_password1').val()) {
+            fieldValue.parent().children('.glyphicon-ok').remove()
+            fieldValue.after("<span class='glyphicon glyphicon-ok" +
+                " form-control-feedback' aria-hidden='true'></span>");
+            fieldValue.parent().parent().addClass('has-success has-feedback');
+            fieldValue.siblings('#hint2_id_username').remove();
+            fieldValue.siblings('span.glyphicon-remove').remove();
+            fieldValue.parent().parent().removeClass('has-error');
+        } else {
+            fieldValue.siblings('span.glyphicon-ok').remove();
+            error = "The two password fields didn't match."
+            fieldValue.parent().children(
+                '#hint2_id_username,.glyphicon-remove').remove()
+            fieldValue.after("<span id='hint2_id_username'" +
+                " class='help-block'>" + error + "</span>");
+            fieldValue.after("<span class='glyphicon glyphicon-remove" +
+                " form-control-feedback' aria-hidden='true'></span>");
+            fieldValue.parent().parent().removeClass('has-success');
+            fieldValue.parent().parent().addClass('has-error has-feedback');
+        }
+    });
 }
 
 // run when click on chechbox
@@ -207,7 +247,7 @@ function initForm(form, modal, link) {
   initDateFields();
   initPhotoView();
   initPasswordForgotView();
-  initCheckUsername(link);
+  initCheckCorrectFields(link);
 
   // close modal window on Cancel button click
   form.find('input[name="cancel_button"]').click(function(event) {

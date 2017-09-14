@@ -1,7 +1,7 @@
-
-
 from django import forms
+from django.core.validators import validate_slug, validate_email
 from django.contrib import messages
+from django.forms import ValidationError
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse, reverse_lazy
@@ -140,11 +140,37 @@ def check_user_name(request):
         if User.objects.filter(username=data['field_value']):
             found = 'success'
             error = _(u"Sorry, but the same username already exists")
+        elif data['field_value'] == '':
+            found = 'success'
+            error = _(u"Please, enter your username")
+        try:
+            validate_slug(data['field_value'])
+        except ValidationError:
+            found = 'success'
+            error = "Enter a valid username consisting of letters, numbers, underscores or hyphens."
             
-    if 'email' in data.values():
+    elif 'email' in data.values():
         if User.objects.filter(email=data['field_value']) and data['field_value'] != '':
             found = 'success'
-            print 'email'
             error = _(u"Sorry, but this email address is already in use")
+        elif data['field_value'] == '':
+            found = 'success'
+            error = _(u"Please, enter your email")
+        try:
+            validate_email(data['field_value'])
+        except ValidationError as message:
+            found = 'success'
+            error = message[0]
 
+    elif 'password1' in data.values():
+        if len(data['field_value']) < 8:
+            found = 'success'
+            error = _(u"This password is too short. It must contain at least 8 characters.")
+        try:
+            validate_slug(data['field_value'])
+        except ValidationError:
+            found = 'success'
+            error = "Enter a valid password consisting of letters, numbers, underscores or hyphens."
+    
+        
     return JsonResponse({'status': 'success', 'if_found': found, 'error': error})
