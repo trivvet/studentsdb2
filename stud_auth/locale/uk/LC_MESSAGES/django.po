@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-01 16:28+0000\n"
+"POT-Creation-Date: 2017-09-15 08:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -406,17 +406,46 @@ msgid ""
 msgstr ""
 "Ця електронна адреса вже використовується. Будь ласка введіть іншу адресу"
 
-#: views.py:105
+#: views.py:106
 msgid "Registration new user canceled"
 msgstr "Реєстрація нового користувача скасована"
 
-#: views.py:126
+#: views.py:127 views.py:142
 msgid "Sorry, but the same username already exists"
 msgstr "Вибачте, але користувач з таким ім'ям вже існує"
 
-#: views.py:128
+#: views.py:129 views.py:145
 msgid "Please, enter your username"
 msgstr "Будь-ласка, введіть ваше ім'я користувача"
+
+#: views.py:150
+msgid ""
+"Enter a valid username consisting of letters, numbers, underscores or "
+"hyphens."
+msgstr ""
+"Введіть коректне ім'я користувача, що складається з букв, цифр, пікреслювань "
+"або дефісів."
+
+#: views.py:155
+msgid "Sorry, but this email address is already in use"
+msgstr "Вибачте, але ця адреса електронної пошти вже використовується"
+
+#: views.py:158
+msgid "Please, enter your email"
+msgstr "Будь-ласка, введіть вашу електронну адресу"
+
+#: views.py:168
+msgid "This password is too short. It must contain at least 8 characters."
+msgstr ""
+"Введений пароль дуже короткий. Пароль має складатись мінімум з 8 символів"
+
+#: views.py:173
+msgid ""
+"Enter a valid password consisting of letters, numbers, underscores or "
+"hyphens."
+msgstr ""
+"Введіть коректний пароль, що складається з букв, цифр, пікреслювань "
+"або дефісів."
 
 #~ msgid "Login"
 #~ msgstr "Увійти"

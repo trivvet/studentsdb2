@@ -65,7 +65,7 @@ function initCheckCorrectFields() {
             fieldValue.parent().parent().removeClass('has-error');
         } else {
             fieldValue.siblings('span.glyphicon-ok').remove();
-            error = "The two password fields didn't match."
+            error = gettext("The two password fields didn't match.")
             fieldValue.parent().children(
                 '#hint2_id_username,.glyphicon-remove').remove()
             fieldValue.after("<span id='hint2_id_username'" +
@@ -80,101 +80,102 @@ function initCheckCorrectFields() {
 
 // run when click on chechbox
 function initJournal() {
-  var indicator = $('#ajax-progress-indicator'), modal2 = $('#modalAlert');
-
-  $('.day-box input[type="checkbox"]').click(function(event){
-    var box = $(this)
-    $.ajax(box.data('url'), {
-      'type': 'POST',
-      'async': true,
-      'dataType': 'json',
-      'data': {
-        'pk': box.data('student-id'),
-        'date': box.data('date'),
-        'present': box.is(':checked') ? '1' : '',
-        'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
-      },
-      'beforeSend': function(xhr, setting){
-        indicator.show();
-        $('input').prop('disabled', true);
-        var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
-        modal2.find('.modal-body').html(spinner);
-        modal2.modal({
-          'keyboard': false,
-          'backdrop': false,
-          'show': true
-      });
-      },
-      'error': function(xhr, status, error) {
-        $('#content-column .alert').removeClass('alert-info')
-            .addClass('alert-danger').html(gettext('There was an error on the server') + gettext('(code - ') + error + gettext('). Please, try again later'));
-        modal2.modal('hide');
-        indicator.hide();
-      },
-      'success': function(data, status, xhr) {
-        indicator.hide();
-        if (data.status == 'error') {
-          if (box[0].checked) {
-            box[0].checked = false;
-          } else {
-            box[0].checked = true;
-          }
-          alert(data.message);
-        }
-        $('input').prop('disabled', false);
-        modal2.modal('hide');
-      }
+    var indicator = $('#ajax-progress-indicator'), modal2 = $('#modalAlert');
+    
+    $('.day-box input[type="checkbox"]').click(function(event){
+        var box = $(this)
+        $.ajax(box.data('url'), {
+            'type': 'POST',
+            'async': true,
+            'dataType': 'json',
+            'data': {
+                'pk': box.data('student-id'),
+                'date': box.data('date'),
+                'present': box.is(':checked') ? '1' : '',
+                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+            },
+            'beforeSend': function(xhr, setting){
+                indicator.show();
+                $('input').prop('disabled', true);
+                var spinner = '<i class="fa fa-refresh fa-spin" style="font-size:50px"></i>';
+                modal2.find('.modal-body').html(spinner);
+                modal2.modal({
+                    'keyboard': false,
+                    'backdrop': false,
+                    'show': true
+                });
+            },
+            'error': function(xhr, status, error) {
+                $('#content-column .alert').removeClass('alert-info')
+                    .addClass('alert-danger').html(gettext('There was an error on the server') +
+                        gettext('(code - ') + error + gettext('). Please, try again later'));
+                modal2.modal('hide');
+                indicator.hide();
+            },
+            'success': function(data, status, xhr) {
+                indicator.hide();
+                if (data.status == 'error') {
+                    if (box[0].checked) {
+                        box[0].checked = false;
+                    } else {
+                        box[0].checked = true;
+                    }
+                alert(data.message);
+                }
+                $('input').prop('disabled', false);
+                modal2.modal('hide');
+            }
+        });
     });
-  });
 }
 
 function initGroupSelector() {
   // look up select element with groups and attach our even handler
   // on field "change" event
-  $('#group-selector select').change(function(event){
-    var group = $(this).val()
-
-    if (group) {
-      // set cookie with expiration date 1 year since now;
-      // cookie creation function takes period in days
-      Cookies.set('current_group', group, {'path': '/', 'expires': 365});
-    } else {
-      // otherwise we delete the cookie
-      Cookies.remove('current_group', {'path': '/'})
-    }
-
-    // end reload a page
-    var link = $('.nav-tabs li.active a');
-    $.ajax({
-      'url': link.attr('href'),
-      'dataType': 'html',
-      'type': 'get',
-      'success': function(data, status, xhr) {
-        var html = $(data), newpage = html.find('#content-column').children();
-        link.blur();
-        $('#content-column').html(newpage);
-
-        initFunctions();
-        initFormPage();
-        initFormPageDelete();
-      }
+    $('#group-selector select').change(function(event){
+        var group = $(this).val()
+    
+        if (group) {
+            // set cookie with expiration date 1 year since now;
+            // cookie creation function takes period in days
+            Cookies.set('current_group', group, {'path': '/', 'expires': 365});
+        } else {
+            // otherwise we delete the cookie
+            Cookies.remove('current_group', {'path': '/'})
+        }
+    
+        // end reload a page
+        var link = $('.nav-tabs li.active a');
+        $.ajax({
+            'url': link.attr('href'),
+            'dataType': 'html',
+            'type': 'get',
+            'success': function(data, status, xhr) {
+                var html = $(data), newpage = html.find('#content-column').children();
+                link.blur();
+                $('#content-column').html(newpage);
+    
+                initFunctions();
+                initFormPage();
+                initFormPageDelete();
+            }
+        });
+    
+        return false;
     });
-
-    return false;
-  });
 }
 
 function initLanguageSelector() {
-  $('#lang-selector button').click(function(event){
-    var language = $(this).val()
+    $('#lang-selector button').click(function(event){
+        var language = $(this).val()
 
-    // set cookie with expiration date 1 year since now;
-    // cookie creation function takes period in days
-    Cookies.set('django_language', language, {'path': '/', 'expires': 365});
+        // set cookie with expiration date 1 year since now;
+        // cookie creation function takes period in days
+        Cookies.set('django_language', language, {'path': '/', 'expires': 365});
 
-    // and reload a page
-    location.reload();
-  });
+        // and reload a page
+        location.reload();
+    });
 }
 
 function initDateFields() {
@@ -994,34 +995,34 @@ function initFormPageDelete() {
 }
 
 function initAllCheck() {
-  $('#delete-all').removeAttr('disabled');
-  $('#delete-all').click(function() {
-    if ($(this).prop('checked')) {
-      $(':input[name=delete-check]').prop('checked', true);
-    } else {
-      $(':input[name=delete-check]').prop('checked', false);
-    }
-  });
+    $('#delete-all').removeAttr('disabled');
+    $('#delete-all').click(function() {
+        if ($(this).prop('checked')) {
+            $(':input[name=delete-check]').prop('checked', true);
+        } else {
+            $(':input[name=delete-check]').prop('checked', false);
+        }
+    });
 }
 
 function initFunctions() {
-  initOrderBy();
-  initPaginate();
-  initDropDownNav();
-  loadMore();
-  initJournal();
-  initResultPage();
-  initGroupSelector();
-  initAllCheck();
+    initOrderBy();
+    initPaginate();
+    initDropDownNav();
+    loadMore();
+    initJournal();
+    initResultPage();
+    initGroupSelector();
+    initAllCheck();
 }
 
 $(document).ready(function(){
-  initFormPage();
-  initFormPageDelete();
-  initDateFields();
-  initSubHeaderNav();
-  initFunctions();
-  initResultPage();
-  initBackButton();
-  initLanguageSelector()
+    initFormPage();
+    initFormPageDelete();
+    initDateFields();
+    initSubHeaderNav();
+    initFunctions();
+    initResultPage();
+    initBackButton();
+    initLanguageSelector()
 })

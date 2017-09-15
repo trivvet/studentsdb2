@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-21 18:27+0000\n"
+"POT-Creation-Date: 2017-09-15 08:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,28 +19,32 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: students/static/js/main.js:30
+#: static/js/main.js:15 static/js/main.js:110
 msgid "There was an error on the server"
 msgstr "На сервері виникла помилка"
 
-#: students/static/js/main.js:30
+#: static/js/main.js:16 static/js/main.js:111
 msgid "(code - "
 msgstr "код - "
 
-#: students/static/js/main.js:30
+#: static/js/main.js:17 static/js/main.js:111
 msgid "). Please, try again later"
 msgstr "). Будь-ласка, спробуйте пізніше"
 
-#: students/static/js/main.js:164 students/static/js/main.js:196
-#: students/static/js/main.js:267 students/static/js/main.js:287
-#: students/static/js/main.js:306 students/static/js/main.js:320
-#: students/static/js/main.js:388 students/static/js/main.js:430
-#: students/static/js/main.js:563 students/static/js/main.js:579
-#: students/static/js/main.js:632 students/static/js/main.js:648
-#: students/static/js/main.js:671 students/static/js/main.js:690
+#: static/js/main.js:68
+msgid "The two password fields didn't match."
+msgstr "Паролі в двох полях не співпадають."
+
+#: static/js/main.js:261 static/js/main.js:293 static/js/main.js:398
+#: static/js/main.js:426 static/js/main.js:454 static/js/main.js:470
+#: static/js/main.js:490 static/js/main.js:504 static/js/main.js:574
+#: static/js/main.js:616 static/js/main.js:752 static/js/main.js:769
+#: static/js/main.js:797 static/js/main.js:816 static/js/main.js:869
+#: static/js/main.js:885 static/js/main.js:908 static/js/main.js:927
+#: static/js/main.js:945 static/js/main.js:964
 msgid "There was an error on the server. Please try again later"
 msgstr "Виникла помилка на сервері. Будь-ласка спробуйте пізніше"
 
-#: students/static/js/main.js:427
+#: static/js/main.js:613
 msgid "Student Visiting"
 msgstr "Відвідування студента"

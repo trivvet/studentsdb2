@@ -147,7 +147,7 @@ def check_user_name(request):
             validate_slug(data['field_value'])
         except ValidationError:
             found = 'success'
-            error = "Enter a valid username consisting of letters, numbers, underscores or hyphens."
+            error = _("Enter a valid username consisting of letters, numbers, underscores or hyphens.")
             
     elif 'email' in data.values():
         if User.objects.filter(email=data['field_value']) and data['field_value'] != '':
@@ -170,7 +170,7 @@ def check_user_name(request):
             validate_slug(data['field_value'])
         except ValidationError:
             found = 'success'
-            error = "Enter a valid password consisting of letters, numbers, underscores or hyphens."
+            error = _("Enter a valid password consisting of letters, numbers, underscores or hyphens.")
     
         
     return JsonResponse({'status': 'success', 'if_found': found, 'error': error})

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-19 19:47+0000\n"
+"POT-Creation-Date: 2017-09-15 08:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,28 +17,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: students/static/js/main.js:30
+#: static/js/main.js:15 static/js/main.js:110
 msgid "There was an error on the server"
 msgstr ""
 
-#: students/static/js/main.js:30
+#: static/js/main.js:16 static/js/main.js:111
 msgid "(code - "
 msgstr ""
 
-#: students/static/js/main.js:30
+#: static/js/main.js:17 static/js/main.js:111
 msgid "). Please, try again later"
 msgstr ""
 
-#: students/static/js/main.js:151 students/static/js/main.js:183
-#: students/static/js/main.js:254 students/static/js/main.js:274
-#: students/static/js/main.js:293 students/static/js/main.js:307
-#: students/static/js/main.js:375 students/static/js/main.js:417
-#: students/static/js/main.js:550 students/static/js/main.js:566
-#: students/static/js/main.js:619 students/static/js/main.js:635
-#: students/static/js/main.js:658 students/static/js/main.js:677
+#: static/js/main.js:68
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: static/js/main.js:261 static/js/main.js:293 static/js/main.js:398
+#: static/js/main.js:426 static/js/main.js:454 static/js/main.js:470
+#: static/js/main.js:490 static/js/main.js:504 static/js/main.js:574
+#: static/js/main.js:616 static/js/main.js:752 static/js/main.js:769
+#: static/js/main.js:797 static/js/main.js:816 static/js/main.js:869
+#: static/js/main.js:885 static/js/main.js:908 static/js/main.js:927
+#: static/js/main.js:945 static/js/main.js:964
 msgid "There was an error on the server. Please try again later"
 msgstr ""
 
-#: students/static/js/main.js:414
+#: static/js/main.js:613
 msgid "Student Visiting"
 msgstr ""
