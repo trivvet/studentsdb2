@@ -47,7 +47,7 @@ class RequestTimeMiddleware(object):
         start_time = datetime.now()
 
         response = self.get_response(request)
-        #import pdb;pdb.set_trace()
+        
         if settings.DEBUG == False or not start_time:
             return response
             

@@ -9,6 +9,9 @@ class StProfile(models.Model):
 
     class Meta(object):
         verbose_name = _(u"User Profile")
+        permissions = (
+            ('view_exams', 'Can view list of exams'),
+        )
 
     # extra user data
     mobile_phone = models.CharField(

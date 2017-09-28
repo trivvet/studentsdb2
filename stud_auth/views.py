@@ -87,12 +87,6 @@ class RegistrationView(BaseRegistrationView):
     form_class = RegistrationForm
     success_url = 'users:registration_complete'
 
-    # if post form is valid retern success message
-#    def get_success_url(self, user=None):
-#        messages.success(self.request,
-#            _(u"User %s registrated successfully") % user.username)
-#        return reverse('users:registration_complete')
-
     # render form title
     def get_context_data(self, **kwargs):
         context = super(RegistrationView, self).get_context_data(**kwargs)

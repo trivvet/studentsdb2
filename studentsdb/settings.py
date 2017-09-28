@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'ipware',
     'social_django',
     'django_coverage',
+    'django_nose',
     'students',
     'stud_auth',
 ]
@@ -277,9 +278,13 @@ COVERAGE_REPORT_HTML_OUTPUT_DIR = os.path.join(BASE_DIR, '..', 'coverage')
 # Geo IP Settings
 GEOIP_PATH = os.path.join(BASE_DIR, 'stud_auth', 'geoip')
 
-GEOIP_COUNTRY = os.path.join(BASE_DIR, 'stud_auth', 'geoip', 'GeoLite2-Country.mmdb')
+try:
+    GEOIP_COUNTRY = os.path.join(BASE_DIR, 'stud_auth', 'geoip', 'GeoLite2-Country.mmdb')
+    GEOIP_CITY = os.path.join(BASE_DIR, 'stud_auth', 'geoip', 'GeoLite2-City.mmdb')
+except:
+    pass
 
-GEOIP_CITY = os.path.join(BASE_DIR, 'stud_auth', 'geoip', 'GeoLite2-City.mmdb')
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 
 

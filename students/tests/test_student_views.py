@@ -3,6 +3,7 @@ import sys
 
 from django.test import TestCase, Client, override_settings
 from django.urls import reverse
+from django.http import HttpRequest
 
 from students.models import Student, Group
 reload(sys)  
@@ -77,3 +78,9 @@ class StudentsListViewTest(TestCase):
         self.assertEqual(students[0].last_name, 'LastName5')
         self.assertEqual(students[1].last_name, 'LastName4')
         self.assertEqual(students[2].last_name, 'LastName3')
+
+
+    
+
+
+        

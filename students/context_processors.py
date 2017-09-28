@@ -10,6 +10,7 @@ def groups_processor(request):
 def get_user_info(request):
     g = GeoIP2()
     user_ip = get_ip(request)
+    
     try:
         user_city = g.city(user_ip)
     except AddressNotFoundError:

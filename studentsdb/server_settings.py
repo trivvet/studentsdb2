@@ -22,21 +22,22 @@ DATABASES = {
 
 # email settings
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-ADMIN_EMAIL = '<your admin email'
+ADMIN_EMAIL = '<your admin email>'
 EMAIL_HOST = 'localhost'
-EMAIL_PORT = '25'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ""
+EMAIL_PORT = '25' # if you will use google smtp server - 465
+EMAIL_HOST_USER = '<write, if you will use external smtp server>'
+EMAIL_HOST_PASSWORD = "<password for your email>"
 EMAIL_USE_TLS = False
-EMAIL_USE_SSL = False
+EMAIL_USE_SSL = False # if you will use google smtp server - True
+DEFAULT_FROM_EMAIL = '<write, if you will use postfix smtp server>'
 
 # Social networks API (Facebook, Google+, Twitter)
-FACEBOOK_KEY = ''
-FACEBOOK_SECRET = ''
-GOOGLE_OAUTH2_KEY = ''
-GOOGLE_OAUTH2_SECRET = ''
-TWITTER_KEY = ''
-TWITTER_SECRET = ''
+FACEBOOK_KEY = '<key for your facebook app>'
+FACEBOOK_SECRET = '<secret for your facebook app>'
+GOOGLE_OAUTH2_KEY = '<key for your google+ app>'
+GOOGLE_OAUTH2_SECRET = '<secret for your google+ app>'
+TWITTER_KEY = '<key for your twitter app>'
+TWITTER_SECRET = '<secret for your twitter app>'
 
 
 # Static files (CSS, JavaScript, Images)

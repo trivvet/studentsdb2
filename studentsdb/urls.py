@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.views import static
 from django.views.i18n import javascript_catalog
 from django.views.generic import RedirectView
-# from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import TemplateView
 
@@ -28,9 +27,7 @@ from students.views.groups import GroupAddView, GroupUpdateView, GroupDeleteView
 from students.views.exams import ExamAddView, ExamUpdateView, ExamDeleteView
 from students.views.journal import JournalView
 from students.views.logs import LogsView, LogDeleteView, LogUpdateView
-# from contact_form.views import ContactFormView
 from students.views.contact_admin import ContactView
-from students.views.user import UserAuthView
 
 from stud_auth.views import RegistrationView, check_user_name
 
@@ -90,11 +87,6 @@ urlpatterns = [
 
     # Contact Admin Form
     url(r'^contact-admin/$', permission_required('auth.add_user')(ContactView.as_view()), name="contact_admin"),
-
-    # My Own User Forms
-#    url(r'^user-register/$', UserRegisterView.as_view(), name='user-register'),
-#    url(r'^user-auth/$', UserAuthView.as_view(), name='user-auth'),
-#    url(r'^user-logout/$', user.user_logout, name='user-logout'),
 
     # User Forms from Book
     url(r'^user/profile/?$', login_required(TemplateView.as_view(template_name='registration/profile.html')), name='profile'),

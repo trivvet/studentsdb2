@@ -18,6 +18,24 @@
     }
 },
 {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$30000$DAZXGbmI3JIT$AieXa0Hkx/FuwwHVbiw12sSJopW4rKizaN2Ems9r4G0=",
+        "last_login": "2016-11-19T11:43:03.994Z",
+        "is_superuser": false,
+        "username": "trivvet3",
+        "first_name": "",
+        "last_name": "",
+        "email": "trivvet@expert.km.ua",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2016-11-19T11:42:48.446Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
     "model": "students.student",
     "pk": 1,
     "fields": {

@@ -26,163 +26,69 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.layout import Layout, Submit, Button
 
-from studentsdb.settings import EMAIL_HOST_USER
 from stud_auth.models import StProfile
 from ..util import paginate
 
-class UserAuthForm(forms.ModelForm):
-
-    class Meta:
-        model = User
-        fields = ['username', 'password']
-        widgets = {
-            'username': forms.TextInput(),
-            'password': forms.PasswordInput(),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(UserAuthForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-
-        # set form tag attributes
-        self.helper.action = reverse('user-auth')
-        self.helper.form_method = 'POST'
-        self.helper.form_class = 'form-horizontal'
-
-        # set form field properties
-        self.helper.help_text_inline = True
-        self.helper.html5_required = False
-        self.helper.attrs = {'novalidate': ''}
-        self.helper.label_class = 'col-sm-4 control-label'
-        self.helper.field_class = 'col-sm-8'
-
-        # add buttons
-        self.helper.layout.append(Layout(
-            FormActions(
-                Submit('add_button', _(u'Login')),
-                Submit('cancel_button', _(u'Cancel'), css_class='btn-link')
-            )
-        ))
-
-class UserAuthView(FormView):
-    template_name = 'students/form_class_anonymous.html'
-    form_class = UserAuthForm
-
-    def get_success_url(self):
-        if self.message:
-            messages.success(self.request, _(u"You authorization successfully"))
-        else:
-            messages.error(self.request, _(u"When you try to log unexpected error ocured. Please try this service later"))
-        return reverse('home')
-
-    def get_context_data(self, **kwargs):
-        context = super(UserAuthView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Authorization')
-        return context
-
-    def post(self, request, *args, **kwargs):
-        if request.POST.get('cancel_button'):
-            messages.warning(request, _(u"Authorization canceled"))
-            return HttpResponseRedirect(reverse('home'))
-        else:
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            current_user = User.objects.get(username=username)
-            translation.activate(current_user.language)
-            if current_user.time_zone:
-                timezone.activate(current_user.time_zone)
-            request.session[translation.LANGUAGE_SESSION_KEY] = current_user.language
-            request.session['django_timezone'] = current_user.time_zone
-            messages.success(request, _(u"You're logged in as %s" % username))
-            return HttpResponseRedirect(reverse('home'))
-        else:
-            messages.error(request, _(u"User with such username or password doesn't exist"))
-            return HttpResponseRedirect(reverse('home'))
-
-
 def user_preference(request):
+
+    current_user = User.objects.get(username=request.user.username)
+    
     if request.method == 'POST':
+        
         if request.POST.get('cancel_button'):
             messages.warning(request, _(u"Changing user settings canceled"))
             return HttpResponseRedirect(reverse('home'))
+            
         else:
             errors = {}
-            current_user = User.objects.get(username=request.user.username)
-            data = 0
-            first_name=request.POST.get('first_name', '').strip()
-            if first_name:
-                current_user.first_name = first_name
-                data += 1
+            stprofile = StProfile.objects.get_or_create(user=current_user)[0]
+            
+            form_first_name=request.POST.get('first_name', '').strip()
+            current_user.first_name = form_first_name
 
-            last_name=request.POST.get('last_name', '').strip()
-            if first_name:
-                current_user.last_name = last_name
-                data += 1
+            form_last_name=request.POST.get('last_name', '').strip()
+            current_user.last_name = form_last_name
 
-            email=request.POST.get('email', '').strip()
-            if email:
-                if len(User.objects.filter(email=email)) > 0 and current_user.email != email:
-                    current_user.email = email
-                    errors['email'] = _(u"This email address is already in use. Please enter a different email address.")
+            form_email=request.POST.get('email', '').strip()
+            users_same_email = User.objects.filter(email=form_email)
+            if len(users_same_email) > 0 and current_user.email != form_email:
+                current_user.email = form_email
+                errors['email'] = _(u"This email address is already in use." +
+                    " Please enter a different email address.")
+            elif len(form_email) > 0:
+                try:
+                    validate_email(form_email)
+                except ValidationError:
+                    errors['email'] = _(u"Enter a valid email address")
                 else:
-                    current_user.email = email
-                    try:
-                        validate_email(email)
-                    except ValidationError:
-                        errors['email'] = _(u"Enter a valid email address")
-                    else:
-                        data += 1
+                    current_user.email = form_email
 
-            try:
-                stprofile = StProfile.objects.get(user=current_user)
-            except:
-                stprofile = StProfile.objects.create(user=current_user)
-            data2 = 0
+            form_language=request.POST.get('lang')
+            if stprofile.language != form_language:
+                stprofile.language = form_language
+                translation.activate(form_language)
+                request.session[translation.LANGUAGE_SESSION_KEY] = form_language
 
-            language=request.POST.get('lang')
-            if stprofile.language != language:
-                stprofile.language = language
-                translation.activate(language)
-                request.session[translation.LANGUAGE_SESSION_KEY] = language
-                data2 += 1
-
-            time_zone=request.POST.get('time_zone')
-            if stprofile.time_zone != time_zone:
-                stprofile.time_zone = time_zone
-                timezone.activate(time_zone)
-                request.session['django_timezone'] = time_zone
-                data2 += 1
+            form_time_zone=request.POST.get('time_zone')
+            if stprofile.time_zone != form_time_zone:
+                stprofile.time_zone = form_time_zone
+                timezone.activate(form_time_zone)
+                request.session['django_timezone'] = form_time_zone
 
             if errors:
+                messages.error(request, _(u'Please, correct the following errors'))
                 return render(request, 'students/user_preference.html',
                     {'current_user': current_user, 'timezones': pytz.common_timezones, 'errors': errors})
-            elif data > 0:
-                current_user.save()
 
-            if data2 > 0:
-                stprofile.save()
+            current_user.save()
+            stprofile.save()
 
-            if request.POST.get('newpassword'):
-                password = request.POST.get('newpassword')
-                if request.POST.get('newpassword2') and password == request.POST.get('newpassword2'):
-                    current_user.set_password(password)
-                    current_user.save()
-                    user = authenticate(username=current_user, password=password)
-                    login(request, user)
-                    messages.success(request, _(u"User settings changed successfully"))
-                    return HttpResponseRedirect(reverse('home'))
-                else:
-                    messages.error(request, _(u"Both passwords must be the same"))
-                    return render(request, 'students/user_preference.html', {})
-            else:
-                messages.success(request, _(u"User settings changed successfully"))
-                return HttpResponseRedirect(reverse('home'))
+            messages.success(request, _(u"User settings changed successfully"))
+            return HttpResponseRedirect(reverse('home'))
+
     else:
-        current_user = User.objects.get(username=request.user.username)
-        return render(request, 'students/user_preference.html', {'current_user': current_user, 'timezones': pytz.common_timezones})
+        return render(request, 'students/user_preference.html',
+            {'current_user': current_user, 'timezones': pytz.common_timezones})
 
 
 class TimezoneMiddleware(MiddlewareMixin):
